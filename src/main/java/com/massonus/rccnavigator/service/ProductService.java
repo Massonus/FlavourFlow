@@ -21,19 +21,19 @@ public class ProductService {
         this.userService = userService;
     }
 
-    public void saveProduct(final String title, final String price, final Image image) {
+    public void saveProduct(final Product validProduct, final Image image) {
         Product product = new Product();
-        product.setTitle(title);
+        product.setTitle(validProduct.getTitle());
         product.setImage(image);
-        product.setPrice(price);
+        product.setPrice(validProduct.getPrice());
         productRepo.save(product);
     }
 
-    public void edit(Long id, String title, String price) {
+    public void editProduct(final Long id, final Product product) {
         Product savedProduct = productRepo.findProductById(id);
 
-        savedProduct.setTitle(title);
-        savedProduct.setPrice(price);
+        savedProduct.setTitle(product.getTitle());
+        savedProduct.setPrice(product.getPrice());
 
         productRepo.save(savedProduct);
     }

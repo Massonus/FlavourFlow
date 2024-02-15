@@ -4,6 +4,7 @@ import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.service.ImageService;
 import com.massonus.rccnavigator.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -46,17 +47,15 @@ public class ProductController {
 
     @PostMapping("/edit/{id}")
     public String saveUpdatedProduct(@PathVariable Long id,
-                                     @RequestParam String title,
-                                     @RequestParam String price) {
+                                     Product product) {
 
-        productService.edit(id, title, price);
+        productService.editProduct(id, product);
         return "redirect:/products";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/new-product")
-    public String newProduct(@RequestParam String title,
-                             @RequestParam String price,
+    public String newProduct(@Valid Product product,
                              @RequestParam("file") MultipartFile multipartFile) {
 
         Image uploadImage;
@@ -66,7 +65,7 @@ public class ProductController {
             throw new RuntimeException(e);
         }
 
-        productService.saveProduct(title, price, uploadImage);
+        productService.saveProduct(product, uploadImage);
 
         return "redirect:/products";
     }

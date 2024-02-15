@@ -30,7 +30,7 @@
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required><br><br>
 
-        <label for="price">Title:</label>
+        <label for="price">Price:</label>
         <input type="number" id="price" name="price" required><br><br>
 
         <label for="file">File:</label>
