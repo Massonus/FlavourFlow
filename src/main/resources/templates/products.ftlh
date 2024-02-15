@@ -3,26 +3,25 @@
 
 <@c.page>
 
-</@c.page>
-
-    <table border="1px">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Image</th>
-        </tr>
-        </thead>
-        <tbody>
-        <#list products as product>
-            <tr>
-                <td>${product.getId()}</td>
-                <td>${product.getTitle()}</td>
-                <td><img alt="image" src="/images/${product.getImage().getId()}.jpg"/></td>
-            </tr>
-        </#list>
-        </tbody>
-    </table>
+<#list products as product>
+<div class="col-12 col-md-8 col-lg-9">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+            <div class="card border-none">
+                <img alt="product image" src="/images/${product.getImage().getId()}.jpg" class="card-img-top"/>
+                <div class="card-body">
+                    <h5 class="card-title">${product.getTitle()}</h5>
+                    <div class="d-flex justify-content-between">
+                        <a href="@{/products/{id}/basket(id=${product.id})}"
+                           class="btn black-btn-outline">Add to basket</a >
+                        <#if isAdmin>
+                        <a role="button" class="btn black-btn-outline" href="/products/edit/{id}(id=${product.id}">Edit</a>
+                        </#if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</#list>
 
 <#if isAdmin>
     <h2>Add Product</h2>
@@ -35,6 +34,9 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <input type="submit" value="Send">
     </form>
-
 </#if>
+
+</@c.page>
+
+
 
