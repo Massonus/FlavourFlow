@@ -1,7 +1,7 @@
 <#include "security.ftlh">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Navbar</a>
+    <a class="navbar-brand" href="/">RCC Navigator</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -11,7 +11,6 @@
             <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
             <#if known>
                 <a class="nav-item nav-link" href="/products">Products</a>
-                <a class="nav-item nav-link" href="/tree-page">Pages</a>
                 <a class="nav-item nav-link" href="/logout">logout</a>
                 <a class="nav-item nav-link" href="/add-user-from-admin">Admin-panel</a>
                 <a class="nav-item nav-link" href="/user/profile">${name}</a>
