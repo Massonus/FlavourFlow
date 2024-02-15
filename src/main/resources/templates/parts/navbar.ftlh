@@ -10,7 +10,7 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
             <#if known>
-                <a class="nav-item nav-link" href="/tree">Trees</a>
+                <a class="nav-item nav-link" href="/products">Products</a>
                 <a class="nav-item nav-link" href="/tree-page">Pages</a>
                 <a class="nav-item nav-link" href="/logout">logout</a>
                 <a class="nav-item nav-link" href="/add-user-from-admin">Admin-panel</a>

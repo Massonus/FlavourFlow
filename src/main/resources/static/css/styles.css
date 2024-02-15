@@ -1,112 +1,44 @@
+
 body {
-    /*background-image: url('Background.jpg');*/
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 10px;
-    font-family: Montserrat, serif;
-    font-weight: 600;
-    font-size: 16px;
-}
-
-form {
-    text-align: left;
-    font-size: 22px;
-}
-
-.materials {
-    font-size: 22px;
-    color: white;
-}
-
-nav {
-    text-align: center;
+    background-color: #f2f2f2;
     display: flex;
-    flex-direction: row;
-    margin-bottom: 25px;
+    flex-direction: column;
+    height: 100%;
 }
-
-.choose-lectures {
-    display: flex;
+.wrapper {
+	position: relative;
+	min-height: 100%;
+}
+.content {
+	padding-bottom: 40px;
+}
+.navbar {
+    background-color: #5cb85c;
+}
+.btn-primary {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+.login-register {
+    text-align: right;
+}
+.footer {
+    background-color: #f8f9fa;
+    padding: 8px 0;
+    margin-top: auto;
     text-align: center;
-    flex-direction: row;
+	width: 100%;
+	height: 40px;
 }
 
-.choose-courses {
-    display: flex;
-    text-align: center;
-    flex-direction: row;
-}
-
-.nav {
-    display: flex;
-    text-align: center;
-    flex-direction: row;
-}
-
-p {
-    padding: 8px;
-    margin: 5px;
-    font-size: 18px;
-    color: #A52A2A;
-}
-
-a {
-    color: #FF9E03;
-    border: 1px #2E3D51;
-    padding: 8px;
-    margin: 5px;
-    font-size: 19px;
-}
-
-a:hover {
-    color: #6897EE;
-}
-
-h1 {
-    color: royalblue;
-    text-shadow: 4px 4px 4px #4296CE;
-    font-size: 4rem;
-    text-align: center;
-}
-
-h2 {
-    color: royalblue;
-    font-size: 2rem;
-    text-shadow: 4px 4px 4px #4296CE;
-
-}
-
-input[type="text"], input[type="email"], input[type="number"] {
-    border: 1px solid #FF9E03;
-    background-color: #17233B;
-    color: #FFFFFF;
+.navbar-brand.custom-font {
+    font-family: 'Brush Script Std', cursive, sans-serif;
+    font-size: 30px;
     font-weight: bold;
-    border-radius: 10px;
 }
-
-input[type='submit'] {
-    background-color: #149EF2;
-    border-radius: 15px;
-    border: none;
-    font-weight: bold;
-    color: white;
-    width: 70px;
-    height: 40px;
-    font-size: 18px;
+.login-register .text-white {
+    font-size: 13px;
 }
-
-input[type='submit']:hover {
-    background-color: #0C1527;
-    color: #FF9E03;
-    border: 1px solid #FF9E03;
-    border-radius: 10px;
-}
-
-label {
-    font-weight: bold;
-    color: #FF9E03;
-}
-
-td {
-    list-style-type: none;
+.cursor-pointer {
+    cursor: pointer;
 }
