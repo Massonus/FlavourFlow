@@ -13,12 +13,9 @@ public class ProductService {
 
     private final ProductRepo productRepo;
 
-    private final UserService userService;
-
     @Autowired
-    public ProductService(ProductRepo productRepo, UserService userService) {
+    public ProductService(ProductRepo productRepo) {
         this.productRepo = productRepo;
-        this.userService = userService;
     }
 
     public void saveProduct(final Product validProduct, final Image image) {
@@ -36,6 +33,10 @@ public class ProductService {
         savedProduct.setPrice(product.getPrice());
 
         productRepo.save(savedProduct);
+    }
+
+    public void deleteProduct(final Product product) {
+        productRepo.delete(product);
     }
 
     public Product getProductById(final Long id) {

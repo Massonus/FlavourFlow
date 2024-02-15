@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/products")
@@ -34,7 +35,7 @@ public class ProductController {
 
         model.addAttribute("products", products);
 
-        return "product/all_products";
+        return "product/allProducts";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -44,12 +45,19 @@ public class ProductController {
         model.addAttribute("product", product);
         return "product/productEdit";
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/edit/{id}")
     public String saveUpdatedProduct(@PathVariable Long id,
                                      Product product) {
 
         productService.editProduct(id, product);
+        return "redirect:/products";
+    }
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/delete/{id}")
+    public String deleteTree(@PathVariable Long id) {
+        Product productById = productService.getProductById(id);
+        productService.deleteProduct(productById);
         return "redirect:/products";
     }
 
