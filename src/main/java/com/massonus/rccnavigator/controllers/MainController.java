@@ -1,16 +1,11 @@
 package com.massonus.rccnavigator.controllers;
 
-import com.massonus.rccnavigator.entity.Tree;
-import com.massonus.rccnavigator.entity.User;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.InputStream;
-import java.util.List;
 import java.util.Objects;
 
 @Controller

@@ -1,11 +1,10 @@
 package com.massonus.rccnavigator.entity;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import jakarta.persistence.*;
 
 @Entity
 @Getter

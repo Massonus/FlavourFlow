@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @Service
 public class ImageService {
@@ -30,9 +29,9 @@ public class ImageService {
         return createdFile;
     }
 
-    public Optional<Image> getImageById(final Long id) {
+    public Image getImageById(final Long id) {
 
-        return imageRepo.findById(id);
+        return imageRepo.findImageById(id);
 
     }
 }

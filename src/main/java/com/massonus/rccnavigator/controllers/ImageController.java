@@ -7,8 +7,10 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
@@ -24,12 +26,6 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @GetMapping("/image")
-    public String adder() {
-
-        return "menu/image";
-
-    }
 
     @PostMapping("/addImage")
     public String addImage(@RequestParam("file") MultipartFile multipartFile) {
@@ -44,19 +40,12 @@ public class ImageController {
     @RequestMapping(value = "/images/{id}.jpg")
     public ResponseEntity<?> showImage(@PathVariable Long id) {
 
-        Image image = imageService.getImageById(id).get();
+        Image image = imageService.getImageById(id);
         return ResponseEntity.ok()
                 .header("fileName", image.getName())
                 .contentType(MediaType.valueOf(image.getContentType()))
                 .contentLength(image.getSize())
                 .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
 
-    }
-
-    @GetMapping(value = "/images/{id}")
-    public String showImageOnFreemarker(@PathVariable Long id, Model model) {
-        model.addAttribute("id", id);
-
-        return "info/image_info";
     }
 }

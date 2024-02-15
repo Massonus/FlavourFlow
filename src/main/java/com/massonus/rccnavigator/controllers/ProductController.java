@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/products")
@@ -29,11 +28,12 @@ public class ProductController {
         this.imageService = imageService;
     }
 
-    @GetMapping
-    public String getAllProducts(Model model) {
-        List<Product> products = productService.getAllProducts();
+    @GetMapping("/{id}")
+    public String getProductsOfCompany(@PathVariable Long id, Model model) {
+        List<Product> products = productService.getAllProductsByCompanyId(id);
 
         model.addAttribute("products", products);
+        model.addAttribute("id", id);
 
         return "product/allProducts";
     }
@@ -45,25 +45,27 @@ public class ProductController {
         model.addAttribute("product", product);
         return "product/productEdit";
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/edit/{id}")
     public String saveUpdatedProduct(@PathVariable Long id,
                                      Product product) {
 
         productService.editProduct(id, product);
-        return "redirect:/products";
+        return "redirect:/companies";
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delete/{id}")
     public String deleteTree(@PathVariable Long id) {
         Product productById = productService.getProductById(id);
         productService.deleteProduct(productById);
-        return "redirect:/products";
+        return "redirect:/companies";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/new-product")
-    public String newProduct(@Valid Product product,
+    @PostMapping("/new-product/{companyId}")
+    public String newProduct(@PathVariable Long companyId, @Valid Product product,
                              @RequestParam("file") MultipartFile multipartFile) {
 
         Image uploadImage;
@@ -73,8 +75,8 @@ public class ProductController {
             throw new RuntimeException(e);
         }
 
-        productService.saveProduct(product, uploadImage);
+        productService.saveProduct(product, uploadImage, companyId);
 
-        return "redirect:/products";
+        return "redirect:/companies";
     }
 }
