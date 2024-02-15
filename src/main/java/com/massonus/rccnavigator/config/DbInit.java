@@ -1,37 +1,28 @@
 package com.massonus.rccnavigator.config;
 
-import com.massonus.rccnavigator.entity.Tree;
 import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.service.TreeService;
+import com.massonus.rccnavigator.service.CompanyService;
+import com.massonus.rccnavigator.service.ProductService;
 import com.massonus.rccnavigator.service.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
-
 @Component
 public class DbInit {
 
-    private final TreeService treeService;
+    private final CompanyService companyService;
 
     private final UserService userService;
 
-    private Random random = new Random();
-
-    public DbInit(final TreeService treeService, final UserService userService) {
-        this.treeService = treeService;
+    public DbInit(CompanyService companyService, UserService userService) {
+        this.companyService = companyService;
         this.userService = userService;
     }
 
     @PostConstruct
     private void postConstruct() {
-        for (int i = 0; i < 100; i++) {
-            final Tree tree = new Tree();
-            tree.setAge(random.nextLong());
-            tree.setName("Tree " + random.nextInt());
-            tree.setIsGreen(random.nextBoolean());
-            treeService.saveTree(tree);
-        }
+
+        companyService.createElementAuto();
 
         final User user = new User();
         user.setEmail("user@gmail.com");

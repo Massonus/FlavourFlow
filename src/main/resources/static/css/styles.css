@@ -1,112 +1,132 @@
+
 body {
-    /*background-image: url('Background.jpg');*/
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 10px;
-    font-family: Montserrat, serif;
-    font-weight: 600;
-    font-size: 16px;
-}
-
-form {
-    text-align: left;
-    font-size: 22px;
-}
-
-.materials {
-    font-size: 22px;
-    color: white;
-}
-
-nav {
-    text-align: center;
+    background-color: #f2f2f2;
     display: flex;
-    flex-direction: row;
-    margin-bottom: 25px;
+    flex-direction: column;
+    height: 100%;
 }
-
-.choose-lectures {
-    display: flex;
+.wrapper {
+	position: relative;
+	min-height: 100%;
+}
+.content {
+	padding-bottom: 40px;
+}
+.navbar {
+    background-color: #5cb85c;
+}
+.btn-primary {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+.login-register {
+    text-align: right;
+}
+.footer {
+    background-color: #f8f9fa;
+    padding: 8px 0;
+    margin-top: auto;
     text-align: center;
-    flex-direction: row;
+	width: 100%;
+	height: 40px;
 }
 
-.choose-courses {
-    display: flex;
-    text-align: center;
-    flex-direction: row;
-}
-
-.nav {
-    display: flex;
-    text-align: center;
-    flex-direction: row;
-}
-
-p {
-    padding: 8px;
-    margin: 5px;
-    font-size: 18px;
-    color: #A52A2A;
-}
-
-a {
-    color: #FF9E03;
-    border: 1px #2E3D51;
-    padding: 8px;
-    margin: 5px;
-    font-size: 19px;
-}
-
-a:hover {
-    color: #6897EE;
-}
-
-h1 {
-    color: royalblue;
-    text-shadow: 4px 4px 4px #4296CE;
-    font-size: 4rem;
-    text-align: center;
-}
-
-h2 {
-    color: royalblue;
-    font-size: 2rem;
-    text-shadow: 4px 4px 4px #4296CE;
-
-}
-
-input[type="text"], input[type="email"], input[type="number"] {
-    border: 1px solid #FF9E03;
-    background-color: #17233B;
-    color: #FFFFFF;
+.navbar-brand.custom-font {
+    font-family: 'Brush Script Std', cursive, sans-serif;
+    font-size: 30px;
     font-weight: bold;
-    border-radius: 10px;
+}
+.login-register .text-white {
+    font-size: 13px;
+}
+.cursor-pointer {
+    cursor: pointer;
 }
 
-input[type='submit'] {
-    background-color: #149EF2;
-    border-radius: 15px;
+.btn-outline-danger:hover .text-danger {
+    color: #fff !important;
+}
+
+.black-btn {
+    color: #fff !important;
+    background-image: linear-gradient(to right, #000000, #212529, #000000);
     border: none;
-    font-weight: bold;
-    color: white;
-    width: 70px;
-    height: 40px;
-    font-size: 18px;
 }
 
-input[type='submit']:hover {
-    background-color: #0C1527;
-    color: #FF9E03;
-    border: 1px solid #FF9E03;
-    border-radius: 10px;
+.btn {
+    border-radius: 5px;
 }
 
-label {
-    font-weight: bold;
-    color: #FF9E03;
+.btn-gradient {
+    background-size: 300% 100%;
+
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out !important;
 }
 
-td {
-    list-style-type: none;
+.btn-gradient:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.black-btn-outline {
+    border: 1px solid #212529 !important;
+    color: #212529 !important;
+}
+
+.black-btn-outline:hover {
+    background: #212529;
+    color: #fff !important;
+}
+
+body {
+    min-height: 100vh;
+}
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999999;
+    background: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categories .nav-link {
+    color: #111;
+    font-weight: 600;
+    transition: .2s
+}
+
+.categories .nav-link:hover {
+    color: purple;
+    padding-left: 12px !important
+}
+
+.card {
+    transition: .2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.06);
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 700;
+    transition: .2s
+}
+
+.card-title:hover {
+    color: purple;
 }
