@@ -21,11 +21,21 @@ public class ProductService {
         this.userService = userService;
     }
 
-    public void saveProduct(final String title, final Image image) {
+    public void saveProduct(final String title, final String price, final Image image) {
         Product product = new Product();
         product.setTitle(title);
         product.setImage(image);
+        product.setPrice(price);
         productRepo.save(product);
+    }
+
+    public void edit(Long id, String title, String price) {
+        Product savedProduct = productRepo.findProductById(id);
+
+        savedProduct.setTitle(title);
+        savedProduct.setPrice(price);
+
+        productRepo.save(savedProduct);
     }
 
     public Product getProductById(final Long id) {

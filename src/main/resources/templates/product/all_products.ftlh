@@ -1,5 +1,5 @@
-<#include "parts/security.ftlh">
-<#import "parts/common.ftlh" as c>
+<#include "../parts/security.ftlh">
+<#import "../parts/common.ftlh" as c>
 
 <@c.page>
 
@@ -10,11 +10,12 @@
                 <img alt="product image" src="/images/${product.getImage().getId()}.jpg" class="card-img-top"/>
                 <div class="card-body">
                     <h5 class="card-title">${product.getTitle()}</h5>
+                    <p class="text-muted">${product.getPrice() + '$'}</p>
                     <div class="d-flex justify-content-between">
-                        <a href="@{/products/{id}/basket(id=${product.id})}"
+                        <a href="/products/{id}/basket(id=${product.id}"
                            class="btn black-btn-outline">Add to basket</a >
                         <#if isAdmin>
-                        <a role="button" class="btn black-btn-outline" href="/products/edit/{id}(id=${product.id}">Edit</a>
+                        <a role="button" class="btn black-btn-outline" href="/products/edit/${product.id}">Edit</a>
                         </#if>
                     </div>
                 </div>
@@ -28,6 +29,9 @@
     <form enctype="multipart/form-data" method="post" action="/products/new-product">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required><br><br>
+
+        <label for="price">Title:</label>
+        <input type="number" id="price" name="price" required><br><br>
 
         <label for="file">File:</label>
         <input type="file" name="file">
