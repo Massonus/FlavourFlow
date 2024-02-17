@@ -16,18 +16,18 @@
                         <p class="text-muted">${company.getCompanyType()}</p>
                         <a role="button" class="btn black-btn-outline"
                            href="/products/${company.getId()}">Go to products of this company</a>
-                            <#if isAdmin>
+                        <#if isAdmin>
 
-                                <a role="button" class="btn black-btn-outline"
-                                   href="/companies/edit/${company.getId()}">Edit</a>
+                            <a role="button" class="btn black-btn-outline"
+                               href="/companies/edit/${company.getId()}">Edit</a>
 
-                                <a role="button" class="btn black-btn-outline"
-                                   href="/companies/delete/${company.getId()}">Delete</a>
-                            </#if>
-                        </div>
+                            <a role="button" class="btn black-btn-outline"
+                               href="/companies/delete/${company.getId()}">Delete</a>
+                        </#if>
                     </div>
                 </div>
             </div>
+        </div>
     </#list>
     <br>
 

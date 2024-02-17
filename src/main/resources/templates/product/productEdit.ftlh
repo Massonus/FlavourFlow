@@ -14,13 +14,15 @@
                         <div class="mb-3 row">
                             <label for="inputTitle" class="col-sm-4 col-form-label">Title</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="inputTitle" name="title" value="${product.getTitle()}">
+                                <input type="text" class="form-control" id="inputTitle" name="title"
+                                       value="${product.getTitle()}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="inputPrice" class="col-sm-4 col-form-label">Price</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="inputPrice" name="price" value="${product.getPrice()}">
+                                <input type="text" class="form-control" id="inputPrice" name="price"
+                                       value="${product.getPrice()}">
                             </div>
                         </div>
 

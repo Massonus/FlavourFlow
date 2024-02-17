@@ -4,7 +4,6 @@ import com.massonus.rccnavigator.entity.Basket;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.BasketService;
-import com.massonus.rccnavigator.service.ProductService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

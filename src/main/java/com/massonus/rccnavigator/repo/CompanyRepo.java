@@ -1,7 +1,6 @@
 package com.massonus.rccnavigator.repo;
 
 import com.massonus.rccnavigator.entity.Company;
-import com.massonus.rccnavigator.entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

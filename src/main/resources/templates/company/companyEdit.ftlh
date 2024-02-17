@@ -14,7 +14,8 @@
                         <div class="mb-3 row">
                             <label for="inputTitle" class="col-sm-4 col-form-label">Title</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="inputTitle" name="title" value="${company.getTitle()}">
+                                <input type="text" class="form-control" id="inputTitle" name="title"
+                                       value="${company.getTitle()}">
                             </div>
                         </div>
                         <div class="mb-3 row">
