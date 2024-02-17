@@ -14,6 +14,8 @@
                         <h5 class="card-title">${product.getTitle()}</h5>
                         <p class="text-muted">${product.getPrice() + '$'}</p>
                         <div class="d-flex justify-content-between">
+                            <a href="new-basket-item/${product.getId()}"
+                               class="btn black-btn-outline">Add to basket</a>
                             <#if isAdmin>
 
                                 <a role="button" class="btn black-btn-outline"

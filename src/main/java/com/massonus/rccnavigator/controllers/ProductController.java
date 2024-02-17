@@ -2,11 +2,14 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.Product;
+import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.service.BasketService;
 import com.massonus.rccnavigator.service.ImageService;
 import com.massonus.rccnavigator.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +24,13 @@ public class ProductController {
 
     private final ProductService productService;
     private final ImageService imageService;
+    private final BasketService basketService;
 
     @Autowired
-    public ProductController(ProductService productService, ImageService imageService) {
+    public ProductController(ProductService productService, ImageService imageService, BasketService basketService) {
         this.productService = productService;
         this.imageService = imageService;
+        this.basketService = basketService;
     }
 
     @GetMapping("/{id}")
@@ -87,6 +92,14 @@ public class ProductController {
         Product productById = productService.getProductById(id);
         productService.deleteProduct(productById);
         return "redirect:/products/" + productById.getCompany().getId();
+    }
+
+    @GetMapping("/new-basket-item/{id}")
+    public String addProductToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
+
+        Long companyId = basketService.addProductToBasket(id, user);
+
+        return "redirect:/products/" + companyId;
     }
 
 

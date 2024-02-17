@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Basket {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY)
