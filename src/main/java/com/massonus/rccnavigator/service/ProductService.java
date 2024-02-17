@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductService {
@@ -36,11 +37,12 @@ public class ProductService {
         productRepo.save(validProduct);
     }
 
-    public Long editProduct(final Long id, final Product product) {
+    public Long editProduct(final Long id, final Product product, final Image image) {
         Product savedProduct = productRepo.findProductById(id);
 
         savedProduct.setTitle(product.getTitle());
         savedProduct.setPrice(product.getPrice());
+        savedProduct.setImage(image);
 
         productRepo.save(savedProduct);
         return savedProduct.getCompany().getId();

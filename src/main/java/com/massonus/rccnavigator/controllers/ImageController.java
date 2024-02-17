@@ -27,16 +27,6 @@ public class ImageController {
     }
 
 
-    @PostMapping("/addImage")
-    public String addImage(@RequestParam("file") MultipartFile multipartFile) {
-        try {
-            imageService.upload(multipartFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return "redirect:/";
-    }
-
     @RequestMapping(value = "/images/{id}.jpg")
     public ResponseEntity<?> showImage(@PathVariable Long id) {
 
@@ -46,6 +36,5 @@ public class ImageController {
                 .contentType(MediaType.valueOf(image.getContentType()))
                 .contentLength(image.getSize())
                 .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
-
     }
 }

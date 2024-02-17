@@ -39,31 +39,6 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/edit/{id}")
-    public String updateProduct(@PathVariable("id") Long id, Model model) {
-        Product product = productService.getProductById(id);
-        model.addAttribute("product", product);
-        return "product/productEdit";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit/{id}")
-    public String saveUpdatedProduct(@PathVariable Long id,
-                                     Product product) {
-
-        Long companyId = productService.editProduct(id, product);
-        return "redirect:/products/" + companyId;
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/delete/{id}")
-    public String deleteTree(@PathVariable Long id) {
-        Product productById = productService.getProductById(id);
-        productService.deleteProduct(productById);
-        return "redirect:/products/" + productById.getCompany().getId();
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/new-product/{companyId}")
     public String newProduct(@PathVariable Long companyId, @Valid Product product,
                              @RequestParam("file") MultipartFile multipartFile) {
@@ -79,4 +54,40 @@ public class ProductController {
 
         return "redirect:/products/" + companyId;
     }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/edit/{id}")
+    public String updateProduct(@PathVariable("id") Long id, Model model) {
+        Product product = productService.getProductById(id);
+        model.addAttribute("product", product);
+        return "product/productEdit";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/edit/{id}")
+    public String saveUpdatedProduct(@PathVariable Long id,
+                                     @RequestParam("file") MultipartFile multipartFile,
+                                     Product product) {
+
+        Image uploadImage;
+        try {
+            uploadImage = imageService.upload(multipartFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Long companyId = productService.editProduct(id, product, uploadImage);
+
+        return "redirect:/products/" + companyId;
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        Product productById = productService.getProductById(id);
+        productService.deleteProduct(productById);
+        return "redirect:/products/" + productById.getCompany().getId();
+    }
+
+
 }

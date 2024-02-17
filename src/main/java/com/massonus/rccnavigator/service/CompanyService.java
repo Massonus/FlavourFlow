@@ -21,6 +21,7 @@ public class CompanyService {
         this.companyRepo = companyRepo;
         this.productService = productService;
     }
+
     public void saveCompany(final Company validCompany, final Image image) {
         Company company = new Company();
         company.setTitle(validCompany.getTitle());
@@ -38,8 +39,8 @@ public class CompanyService {
         savedCompany.setTitle(company.getTitle());
         savedCompany.setCompanyType(company.getCompanyType());
         savedCompany.setKitchenType(company.getKitchenType());
-        savedCompany.setProducts(company.getProducts());
-        companyRepo.save(company);
+
+        companyRepo.updateCompany(company);
     }
 
     public void deleteCompany(final Company company) {
@@ -69,8 +70,6 @@ public class CompanyService {
 
         return company;
     }
-
-
 
     public Set<Product> createAndFillProductsListForCompany(final Company company) {
         Set<Product> products = new HashSet<>();

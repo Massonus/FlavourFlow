@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/companies")
@@ -42,7 +43,7 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/new-company")
-    public String newProduct(@Valid Company company,
+    public String newCompany(@Valid Company company,
                              @RequestParam("file") MultipartFile multipartFile) {
 
         Image uploadImage;
@@ -58,28 +59,30 @@ public class CompanyController {
         return "redirect:/products/" + companyId;
     }
 
-    /*@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/edit/{id}")
     public String updateCompany(@PathVariable("id") Long id, Model model) {
-        Product product = productService.getProductById(id);
-        model.addAttribute("product", product);
-        return "product/productEdit";
+        Company company = companyService.getCompanyById(id);
+        model.addAttribute("company", company);
+        return "company/companyEdit";
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/edit/{id}")
-    public String saveUpdatedProduct(@PathVariable Long id,
-                                     Product product) {
+    public String saveUpdatedCompany(@PathVariable Long id,
+                                     Company company) {
 
-        productService.editProduct(id, product);
-        return "redirect:/products";
+        companyService.editCompany(id, company);
+
+        return "redirect:/companies";
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delete/{id}")
-    public String deleteTree(@PathVariable Long id) {
-        Product productById = productService.getProductById(id);
-        productService.deleteProduct(productById);
-        return "redirect:/products";
+    public String deleteCompany(@PathVariable Long id) {
+        Company companyById = companyService.getCompanyById(id);
+        companyService.deleteCompany(companyById);
+        return "redirect:/companies";
     }
 
-    */
 }
