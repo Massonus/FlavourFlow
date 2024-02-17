@@ -36,13 +36,14 @@ public class ProductService {
         productRepo.save(validProduct);
     }
 
-    public void editProduct(final Long id, final Product product) {
+    public Long editProduct(final Long id, final Product product) {
         Product savedProduct = productRepo.findProductById(id);
 
         savedProduct.setTitle(product.getTitle());
         savedProduct.setPrice(product.getPrice());
 
         productRepo.save(savedProduct);
+        return savedProduct.getCompany().getId();
     }
 
     public void deleteProduct(final Product product) {

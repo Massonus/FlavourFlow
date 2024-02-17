@@ -1,9 +1,6 @@
 package com.massonus.rccnavigator.service;
 
-import com.massonus.rccnavigator.entity.Company;
-import com.massonus.rccnavigator.entity.CompanyType;
-import com.massonus.rccnavigator.entity.KitchenType;
-import com.massonus.rccnavigator.entity.Product;
+import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,13 +21,14 @@ public class CompanyService {
         this.companyRepo = companyRepo;
         this.productService = productService;
     }
-
-    public void saveCompany(final Company validCompany) {
+    public void saveCompany(final Company validCompany, final Image image) {
         Company company = new Company();
         company.setTitle(validCompany.getTitle());
+        company.setImage(image);
         company.setCompanyType(validCompany.getCompanyType());
         company.setKitchenType(validCompany.getKitchenType());
         company.setProducts(validCompany.getProducts());
+
         companyRepo.save(company);
     }
 
@@ -52,6 +50,10 @@ public class CompanyService {
         return companyRepo.findCompanyById(id);
     }
 
+    public Company getCompanyByTitle(final String title) {
+        return companyRepo.findCompanyByTitle(title);
+    }
+
     public List<Company> getAllCompanies() {
         return companyRepo.findAll();
     }
@@ -67,6 +69,8 @@ public class CompanyService {
 
         return company;
     }
+
+
 
     public Set<Product> createAndFillProductsListForCompany(final Company company) {
         Set<Product> products = new HashSet<>();

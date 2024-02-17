@@ -28,6 +28,7 @@
             </div>
         </div>
     </#list>
+    <br>
 
     <#if isAdmin>
         <h2>Add Product</h2>
@@ -40,6 +41,7 @@
 
             <label for="file">File:</label>
             <input type="file" name="file">
+
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <input type="submit" value="Send">
         </form>

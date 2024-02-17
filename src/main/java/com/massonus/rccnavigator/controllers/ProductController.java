@@ -51,8 +51,8 @@ public class ProductController {
     public String saveUpdatedProduct(@PathVariable Long id,
                                      Product product) {
 
-        productService.editProduct(id, product);
-        return "redirect:/companies";
+        Long companyId = productService.editProduct(id, product);
+        return "redirect:/products/" + companyId;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -60,7 +60,7 @@ public class ProductController {
     public String deleteTree(@PathVariable Long id) {
         Product productById = productService.getProductById(id);
         productService.deleteProduct(productById);
-        return "redirect:/companies";
+        return "redirect:/products/" + productById.getCompany().getId();
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -77,6 +77,6 @@ public class ProductController {
 
         productService.saveProduct(product, uploadImage, companyId);
 
-        return "redirect:/companies";
+        return "redirect:/products/" + companyId;
     }
 }
