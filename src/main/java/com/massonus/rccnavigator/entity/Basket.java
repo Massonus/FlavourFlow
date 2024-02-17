@@ -20,6 +20,7 @@ public class Basket {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY)

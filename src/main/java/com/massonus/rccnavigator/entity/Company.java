@@ -29,9 +29,12 @@ public class Company {
     @Enumerated(EnumType.STRING)
     private KitchenType kitchenType;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    private Image image;
+
     @OneToMany(mappedBy = "company",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+            cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
     public Company(String title, CompanyType companyType, KitchenType kitchenType) {

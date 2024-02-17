@@ -14,6 +14,8 @@
                         <h5 class="card-title">${product.getTitle()}</h5>
                         <p class="text-muted">${product.getPrice() + '$'}</p>
                         <div class="d-flex justify-content-between">
+                            <a href="new-basket-item/${product.getId()}"
+                               class="btn black-btn-outline">Add to basket</a>
                             <#if isAdmin>
 
                                 <a role="button" class="btn black-btn-outline"
@@ -28,6 +30,7 @@
             </div>
         </div>
     </#list>
+    <br>
 
     <#if isAdmin>
         <h2>Add Product</h2>
@@ -40,6 +43,7 @@
 
             <label for="file">File:</label>
             <input type="file" name="file">
+
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <input type="submit" value="Send">
         </form>

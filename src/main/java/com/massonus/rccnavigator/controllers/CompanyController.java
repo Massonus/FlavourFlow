@@ -1,16 +1,18 @@
 package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Company;
+import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.service.CompanyService;
+import com.massonus.rccnavigator.service.ImageService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -19,9 +21,12 @@ public class CompanyController {
 
     private final CompanyService companyService;
 
+    private final ImageService imageService;
+
     @Autowired
-    public CompanyController(CompanyService companyService) {
+    public CompanyController(CompanyService companyService, ImageService imageService) {
         this.companyService = companyService;
+        this.imageService = imageService;
     }
 
     @GetMapping
@@ -36,35 +41,46 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/new-company")
-    public String newCompany(@Valid Company company) {
+    public String newCompany(@Valid Company company,
+                             @RequestParam("file") MultipartFile multipartFile) {
 
-        companyService.saveCompany(company);
+        Image uploadImage;
+        try {
+            uploadImage = imageService.upload(multipartFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        companyService.saveCompany(company, uploadImage);
+        Long companyId = companyService.getCompanyByTitle(company.getTitle()).getId();
+
+        return "redirect:/products/" + companyId;
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/edit/{id}")
+    public String updateCompany(@PathVariable("id") Long id, Model model) {
+        Company company = companyService.getCompanyById(id);
+        model.addAttribute("company", company);
+        return "company/companyEdit";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/edit/{id}")
+    public String saveUpdatedCompany(@PathVariable Long id,
+                                     Company company) {
+
+        companyService.editCompany(id, company);
 
         return "redirect:/companies";
     }
 
-    /*@PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/edit/{id}")
-    public String updateCompany(@PathVariable("id") Long id, Model model) {
-        Product product = productService.getProductById(id);
-        model.addAttribute("product", product);
-        return "product/productEdit";
-    }
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit/{id}")
-    public String saveUpdatedProduct(@PathVariable Long id,
-                                     Product product) {
-
-        productService.editProduct(id, product);
-        return "redirect:/products";
-    }
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delete/{id}")
-    public String deleteTree(@PathVariable Long id) {
-        Product productById = productService.getProductById(id);
-        productService.deleteProduct(productById);
-        return "redirect:/products";
+    public String deleteCompany(@PathVariable Long id) {
+        Company companyById = companyService.getCompanyById(id);
+        companyService.deleteCompany(companyById);
+        return "redirect:/companies";
     }
 
-    */
 }
