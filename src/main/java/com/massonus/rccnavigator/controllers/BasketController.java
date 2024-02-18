@@ -30,7 +30,7 @@ public class BasketController {
         Set<Product> products = userBasket.getProducts();
         model.addAttribute("products", products);
 
-        return "basket";
+        return "basket/basket";
     }
 
     @GetMapping("/delete-from-basket/{id}")
