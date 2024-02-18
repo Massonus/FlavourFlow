@@ -31,7 +31,6 @@ public class MessageService {
         message.setProduct(product);
         message.setCompany(product.getCompany());
         message.setText(commentText);
-        message.setMeLiked(false);
         message.setLikes(new HashSet<>());
 
         messageRepo.save(message);
@@ -49,7 +48,23 @@ public class MessageService {
 
     public Long likeMessage(Long id, User user) {
         Message messageById = getMessageById(id);
-        messageById.getLikes().add(user);
+
+        Set<User> likes = messageById.getLikes();
+
+        boolean contains = likes.stream()
+                .map(User::getId)
+                .anyMatch(a -> a.equals(user.getId()));
+
+        if (contains) {
+            List<User> collect = likes.stream()
+                    .filter(a -> a.getId().equals(user.getId()))
+                    .toList();
+            User user1 = collect.getFirst();
+            likes.remove(user1);
+        } else {
+            likes.add(user);
+        }
+
         return messageById.getProduct().getId();
     }
 

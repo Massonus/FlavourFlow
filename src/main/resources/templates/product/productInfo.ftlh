@@ -15,10 +15,10 @@
                         <div class="row">
                             <p>${message.getAuthor().getUsername()}:</p>
                             <a class="col align-self-center" href="/message/like/${message.getId()}">
-                                <#if message.getMeLiked()>
-                                    <i class="bi bi-heart-fill"></i>
-                                <#else>
+                                <#if message.getIsUnliked()>
                                     <i class="bi bi-heart"></i>
+                                <#else>
+                                    <i class="bi bi-heart-fill"></i>
                                 </#if>
                                 ${message.getLikesCount()}
                             </a>
