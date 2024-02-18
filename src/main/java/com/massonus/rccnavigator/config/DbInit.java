@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 public class DbInit {
 
     private final CompanyService companyService;
-
     private final UserService userService;
 
     public DbInit(CompanyService companyService, UserService userService) {
