@@ -4,6 +4,7 @@ import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.MessageService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -37,28 +38,23 @@ public class MessageController {
         return "redirect:/product/" + productId;
     }
 
-    /*@PostMapping("/user-messages/{id}")
-    public String updateMessage(@AuthenticationPrincipal User currentUser, @PathVariable Long id,
-                                @RequestParam Message message,
-                                @RequestParam String text) {
-        if (message.getAuthor().equals(currentUser)) {
-            if (!StringUtils.isEmpty(text)) {
-                message.setText(text);
-            }
+    @GetMapping("/editing/{id}")
+    public String editMessage(@PathVariable Long id, Model model) {
 
-            if (!StringUtils.isEmpty(tag)) {
-                message.setTag(tag);
-            }
+        model.addAttribute("message", messageService.getMessageById(id));
 
-            saveFile(message, file);
-
-            messageRepo.save(message);
-        }
-
-        return "redirect:/user-messages/" + user;
+        return "message/messageEdit";
     }
 
-    */
+    @PostMapping("/edit/{id}")
+    public String editMessage(@AuthenticationPrincipal User user, @PathVariable Long id,
+                                @RequestParam String text) {
+
+        Long productId = messageService.editMessage(id, text);
+
+        return "redirect:/product/" + productId;
+    }
+
 
 
 }

@@ -46,6 +46,16 @@ public class MessageService {
         return messageById.getProduct().getId();
     }
 
+    public Long editMessage(Long id, String text) {
+        Message messageById = getMessageById(id);
+
+        messageById.setText(text);
+        messageRepo.save(messageById);
+
+        return messageById.getProduct().getId();
+
+    }
+
     public Long likeMessage(Long id, User user) {
         Message messageById = getMessageById(id);
 

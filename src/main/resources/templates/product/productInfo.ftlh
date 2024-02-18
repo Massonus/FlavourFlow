@@ -25,9 +25,7 @@
                             <#if message.getAuthor().getId() == user.getId() || isAdmin>
                                 <a role="button" class="btn black-btn-outline"
                                    href="/message/delete/${message.getId()}">Delete</a>
-                            <#--<a class="col btn btn-primary" href="/user-messages/${message.author.id}?message=${message.id}">
-                                Edit
-                            </a>-->
+                            <a class="col btn btn-primary" href="/message/editing/${message.getId()}">Edit</a>
                             </#if>
                         </div>
                     </div>
@@ -45,7 +43,7 @@
             <label for="comment" class="col-sm-4 col-form-label">Comment</label>
             <input type="text" class="form-control me-2 flex-grow-1" placeholder="Write your comment" name="comment"
                    id="comment" style="height: 68px; margin-right: 10px;">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <button type="submit" class="btn btn-outline-success">Post comment</button>
         </form>
     </div>
