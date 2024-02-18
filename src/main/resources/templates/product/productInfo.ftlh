@@ -10,7 +10,7 @@
             <label for="comment" class="col-sm-4 col-form-label">Comment</label>
             <input type="text" class="form-control me-2 flex-grow-1" placeholder="Write your comment" name="comment"
                    id="comment" style="height: 68px; margin-right: 10px;">
-            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button type="submit" class="btn btn-outline-success">Post comment</button>
         </form>
     </div>
