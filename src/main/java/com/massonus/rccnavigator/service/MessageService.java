@@ -7,6 +7,7 @@ import com.massonus.rccnavigator.repo.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -38,7 +39,7 @@ public class MessageService {
     }
 
     public void deleteMessage(Long productId, Long messageId) {
-        Set<Message> messages = productService.getProductById(productId).getMessages();
+        List<Message> messages = productService.getProductById(productId).getMessages();
         final Message messageById = getMessageById(messageId);
         messages.remove(messageById);
     }

@@ -7,7 +7,9 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,6 +17,9 @@ import java.util.Set;
 @Setter
 @Table(name = "consumer")
 public class User implements UserDetails {
+
+    @Serial
+    private static final long serialVersionUID = -3030486184852734948L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,6 +36,9 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<Message> messages;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

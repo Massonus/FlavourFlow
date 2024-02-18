@@ -33,7 +33,7 @@ public class Product {
     private Company company;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<Message> messages = new HashSet<>();
+    private List<Message> messages;
 
     public Product(String title, String price, Company company) {
         this.title = title;

@@ -30,16 +30,13 @@ public class Message {
     @ManyToOne(fetch = FetchType.EAGER)
     private Company company;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User author;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "image_id")
-    private Image image;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "message_likes",
