@@ -8,7 +8,7 @@
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
                 <div class="card border-none">
                     <#if (product.getImage()??)>
-                        <img alt="product image" src="/images/${product.getImage().getId()}.jpg" class="card-img-top"/>
+                        <a href="/product/${product.getId()}"><img alt="product image" src="/images/${product.getImage().getId()}.jpg" class="card-img-top"/></a>
                     </#if>
                     <div class="card-body">
                         <h5 class="card-title">${product.getTitle()}</h5>
@@ -25,10 +25,10 @@
                             <#if isAdmin>
 
                                 <a role="button" class="btn black-btn-outline"
-                                   href="/products/edit/${product.getId()}">Edit</a>
+                                   href="/product/edit/${product.getId()}">Edit</a>
 
                                 <a role="button" class="btn black-btn-outline"
-                                   href="/products/delete/${product.getId()}">Delete</a>
+                                   href="/product/delete/${product.getId()}">Delete</a>
                             </#if>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
 
     <#if isAdmin>
         <h2>Add Product</h2>
-        <form enctype="multipart/form-data" method="post" action="/products/new-product/${id}">
+        <form enctype="multipart/form-data" method="post" action="/product/new-product/${id}">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" required><br><br>
 

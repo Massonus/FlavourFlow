@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MessageRepo extends JpaRepository<Message, Long> {
 
+    Message findMessageById(Long id);
+
     Message findMessageByAuthorId(Long id);
 
 }

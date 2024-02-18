@@ -15,7 +15,7 @@
                         <p class="text-muted">${company.getKitchenType()}</p>
                         <p class="text-muted">${company.getCompanyType()}</p>
                         <a role="button" class="btn black-btn-outline"
-                           href="/products/${company.getId()}">Go to products of this company</a>
+                           href="/product/all-products/${company.getId()}">Go to products of this company</a>
                         <#if isAdmin>
 
                             <a role="button" class="btn black-btn-outline"

@@ -30,6 +30,9 @@ public class Message {
     @ManyToOne(fetch = FetchType.EAGER)
     private Company company;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Product product;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
