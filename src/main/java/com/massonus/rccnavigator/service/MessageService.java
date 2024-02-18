@@ -7,6 +7,7 @@ import com.massonus.rccnavigator.repo.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,6 +31,8 @@ public class MessageService {
         message.setProduct(product);
         message.setCompany(product.getCompany());
         message.setText(commentText);
+        message.setMeLiked(false);
+        message.setLikes(new HashSet<>());
 
         messageRepo.save(message);
     }
@@ -38,10 +41,16 @@ public class MessageService {
         return messageRepo.findMessageById(id);
     }
 
-    public void deleteMessage(Long productId, Long messageId) {
-        List<Message> messages = productService.getProductById(productId).getMessages();
-        final Message messageById = getMessageById(messageId);
-        messages.remove(messageById);
+    public Long deleteMessage(Long messageId) {
+        Message messageById = getMessageById(messageId);
+        messageRepo.delete(messageById);
+        return messageById.getProduct().getId();
+    }
+
+    public Long likeMessage(Long id, User user) {
+        Message messageById = getMessageById(id);
+        messageById.getLikes().add(user);
+        return messageById.getProduct().getId();
     }
 
 }

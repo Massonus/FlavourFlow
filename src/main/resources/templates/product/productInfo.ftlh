@@ -3,6 +3,41 @@
 
 <@c.page>
 
+    <div class="card-columns" id="message-list">
+        <#if product.getMessages()?has_content>
+            <h2>Comments:</h2>
+            <#list product.getMessages() as message>
+                <div class="card my-3">
+                    <div class="m-2">
+                        <span>${message.getText()}</span><br/>
+                    </div>
+                    <div class="card-footer text-muted container">
+                        <div class="row">
+                            <p>${message.getAuthor().getUsername()}:</p>
+                            <a class="col align-self-center" href="/message/like/${message.getId()}">
+                                <#if message.getMeLiked()>
+                                    <i class="bi bi-heart-fill"></i>
+                                <#else>
+                                    <i class="bi bi-heart"></i>
+                                </#if>
+                                ${message.getLikesCount()}
+                            </a>
+                            <#if message.getAuthor().getId() == user.getId() || isAdmin>
+                                <a role="button" class="btn black-btn-outline"
+                                   href="/message/delete/${message.getId()}">Delete</a>
+                            <#--<a class="col btn btn-primary" href="/user-messages/${message.author.id}?message=${message.id}">
+                                Edit
+                            </a>-->
+                            </#if>
+                        </div>
+                    </div>
+                </div>
+            <#else>
+                No message
+            </#list>
+        </#if>
+    </div>
+
     <br>
     <div class="d-flex justify-content-center" style="width: 100%; display: flex; justify-content: center;">
         <form method="post" action="/message/new-product-message/${product.getId()}"
@@ -14,18 +49,5 @@
             <button type="submit" class="btn btn-outline-success">Post comment</button>
         </form>
     </div>
-    <br>
-    <#if product.getMessages()?has_content>
-        <h2>Comments:</h2>
-        <#list product.getMessages() as message>
-            <p>${message.getAuthor().getUsername()}:</p>
-            <p class="comment">${message.getText()}</p>
-            <#if message.getAuthor().getId() == user.getId() || isAdmin>
-            <a role="button" class="btn black-btn-outline"
-               href="/message/delete/${product.getId()}/${message.getId()}">Delete</a>
-               </#if>
-        </#list>
-    </#if>
-
 
 </@c.page>

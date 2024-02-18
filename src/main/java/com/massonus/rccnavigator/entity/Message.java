@@ -44,4 +44,9 @@ public class Message {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> likes = new HashSet<>();
 
+    private Boolean meLiked;
+
+    public Integer getLikesCount() {
+        return likes.size();
+    }
 }

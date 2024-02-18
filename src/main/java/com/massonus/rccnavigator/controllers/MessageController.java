@@ -22,10 +22,18 @@ public class MessageController {
         return "redirect:/product/" + id;
     }
 
-    @GetMapping("/delete/{messageId}/{productId}")
-    public String deleteMessage(@PathVariable Long productId, @PathVariable Long messageId, @AuthenticationPrincipal User user) {
+    @GetMapping("/delete/{messageId}")
+    public String deleteMessage(@PathVariable Long messageId, @AuthenticationPrincipal User user) {
 
-        messageService.deleteMessage(productId, messageId);
+        Long productId = messageService.deleteMessage(messageId);
+        return "redirect:/product/" + productId;
+    }
+
+    @GetMapping("/like/{id}")
+    public String like(@AuthenticationPrincipal User user, @PathVariable Long id) {
+
+        Long productId = messageService.likeMessage(id, user);
+
         return "redirect:/product/" + productId;
     }
 
@@ -50,25 +58,7 @@ public class MessageController {
         return "redirect:/user-messages/" + user;
     }
 
-    @GetMapping("/messages/{message}/like")
-    public String like(@AuthenticationPrincipal User currentUser,
-            @PathVariable Message message) {
-        Set<User> likes = message.getLikes();
-
-        if (likes.contains(currentUser)) {
-            likes.remove(currentUser);
-        } else {
-            likes.add(currentUser);
-        }
-
-        UriComponents components = UriComponentsBuilder.fromHttpUrl(referer).build();
-
-        components.getQueryParams()
-                .entrySet()
-                .forEach(pair -> redirectAttributes.addAttribute(pair.getKey(), pair.getValue()));
-
-        return "redirect:" + components.getPath();
-    }*/
+    */
 
 
 }

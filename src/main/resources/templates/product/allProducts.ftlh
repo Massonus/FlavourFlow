@@ -15,10 +15,10 @@
                         <p class="text-muted">${product.getPrice() + '$'}</p>
                         <div class="d-flex justify-content-between">
 
-                            <a href="new-basket-item/${product.getId()}"
+                            <a href="/product/new-basket-item/${product.getId()}"
                                class="btn black-btn-outline">Add to basket</a>
 
-                            <a class="nav-link" href="new-wish-item/${product.getId()}"
+                            <a class="nav-link" href="/product/new-wish-item/${product.getId()}"
                                data-toggle="tooltip" data-placement="left" title="Add this to your Wish List"><i
                                         class="bi bi-heart"></i></a>
 
