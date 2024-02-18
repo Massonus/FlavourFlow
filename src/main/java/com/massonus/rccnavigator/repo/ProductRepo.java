@@ -12,10 +12,10 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Product findProductById(Long id);
 
-    List<Product> findProductsByCompanyId(Long companyId);
+    Set<Product> findProductsByCompanyId(Long companyId);
 
     Set<Product> findOneTypeOfProductById(Long id);
 
-    Set<Product> findProductByTitleContainingIgnoreCase(String title);
+    Set<Product> findProductsByTitleContainingIgnoreCase(String title);
 
 }

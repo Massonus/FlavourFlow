@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/products")
@@ -35,7 +36,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String getProductsOfCompany(@PathVariable Long id, Model model) {
-        List<Product> products = productService.getAllProductsByCompanyId(id);
+        Set<Product> products = productService.getAllProductsByCompanyId(id);
 
         model.addAttribute("products", products);
         model.addAttribute("id", id);
