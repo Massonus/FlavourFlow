@@ -12,6 +12,7 @@
             <#if known>
                 <a class="nav-item nav-link" href="/companies">Companies</a>
                 <a class="nav-item nav-link" href="/basket">Basket</a>
+                <a class="nav-item nav-link" href="/wishes">Wishes</a>
                 <a class="nav-item nav-link" href="/logout">logout</a>
                 <a class="nav-item nav-link" href="/add-user-from-admin">Admin-panel</a>
                 <a class="nav-item nav-link" href="/user/profile">${name}</a>

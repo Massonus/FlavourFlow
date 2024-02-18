@@ -6,6 +6,7 @@ import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.BasketService;
 import com.massonus.rccnavigator.service.ImageService;
 import com.massonus.rccnavigator.service.ProductService;
+import com.massonus.rccnavigator.service.WishService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,12 +27,14 @@ public class ProductController {
     private final ProductService productService;
     private final ImageService imageService;
     private final BasketService basketService;
+    private final WishService wishService;
 
     @Autowired
-    public ProductController(ProductService productService, ImageService imageService, BasketService basketService) {
+    public ProductController(ProductService productService, ImageService imageService, BasketService basketService, WishService wishService) {
         this.productService = productService;
         this.imageService = imageService;
         this.basketService = basketService;
+        this.wishService = wishService;
     }
 
     @GetMapping("/{id}")
@@ -99,6 +102,14 @@ public class ProductController {
     public String addProductToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
 
         Long companyId = basketService.addProductToBasket(id, user);
+
+        return "redirect:/products/" + companyId;
+    }
+
+    @GetMapping("/new-wish-item/{id}")
+    public String addProductToWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
+
+        Long companyId = wishService.addProductToWishes(id, user);
 
         return "redirect:/products/" + companyId;
     }

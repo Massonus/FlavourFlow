@@ -13,6 +13,6 @@ public interface WishRepo extends JpaRepository<Wish, Long> {
 
     Set<Wish> findWishesByUserId(Long userId);
 
-    Wish findByUserId(Long userId);
+    Wish findWishByUserId(Long userId);
 
 }
