@@ -24,8 +24,8 @@ public class Wish {
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "wish_company",
+    @JoinTable(name = "wish_product",
             joinColumns = @JoinColumn(name = "wish_id"),
-            inverseJoinColumns = @JoinColumn(name = "company_id"))
-    private Set<Company> companies = new HashSet<>();
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<Product> products = new HashSet<>();
 }

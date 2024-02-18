@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -27,6 +29,9 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Message> messages;
 
     public Product(String title, String price, Company company) {
         this.title = title;

@@ -56,6 +56,7 @@ public class BasketService {
     }
 
     public void deleteBasketItem(Long id, User user) {
+
         Product productById = productService.getProductById(id);
         Basket basketByUserId = basketRepo.findBasketByUserId(user.getId());
         basketByUserId.getProducts().remove(productById);

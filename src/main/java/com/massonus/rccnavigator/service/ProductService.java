@@ -7,7 +7,8 @@ import com.massonus.rccnavigator.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -55,11 +56,12 @@ public class ProductService {
         return productRepo.findProductById(id);
     }
 
-    public List<Product> getAllProducts() {
-        return productRepo.findAll();
+    public Set<Product> getAllProducts() {
+
+        return new HashSet<>(productRepo.findAll());
     }
 
-    public List<Product> getAllProductsByCompanyId(final Long companyId) {
+    public Set<Product> getAllProductsByCompanyId(final Long companyId) {
         return productRepo.findProductsByCompanyId(companyId);
     }
 

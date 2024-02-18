@@ -59,7 +59,7 @@ public class CompanyService {
         return companyRepo.findAll();
     }
 
-    public Company createElementAuto() {
+    public void createElementAuto() {
         Company company = new Company();
 
         company.setTitle("Test");
@@ -68,7 +68,6 @@ public class CompanyService {
         companyRepo.save(company);
         company.setProducts(createAndFillProductsListForCompany(company));
 
-        return company;
     }
 
     public Set<Product> createAndFillProductsListForCompany(final Company company) {

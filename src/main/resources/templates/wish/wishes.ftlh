@@ -1,5 +1,5 @@
-<#import "parts/common.ftlh" as c>
-<#include "parts/security.ftlh">
+<#import "../parts/common.ftlh" as c>
+<#include "../parts/security.ftlh">
 
 <@c.page>
 
@@ -15,8 +15,10 @@
                         <p class="text-muted">${product.getPrice() + '$'}</p>
                         <div class="d-flex justify-content-between">
 
+                            <a role="button" class="btn btn-success btn-sm"
+                               href="wishes/move-wish-to-basket/${product.getId()}">To Basket</a>
                             <a role="button" class="btn black-btn-outline"
-                               href="basket/delete-from-basket/${product.getId()}">Delete</a>
+                               href="wishes/delete-from-wishes/${product.getId()}">Delete</a>
                         </div>
                     </div>
                 </div>

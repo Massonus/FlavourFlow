@@ -6,6 +6,7 @@ import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.BasketService;
 import com.massonus.rccnavigator.service.ImageService;
 import com.massonus.rccnavigator.service.ProductService;
+import com.massonus.rccnavigator.service.WishService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,26 +17,29 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 @Controller
-@RequestMapping("/products")
+@RequestMapping("/product")
 public class ProductController {
 
     private final ProductService productService;
     private final ImageService imageService;
     private final BasketService basketService;
+    private final WishService wishService;
+
 
     @Autowired
-    public ProductController(ProductService productService, ImageService imageService, BasketService basketService) {
+    public ProductController(ProductService productService, ImageService imageService, BasketService basketService, WishService wishService) {
         this.productService = productService;
         this.imageService = imageService;
         this.basketService = basketService;
+        this.wishService = wishService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/all-products/{id}")
     public String getProductsOfCompany(@PathVariable Long id, Model model) {
-        List<Product> products = productService.getAllProductsByCompanyId(id);
+        Set<Product> products = productService.getAllProductsByCompanyId(id);
 
         model.addAttribute("products", products);
         model.addAttribute("id", id);
@@ -57,7 +61,7 @@ public class ProductController {
 
         productService.saveProduct(product, uploadImage, companyId);
 
-        return "redirect:/products/" + companyId;
+        return "redirect:/product/all-products/" + companyId;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -83,7 +87,7 @@ public class ProductController {
 
         Long companyId = productService.editProduct(id, product, uploadImage);
 
-        return "redirect:/products/" + companyId;
+        return "redirect:/product/all-products/" + companyId;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -91,7 +95,7 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id) {
         Product productById = productService.getProductById(id);
         productService.deleteProduct(productById);
-        return "redirect:/products/" + productById.getCompany().getId();
+        return "redirect:/product/all-products/" + productById.getCompany().getId();
     }
 
     @GetMapping("/new-basket-item/{id}")
@@ -99,8 +103,24 @@ public class ProductController {
 
         Long companyId = basketService.addProductToBasket(id, user);
 
-        return "redirect:/products/" + companyId;
+        return "redirect:/product/all-products/" + companyId;
     }
 
+    @GetMapping("/new-wish-item/{id}")
+    public String addProductToWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
+
+        Long companyId = wishService.addProductToWishes(id, user);
+
+        return "redirect:/product/all-products/" + companyId;
+    }
+
+    @GetMapping("/{id}")
+    public String getProduct(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
+        Product productById = productService.getProductById(id);
+
+        model.addAttribute("user", user);
+        model.addAttribute("product", productById);
+        return "product/productInfo";
+    }
 
 }

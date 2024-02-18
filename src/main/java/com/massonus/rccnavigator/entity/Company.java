@@ -37,6 +37,9 @@ public class Company {
             cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private Set<Message> messages = new HashSet<>();
+
     public Company(String title, CompanyType companyType, KitchenType kitchenType) {
         this.title = title;
         this.companyType = companyType;

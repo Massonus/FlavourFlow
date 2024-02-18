@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -30,13 +31,13 @@ public class Message {
     @ManyToOne(fetch = FetchType.EAGER)
     private Company company;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User author;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "image_id")
-    private Image image;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "message_likes",
@@ -44,4 +45,24 @@ public class Message {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> likes = new HashSet<>();
 
+    public Integer getLikesCount() {
+        return likes.size();
+    }
+
+    public Boolean getIsUnliked() {
+        return likes.isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message = (Message) o;
+        return Objects.equals(id, message.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
