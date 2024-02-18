@@ -25,7 +25,7 @@
                             <#if message.getAuthor().getId() == user.getId() || isAdmin>
                                 <a role="button" class="btn black-btn-outline"
                                    href="/message/delete/${message.getId()}">Delete</a>
-                            <a class="col btn btn-primary" href="/message/editing/${message.getId()}">Edit</a>
+                                <a class="col btn btn-primary" href="/message/editing/${message.getId()}">Edit</a>
                             </#if>
                         </div>
                     </div>

@@ -48,13 +48,12 @@ public class MessageController {
 
     @PostMapping("/edit/{id}")
     public String editMessage(@AuthenticationPrincipal User user, @PathVariable Long id,
-                                @RequestParam String text) {
+                              @RequestParam String text) {
 
         Long productId = messageService.editMessage(id, text);
 
         return "redirect:/product/" + productId;
     }
-
 
 
 }

@@ -1,6 +1,5 @@
 package com.massonus.rccnavigator.controllers;
 
-import com.massonus.rccnavigator.entity.Basket;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.entity.Wish;

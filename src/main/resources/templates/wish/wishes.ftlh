@@ -16,7 +16,7 @@
                         <div class="d-flex justify-content-between">
 
                             <a role="button" class="btn btn-success btn-sm"
-                            href="wishes/move-wish-to-basket/${product.getId()}">To Basket</a>
+                               href="wishes/move-wish-to-basket/${product.getId()}">To Basket</a>
                             <a role="button" class="btn black-btn-outline"
                                href="wishes/delete-from-wishes/${product.getId()}">Delete</a>
                         </div>
