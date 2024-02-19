@@ -36,11 +36,18 @@ public class BasketController {
     @GetMapping("/delete-from-basket/{id}")
     public String deleteProductFromBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
 
-
         basketService.deleteBasketItem(id, user);
 
         return "redirect:/basket";
 
+    }
+
+    @GetMapping("/clear")
+    public String clearBasket(@AuthenticationPrincipal User user) {
+
+        basketService.clearBasket(user);
+
+        return "redirect:/basket";
     }
 
 

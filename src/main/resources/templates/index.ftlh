@@ -9,7 +9,6 @@
                    aria-label="Search">
 
             <select class="form-control me-2 flex-grow-1" id="searchType" name="searchType" required>
-                <option class="grey" disabled selected>Select Search type</option>
                 <option value="company">Company</option>
                 <option value="product">Product</option>
             </select>

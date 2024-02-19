@@ -2,7 +2,6 @@ package com.massonus.rccnavigator.config;
 
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.CompanyService;
-import com.massonus.rccnavigator.service.ProductService;
 import com.massonus.rccnavigator.service.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,9 @@ public class DbInit {
     @PostConstruct
     private void postConstruct() {
 
-        companyService.createElementAuto();
+        for (int i = 0; i < 2; i++) {
+            companyService.createElementAuto();
+        }
 
         final User user = new User();
         user.setEmail("user@gmail.com");
