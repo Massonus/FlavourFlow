@@ -26,7 +26,7 @@ public class MessageController {
     }
 
     @GetMapping("/delete/{messageId}")
-    public String deleteMessage(@PathVariable Long messageId, @AuthenticationPrincipal User user) {
+    public String deleteMessage(@PathVariable Long messageId) {
 
         Long productId = messageService.deleteMessage(messageId);
         return "redirect:/product/" + productId;
@@ -49,7 +49,7 @@ public class MessageController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editMessage(@AuthenticationPrincipal User user, @PathVariable Long id,
+    public String editMessage(@PathVariable Long id,
                               @RequestParam String text) {
 
         Long productId = messageService.editMessage(id, text);

@@ -1,6 +1,8 @@
 package com.massonus.rccnavigator.controllers;
 
-import com.massonus.rccnavigator.entity.*;
+import com.massonus.rccnavigator.entity.KitchenCategory;
+import com.massonus.rccnavigator.entity.Role;
+import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.UserService;
 import jakarta.validation.Valid;
@@ -140,6 +142,15 @@ public class AdminController {
         kitchenCategoryService.editCategory(id, title);
 
         return "redirect:/admin/panel";
+    }
+
+    @GetMapping("/delete-category/{id}")
+    public String deleteCategory(@PathVariable Long id) {
+
+        kitchenCategoryService.deleteCategory(id);
+
+        return "redirect:/admin/panel";
+
     }
 
 }

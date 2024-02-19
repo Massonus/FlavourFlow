@@ -5,7 +5,6 @@ import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,15 +12,11 @@ public class DbInit {
 
     private final KitchenCategoryService categoryService;
 
-    private final PasswordEncoder passwordEncoder;
-
-
     private final UserService userService;
 
     @Autowired
-    public DbInit(KitchenCategoryService categoryService, PasswordEncoder passwordEncoder, UserService userService) {
+    public DbInit(KitchenCategoryService categoryService, UserService userService) {
         this.categoryService = categoryService;
-        this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
 

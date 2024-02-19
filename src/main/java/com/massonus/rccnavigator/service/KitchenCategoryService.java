@@ -58,5 +58,9 @@ public class KitchenCategoryService {
 
     }
 
+    public void deleteCategory(Long id) {
+
+        kitchenCategoryRepo.delete(getCategoryById(id));
+    }
 
 }

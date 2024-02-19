@@ -2,7 +2,6 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Image;
-import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.ImageService;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -48,6 +46,7 @@ public class CompanyController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/new-company")
     public String newCompany(@Valid Company company,
+                             @RequestParam Long categoryId,
                              @RequestParam("file") MultipartFile multipartFile) {
 
         Image uploadImage;
@@ -57,16 +56,17 @@ public class CompanyController {
             throw new RuntimeException(e);
         }
 
-        companyService.saveCompany(company, uploadImage);
-        Long companyId = companyService.getCompanyByTitle(company.getTitle()).getId();
+        companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId));
+        companyService.getCompanyByTitle(company.getTitle());
 
-        return "redirect:/products/" + companyId;
+        return "redirect:/companies";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/edit/{id}")
     public String updateCompany(@PathVariable("id") Long id, Model model) {
         Company company = companyService.getCompanyById(id);
+        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
         model.addAttribute("company", company);
         return "company/companyEdit";
     }
@@ -74,9 +74,10 @@ public class CompanyController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/edit/{id}")
     public String saveUpdatedCompany(@PathVariable Long id,
+                                     @RequestParam Long categoryId,
                                      Company company) {
 
-        companyService.editCompany(id, company);
+        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId));
 
         return "redirect:/companies";
     }

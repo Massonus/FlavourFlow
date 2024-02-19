@@ -12,13 +12,6 @@ import java.util.Set;
 @Repository
 public interface CompanyRepo extends JpaRepository<Company, Long> {
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE Company company SET company.title = :#{#updatedCompany.title}, " +
-            "company.companyType = :#{#updatedCompany.companyType}," +
-            "company.kitchenType = :#{#updatedCompany.kitchenType}")
-    void updateCompany(Company updatedCompany);
-
     Company findCompanyById(Long id);
 
     Company findCompanyByTitle(String value);

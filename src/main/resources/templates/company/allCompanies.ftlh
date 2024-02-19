@@ -3,17 +3,17 @@
 
 <@c.page>
 
-    <#--<nav class="bg-light py-3 px-4 categories rounded">
-        <p class="fw-bold text-black fs-5">Categories</p>
-        <ul class="nav flex-column my-2 p-0">
-            <li class="nav-item" th:each="cat : ${categories}">
-                <a class="nav-link ps-0" aria-current="page"
-                   th:href="@{/products/productsByCategory/{id}(id=${cat.id})}" th:text="${cat.title}">
-                    Cakes
-                </a>
-            </li>
-        </ul>
-    </nav>-->
+<#--<nav class="bg-light py-3 px-4 categories rounded">
+    <p class="fw-bold text-black fs-5">Categories</p>
+    <ul class="nav flex-column my-2 p-0">
+        <li class="nav-item" th:each="cat : ${categories}">
+            <a class="nav-link ps-0" aria-current="page"
+               th:href="@{/products/productsByCategory/{id}(id=${cat.id})}" th:text="${cat.title}">
+                Cakes
+            </a>
+        </li>
+    </ul>
+</nav>-->
 
     <div class="dropdown mt-3 bg-light py-3 px-4 rounded">
         <div class="dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"
@@ -45,7 +45,6 @@
                     </#if>
                     <div class="card-body">
                         <h5 class="card-title">${company.getTitle()}</h5>
-                        <p class="text-muted">${company.getKitchenType()}</p>
                         <p class="text-muted">${company.getCompanyType()}</p>
                         <p class="text-muted">${company.getCategory().getTitle()}</p>
                         <a role="button" class="btn black-btn-outline"
@@ -80,21 +79,13 @@
                 <input type="radio" name="companyType" value="CAFFE">CAFFE
             </label><br><br>
 
-
-            <div class="choose-lectures">
+            <div class="choose-category">
                 <label>Category:
                     <#list categories as category>
-                        <input type="radio" name="category" value=${category}> ${category.getTitle()}
-                    </label>
+                    <input type="radio" name="categoryId" value=${category.getId()}> ${category.getTitle()}
+                </label>
                 </#list>
             </div>
-
-            <label>Kitchen Type:
-                <input type="radio" name="kitchenType" value="ITALIAN" checked>ITALIAN
-                <input type="radio" name="kitchenType" value="UKRAINIAN">UKRAINIAN
-                <input type="radio" name="kitchenType" value="CHINESE">CHINESE
-                <input type="radio" name="kitchenType" value="AMERICAN">AMERICAN
-            </label><br><br>
 
             <label for="file">File:</label>
             <input type="file" name="file">
@@ -102,6 +93,7 @@
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <input type="submit" value="Send">
         </form>
+        <br><br>
     </#if>
 
 

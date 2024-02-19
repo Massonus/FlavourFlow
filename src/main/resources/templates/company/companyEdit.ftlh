@@ -18,21 +18,20 @@
                                        value="${company.getTitle()}">
                             </div>
                         </div>
+                        <#list categories as category>
                         <div class="mb-3 row">
-                            <label class="col-sm-8">Company Type:
-                                <input type="radio" name="companyType" value="RESTAURANT" checked>RESTAURANT
-                                <input type="radio" name="companyType" value="CLUB">CLUB
-                                <input type="radio" name="companyType" value="CAFFE">CAFFE
+                            <label>Category:
+                                <input type="radio" name="categoryId" checked value=${category.getId()}> ${category.getTitle()}
                             </label>
+                            </#list>
                         </div>
 
                         <div class="mb-3 row">
-                            <label class="col-sm-8">Kitchen Type:
-                                <input type="radio" name="kitchenType" value="ITALIAN" checked>ITALIAN
-                                <input type="radio" name="kitchenType" value="UKRAINIAN">UKRAINIAN
-                                <input type="radio" name="kitchenType" value="CHINESE">CHINESE
-                                <input type="radio" name="kitchenType" value="AMERICAN">AMERICAN
-                            </label>
+                            <label>Company Type:
+                                <input type="radio" name="companyType" value="RESTAURANT" checked>RESTAURANT
+                                <input type="radio" name="companyType" value="CLUB">CLUB
+                                <input type="radio" name="companyType" value="CAFFE">CAFFE
+                            </label><br><br>
                         </div>
 
                         <a role="button" class="btn btn-outline-secondary mt-3"
