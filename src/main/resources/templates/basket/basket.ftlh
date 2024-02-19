@@ -29,13 +29,13 @@
     <br>
 
 
-<div class="col-lg-4">
+    <div class="col-lg-4">
 
-    <a role="button" class="btn btn-outline-danger w-100 mt-2"
-       href="/basket/clear">
-        Clear the basket
-    </a>
-</div>
+        <a role="button" class="btn btn-outline-danger w-100 mt-2"
+           href="/basket/clear">
+            Clear the basket
+        </a>
+    </div>
 
 </@c.page>
 

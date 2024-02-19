@@ -21,7 +21,8 @@
                         <#list categories as category>
                         <div class="mb-3 row">
                             <label>Category:
-                                <input type="radio" name="categoryId" checked value=${category.getId()}> ${category.getTitle()}
+                                <input type="radio" name="categoryId" checked
+                                       value=${category.getId()}> ${category.getTitle()}
                             </label>
                             </#list>
                         </div>
