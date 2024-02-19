@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public void editUser(Long id, String username, String email, String password, Role role) {
+    public void editUser(User redactor, Long id, String username, String email, String password, Role role) {
 
         User savedUser = getUserById(id);
         savedUser.setUsername(username);
@@ -68,6 +68,7 @@ public class UserService implements UserDetailsService {
         }
         savedUser.setEmail(email);
         savedUser.setRoles(Collections.singleton(role));
+        savedUser.setRedactor(redactor.getId());
 
     }
 

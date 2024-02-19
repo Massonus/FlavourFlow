@@ -41,6 +41,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Message> messages;
 
+    private Long redactor;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

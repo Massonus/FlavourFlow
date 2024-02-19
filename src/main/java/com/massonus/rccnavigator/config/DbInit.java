@@ -36,6 +36,7 @@ public class DbInit {
         user.setEmail("user@gmail.com");
         user.setUsername("cat");
         user.setPassword("cat");
+        user.setRedactor(1337L);
 
         userService.saveUser(user, false);
 
@@ -43,6 +44,7 @@ public class DbInit {
         admin.setEmail("admin@gmail.com");
         admin.setUsername("admin");
         admin.setPassword("admin");
+        admin.setRedactor(1337L);
 
         userService.saveUser(admin, true);
 

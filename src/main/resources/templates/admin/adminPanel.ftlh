@@ -18,11 +18,12 @@
                         <th class="p-3" scope="row">${user.getUsername()}</th>
                         <td class="p-3">${user.getStringRole()}</td>
                         <td class="p-3">${user.getEmail()}</td>
+                        <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getId() || user.getUsername() == "admin")>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
                                            href="/admin/edit-user/${user.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
-                            <#if !(admin.getId() == user.getId())>
+
                                 <a role="button" class="btn btn-outline-danger"
                                    href="/admin/delete-user/${user.getId()}">
                                     <i class="bi bi-trash text-danger"></i>
