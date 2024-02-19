@@ -11,7 +11,7 @@
 
             <label for="price">Price:</label>
             <input type="number" id="price" name="price" required><br><br>
-
+f
             <label for="file">File:</label>
             <input type="file" name="file">
 
