@@ -1,8 +1,6 @@
 package com.massonus.rccnavigator.controllers;
 
-import com.massonus.rccnavigator.entity.KitchenCategory;
-import com.massonus.rccnavigator.entity.Role;
-import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.UserService;
 import jakarta.validation.Valid;
@@ -11,10 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 
@@ -55,6 +50,17 @@ public class AdminController {
         return "admin/addCategory";
 
     }
+    @GetMapping("/edit-user/{id}")
+    public String getEditUserForm(@PathVariable Long id, Model model) {
+
+        User userById = userService.getUserById(id);
+
+        model.addAttribute("user", userById);
+
+        return "admin/editUser";
+
+
+    }
 
     @PostMapping("/add-new-user")
     public String registrationPost(@RequestParam String username,
@@ -77,10 +83,10 @@ public class AdminController {
 
         if (role.equals("ADMIN")) {
             user.setRoles(Collections.singleton(Role.ADMIN));
-            userService.addUser(user, true);
+            userService.saveUser(user, true);
         } else {
             user.setRoles(Collections.singleton(Role.USER));
-            userService.addUser(user, false);
+            userService.saveUser(user, false);
         }
 
         return "redirect:/admin/panel";
@@ -93,6 +99,18 @@ public class AdminController {
 
         return "redirect:/admin/panel";
 
+    }
+
+    @PostMapping("/edit-user/{id}")
+    public String saveUpdatedUser(@PathVariable Long id,
+                                  @RequestParam String username,
+                                  @RequestParam String email,
+                                  @RequestParam String password,
+                                  @RequestParam String role) {
+
+        userService.editUser(id, username, email, password, Role.valueOf(role));
+
+        return "redirect:/admin/panel";
     }
 
 

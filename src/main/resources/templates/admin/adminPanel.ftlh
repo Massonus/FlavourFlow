@@ -18,10 +18,10 @@
                         <th class="p-3" scope="row">${user.getUsername()}</th>
                         <td class="p-3">${user.getStringRole()}</td>
                         <td class="p-3">${user.getEmail()}</td>
+                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
+                                           href="/admin/edit-user/${user.getId()}">Edit</a>
+                        </td>
                         <td class="p-3 align-middle">
-                            <a class="reset-anchor">
-                                <i class="fas fa-trash-alt small text-muted"></i>
-                            </a>
                             <#if !(admin.getId() == user.getId())>
                                 <a role="button" class="btn btn-outline-danger"
                                    href="/admin/delete-user/${user.getId()}">
@@ -51,10 +51,10 @@
                     <tr>
                         <th class="p-3" scope="row">${category.getId()}</th>
                         <td class="p-3">${category.getTitle()}</td>
+                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
+                                           href="/admin/edit-category/${category.getId()}">Edit</a>
+                        </td>
                         <td class="p-3 align-middle">
-                            <a class="reset-anchor">
-                                <i class="fas fa-trash-alt small text-muted"></i>
-                            </a>
                             <a role="button" class="btn btn-outline-danger"
                                href="/admin/delete-category/${category.getId()}">
                                 <i class="bi bi-trash text-danger"></i>

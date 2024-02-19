@@ -28,7 +28,7 @@ public class KitchenCategoryService {
         Random random = new Random();
         int lengthMas = random.nextInt(1, 3);
         for (int i = 0; i < lengthMas; i++) {
-            kitchenCategory.setTitle("Cat " + i);
+            kitchenCategory.setTitle("Cat " + lengthMas);
             kitchenCategoryRepo.save(kitchenCategory);
             Company company = companyService.createElementAuto();
             company.setCategory(kitchenCategory);

@@ -47,6 +47,7 @@
                         <h5 class="card-title">${company.getTitle()}</h5>
                         <p class="text-muted">${company.getKitchenType()}</p>
                         <p class="text-muted">${company.getCompanyType()}</p>
+                        <p class="text-muted">${company.getCategory().getTitle()}</p>
                         <a role="button" class="btn black-btn-outline"
                            href="/product/all-products/${company.getId()}">Go to products of this company</a>
                         <#if isAdmin>
@@ -78,6 +79,15 @@
                 <input type="radio" name="companyType" value="CLUB">CLUB
                 <input type="radio" name="companyType" value="CAFFE">CAFFE
             </label><br><br>
+
+
+            <div class="choose-lectures">
+                <label>Category:
+                    <#list categories as category>
+                        <input type="radio" name="category" value=${category}> ${category.getTitle()}
+                    </label>
+                </#list>
+            </div>
 
             <label>Kitchen Type:
                 <input type="radio" name="kitchenType" value="ITALIAN" checked>ITALIAN

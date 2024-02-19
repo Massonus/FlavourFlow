@@ -38,7 +38,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean addUser(final User user, final boolean isAdmin) {
+    public boolean saveUser(final User user, final boolean isAdmin) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
@@ -58,8 +58,25 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
+    public void editUser(Long id, String username, String email, String password, Role role) {
+
+        User savedUser = getUserById(id);
+        savedUser.setUsername(username);
+
+        if (!password.isEmpty()) {
+            savedUser.setPassword(passwordEncoder.encode(password));
+        }
+        savedUser.setEmail(email);
+        savedUser.setRoles(Collections.singleton(role));
+
+    }
+
+    public User getUserById(Long id) {
+        return userRepo.findUserById(id);
+    }
+
     public Set<User> getAllUsers() {
-       return new HashSet<>(userRepo.findAll());
+        return new HashSet<>(userRepo.findAll());
     }
 
 

@@ -2,8 +2,10 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Image;
+import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.ImageService;
+import com.massonus.rccnavigator.service.KitchenCategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -22,11 +25,13 @@ public class CompanyController {
     private final CompanyService companyService;
 
     private final ImageService imageService;
+    private final KitchenCategoryService kitchenCategoryService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, ImageService imageService) {
+    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService) {
         this.companyService = companyService;
         this.imageService = imageService;
+        this.kitchenCategoryService = kitchenCategoryService;
     }
 
     @GetMapping
@@ -34,6 +39,7 @@ public class CompanyController {
 
         List<Company> companies = companyService.getAllCompanies();
 
+        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
         model.addAttribute("companies", companies);
 
         return "company/allCompanies";
