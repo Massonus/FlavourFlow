@@ -80,5 +80,13 @@ public class UserService implements UserDetailsService {
         return new HashSet<>(userRepo.findAll());
     }
 
+    public void deleteUser(Long id) {
+
+        User user = userRepo.findUserById(id);
+        userRepo.delete(user);
+
+
+    }
+
 
 }

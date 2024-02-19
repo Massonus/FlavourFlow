@@ -51,6 +51,15 @@ public class AdminController {
 
     }
 
+    @GetMapping("/delete-user/{id}")
+    public String deleteUser(@PathVariable Long id) {
+
+        userService.deleteUser(id);
+
+        return "redirect:/admin/panel";
+
+    }
+
     @GetMapping("/edit-user/{id}")
     public String getEditUserForm(@PathVariable Long id, Model model) {
 
@@ -59,7 +68,6 @@ public class AdminController {
         model.addAttribute("user", userById);
 
         return "admin/editUser";
-
 
     }
 
@@ -115,6 +123,8 @@ public class AdminController {
 
         return "redirect:/admin/panel";
     }
+
+
 
 
 }

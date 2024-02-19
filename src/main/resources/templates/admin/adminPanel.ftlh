@@ -24,10 +24,10 @@
                         </td>
                         <td class="p-3 align-middle">
 
-                                <a role="button" class="btn btn-outline-danger"
-                                   href="/admin/delete-user/${user.getId()}">
-                                    <i class="bi bi-trash text-danger"></i>
-                                </a>
+                            <a role="button" class="btn btn-outline-danger"
+                               href="/admin/delete-user/${user.getId()}">
+                                <i class="bi bi-trash text-danger"></i>
+                            </a>
                             </#if>
                         </td>
                     </tr>
