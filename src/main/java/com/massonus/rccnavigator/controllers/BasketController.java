@@ -4,6 +4,7 @@ import com.massonus.rccnavigator.entity.Basket;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.BasketService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ public class BasketController {
 
     private final BasketService basketService;
 
+    @Autowired
     public BasketController(BasketService basketService) {
         this.basketService = basketService;
     }

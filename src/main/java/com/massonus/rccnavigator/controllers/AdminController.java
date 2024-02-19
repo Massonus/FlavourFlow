@@ -1,8 +1,11 @@
 package com.massonus.rccnavigator.controllers;
 
+import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,10 +24,12 @@ import java.util.Collections;
 public class AdminController {
 
     private final UserService userService;
+    private final KitchenCategoryService kitchenCategoryService;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, KitchenCategoryService kitchenCategoryService) {
         this.userService = userService;
+        this.kitchenCategoryService = kitchenCategoryService;
     }
 
     @GetMapping("/panel")
@@ -32,6 +37,7 @@ public class AdminController {
 
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
 
         return "admin/adminPanel";
     }
@@ -40,6 +46,13 @@ public class AdminController {
     public String getAddUserForm() {
 
         return "admin/addUser";
+
+    }
+
+    @GetMapping("/add-new-category")
+    public String getAddCategoryForm() {
+
+        return "admin/addCategory";
 
     }
 
@@ -72,5 +85,15 @@ public class AdminController {
 
         return "redirect:/admin/panel";
     }
+
+    @PostMapping("/add-new-category")
+    public String addCategoryPost(@Valid KitchenCategory category) {
+
+        kitchenCategoryService.saveCategory(category);
+
+        return "redirect:/admin/panel";
+
+    }
+
 
 }

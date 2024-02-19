@@ -2,6 +2,7 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,9 @@ import java.util.Objects;
 public class MainController {
 
     private final ProductService productService;
-
     private final CompanyService companyService;
 
+    @Autowired
     public MainController(ProductService productService, CompanyService companyService) {
         this.productService = productService;
         this.companyService = companyService;

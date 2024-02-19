@@ -22,7 +22,7 @@ public class CompanyService {
         this.productService = productService;
     }
 
-    public void saveCompany(final Company validCompany, final Image image) {
+    public Company saveCompany(final Company validCompany, final Image image) {
         Company company = new Company();
         company.setTitle(validCompany.getTitle());
         company.setImage(image);
@@ -31,6 +31,8 @@ public class CompanyService {
         company.setProducts(validCompany.getProducts());
 
         companyRepo.save(company);
+
+        return company;
     }
 
     public void editCompany(final Long id, final Company company) {
@@ -41,6 +43,10 @@ public class CompanyService {
         savedCompany.setKitchenType(company.getKitchenType());
 
         companyRepo.updateCompany(company);
+    }
+
+    public void saveCompany(Company company) {
+        companyRepo.save(company);
     }
 
     public void deleteCompany(final Company company) {
@@ -63,7 +69,7 @@ public class CompanyService {
         return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
     }
 
-    public void createElementAuto() {
+    public Company createElementAuto() {
         Company company = new Company();
 
         company.setTitle("Test");
@@ -71,6 +77,8 @@ public class CompanyService {
         company.setCompanyType(CompanyType.CAFFE);
         companyRepo.save(company);
         company.setProducts(createAndFillProductsListForCompany(company));
+
+        return company;
 
     }
 

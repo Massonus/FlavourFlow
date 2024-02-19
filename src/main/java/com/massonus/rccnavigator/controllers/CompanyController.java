@@ -83,4 +83,12 @@ public class CompanyController {
         return "redirect:/companies";
     }
 
+    /*@GetMapping("/companiesByCategory/{id}")
+    public String findProductByCategory(@PathVariable Long id, Model model) {
+        Set<Company> companies = companyService.getProductsByCategoryId(id);
+        model.addAttribute("companies", companies);
+        model.addAttribute("categories", categoryService.getAll());
+        return "products";
+    }*/
+
 }
