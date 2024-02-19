@@ -19,7 +19,10 @@
                         <#if isAdmin>
 
                             <a role="button" class="btn black-btn-outline"
-                               href="/companies/edit/${company.getId()}">Edit</a>
+                               href="/companies/edit/${company.getId()}">Edit title</a>
+
+                            <a role="button" class="btn black-btn-outline"
+                               href="/product/add-product/${company.getId()}">Add product</a>
 
                             <a role="button" class="btn black-btn-outline"
                                href="/companies/delete/${company.getId()}">Delete</a>

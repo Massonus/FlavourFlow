@@ -9,6 +9,7 @@ import com.massonus.rccnavigator.service.ProductService;
 import com.massonus.rccnavigator.service.WishService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,15 @@ public class ProductController {
         model.addAttribute("id", id);
 
         return "product/allProducts";
+    }
+
+    @GetMapping("/add-product/{id}")
+    public String addProduct(@PathVariable Long id, Model model) {
+
+        model.addAttribute("id", id);
+
+        return "company/addProductToCompany";
+
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -121,6 +131,12 @@ public class ProductController {
         model.addAttribute("user", user);
         model.addAttribute("product", productById);
         return "product/productInfo";
+    }
+
+    @RequestMapping("/search")
+    public String findProductByTitle(@RequestParam String title, Model model) {
+        model.addAttribute("products", productService.getAllProductsByTitleContainingIgnoreCase(title));
+        return "product/allProducts";
     }
 
 }
