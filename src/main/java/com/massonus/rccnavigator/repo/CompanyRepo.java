@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 @Repository
 public interface CompanyRepo extends JpaRepository<Company, Long> {
 
@@ -20,4 +22,6 @@ public interface CompanyRepo extends JpaRepository<Company, Long> {
     Company findCompanyById(Long id);
 
     Company findCompanyByTitle(String value);
+
+    Set<Company> findCompaniesByTitleContainingIgnoreCase(String title);
 }

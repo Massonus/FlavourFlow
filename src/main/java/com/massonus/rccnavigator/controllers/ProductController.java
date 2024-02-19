@@ -133,10 +133,4 @@ public class ProductController {
         return "product/productInfo";
     }
 
-    @RequestMapping("/search")
-    public String findProductByTitle(@RequestParam String title, Model model) {
-        model.addAttribute("products", productService.getAllProductsByTitleContainingIgnoreCase(title));
-        return "product/allProducts";
-    }
-
 }

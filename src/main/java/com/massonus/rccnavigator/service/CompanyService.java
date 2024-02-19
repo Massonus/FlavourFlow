@@ -59,6 +59,10 @@ public class CompanyService {
         return companyRepo.findAll();
     }
 
+    public Set<Company> getAllCompaniesByTitleContainingIgnoreCase(final String title) {
+        return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
+    }
+
     public void createElementAuto() {
         Company company = new Company();
 

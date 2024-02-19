@@ -4,9 +4,16 @@
 <@c.page>
 
     <div class="flex-grow-1">
-        <form class="d-flex" role="search" action="/product/search" method="get">
+        <form class="d-flex" role="search" action="/search" method="get">
             <input class="form-control me-2 flex-grow-1" type="search" name="title" placeholder="Search"
                    aria-label="Search">
+
+            <select class="form-control me-2 flex-grow-1" id="searchType" name="searchType" required>
+                <option class="grey" disabled selected>Select Search type</option>
+                <option value="company">Company</option>
+                <option value="product">Product</option>
+            </select>
+
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
