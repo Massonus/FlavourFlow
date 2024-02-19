@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -36,7 +38,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean addUser(final User user, final boolean isAdmin) {
+    public boolean saveUser(final User user, final boolean isAdmin) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
@@ -54,6 +56,36 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
 
         return true;
+    }
+
+    public void editUser(User redactor, Long id, String username, String email, String password, Role role) {
+
+        User savedUser = getUserById(id);
+        savedUser.setUsername(username);
+
+        if (!password.isEmpty()) {
+            savedUser.setPassword(passwordEncoder.encode(password));
+        }
+        savedUser.setEmail(email);
+        savedUser.setRoles(Collections.singleton(role));
+        savedUser.setRedactor(redactor.getId());
+
+    }
+
+    public User getUserById(Long id) {
+        return userRepo.findUserById(id);
+    }
+
+    public Set<User> getAllUsers() {
+        return new HashSet<>(userRepo.findAll());
+    }
+
+    public void deleteUser(Long id) {
+
+        User user = userRepo.findUserById(id);
+        userRepo.delete(user);
+
+
     }
 
 

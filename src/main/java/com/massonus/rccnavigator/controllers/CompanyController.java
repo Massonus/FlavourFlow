@@ -4,6 +4,7 @@ import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.ImageService;
+import com.massonus.rccnavigator.service.KitchenCategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,11 +23,13 @@ public class CompanyController {
     private final CompanyService companyService;
 
     private final ImageService imageService;
+    private final KitchenCategoryService kitchenCategoryService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, ImageService imageService) {
+    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService) {
         this.companyService = companyService;
         this.imageService = imageService;
+        this.kitchenCategoryService = kitchenCategoryService;
     }
 
     @GetMapping
@@ -34,6 +37,7 @@ public class CompanyController {
 
         List<Company> companies = companyService.getAllCompanies();
 
+        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
         model.addAttribute("companies", companies);
 
         return "company/allCompanies";
@@ -42,6 +46,7 @@ public class CompanyController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/new-company")
     public String newCompany(@Valid Company company,
+                             @RequestParam Long categoryId,
                              @RequestParam("file") MultipartFile multipartFile) {
 
         Image uploadImage;
@@ -51,16 +56,17 @@ public class CompanyController {
             throw new RuntimeException(e);
         }
 
-        companyService.saveCompany(company, uploadImage);
-        Long companyId = companyService.getCompanyByTitle(company.getTitle()).getId();
+        companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId));
+        companyService.getCompanyByTitle(company.getTitle());
 
-        return "redirect:/products/" + companyId;
+        return "redirect:/companies";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/edit/{id}")
     public String updateCompany(@PathVariable("id") Long id, Model model) {
         Company company = companyService.getCompanyById(id);
+        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
         model.addAttribute("company", company);
         return "company/companyEdit";
     }
@@ -68,9 +74,10 @@ public class CompanyController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/edit/{id}")
     public String saveUpdatedCompany(@PathVariable Long id,
+                                     @RequestParam Long categoryId,
                                      Company company) {
 
-        companyService.editCompany(id, company);
+        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId));
 
         return "redirect:/companies";
     }
@@ -82,5 +89,13 @@ public class CompanyController {
         companyService.deleteCompany(companyById);
         return "redirect:/companies";
     }
+
+    /*@GetMapping("/companiesByCategory/{id}")
+    public String findProductByCategory(@PathVariable Long id, Model model) {
+        Set<Company> companies = companyService.getProductsByCategoryId(id);
+        model.addAttribute("companies", companies);
+        model.addAttribute("categories", categoryService.getAll());
+        return "products";
+    }*/
 
 }

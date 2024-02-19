@@ -2,6 +2,7 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ public class MessageController {
 
     private final MessageService messageService;
 
+    @Autowired
     public MessageController(MessageService messageService) {
         this.messageService = messageService;
     }
@@ -24,7 +26,7 @@ public class MessageController {
     }
 
     @GetMapping("/delete/{messageId}")
-    public String deleteMessage(@PathVariable Long messageId, @AuthenticationPrincipal User user) {
+    public String deleteMessage(@PathVariable Long messageId) {
 
         Long productId = messageService.deleteMessage(messageId);
         return "redirect:/product/" + productId;
@@ -47,7 +49,7 @@ public class MessageController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editMessage(@AuthenticationPrincipal User user, @PathVariable Long id,
+    public String editMessage(@PathVariable Long id,
                               @RequestParam String text) {
 
         Long productId = messageService.editMessage(id, text);

@@ -41,6 +41,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Message> messages;
 
+    private Long redactor;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
@@ -68,6 +70,10 @@ public class User implements UserDetails {
 
     public boolean isAdmin() {
         return getRoles().contains(Role.ADMIN);
+    }
+
+    public String getStringRole() {
+        return getRoles().toString();
     }
 
     @Override

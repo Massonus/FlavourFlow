@@ -56,11 +56,15 @@ public class BasketService {
     }
 
     public void deleteBasketItem(Long id, User user) {
-
         Product productById = productService.getProductById(id);
-        Basket basketByUserId = basketRepo.findBasketByUserId(user.getId());
+        Basket basketByUserId = getBasketByUserId(user.getId());
         basketByUserId.getProducts().remove(productById);
+    }
 
+    public void clearBasket(final User user) {
+        Basket basketByUserId = getBasketByUserId(user.getId());
+        basketByUserId.getProducts().clear();
+        basketRepo.save(basketByUserId);
     }
 
 }

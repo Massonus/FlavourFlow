@@ -4,12 +4,29 @@
 
     <div class="form-row">
         <div class="form-group col-md-6">
-            <form method="post" action="/registration" class="form-inline">
-                <input type="text" name="username" class="form-control" placeholder="username">
-                <input type="password" name="password" class="form-control" placeholder="user password">
-                <input type="email" name="email" class="form-control" placeholder="email">
+            <form name="myForm" onsubmit="return validateForm()" method="post" action="/registration"
+                  class="form-inline">
+
+                <label for="login">Login:</label>
+                <input type="text" id="login" name="username"><br>
+                <label for="login" class="small-font">(login must start with a letter and contain only letters, numbers,
+                    and
+                    underscores)</label><br>
+                <span id="loginError" class="error"></span><br><br>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"><br>
+                <label for="password" class="small-font">(password must be 4-15 characters long and contain at least one
+                    letter, one
+                    digit, and one special character)</label><br>
+                <span id="passwordError" class="error"></span><br><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"><br>
+                <span id="emailError" class="error"></span><br><br>
+
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <button type="submit" class="btn btn-primary ml-2">Save</button>
+                <input type="submit" value="Send">
             </form>
         </div>
     </div>

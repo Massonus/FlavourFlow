@@ -47,6 +47,15 @@ public class ProductController {
         return "product/allProducts";
     }
 
+    @GetMapping("/add-product/{id}")
+    public String addProduct(@PathVariable Long id, Model model) {
+
+        model.addAttribute("id", id);
+
+        return "company/addProductToCompany";
+
+    }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/new-product/{companyId}")
     public String newProduct(@PathVariable Long companyId, @Valid Product product,
