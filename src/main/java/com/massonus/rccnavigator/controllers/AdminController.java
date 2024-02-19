@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
 
 @Controller
 @PreAuthorize("hasAuthority('ADMIN')")
+@RequestMapping("/admin")
 public class AdminController {
 
     private final UserService userService;
@@ -24,23 +27,50 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/add-user-from-admin")
-    public String addUserFromAdmin(@AuthenticationPrincipal User user) {
-        System.out.println(user);
-        return "userFromAdmin";
+    @GetMapping("/panel")
+    public String getUserList(@AuthenticationPrincipal User admin, Model model) {
+
+        model.addAttribute("admin", admin);
+        model.addAttribute("users", userService.getAllUsers());
+
+        return "admin/adminPanel";
     }
 
-    @PostMapping("/registration-from-admin")
+    @GetMapping("/add-new-user")
+    public String getAddUserForm() {
+
+        return "admin/addUser";
+
+    }
+
+    @PostMapping("/add-new-user")
     public String registrationPost(@RequestParam String username,
                                    @RequestParam String password,
-                                   @RequestParam String email) {
+                                   @RequestParam String confirmPassword,
+                                   @RequestParam String email,
+                                   @RequestParam String role) {
+
         final User user = new User();
-        user.setPassword(password);
+
         user.setUsername(username);
+
+        if (password.equals(confirmPassword)) {
+            user.setPassword(password);
+        } else {
+            return "redirect:/admin/panel";
+        }
+
         user.setEmail(email);
-        user.setRoles(Collections.singleton(Role.USER));
-        userService.addUser(user, false);
-        return "redirect:/userFromAdmin";
+
+        if (role.equals("ADMIN")) {
+            user.setRoles(Collections.singleton(Role.ADMIN));
+            userService.addUser(user, true);
+        } else {
+            user.setRoles(Collections.singleton(Role.USER));
+            userService.addUser(user, false);
+        }
+
+        return "redirect:/admin/panel";
     }
 
 }
