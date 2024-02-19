@@ -48,5 +48,15 @@ public class KitchenCategoryService {
         return new HashSet<>(kitchenCategoryRepo.findAll());
     }
 
+    public KitchenCategory getCategoryById(Long id) {
+        return kitchenCategoryRepo.findKitchenCategoryById(id);
+    }
+
+    public void editCategory(Long id, String title) {
+
+        kitchenCategoryRepo.findKitchenCategoryById(id).setTitle(title);
+
+    }
+
 
 }

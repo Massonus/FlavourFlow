@@ -14,7 +14,7 @@
                                                                    class="card-img-top"/></a>
                     </#if>
                     <div class="card-body">
-                        <h5 class="card-title">${product.getTitle()}</h5>
+                        <h5 class="card-title"><a href="/product/${product.getId()}">${product.getTitle()}</a></h5>
                         <p class="text-muted">${product.getPrice() + '$'}</p>
                         <div class="d-flex justify-content-between">
 

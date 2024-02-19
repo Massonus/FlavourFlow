@@ -37,20 +37,6 @@ public class AdminController {
         return "admin/adminPanel";
     }
 
-    @GetMapping("/add-new-user")
-    public String getAddUserForm() {
-
-        return "admin/addUser";
-
-    }
-
-    @GetMapping("/add-new-category")
-    public String getAddCategoryForm() {
-
-        return "admin/addCategory";
-
-    }
-
     @GetMapping("/delete-user/{id}")
     public String deleteUser(@PathVariable Long id) {
 
@@ -60,14 +46,10 @@ public class AdminController {
 
     }
 
-    @GetMapping("/edit-user/{id}")
-    public String getEditUserForm(@PathVariable Long id, Model model) {
+    @GetMapping("/add-new-user")
+    public String getAddUserForm() {
 
-        User userById = userService.getUserById(id);
-
-        model.addAttribute("user", userById);
-
-        return "admin/editUser";
+        return "admin/addUser";
 
     }
 
@@ -102,12 +84,30 @@ public class AdminController {
         return "redirect:/admin/panel";
     }
 
+    @GetMapping("/add-new-category")
+    public String getAddCategoryForm() {
+
+        return "admin/addCategory";
+
+    }
+
     @PostMapping("/add-new-category")
     public String addCategoryPost(@Valid KitchenCategory category) {
 
         kitchenCategoryService.saveCategory(category);
 
         return "redirect:/admin/panel";
+
+    }
+
+    @GetMapping("/edit-user/{id}")
+    public String getEditUserForm(@PathVariable Long id, Model model) {
+
+        User userById = userService.getUserById(id);
+
+        model.addAttribute("user", userById);
+
+        return "admin/editUser";
 
     }
 
@@ -124,7 +124,22 @@ public class AdminController {
         return "redirect:/admin/panel";
     }
 
+    @GetMapping("/edit-category/{id}")
+    public String getCategoryEditForm(@PathVariable Long id, Model model) {
 
+        model.addAttribute("category", kitchenCategoryService.getCategoryById(id));
 
+        return "admin/editCategory";
+
+    }
+
+    @PostMapping("/edit-category/{id}")
+    public String categoryPostEdit(@PathVariable Long id,
+                                   @RequestParam String title) {
+
+        kitchenCategoryService.editCategory(id, title);
+
+        return "redirect:/admin/panel";
+    }
 
 }

@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface KitchenCategoryRepo extends JpaRepository<KitchenCategory, Long> {
 
+    KitchenCategory findKitchenCategoryById(Long id);
 
 }
