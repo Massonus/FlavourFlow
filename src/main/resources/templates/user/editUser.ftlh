@@ -8,7 +8,7 @@
             <section class="py-5">
                 <h2 class="h5 text-uppercase mb-4">Product editing</h2>
                 <div style="max-width: 600px" class="w-100">
-                    <form enctype="multipart/form-data" action="/admin/edit-user/${user.getId()}" method="post"
+                    <form enctype="multipart/form-data" action="/user/edit-user/${user.getId()}" method="post"
                           class="text-start py-4">
                         <div class="mb-3 row">
                             <label for="username" class="col-sm-4 col-form-label">Username</label>

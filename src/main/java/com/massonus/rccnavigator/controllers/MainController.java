@@ -1,11 +1,16 @@
 package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.service.CompanyService;
+import com.massonus.rccnavigator.service.CompanyTypeService;
+import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.InputStream;
 import java.util.Objects;
@@ -15,11 +20,15 @@ public class MainController {
 
     private final ProductService productService;
     private final CompanyService companyService;
+    private final KitchenCategoryService kitchenCategoryService;
+    private final CompanyTypeService companyTypeService;
 
     @Autowired
-    public MainController(ProductService productService, CompanyService companyService) {
+    public MainController(ProductService productService, CompanyService companyService, KitchenCategoryService kitchenCategoryService, CompanyTypeService companyTypeService) {
         this.productService = productService;
         this.companyService = companyService;
+        this.kitchenCategoryService = kitchenCategoryService;
+        this.companyTypeService = companyTypeService;
     }
 
     @GetMapping(value = "/static/css/{cssFile}")
@@ -42,11 +51,13 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/search")
+    @GetMapping("/search")
     public String findProductByTitle(@RequestParam String title, @RequestParam String searchType, Model model) {
 
         if (searchType.equals("company")) {
             model.addAttribute("companies", companyService.getAllCompaniesByTitleContainingIgnoreCase(title));
+            model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+            model.addAttribute("types", companyTypeService.getAllTypes());
             return "company/allCompanies";
         } else {
             model.addAttribute("products", productService.getAllProductsByTitleContainingIgnoreCase(title));

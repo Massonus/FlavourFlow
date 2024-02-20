@@ -32,7 +32,7 @@
                         </div>
 
                         <a role="button" class="btn btn-outline-secondary mt-3"
-                           href="/product/${product.getCompany().getId()}">Cancel</a>
+                           href="/product/admin/all-products/${product.getCompany().getId()}">Cancel</a>
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <button type="submit" class="btn black-btn-outline mt-3">Save</button>
                     </form>

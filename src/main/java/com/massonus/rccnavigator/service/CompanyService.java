@@ -5,10 +5,7 @@ import com.massonus.rccnavigator.repo.CompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CompanyService {
@@ -22,26 +19,27 @@ public class CompanyService {
         this.productService = productService;
     }
 
-    public Company saveCompany(final Company validCompany, final Image image, final KitchenCategory category) {
+    public Company saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyType type) {
         Company company = new Company();
         company.setTitle(validCompany.getTitle());
         company.setImage(image);
-        company.setCompanyType(validCompany.getCompanyType());
-        company.setCategory(validCompany.getCategory());
+        company.setCompanyType(type);
+        company.setPriceCategory(validCompany.getPriceCategory());
         company.setProducts(validCompany.getProducts());
-        company.setCategory(category);
+        company.setKitchenCategory(category);
 
         companyRepo.save(company);
 
         return company;
     }
 
-    public void editCompany(final Long id, final Company company, KitchenCategory category) {
+    public void editCompany(final Long id, final Company company, KitchenCategory category, CompanyType type) {
         Company savedCompany = companyRepo.findCompanyById(id);
 
         savedCompany.setTitle(company.getTitle());
-        savedCompany.setCompanyType(company.getCompanyType());
-        company.setCategory(category);
+        savedCompany.setPriceCategory(company.getPriceCategory());
+        savedCompany.setCompanyType(type);
+        savedCompany.setKitchenCategory(category);
     }
 
     public void saveCompany(Company company) {
@@ -60,6 +58,10 @@ public class CompanyService {
         return companyRepo.findCompanyByTitle(title);
     }
 
+    public Set<Company> getCompaniesByCategoryId(Long categoryId) {
+        return companyRepo.findCompaniesByKitchenCategoryId(categoryId);
+    }
+
     public List<Company> getAllCompanies() {
         return companyRepo.findAll();
     }
@@ -72,7 +74,6 @@ public class CompanyService {
         Company company = new Company();
 
         company.setTitle("Test");
-        company.setCompanyType(CompanyType.CAFFE);
         companyRepo.save(company);
         company.setProducts(createAndFillProductsListForCompany(company));
 
@@ -80,7 +81,7 @@ public class CompanyService {
 
     }
 
-    public Set<Product> createAndFillProductsListForCompany(final Company company) {
+    private Set<Product> createAndFillProductsListForCompany(final Company company) {
         Set<Product> products = new HashSet<>();
         Random random = new Random();
         int lengthMas = random.nextInt(1, 3);
@@ -90,5 +91,34 @@ public class CompanyService {
             products.add(product);
         }
         return products;
+    }
+
+    public List<Company> getSortedCompanies(String sort) {
+
+        List<Company> companies = getAllCompanies();
+
+        companies = switch (sort) {
+
+            case "descending" -> companies.stream()
+                    .sorted(Comparator.comparing(Company::getPriceCategory))
+                    .toList();
+
+            case "ascending" -> companies.stream()
+                    .sorted(Comparator.comparing(Company::getPriceCategory).reversed())
+                    .toList();
+
+            case "a-z" -> companies.stream()
+                    .sorted(Comparator.comparing(Company::getTitle))
+                    .toList();
+
+            case "z-a" -> companies.stream()
+                    .sorted(Comparator.comparing(Company::getTitle).reversed())
+                    .toList();
+
+            default -> companies;
+        };
+
+        return companies;
+
     }
 }

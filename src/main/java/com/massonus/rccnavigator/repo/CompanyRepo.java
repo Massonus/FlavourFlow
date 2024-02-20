@@ -14,4 +14,6 @@ public interface CompanyRepo extends JpaRepository<Company, Long> {
     Company findCompanyByTitle(String value);
 
     Set<Company> findCompaniesByTitleContainingIgnoreCase(String title);
+
+    Set<Company> findCompaniesByKitchenCategoryId(Long categoryId);
 }

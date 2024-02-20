@@ -21,10 +21,6 @@ public class Company {
 
     private String title;
 
-    @Column(columnDefinition = "text", name = "company_type")
-    @Enumerated(EnumType.STRING)
-    private CompanyType companyType;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
     private Image image;
@@ -33,10 +29,22 @@ public class Company {
             cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
+    @Column(columnDefinition = "text", name = "price_category")
+    @Enumerated(EnumType.STRING)
+    private PriceCategory priceCategory;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private KitchenCategory category;
+    private KitchenCategory kitchenCategory;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private CompanyType companyType;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();
+
+    public Integer getCountOfProducts() {
+        return products.size();
+    }
 }

@@ -28,7 +28,6 @@ public class ProductController {
     private final BasketService basketService;
     private final WishService wishService;
 
-
     @Autowired
     public ProductController(ProductService productService, ImageService imageService, BasketService basketService, WishService wishService) {
         this.productService = productService;
@@ -47,6 +46,17 @@ public class ProductController {
         return "product/allProducts";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/admin/all-products/{id}")
+    public String getProductsOfCompanyForAdmin(@PathVariable Long id, Model model) {
+        Set<Product> products = productService.getAllProductsByCompanyId(id);
+        model.addAttribute("products", products);
+        model.addAttribute("id", id);
+
+        return "product/productsInAdminPanel";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add-product/{id}")
     public String addProduct(@PathVariable Long id, Model model) {
 
@@ -70,7 +80,7 @@ public class ProductController {
 
         productService.saveProduct(product, uploadImage, companyId);
 
-        return "redirect:/product/all-products/" + companyId;
+        return "redirect:/product/admin/all-products/" + companyId;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -96,7 +106,7 @@ public class ProductController {
 
         Long companyId = productService.editProduct(id, product, uploadImage);
 
-        return "redirect:/product/all-products/" + companyId;
+        return "redirect:/product/admin/all-products/" + companyId;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -104,7 +114,7 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id) {
         Product productById = productService.getProductById(id);
         productService.deleteProduct(productById);
-        return "redirect:/product/all-products/" + productById.getCompany().getId();
+        return "redirect:/product/admin/all-products/" + productById.getCompany().getId();
     }
 
     @GetMapping("/new-basket-item/{id}")

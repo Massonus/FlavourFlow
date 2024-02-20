@@ -1,10 +1,28 @@
 package com.massonus.rccnavigator.entity;
 
-public enum CompanyType {
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-    RESTAURANT,
+import java.util.HashSet;
+import java.util.Set;
 
-    CLUB,
+@Entity
+@Getter
+@Setter
+@Table(name = "company_categories")
+@NoArgsConstructor
+public class CompanyType {
 
-    CAFFE
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String title;
+
+    @OneToMany(mappedBy = "companyType",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<Company> companies = new HashSet<>();
 }

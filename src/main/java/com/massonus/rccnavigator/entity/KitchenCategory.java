@@ -21,12 +21,9 @@ public class KitchenCategory {
 
     private String title;
 
-    @OneToMany(mappedBy = "category",
+    @OneToMany(mappedBy = "kitchenCategory",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private Set<Company> companies = new HashSet<>();
 
-    public KitchenCategory(String title) {
-        this.title = title;
-    }
 }

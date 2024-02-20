@@ -2,7 +2,7 @@
 
 <@c.page>
 
-    <form action="/admin/add-new-user" method="post">
+    <form action="/user/add-new-user" method="post">
         <div>
             <label for="username">Username</label>
             <input type="text" id="username" name="username">
