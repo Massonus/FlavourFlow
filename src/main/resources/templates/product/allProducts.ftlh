@@ -24,15 +24,6 @@
                             <a class="nav-link" href="/product/new-wish-item/${product.getId()}"
                                data-toggle="tooltip" data-placement="left" title="Add this to your Wish List"><i
                                         class="bi bi-heart"></i></a>
-
-                            <#if isAdmin>
-
-                                <a role="button" class="btn black-btn-outline"
-                                   href="/product/edit/${product.getId()}">Edit</a>
-
-                                <a role="button" class="btn black-btn-outline"
-                                   href="/product/delete/${product.getId()}">Delete</a>
-                            </#if>
                         </div>
                     </div>
                 </div>
