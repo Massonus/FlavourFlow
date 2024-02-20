@@ -3,37 +3,19 @@
 
 <@c.page>
 
-<#--<nav class="bg-light py-3 px-4 categories rounded">
-    <p class="fw-bold text-black fs-5">Categories</p>
-    <ul class="nav flex-column my-2 p-0">
-        <li class="nav-item" th:each="cat : ${categories}">
-            <a class="nav-link ps-0" aria-current="page"
-               th:href="@{/products/productsByCategory/{id}(id=${cat.id})}" th:text="${cat.title}">
-                Cakes
-            </a>
-        </li>
-    </ul>
-</nav>-->
-
-    <div class="dropdown mt-3 bg-light py-3 px-4 rounded">
-        <div class="dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"
-             aria-expanded="false">
-            <p class="mb-0">Sort by</p>
+    <div>
+    <form action="/companies/filter" method="get" class="me-2">
+        <div class="mb-3">
+            <label for="bookCategory" class="form-label">Kitchen category:</label>
+            <select name="categoryId" class="form-select" id="bookCategory">
+                <option value=""></option>
+                <#list categories as category>
+                    <option value="${category.getId()}" selected="selected"> ${category.getTitle()}</option>
+                </#list>
+            </select>
         </div>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/products">(Default)</a></li>
-            <li><a class="dropdown-item" href="/products/?sort=descending">Sort by price:
-                    descending</a>
-            </li>
-            <li><a class="dropdown-item" href="/products/?sort=ascending">Sort by price:
-                    ascending</a>
-            </li>
-            <li><a class="dropdown-item" href="/products/?sort=a-z">Sort by name: A-Z</a>
-            </li>
-            <li><a class="dropdown-item" href="/products/?sort=z-a">Sort by name: Z-A</a>
-            </li>
-        </ul>
-    </div>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
 
     <#list companies as company>
         <div class="col-12 col-md-8 col-lg-9">

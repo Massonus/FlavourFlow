@@ -43,6 +43,20 @@ public class CompanyController {
         return "company/allCompanies";
     }
 
+    @GetMapping("/filter")
+    public String getAllFilterCompanies(Model model, @RequestParam Long categoryId) {
+
+        List<Company> filteredCompanies = companyService.getAllCompanies().stream()
+                .filter(c -> c.getCategory().getId().equals(categoryId))
+                .toList();
+
+        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+        model.addAttribute("companies", filteredCompanies);
+
+        return "company/allCompanies";
+
+    }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/new-company")
     public String newCompany(@Valid Company company,
