@@ -1,8 +1,10 @@
 package com.massonus.rccnavigator.controllers;
 
+import com.massonus.rccnavigator.entity.CompanyCategory;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.service.CompanyCategoryService;
 import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.UserService;
@@ -24,12 +26,14 @@ public class AdminController {
     private final UserService userService;
     private final KitchenCategoryService kitchenCategoryService;
     private final CompanyService companyService;
+    private final CompanyCategoryService companyCategoryService;
 
     @Autowired
-    public AdminController(UserService userService, KitchenCategoryService kitchenCategoryService, CompanyService companyService) {
+    public AdminController(UserService userService, KitchenCategoryService kitchenCategoryService, CompanyService companyService, CompanyCategoryService companyCategoryService) {
         this.userService = userService;
         this.kitchenCategoryService = kitchenCategoryService;
         this.companyService = companyService;
+        this.companyCategoryService = companyCategoryService;
     }
 
     @GetMapping("/panel")
@@ -38,6 +42,7 @@ public class AdminController {
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+        model.addAttribute("types", companyCategoryService.getAllTypes());
         model.addAttribute("companies", companyService.getAllCompanies());
 
         return "admin/adminPanel";
@@ -161,8 +166,54 @@ public class AdminController {
     public String getAddCompanyForm(Model model) {
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+        model.addAttribute("types", companyCategoryService.getAllTypes());
 
         return "company/addCompany";
+
+    }
+
+
+    @GetMapping("/add-new-type")
+    public String getAddTypeForm() {
+
+        return "admin/addType";
+
+    }
+
+    @PostMapping("/add-new-type")
+    public String addTypePost(@Valid CompanyCategory type) {
+
+        companyCategoryService.saveCompanyCategory(type);
+
+        return "redirect:/admin/panel";
+
+    }
+
+
+    @GetMapping("/edit-type/{id}")
+    public String getTypeEditForm(@PathVariable Long id, Model model) {
+
+        model.addAttribute("type", companyCategoryService.getTypeById(id));
+
+        return "admin/editType";
+
+    }
+
+    @PostMapping("/edit-type/{id}")
+    public String typePostEdit(@PathVariable Long id,
+                                   @RequestParam String title) {
+
+        companyCategoryService.editType(id, title);
+
+        return "redirect:/admin/panel";
+    }
+
+    @GetMapping("/delete-type/{id}")
+    public String deleteType(@PathVariable Long id) {
+
+        companyCategoryService.deleteType(id);
+
+        return "redirect:/admin/panel";
 
     }
 

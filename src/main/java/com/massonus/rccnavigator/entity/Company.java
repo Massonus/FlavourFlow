@@ -21,10 +21,6 @@ public class Company {
 
     private String title;
 
-    @Column(columnDefinition = "text", name = "company_type")
-    @Enumerated(EnumType.STRING)
-    private CompanyType companyType;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
     private Image image;

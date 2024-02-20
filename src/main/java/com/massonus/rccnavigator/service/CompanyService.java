@@ -22,12 +22,11 @@ public class CompanyService {
         this.productService = productService;
     }
 
-    public Company saveCompany(final Company validCompany, final Image image, final KitchenCategory category) {
+    public Company saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyCategory type) {
         Company company = new Company();
         company.setTitle(validCompany.getTitle());
         company.setImage(image);
-        company.setCompanyType(validCompany.getCompanyType());
-        company.setCategory(validCompany.getCategory());
+        company.setType(type);
         company.setProducts(validCompany.getProducts());
         company.setCategory(category);
 
@@ -36,12 +35,12 @@ public class CompanyService {
         return company;
     }
 
-    public void editCompany(final Long id, final Company company, KitchenCategory category) {
+    public void editCompany(final Long id, final Company company, KitchenCategory category, CompanyCategory type) {
         Company savedCompany = companyRepo.findCompanyById(id);
 
         savedCompany.setTitle(company.getTitle());
-        savedCompany.setCompanyType(company.getCompanyType());
-        company.setCategory(category);
+        savedCompany.setType(type);
+        savedCompany.setCategory(category);
     }
 
     public void saveCompany(Company company) {
@@ -72,7 +71,6 @@ public class CompanyService {
         Company company = new Company();
 
         company.setTitle("Test");
-        company.setCompanyType(CompanyType.CAFFE);
         companyRepo.save(company);
         company.setProducts(createAndFillProductsListForCompany(company));
 

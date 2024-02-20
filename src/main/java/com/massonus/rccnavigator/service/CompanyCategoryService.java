@@ -24,22 +24,22 @@ public class CompanyCategoryService {
     }
 
 
-    public Set<CompanyCategory> getAllCategories() {
+    public Set<CompanyCategory> getAllTypes() {
 
         return new HashSet<>(companyCategoryRepo.findAll());
     }
 
-    public CompanyCategory getCategoryById(Long id) {
+    public CompanyCategory getTypeById(Long id) {
         return companyCategoryRepo.findCompanyCategoryById(id);
     }
 
-    public void editCategory(Long id, String title) {
+    public void editType(Long id, String title) {
 
-        getCategoryById(id).setTitle(title);
+        getTypeById(id).setTitle(title);
     }
 
-    public void deleteCategory(Long id) {
+    public void deleteType(Long id) {
 
-        companyCategoryRepo.delete(getCategoryById(id));
+        companyCategoryRepo.delete(getTypeById(id));
     }
 }

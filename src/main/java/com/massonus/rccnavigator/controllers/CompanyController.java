@@ -2,6 +2,7 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Image;
+import com.massonus.rccnavigator.service.CompanyCategoryService;
 import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.ImageService;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
@@ -22,15 +23,16 @@ import java.util.Objects;
 public class CompanyController {
 
     private final CompanyService companyService;
-
     private final ImageService imageService;
     private final KitchenCategoryService kitchenCategoryService;
+    private final CompanyCategoryService companyCategoryService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService) {
+    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyCategoryService companyCategoryService) {
         this.companyService = companyService;
         this.imageService = imageService;
         this.kitchenCategoryService = kitchenCategoryService;
+        this.companyCategoryService = companyCategoryService;
     }
 
     @GetMapping
@@ -39,6 +41,7 @@ public class CompanyController {
         List<Company> companies = companyService.getAllCompanies();
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+        model.addAttribute("types", companyCategoryService.getAllTypes());
         model.addAttribute("companies", companies);
 
         return "company/allCompanies";
@@ -57,6 +60,7 @@ public class CompanyController {
         }
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+        model.addAttribute("types", companyCategoryService.getAllTypes());
         model.addAttribute("companies", companies);
 
         return "company/allCompanies";
@@ -67,6 +71,7 @@ public class CompanyController {
     @PostMapping("/new-company")
     public String newCompany(@Valid Company company,
                              @RequestParam Long categoryId,
+                             @RequestParam Long typeId,
                              @RequestParam("file") MultipartFile multipartFile) {
 
         Image uploadImage;
@@ -76,7 +81,7 @@ public class CompanyController {
             throw new RuntimeException(e);
         }
 
-        companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId));
+        companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId), companyCategoryService.getTypeById(typeId));
         companyService.getCompanyByTitle(company.getTitle());
 
         return "redirect:/admin/panel";
@@ -87,6 +92,7 @@ public class CompanyController {
     public String updateCompany(@PathVariable("id") Long id, Model model) {
         Company company = companyService.getCompanyById(id);
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+        model.addAttribute("types", companyCategoryService.getAllTypes());
         model.addAttribute("company", company);
         return "company/companyEdit";
     }
@@ -95,9 +101,10 @@ public class CompanyController {
     @PostMapping("/edit/{id}")
     public String saveUpdatedCompany(@PathVariable Long id,
                                      @RequestParam Long categoryId,
+                                     @RequestParam Long typeId,
                                      Company company) {
 
-        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId));
+        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId), companyCategoryService.getTypeById(typeId));
 
         return "redirect:/admin/panel";
     }

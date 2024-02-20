@@ -27,12 +27,13 @@
                             </#list>
                         </div>
 
+                        <#list types as type>
                         <div class="mb-3 row">
-                            <label>Company Type:
-                                <input type="radio" name="companyType" value="RESTAURANT" checked>RESTAURANT
-                                <input type="radio" name="companyType" value="CLUB">CLUB
-                                <input type="radio" name="companyType" value="CAFFE">CAFFE
-                            </label><br><br>
+                            <label>Category:
+                                <input type="radio" name="typeId" checked
+                                       value=${type.getId()}> ${type.getTitle()}
+                            </label>
+                            </#list>
                         </div>
 
                         <a role="button" class="btn btn-outline-secondary mt-3"

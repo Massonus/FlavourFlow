@@ -76,6 +76,39 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
+                    <th scope="col">Type id</th>
+                    <th scope="col">Title</th>
+                </tr>
+                </thead>
+                <tbody>
+                <#list types as type>
+                    <tr>
+                        <th class="p-3" scope="row">${type.getId()}</th>
+                        <td class="p-3">${type.getTitle()}</td>
+                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
+                                           href="/admin/edit-type/${type.getId()}">Edit</a>
+                        </td>
+                        <td class="p-3 align-middle">
+                            <a role="button" class="btn btn-outline-danger"
+                               href="/admin/delete-type/${type.getId()}">
+                                <i class="bi bi-trash text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </#list>
+                </tbody>
+            </table>
+            <div>
+                <a role="button" class="btn black-btn-outline mt-3" href="/admin/add-new-type">Add new type</a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container py-5">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
                     <th scope="col">Company id</th>
                     <th scope="col">Title</th>
                     <th scope="col">Products count</th>
@@ -90,7 +123,7 @@
                         <th class="p-3" scope="row">${company.getId()}</th>
                         <td class="p-3">${company.getTitle()}</td>
                         <td class="p-3">${company.getCountOfProducts()}</td>
-                        <td class="p-3">${company.getCompanyType()}</td>
+                        <td class="p-3">${company.getType().getTitle()}</td>
                         <td class="p-3">${company.getCategory().getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/companies/edit/${company.getId()}">Edit title</a>
