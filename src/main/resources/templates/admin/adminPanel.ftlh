@@ -20,12 +20,12 @@
                         <td class="p-3">${user.getEmail()}</td>
                         <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getId() || user.getUsername() == "admin")>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/admin/edit-user/${user.getId()}">Edit</a>
+                                           href="/user/edit-user/${user.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
 
                             <a role="button" class="btn btn-outline-danger"
-                               href="/admin/delete-user/${user.getId()}">
+                               href="/user/delete-user/${user.getId()}">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                             </#if>
@@ -34,7 +34,7 @@
                 </#list>
                 </tbody>
             </table>
-            <a role="button" class="btn black-btn-outline mt-3" href="/admin/add-new-user">Add new</a>
+            <a role="button" class="btn black-btn-outline mt-3" href="/user/add-new-user">Add new</a>
         </div>
     </section>
 
