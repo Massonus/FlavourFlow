@@ -70,7 +70,7 @@ public class ProductController {
 
         productService.saveProduct(product, uploadImage, companyId);
 
-        return "redirect:/product/all-products/" + companyId;
+        return "redirect:/admin/panel";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

@@ -71,6 +71,48 @@
         </div>
     </section>
 
+    <section>
+        <div class="container py-5">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Company id</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Products count</th>
+                    <th scope="col">Company type</th>
+                    <th scope="col">Category</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <#list companies as company>
+                    <tr>
+                        <th class="p-3" scope="row">${company.getId()}</th>
+                        <td class="p-3">${company.getTitle()}</td>
+                        <td class="p-3">${company.getCountOfProducts()}</td>
+                        <td class="p-3">${company.getCompanyType()}</td>
+                        <td class="p-3">${company.getCategory().getTitle()}</td>
+                        <td class="p-3"><a role="button" class="btn black-btn-outline"
+                                           href="/companies/edit/${company.getId()}">Edit title</a>
+                        </td>
+
+                        <td class="p-3"><a role="button" class="btn black-btn-outline"
+                                           href="/product/add-product/${company.getId()}">Add product</a>
+                        </td>
+
+                        <td class="p-3"><a role="button" class="btn black-btn-outline"
+                                           href="/companies/delete/${company.getId()}"><i class="bi bi-trash text-danger"></i></a>
+                        </td>
+                    </tr>
+                </#list>
+                </tbody>
+            </table>
+            <div>
+                <a role="button" class="btn black-btn-outline mt-3" href="/admin/add-company">Add new company</a>
+            </div>
+        </div>
+    </section>
+
 
 </@c.page>
 

@@ -39,4 +39,8 @@ public class Company {
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();
+
+    public Integer getCountOfProducts() {
+        return products.size();
+    }
 }

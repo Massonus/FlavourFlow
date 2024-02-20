@@ -3,6 +3,7 @@ package com.massonus.rccnavigator.controllers;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.UserService;
 import jakarta.validation.Valid;
@@ -22,11 +23,13 @@ public class AdminController {
 
     private final UserService userService;
     private final KitchenCategoryService kitchenCategoryService;
+    private final CompanyService companyService;
 
     @Autowired
-    public AdminController(UserService userService, KitchenCategoryService kitchenCategoryService) {
+    public AdminController(UserService userService, KitchenCategoryService kitchenCategoryService, CompanyService companyService) {
         this.userService = userService;
         this.kitchenCategoryService = kitchenCategoryService;
+        this.companyService = companyService;
     }
 
     @GetMapping("/panel")
@@ -35,6 +38,7 @@ public class AdminController {
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+        model.addAttribute("companies", companyService.getAllCompanies());
 
         return "admin/adminPanel";
     }
@@ -150,6 +154,15 @@ public class AdminController {
         kitchenCategoryService.deleteCategory(id);
 
         return "redirect:/admin/panel";
+
+    }
+
+    @GetMapping("/add-company")
+    public String getAddCompanyForm(Model model) {
+
+        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+
+        return "company/addCompany";
 
     }
 

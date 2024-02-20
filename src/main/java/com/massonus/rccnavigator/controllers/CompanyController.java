@@ -59,7 +59,7 @@ public class CompanyController {
         companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId));
         companyService.getCompanyByTitle(company.getTitle());
 
-        return "redirect:/companies";
+        return "redirect:/admin/panel";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -79,7 +79,7 @@ public class CompanyController {
 
         companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId));
 
-        return "redirect:/companies";
+        return "redirect:/admin/panel";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -87,7 +87,7 @@ public class CompanyController {
     public String deleteCompany(@PathVariable Long id) {
         Company companyById = companyService.getCompanyById(id);
         companyService.deleteCompany(companyById);
-        return "redirect:/companies";
+        return "redirect:/admin/panel";
     }
 
     /*@GetMapping("/companiesByCategory/{id}")
