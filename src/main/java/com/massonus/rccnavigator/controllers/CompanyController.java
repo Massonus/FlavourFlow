@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/companies")
@@ -44,14 +45,19 @@ public class CompanyController {
     }
 
     @GetMapping("/filter")
-    public String getAllFilterCompanies(Model model, @RequestParam Long categoryId) {
+    public String getAllFilterCompanies(Model model,
+                                        @RequestParam(required = false) Long categoryId) {
 
-        List<Company> filteredCompanies = companyService.getAllCompanies().stream()
-                .filter(c -> c.getCategory().getId().equals(categoryId))
-                .toList();
+        List<Company> companies = companyService.getAllCompanies();
+
+        if (Objects.nonNull(categoryId)) {
+            companies = companies.stream()
+                    .filter(c -> c.getCategory().getId().equals(categoryId))
+                    .toList();
+        }
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("companies", filteredCompanies);
+        model.addAttribute("companies", companies);
 
         return "company/allCompanies";
 

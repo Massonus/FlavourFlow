@@ -6,16 +6,14 @@
     <div>
     <form action="/companies/filter" method="get" class="me-2">
         <div class="mb-3">
-            <label for="bookCategory" class="form-label">Kitchen category:</label>
-            <select name="categoryId" class="form-select" id="bookCategory">
+            <label for="kitchenCategory" class="form-label">Kitchen category:</label>
+            <select name="categoryId" class="form-select" id="kitchenCategory">
                 <option value=""></option>
                 <#list categories as category>
                     <option value="${category.getId()}" selected="selected"> ${category.getTitle()}</option>
                 </#list>
             </select>
         </div>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
 
     <#list companies as company>
         <div class="col-12 col-md-8 col-lg-9">
