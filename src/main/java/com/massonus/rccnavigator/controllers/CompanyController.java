@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/companies")
@@ -100,7 +102,6 @@ public class CompanyController {
         }
 
         companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId), companyTypeService.getTypeById(typeId));
-        companyService.getCompanyByTitle(company.getTitle());
 
         return "redirect:/admin/panel";
     }
@@ -135,12 +136,17 @@ public class CompanyController {
         return "redirect:/admin/panel";
     }
 
-    /*@GetMapping("/companiesByCategory/{id}")
-    public String findProductByCategory(@PathVariable Long id, Model model) {
-        Set<Company> companies = companyService.getProductsByCategoryId(id);
+
+    @RequestMapping("/sort")
+    public String getAllSortedCompanies(@RequestParam String sort, Model model) {
+
+        List<Company> companies = (companyService.getSortedCompanies(sort));
+
         model.addAttribute("companies", companies);
-        model.addAttribute("categories", categoryService.getAll());
-        return "products";
-    }*/
+        model.addAttribute("types", companyTypeService.getAllTypes());
+        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+
+        return "company/allCompanies";
+    }
 
 }

@@ -3,6 +3,7 @@ package com.massonus.rccnavigator.service;
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.CompanyType;
 import com.massonus.rccnavigator.entity.KitchenCategory;
+import com.massonus.rccnavigator.entity.PriceCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,7 @@ public class MainService {
             kitchenCategoryService.saveKitchenCategory(kitchenCategory);
             companyTypeService.saveCompanyType(companyType);
             Company company = companyService.createElementAuto();
+            company.setPriceCategory(PriceCategory.MEDIUM);
             company.setKitchenCategory(kitchenCategory);
             company.setCompanyType(companyType);
             companyService.saveCompany(company);

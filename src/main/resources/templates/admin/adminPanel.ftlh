@@ -111,6 +111,7 @@
                 <tr>
                     <th scope="col">Company id</th>
                     <th scope="col">Title</th>
+                    <th scope="col">Price category</th>
                     <th scope="col">Products count</th>
                     <th scope="col">Company type</th>
                     <th scope="col">Category</th>
@@ -122,6 +123,7 @@
                     <tr>
                         <th class="p-3" scope="row">${company.getId()}</th>
                         <td class="p-3">${company.getTitle()}</td>
+                        <td class="p-3">${company.getPriceCategory()}</td>
                         <td class="p-3">${company.getCountOfProducts()}</td>
                         <td class="p-3">${company.getCompanyType().getTitle()}</td>
                         <td class="p-3">${company.getKitchenCategory().getTitle()}</td>

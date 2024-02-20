@@ -18,6 +18,16 @@
                                        value="${company.getTitle()}">
                             </div>
                         </div>
+
+                        <div class="mb-3 row">
+                            <label>Price Category:
+                                <input type="radio" name="priceCategory" value="LOW" checked>LOW
+                                <input type="radio" name="priceCategory" value="MEDIUM">MEDIUM
+                                <input type="radio" name="priceCategory" value="HIGH">HIGH
+                                <input type="radio" name="priceCategory" value="PREMIUM">PREMIUM
+                            </label><br><br>
+                        </div>
+
                         <#list categories as category>
                         <div class="mb-3 row">
                             <label>Category:

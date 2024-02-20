@@ -3,6 +3,26 @@
 
 <@c.page>
 
+    <div class="dropdown mt-3 bg-light py-3 px-4 rounded">
+        <div class="dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"
+             aria-expanded="false">
+            <p class="mb-0">Sort by</p>
+        </div>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/companies">(Default)</a></li>
+            <li><a class="dropdown-item" href="/companies/sort?sort=descending">Sort by price:
+                    descending</a>
+            </li>
+            <li><a class="dropdown-item" href="/companies/sort?sort=ascending">Sort by price:
+                    ascending</a>
+            </li>
+            <li><a class="dropdown-item" href="/companies/sort?sort=a-z">Sort by name: A-Z</a>
+            </li>
+            <li><a class="dropdown-item" href="/companies/sort?sort=z-a">Sort by name: Z-A</a>
+            </li>
+        </ul>
+    </div>
+
     <form action="/companies/filter" method="get" class="me-2">
         <div class="mb-3">
             <label for="kitchenCategory" class="form-label">Kitchen category:</label>
@@ -15,7 +35,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="companyType" class="form-label">Kitchen category:</label>
+            <label for="companyType" class="form-label">Company type:</label>
             <select name="typeId" class="form-select" id="companyType">
                 <option value=""></option>
                 <#list types as type>
@@ -26,6 +46,7 @@
 
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
+    <br><br>
 
     <#list companies as company>
         <div class="col-12 col-md-8 col-lg-9">
@@ -36,6 +57,7 @@
                     </#if>
                     <div class="card-body">
                         <h5 class="card-title">${company.getTitle()}</h5>
+                        <h5 class="card-title">${company.getPriceCategory()}</h5>
                         <p class="text-muted">${company.getCompanyType().getTitle()}</p>
                         <p class="text-muted">${company.getKitchenCategory().getTitle()}</p>
                         <a role="button" class="btn black-btn-outline"

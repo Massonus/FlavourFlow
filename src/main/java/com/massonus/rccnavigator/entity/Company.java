@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +29,10 @@ public class Company {
     @OneToMany(mappedBy = "company",
             cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
+
+    @Column(columnDefinition = "text", name = "price_category")
+    @Enumerated(EnumType.STRING)
+    private PriceCategory priceCategory;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
