@@ -1,6 +1,6 @@
 package com.massonus.rccnavigator.controllers;
 
-import com.massonus.rccnavigator.entity.CompanyCategory;
+import com.massonus.rccnavigator.entity.CompanyType;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
@@ -181,7 +181,7 @@ public class AdminController {
     }
 
     @PostMapping("/add-new-type")
-    public String addTypePost(@Valid CompanyCategory type) {
+    public String addTypePost(@Valid CompanyType type) {
 
         companyCategoryService.saveCompanyCategory(type);
 

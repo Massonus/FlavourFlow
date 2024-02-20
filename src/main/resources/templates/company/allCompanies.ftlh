@@ -24,8 +24,8 @@
                     </#if>
                     <div class="card-body">
                         <h5 class="card-title">${company.getTitle()}</h5>
-                        <p class="text-muted">${company.getType().getTitle()}</p>
-                        <p class="text-muted">${company.getCategory().getTitle()}</p>
+                        <p class="text-muted">${company.getCompanyType().getTitle()}</p>
+                        <p class="text-muted">${company.getKitchenCategory().getTitle()}</p>
                         <a role="button" class="btn black-btn-outline"
                            href="/product/all-products/${company.getId()}">Go to products of this company</a>
                     </div>

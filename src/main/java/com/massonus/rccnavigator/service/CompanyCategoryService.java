@@ -1,6 +1,6 @@
 package com.massonus.rccnavigator.service;
 
-import com.massonus.rccnavigator.entity.CompanyCategory;
+import com.massonus.rccnavigator.entity.CompanyType;
 import com.massonus.rccnavigator.repo.CompanyCategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,18 +18,18 @@ public class CompanyCategoryService {
         this.companyCategoryRepo = companyCategoryRepo;
     }
 
-    public void saveCompanyCategory(final CompanyCategory companyCategory) {
+    public void saveCompanyCategory(final CompanyType companyType) {
 
-        companyCategoryRepo.save(companyCategory);
+        companyCategoryRepo.save(companyType);
     }
 
 
-    public Set<CompanyCategory> getAllTypes() {
+    public Set<CompanyType> getAllTypes() {
 
         return new HashSet<>(companyCategoryRepo.findAll());
     }
 
-    public CompanyCategory getTypeById(Long id) {
+    public CompanyType getTypeById(Long id) {
         return companyCategoryRepo.findCompanyCategoryById(id);
     }
 

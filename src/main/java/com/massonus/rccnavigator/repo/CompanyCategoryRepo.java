@@ -1,11 +1,11 @@
 package com.massonus.rccnavigator.repo;
 
-import com.massonus.rccnavigator.entity.CompanyCategory;
+import com.massonus.rccnavigator.entity.CompanyType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CompanyCategoryRepo extends JpaRepository<CompanyCategory, Long> {
+public interface CompanyCategoryRepo extends JpaRepository<CompanyType, Long> {
 
-    CompanyCategory findCompanyCategoryById(Long id);
+    CompanyType findCompanyCategoryById(Long id);
 }

@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @Table(name = "company_categories")
 @NoArgsConstructor
-public class CompanyCategory {
+public class CompanyType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +21,7 @@ public class CompanyCategory {
 
     private String title;
 
-    @OneToMany(mappedBy = "type",
+    @OneToMany(mappedBy = "companyType",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private Set<Company> companies = new HashSet<>();

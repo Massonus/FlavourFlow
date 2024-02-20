@@ -123,8 +123,8 @@
                         <th class="p-3" scope="row">${company.getId()}</th>
                         <td class="p-3">${company.getTitle()}</td>
                         <td class="p-3">${company.getCountOfProducts()}</td>
-                        <td class="p-3">${company.getType().getTitle()}</td>
-                        <td class="p-3">${company.getCategory().getTitle()}</td>
+                        <td class="p-3">${company.getCompanyType().getTitle()}</td>
+                        <td class="p-3">${company.getKitchenCategory().getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/companies/edit/${company.getId()}">Edit title</a>
                         </td>

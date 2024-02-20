@@ -31,11 +31,11 @@ public class Company {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private KitchenCategory category;
+    private KitchenCategory kitchenCategory;
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    private CompanyCategory type;
+    private CompanyType companyType;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();

@@ -2,7 +2,7 @@
 
 <@c.page>
 
-    <form action="/admin/edit-category/${type.getId()}" method="post">
+    <form action="/admin/edit-type/${type.getId()}" method="post">
         <div>
             <label for="title">Title</label>
             <input type="text" id="title" name="title" value="${type.getTitle()}">

@@ -55,7 +55,7 @@ public class CompanyController {
 
         if (Objects.nonNull(categoryId)) {
             companies = companies.stream()
-                    .filter(c -> c.getCategory().getId().equals(categoryId))
+                    .filter(c -> c.getKitchenCategory().getId().equals(categoryId))
                     .toList();
         }
 
