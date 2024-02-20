@@ -14,7 +14,8 @@
                             <label for="staticUsername" class="col-sm-4 col-form-label">Username</label>
                             <div class="col-sm-8">
                                 <#if isAdmin>
-                                    <input type="text" name="username" value="${username}" class="form-control" id="staticUsername">
+                                    <input type="text" name="username" value="${username}" class="form-control"
+                                           id="staticUsername">
 
                                 <#else>
                                     <input type="text" name="username" value="${username}" readonly class="form-control"
@@ -27,9 +28,11 @@
                             <label for="staticEmail" class="col-sm-4 col-form-label">Email</label>
                             <div class="col-sm-8">
                                 <#if isAdmin>
-                                    <input type="email" name="email" value="${email}" class="form-control" id="staticEmail">
+                                    <input type="email" name="email" value="${email}" class="form-control"
+                                           id="staticEmail">
                                 <#else>
-                                    <input type="email" name="email" value="${email}" readonly class="form-control" id="staticEmail">
+                                    <input type="email" name="email" value="${email}" readonly class="form-control"
+                                           id="staticEmail">
                                 </#if>
 
                             </div>

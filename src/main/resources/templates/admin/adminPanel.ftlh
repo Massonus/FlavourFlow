@@ -66,7 +66,8 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/category/add-new-category">Add new category</a>
+                <a role="button" class="btn black-btn-outline mt-3" href="/category/add-new-category">Add new
+                    category</a>
             </div>
         </div>
     </section>
@@ -136,7 +137,8 @@
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/companies/delete/${company.getId()}"><i class="bi bi-trash text-danger"></i></a>
+                                           href="/companies/delete/${company.getId()}"><i
+                                        class="bi bi-trash text-danger"></i></a>
                         </td>
                     </tr>
                 </#list>

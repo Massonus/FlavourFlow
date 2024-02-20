@@ -12,12 +12,10 @@ import java.util.Set;
 public class KitchenCategoryService {
 
     private final KitchenCategoryRepo kitchenCategoryRepo;
-    private final CompanyService companyService;
 
     @Autowired
-    public KitchenCategoryService(KitchenCategoryRepo kitchenCategoryRepo, CompanyService companyService) {
+    public KitchenCategoryService(KitchenCategoryRepo kitchenCategoryRepo) {
         this.kitchenCategoryRepo = kitchenCategoryRepo;
-        this.companyService = companyService;
     }
 
     public void saveKitchenCategory(final KitchenCategory kitchenCategory) {

@@ -3,8 +3,6 @@
 
 <@c.page>
 
-
-
     <div class="flex-grow-1">
         <form class="d-flex" role="search" action="/search" method="get">
             <input class="form-control me-2 flex-grow-1" type="search" name="title" placeholder="Search"
