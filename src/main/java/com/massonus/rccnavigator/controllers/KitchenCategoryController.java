@@ -4,6 +4,7 @@ import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class KitchenCategoryController {
         this.categoryService = categoryService;
     }
 
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add-new-category")
     public String getAddCategoryForm() {
 
@@ -28,6 +29,7 @@ public class KitchenCategoryController {
 
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add-new-category")
     public String addCategoryPost(@Valid KitchenCategory category) {
 
@@ -37,7 +39,7 @@ public class KitchenCategoryController {
 
     }
 
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/edit-category/{id}")
     public String getCategoryEditForm(@PathVariable Long id, Model model) {
 
@@ -47,6 +49,7 @@ public class KitchenCategoryController {
 
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/edit-category/{id}")
     public String categoryPostEdit(@PathVariable Long id,
                                    @RequestParam String title) {
@@ -56,6 +59,7 @@ public class KitchenCategoryController {
         return "redirect:/admin/panel";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delete-category/{id}")
     public String deleteCategory(@PathVariable Long id) {
 

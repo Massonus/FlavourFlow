@@ -66,7 +66,7 @@ public class CompanyController {
         return "company/allCompanies";
 
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add-company")
     public String getAddCompanyForm(Model model) {
 

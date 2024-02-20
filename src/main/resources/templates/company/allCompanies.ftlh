@@ -3,7 +3,6 @@
 
 <@c.page>
 
-    <div>
     <form action="/companies/filter" method="get" class="me-2">
         <div class="mb-3">
             <label for="kitchenCategory" class="form-label">Kitchen category:</label>
@@ -13,7 +12,9 @@
                     <option value="${category.getId()}" selected="selected"> ${category.getTitle()}</option>
                 </#list>
             </select>
+            <button class="btn btn-outline-success" type="submit">Search</button>
         </div>
+    </form>
 
     <#list companies as company>
         <div class="col-12 col-md-8 col-lg-9">

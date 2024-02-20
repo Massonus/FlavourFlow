@@ -47,6 +47,7 @@ public class ProductController {
         return "product/allProducts";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin/all-products/{id}")
     public String getProductsOfCompanyForAdmin(@PathVariable Long id, Model model) {
         Set<Product> products = productService.getAllProductsByCompanyId(id);
@@ -57,6 +58,7 @@ public class ProductController {
         return "product/productsInAdminPanel";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add-product/{id}")
     public String addProduct(@PathVariable Long id, Model model) {
 
