@@ -72,6 +72,16 @@ public class UserService implements UserDetailsService {
 
     }
 
+    public void updateUser(Long id, String password, String username, String email) {
+        User savedUser = getUserById(id);
+
+        if (!password.isEmpty()) {
+            savedUser.setPassword(passwordEncoder.encode(password));
+        }
+        savedUser.setUsername(username);
+        savedUser.setEmail(email);
+    }
+
     public User getUserById(Long id) {
         return userRepo.findUserById(id);
     }

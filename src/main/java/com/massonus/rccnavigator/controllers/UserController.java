@@ -30,6 +30,21 @@ public class UserController {
         return "user/profile";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/change-profile")
+    public String updateUserProfile(@AuthenticationPrincipal User user,
+                                    @RequestParam String username,
+                                    @RequestParam String email,
+                                    @RequestParam String password) {
+
+
+        userService.updateUser(user.getId(), password, username, email);
+
+
+        return "redirect:/user/profile";
+
+    }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delete-user/{id}")
     public String deleteUser(@PathVariable Long id) {
@@ -39,6 +54,7 @@ public class UserController {
         return "redirect:/admin/panel";
 
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add-new-user")
     public String getAddUserForm() {
@@ -46,6 +62,7 @@ public class UserController {
         return "user/addUser";
 
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add-new-user")
     public String registrationPost(@AuthenticationPrincipal User redactor,
@@ -89,6 +106,7 @@ public class UserController {
         return "user/editUser";
 
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/edit-user/{id}")
     public String saveUpdatedUser(@AuthenticationPrincipal User redactor,
