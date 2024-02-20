@@ -28,7 +28,6 @@ public class ProductController {
     private final BasketService basketService;
     private final WishService wishService;
 
-
     @Autowired
     public ProductController(ProductService productService, ImageService imageService, BasketService basketService, WishService wishService) {
         this.productService = productService;
@@ -51,7 +50,6 @@ public class ProductController {
     @GetMapping("/admin/all-products/{id}")
     public String getProductsOfCompanyForAdmin(@PathVariable Long id, Model model) {
         Set<Product> products = productService.getAllProductsByCompanyId(id);
-
         model.addAttribute("products", products);
         model.addAttribute("id", id);
 

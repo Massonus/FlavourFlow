@@ -7,13 +7,24 @@
         <div class="mb-3">
             <label for="kitchenCategory" class="form-label">Kitchen category:</label>
             <select name="categoryId" class="form-select" id="kitchenCategory">
-                <option value=""></option>
+                <option selected value=""></option>
                 <#list categories as category>
-                    <option value="${category.getId()}" selected="selected"> ${category.getTitle()}</option>
+                    <option value="${category.getId()}"> ${category.getTitle()}</option>
                 </#list>
             </select>
-            <button class="btn btn-outline-success" type="submit">Search</button>
         </div>
+
+        <div class="mb-3">
+            <label for="companyType" class="form-label">Kitchen category:</label>
+            <select name="typeId" class="form-select" id="companyType">
+                <option value=""></option>
+                <#list types as type>
+                    <option value="${type.getId()}"> ${type.getTitle()}</option>
+                </#list>
+            </select>
+        </div>
+
+        <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
 
     <#list companies as company>

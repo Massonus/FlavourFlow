@@ -2,8 +2,8 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Image;
-import com.massonus.rccnavigator.service.CompanyTypeService;
 import com.massonus.rccnavigator.service.CompanyService;
+import com.massonus.rccnavigator.service.CompanyTypeService;
 import com.massonus.rccnavigator.service.ImageService;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import jakarta.validation.Valid;
@@ -49,13 +49,20 @@ public class CompanyController {
 
     @GetMapping("/filter")
     public String getAllFilterCompanies(Model model,
-                                        @RequestParam(required = false) Long categoryId) {
+                                        @RequestParam(required = false) Long categoryId,
+                                        @RequestParam(required = false) Long typeId) {
 
         List<Company> companies = companyService.getAllCompanies();
 
         if (Objects.nonNull(categoryId)) {
             companies = companies.stream()
                     .filter(c -> c.getKitchenCategory().getId().equals(categoryId))
+                    .toList();
+        }
+
+        if (Objects.nonNull(typeId)) {
+            companies = companies.stream()
+                    .filter(c -> c.getCompanyType().getId().equals(typeId))
                     .toList();
         }
 
@@ -66,6 +73,7 @@ public class CompanyController {
         return "company/allCompanies";
 
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add-company")
     public String getAddCompanyForm(Model model) {
