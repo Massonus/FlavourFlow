@@ -2,7 +2,7 @@
 
 <@c.page>
 
-    <form action="/admin/add-new-type" method="post">
+    <form action="/type/add-new-type" method="post">
         <div>
             <label for="title">Title</label>
             <input type="text" id="title" name="title">

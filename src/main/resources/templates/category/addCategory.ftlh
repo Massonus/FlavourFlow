@@ -2,10 +2,10 @@
 
 <@c.page>
 
-    <form action="/admin/edit-category/${category.getId()}" method="post">
+    <form action="/category/add-new-category" method="post">
         <div>
             <label for="title">Title</label>
-            <input type="text" id="title" name="title" value="${category.getTitle()}">
+            <input type="text" id="title" name="title">
         </div>
         <br>
         <div>

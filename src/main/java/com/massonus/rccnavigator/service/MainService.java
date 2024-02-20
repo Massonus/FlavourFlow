@@ -15,13 +15,13 @@ public class MainService {
 
     private final CompanyService companyService;
     private final KitchenCategoryService kitchenCategoryService;
-    private final CompanyCategoryService companyCategoryService;
+    private final CompanyTypeService companyTypeService;
 
     @Autowired
-    public MainService(CompanyService companyService, KitchenCategoryService kitchenCategoryService, CompanyCategoryService companyCategoryService) {
+    public MainService(CompanyService companyService, KitchenCategoryService kitchenCategoryService, CompanyTypeService companyTypeService) {
         this.companyService = companyService;
         this.kitchenCategoryService = kitchenCategoryService;
-        this.companyCategoryService = companyCategoryService;
+        this.companyTypeService = companyTypeService;
     }
 
     public Set<Company> initialize() {
@@ -34,7 +34,7 @@ public class MainService {
             kitchenCategory.setTitle("Cat " + lengthMas);
             companyType.setTitle("Comp " + i);
             kitchenCategoryService.saveKitchenCategory(kitchenCategory);
-            companyCategoryService.saveCompanyCategory(companyType);
+            companyTypeService.saveCompanyType(companyType);
             Company company = companyService.createElementAuto();
             company.setKitchenCategory(kitchenCategory);
             company.setCompanyType(companyType);

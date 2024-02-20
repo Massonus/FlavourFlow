@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CompanyCategoryRepo extends JpaRepository<CompanyType, Long> {
+public interface CompanyTypeRepo extends JpaRepository<CompanyType, Long> {
 
-    CompanyType findCompanyCategoryById(Long id);
+    CompanyType findCompanyTypeById(Long id);
 }

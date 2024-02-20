@@ -2,7 +2,7 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Image;
-import com.massonus.rccnavigator.service.CompanyCategoryService;
+import com.massonus.rccnavigator.service.CompanyTypeService;
 import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.ImageService;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
@@ -25,14 +25,14 @@ public class CompanyController {
     private final CompanyService companyService;
     private final ImageService imageService;
     private final KitchenCategoryService kitchenCategoryService;
-    private final CompanyCategoryService companyCategoryService;
+    private final CompanyTypeService companyTypeService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyCategoryService companyCategoryService) {
+    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyTypeService companyTypeService) {
         this.companyService = companyService;
         this.imageService = imageService;
         this.kitchenCategoryService = kitchenCategoryService;
-        this.companyCategoryService = companyCategoryService;
+        this.companyTypeService = companyTypeService;
     }
 
     @GetMapping
@@ -41,7 +41,7 @@ public class CompanyController {
         List<Company> companies = companyService.getAllCompanies();
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCategoryService.getAllTypes());
+        model.addAttribute("types", companyTypeService.getAllTypes());
         model.addAttribute("companies", companies);
 
         return "company/allCompanies";
@@ -60,10 +60,20 @@ public class CompanyController {
         }
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCategoryService.getAllTypes());
+        model.addAttribute("types", companyTypeService.getAllTypes());
         model.addAttribute("companies", companies);
 
         return "company/allCompanies";
+
+    }
+
+    @GetMapping("/add-company")
+    public String getAddCompanyForm(Model model) {
+
+        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
+        model.addAttribute("types", companyTypeService.getAllTypes());
+
+        return "company/addCompany";
 
     }
 
@@ -81,7 +91,7 @@ public class CompanyController {
             throw new RuntimeException(e);
         }
 
-        companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId), companyCategoryService.getTypeById(typeId));
+        companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId), companyTypeService.getTypeById(typeId));
         companyService.getCompanyByTitle(company.getTitle());
 
         return "redirect:/admin/panel";
@@ -92,7 +102,7 @@ public class CompanyController {
     public String updateCompany(@PathVariable("id") Long id, Model model) {
         Company company = companyService.getCompanyById(id);
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCategoryService.getAllTypes());
+        model.addAttribute("types", companyTypeService.getAllTypes());
         model.addAttribute("company", company);
         return "company/companyEdit";
     }
@@ -104,7 +114,7 @@ public class CompanyController {
                                      @RequestParam Long typeId,
                                      Company company) {
 
-        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId), companyCategoryService.getTypeById(typeId));
+        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId), companyTypeService.getTypeById(typeId));
 
         return "redirect:/admin/panel";
     }

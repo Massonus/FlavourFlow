@@ -53,11 +53,11 @@
                         <th class="p-3" scope="row">${category.getId()}</th>
                         <td class="p-3">${category.getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/admin/edit-category/${category.getId()}">Edit</a>
+                                           href="/category/edit-category/${category.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               href="/admin/delete-category/${category.getId()}">
+                               href="/category/delete-category/${category.getId()}">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
@@ -66,7 +66,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/admin/add-new-category">Add new category</a>
+                <a role="button" class="btn black-btn-outline mt-3" href="/category/add-new-category">Add new category</a>
             </div>
         </div>
     </section>
@@ -86,11 +86,11 @@
                         <th class="p-3" scope="row">${type.getId()}</th>
                         <td class="p-3">${type.getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/admin/edit-type/${type.getId()}">Edit</a>
+                                           href="/type/edit-type/${type.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               href="/admin/delete-type/${type.getId()}">
+                               href="/type/delete-type/${type.getId()}">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
@@ -99,7 +99,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/admin/add-new-type">Add new type</a>
+                <a role="button" class="btn black-btn-outline mt-3" href="/type/add-new-type">Add new type</a>
             </div>
         </div>
     </section>
@@ -141,7 +141,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/admin/add-company">Add new company</a>
+                <a role="button" class="btn black-btn-outline mt-3" href="/companies/add-company">Add new company</a>
             </div>
         </div>
     </section>

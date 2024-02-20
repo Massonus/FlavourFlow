@@ -4,7 +4,7 @@ import com.massonus.rccnavigator.entity.CompanyType;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.service.CompanyCategoryService;
+import com.massonus.rccnavigator.service.CompanyTypeService;
 import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.UserService;
@@ -26,14 +26,14 @@ public class AdminController {
     private final UserService userService;
     private final KitchenCategoryService kitchenCategoryService;
     private final CompanyService companyService;
-    private final CompanyCategoryService companyCategoryService;
+    private final CompanyTypeService companyTypeService;
 
     @Autowired
-    public AdminController(UserService userService, KitchenCategoryService kitchenCategoryService, CompanyService companyService, CompanyCategoryService companyCategoryService) {
+    public AdminController(UserService userService, KitchenCategoryService kitchenCategoryService, CompanyService companyService, CompanyTypeService companyTypeService) {
         this.userService = userService;
         this.kitchenCategoryService = kitchenCategoryService;
         this.companyService = companyService;
-        this.companyCategoryService = companyCategoryService;
+        this.companyTypeService = companyTypeService;
     }
 
     @GetMapping("/panel")
@@ -42,7 +42,7 @@ public class AdminController {
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCategoryService.getAllTypes());
+        model.addAttribute("types", companyTypeService.getAllTypes());
         model.addAttribute("companies", companyService.getAllCompanies());
 
         return "admin/adminPanel";
@@ -95,21 +95,6 @@ public class AdminController {
         return "redirect:/admin/panel";
     }
 
-    @GetMapping("/add-new-category")
-    public String getAddCategoryForm() {
-
-        return "admin/addCategory";
-
-    }
-
-    @PostMapping("/add-new-category")
-    public String addCategoryPost(@Valid KitchenCategory category) {
-
-        kitchenCategoryService.saveKitchenCategory(category);
-
-        return "redirect:/admin/panel";
-
-    }
 
     @GetMapping("/edit-user/{id}")
     public String getEditUserForm(@PathVariable Long id, Model model) {
@@ -133,88 +118,6 @@ public class AdminController {
         userService.editUser(redactor, id, username, email, password, Role.valueOf(role));
 
         return "redirect:/admin/panel";
-    }
-
-    @GetMapping("/edit-category/{id}")
-    public String getCategoryEditForm(@PathVariable Long id, Model model) {
-
-        model.addAttribute("category", kitchenCategoryService.getCategoryById(id));
-
-        return "admin/editCategory";
-
-    }
-
-    @PostMapping("/edit-category/{id}")
-    public String categoryPostEdit(@PathVariable Long id,
-                                   @RequestParam String title) {
-
-        kitchenCategoryService.editCategory(id, title);
-
-        return "redirect:/admin/panel";
-    }
-
-    @GetMapping("/delete-category/{id}")
-    public String deleteCategory(@PathVariable Long id) {
-
-        kitchenCategoryService.deleteCategory(id);
-
-        return "redirect:/admin/panel";
-
-    }
-
-    @GetMapping("/add-company")
-    public String getAddCompanyForm(Model model) {
-
-        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCategoryService.getAllTypes());
-
-        return "company/addCompany";
-
-    }
-
-
-    @GetMapping("/add-new-type")
-    public String getAddTypeForm() {
-
-        return "admin/addType";
-
-    }
-
-    @PostMapping("/add-new-type")
-    public String addTypePost(@Valid CompanyType type) {
-
-        companyCategoryService.saveCompanyCategory(type);
-
-        return "redirect:/admin/panel";
-
-    }
-
-
-    @GetMapping("/edit-type/{id}")
-    public String getTypeEditForm(@PathVariable Long id, Model model) {
-
-        model.addAttribute("type", companyCategoryService.getTypeById(id));
-
-        return "admin/editType";
-
-    }
-
-    @PostMapping("/edit-type/{id}")
-    public String typePostEdit(@PathVariable Long id,
-                                   @RequestParam String title) {
-
-        companyCategoryService.editType(id, title);
-
-        return "redirect:/admin/panel";
-    }
-
-    @GetMapping("/delete-type/{id}")
-    public String deleteType(@PathVariable Long id) {
-
-        companyCategoryService.deleteType(id);
-
-        return "redirect:/admin/panel";
-
     }
 
 }
