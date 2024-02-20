@@ -100,7 +100,7 @@ public class AdminController {
     @PostMapping("/add-new-category")
     public String addCategoryPost(@Valid KitchenCategory category) {
 
-        kitchenCategoryService.saveCategory(category);
+        kitchenCategoryService.saveKitchenCategory(category);
 
         return "redirect:/admin/panel";
 

@@ -37,6 +37,10 @@ public class Company {
     @JoinColumn(name = "category_id")
     private KitchenCategory category;
 
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private CompanyCategory type;
+
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();
 

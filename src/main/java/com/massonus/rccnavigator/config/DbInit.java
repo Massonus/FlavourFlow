@@ -1,7 +1,7 @@
 package com.massonus.rccnavigator.config;
 
 import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.service.KitchenCategoryService;
+import com.massonus.rccnavigator.service.MainService;
 import com.massonus.rccnavigator.service.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class DbInit {
 
-    private final KitchenCategoryService categoryService;
+    private final MainService mainService;
 
     private final UserService userService;
 
     @Autowired
-    public DbInit(KitchenCategoryService categoryService, UserService userService) {
-        this.categoryService = categoryService;
+    public DbInit(MainService mainService, UserService userService) {
+        this.mainService = mainService;
         this.userService = userService;
     }
 
@@ -24,7 +24,7 @@ public class DbInit {
     private void postConstruct() {
 
         for (int i = 0; i < 2; i++) {
-            categoryService.createAndFillCompanyListForCategory();
+            mainService.initialize();
         }
 
         final User user = new User();

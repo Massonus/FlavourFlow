@@ -1,13 +1,11 @@
 package com.massonus.rccnavigator.service;
 
-import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.repo.KitchenCategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
 @Service
@@ -22,23 +20,7 @@ public class KitchenCategoryService {
         this.companyService = companyService;
     }
 
-    public Set<Company> createAndFillCompanyListForCategory() {
-        KitchenCategory kitchenCategory = new KitchenCategory();
-        Set<Company> companies = new HashSet<>();
-        Random random = new Random();
-        int lengthMas = random.nextInt(1, 3);
-        for (int i = 0; i < lengthMas; i++) {
-            kitchenCategory.setTitle("Cat " + lengthMas);
-            kitchenCategoryRepo.save(kitchenCategory);
-            Company company = companyService.createElementAuto();
-            company.setCategory(kitchenCategory);
-            companyService.saveCompany(company);
-            companies.add(company);
-        }
-        return companies;
-    }
-
-    public void saveCategory(final KitchenCategory kitchenCategory) {
+    public void saveKitchenCategory(final KitchenCategory kitchenCategory) {
 
         kitchenCategoryRepo.save(kitchenCategory);
     }
@@ -54,7 +36,7 @@ public class KitchenCategoryService {
 
     public void editCategory(Long id, String title) {
 
-        kitchenCategoryRepo.findKitchenCategoryById(id).setTitle(title);
+        getCategoryById(id).setTitle(title);
 
     }
 
