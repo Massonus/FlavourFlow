@@ -69,8 +69,8 @@ public class MainService {
                 case 1:
                     company.setImageLink("https://www.reston.ua/images/img/rukolla_1.jpg");
                     company.setTitle("Ternoso");
-                    company.setCompanyType(companyTypeService.getTypeById(1L));
-                    company.setKitchenCategory(kitchenCategoryService.getCategoryById(1L));
+                    company.setKitchenCategory(kitchenCategoryService.getCategoryByTitle("ITALIAN"));
+                    company.setCompanyType(companyTypeService.getTypeByTitle("RESTAURANT"));
                     company.setPriceCategory(PriceCategory.HIGH);
                     break;
 
@@ -78,32 +78,32 @@ public class MainService {
 
                     company.setImageLink("https://ic.pics.livejournal.com/terranova2017/56708048/1935389/1935389_original.jpg");
                     company.setTitle("American style");
-                    company.setCompanyType(companyTypeService.getTypeById(2L));
-                    company.setKitchenCategory(kitchenCategoryService.getCategoryById(2L));
+                    company.setCompanyType(companyTypeService.getTypeByTitle("CAFFE"));
+                    company.setKitchenCategory(kitchenCategoryService.getCategoryByTitle("AMERICAN"));
                     company.setPriceCategory(PriceCategory.MEDIUM);
                     break;
 
                 case 3:
-                    company.setImageLink("https://etvisa.com.ua/wp-content/uploads/2019/09/Marquee-Nightclub-768x487.jpg");
+                    company.setImageLink("https://gcdn.tomesto.ru/img/place/000/030/551/restoran-turgenev-na-semakova_382c3_logo-338787.jpg");
                     company.setTitle("Palyanica");
-                    company.setCompanyType(companyTypeService.getTypeById(3L));
-                    company.setKitchenCategory(kitchenCategoryService.getCategoryById(3L));
-                    company.setPriceCategory(PriceCategory.PREMIUM);
+                    company.setCompanyType(companyTypeService.getTypeByTitle("CAFFE"));
+                    company.setKitchenCategory(kitchenCategoryService.getCategoryByTitle("UKRAINIAN"));
+                    company.setPriceCategory(PriceCategory.MEDIUM);
                     break;
 
                 case 4:
-                    company.setImageLink("https://moscowseasons.com/uploads/2019/06/26/5d13157c70b0b.jpeg");
+                    company.setImageLink("https://etvisa.com.ua/wp-content/uploads/2019/09/Marquee-Nightclub-768x487.jpg");
                     company.setTitle("Arizona");
-                    company.setCompanyType(companyTypeService.getTypeById(4L));
-                    company.setKitchenCategory(kitchenCategoryService.getCategoryById(4L));
+                    company.setCompanyType(companyTypeService.getTypeByTitle("CLUB"));
+                    company.setKitchenCategory(kitchenCategoryService.getCategoryByTitle("UKRAINIAN"));
                     company.setPriceCategory(PriceCategory.PREMIUM);
                     break;
 
                 default:
-                    company.setImageLink("https://gcdn.tomesto.ru/img/place/000/030/551/restoran-turgenev-na-semakova_382c3_logo-338787.jpg");
+                    company.setImageLink("https://moscowseasons.com/uploads/2019/06/26/5d13157c70b0b.jpeg");
                     company.setTitle("Teremok");
-                    company.setCompanyType(companyTypeService.getTypeById(1L));
-                    company.setKitchenCategory(kitchenCategoryService.getCategoryById(2L));
+                    company.setCompanyType(companyTypeService.getTypeByTitle("GENDEL"));
+                    company.setKitchenCategory(kitchenCategoryService.getCategoryByTitle("RUSSIAN"));
                     company.setPriceCategory(PriceCategory.LOW);
                     break;
 
