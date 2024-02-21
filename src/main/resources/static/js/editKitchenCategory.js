@@ -1,7 +1,7 @@
-function createKitchenCategory(event) {
+function editKitchenCategory(event, categoryId) {
     event.preventDefault();
 
-    let form = document.getElementById("addCategory");
+    let form = document.getElementById("editCategory");
     let csrf = document.getElementById("_csrf").value;
 
     let title = form.elements.title.value;
@@ -10,11 +10,10 @@ function createKitchenCategory(event) {
         title: title
     });
 
-    const url = "/category/add-new-category";
+    const url = `/category/edit-category/${categoryId}`;
 
     fetch(url, {
-        method: "POST",
-        redirect: 'follow',
+        method: 'PUT',
         headers: {
             "Content-Type": "application/json",
             "X-CSRF-TOKEN": csrf,

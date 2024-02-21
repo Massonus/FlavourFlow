@@ -50,13 +50,11 @@ public class KitchenCategoryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit-category/{id}")
-    public String categoryPostEdit(@PathVariable Long id,
-                                   @RequestParam String title) {
+    @PutMapping("/edit-category/{id}")
+    @ResponseBody
+    public KitchenCategory categoryPutEdit(@PathVariable Long id, @RequestBody KitchenCategory category) {
 
-        categoryService.editCategory(id, title);
-
-        return "redirect:/admin/panel";
+        return categoryService.editCategory(id, category);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

@@ -36,9 +36,12 @@ public class KitchenCategoryService {
         return kitchenCategoryRepo.findKitchenCategoryByTitle(title);
     }
 
-    public void editCategory(Long id, String title) {
+    public KitchenCategory editCategory(Long id, KitchenCategory category) {
 
-        getCategoryById(id).setTitle(title);
+        KitchenCategory categoryById = getCategoryById(id);
+        categoryById.setTitle(category.getTitle());
+
+        return categoryById;
 
     }
 
