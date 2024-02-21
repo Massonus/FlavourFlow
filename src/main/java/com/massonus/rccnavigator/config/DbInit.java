@@ -25,7 +25,6 @@ public class DbInit {
 
         mainService.initialize();
 
-
         final User user = new User();
         user.setEmail("user@gmail.com");
         user.setUsername("cat");

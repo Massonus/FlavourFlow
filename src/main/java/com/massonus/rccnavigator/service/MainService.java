@@ -47,8 +47,8 @@ public class MainService {
                     break;
 
                 case 4:
-                    kitchenCategory.setTitle("RUSSIAN");
-                    companyType.setTitle("GENDEL");
+                    kitchenCategory.setTitle("SPANISH");
+                    companyType.setTitle("FAST FOOD");
             }
 
             kitchenCategoryService.saveKitchenCategory(kitchenCategory);
@@ -96,10 +96,10 @@ public class MainService {
                     break;
 
                 default:
-                    company.setImageLink("https://moscowseasons.com/uploads/2019/06/26/5d13157c70b0b.jpeg");
-                    company.setTitle("Teremok");
-                    company.setCompanyType(companyTypeService.getTypeByTitle("GENDEL"));
-                    company.setKitchenCategory(kitchenCategoryService.getCategoryByTitle("RUSSIAN"));
+                    company.setImageLink("https://st.hzcdn.com/simgs/1461b8f30a2d35c5_4-8890/home-design.jpg");
+                    company.setTitle("PNS");
+                    company.setCompanyType(companyTypeService.getTypeByTitle("FAST FOOD"));
+                    company.setKitchenCategory(kitchenCategoryService.getCategoryByTitle("SPANISH"));
                     company.setPriceCategory(PriceCategory.LOW);
                     break;
 
@@ -140,15 +140,13 @@ public class MainService {
                 }
                 break;
 
-            default:
+            case "SPANISH":
 
-                for (int i = 0; i < random.nextInt(1, 3); i++) {
-                    Product product = new Product();
-                    product.setTitle("default");
-                    product.setPrice("21");
-                    product.setCompany(company);
+                for (int i = 1; i < random.nextInt(2, 4); i++) {
+                    Product product = getSpanishProduct(company, i);
                     productService.saveProduct(product);
                 }
+                break;
         }
     }
 
@@ -253,6 +251,34 @@ public class MainService {
                 }
                 break;
         }
+        product.setCompany(company);
+        return product;
+    }
+
+    private Product getSpanishProduct(Company company, int i) {
+        Product product = new Product();
+
+        switch (i) {
+
+            case 1:
+                product.setTitle("Pizza");
+                product.setPrice("5");
+                product.setImageLink("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Supreme_pizza.jpg/1200px-Supreme_pizza.jpg");
+                break;
+
+            case 2:
+                product.setTitle("Nuggets");
+                product.setPrice("4");
+                product.setImageLink("https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Chicken_Nuggets.jpg/640px-Chicken_Nuggets.jpg");
+                break;
+
+            case 3:
+                product.setTitle("Hamburger");
+                product.setPrice("8");
+                product.setImageLink("https://i.obozrevatel.com/food/recipemain/2020/2/12/14.png?size=636x424");
+                break;
+        }
+
         product.setCompany(company);
         return product;
     }
