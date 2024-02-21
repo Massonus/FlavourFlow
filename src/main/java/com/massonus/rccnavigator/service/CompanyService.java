@@ -4,7 +4,9 @@ import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -12,11 +14,13 @@ public class CompanyService {
     private final CompanyRepo companyRepo;
 
     private final ProductService productService;
+    private final ImageService imageService;
 
     @Autowired
-    public CompanyService(CompanyRepo companyRepo, ProductService productService) {
+    public CompanyService(CompanyRepo companyRepo, ProductService productService, ImageService imageService) {
         this.companyRepo = companyRepo;
         this.productService = productService;
+        this.imageService = imageService;
     }
 
     public Company saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyType type) {
@@ -33,8 +37,24 @@ public class CompanyService {
         return company;
     }
 
-    public void editCompany(final Long id, final Company company, KitchenCategory category, CompanyType type) {
+    public void editCompany(final Long id, final Company company, KitchenCategory category, CompanyType type, MultipartFile multipartFile, String imageLink) {
         Company savedCompany = companyRepo.findCompanyById(id);
+
+
+        if (!multipartFile.isEmpty()) {
+            Image uploadImage;
+            try {
+                uploadImage = imageService.upload(multipartFile);
+                savedCompany.setImage(uploadImage);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        if (!imageLink.isEmpty()) {
+            savedCompany.setImageLink(imageLink);
+            savedCompany.setImage(null);
+        }
 
         savedCompany.setTitle(company.getTitle());
         savedCompany.setPriceCategory(company.getPriceCategory());

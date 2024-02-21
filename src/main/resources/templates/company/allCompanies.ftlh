@@ -55,7 +55,7 @@
                     <#if (company.getImage()??)>
                         <img alt="product image" src="/images/${company.getImage().getId()}.jpg" class="card-img-top"/>
                     <#else>
-                        <img src="${company.getImageLink()}" class="card-img-top" alt="product image">
+                        <img alt="product image" src="${company.getImageLink()}" class="card-img-top" >
                     </#if>
 
                     <div class="card-body">

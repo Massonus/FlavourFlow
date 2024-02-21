@@ -9,7 +9,7 @@
             <section class="py-5">
                 <h2 class="h5 text-uppercase mb-4">Company editing</h2>
                 <div style="max-width: 600px" class="w-100">
-                    <form action="/companies/edit/${company.getId()}" method="post"
+                    <form enctype="multipart/form-data" action="/companies/edit/${company.getId()}" method="post"
                           class="text-start py-4">
                         <div class="mb-3 row">
                             <label for="inputTitle" class="col-sm-4 col-form-label">Title</label>
@@ -21,17 +21,22 @@
 
                         <div class="mb-3 row">
                             <label>Price Category:
-                                <input type="radio" name="priceCategory" value="LOW" checked>LOW
-                                <input type="radio" name="priceCategory" value="MEDIUM">MEDIUM
-                                <input type="radio" name="priceCategory" value="HIGH">HIGH
-                                <input type="radio" name="priceCategory" value="PREMIUM">PREMIUM
+                                <input type="radio" name="priceCategory"
+                                       <#if company.getPriceCategory() == "LOW">checked</#if> value="LOW">LOW
+                                <input type="radio" name="priceCategory"
+                                       <#if company.getPriceCategory() == "MEDIUM">checked</#if> value="MEDIUM">MEDIUM
+                                <input type="radio" name="priceCategory"
+                                       <#if company.getPriceCategory() == "HIGH">checked</#if> value="HIGH">HIGH
+                                <input type="radio" name="priceCategory"
+                                       <#if company.getPriceCategory() == "PREMIUM">checked</#if> value="PREMIUM"
+                                       value="PREMIUM">PREMIUM
                             </label><br><br>
                         </div>
 
                         <#list categories as category>
                         <div class="mb-3 row">
                             <label>Category:
-                                <input type="radio" name="categoryId" checked
+                                <input type="radio" name="categoryId" <#if company.getKitchenCategory().getId() == category.getId()>checked</#if>
                                        value=${category.getId()}> ${category.getTitle()}
                             </label>
                             </#list>
@@ -40,11 +45,19 @@
                         <#list types as type>
                         <div class="mb-3 row">
                             <label>Category:
-                                <input type="radio" name="typeId" checked
-                                       value=${type.getId()}> ${type.getTitle()}
+                                <input type="radio" name="typeId" <#if company.getCompanyType().getId() == type.getId()>checked</#if> value=${type.getId()}> ${type.getTitle()}
                             </label>
                             </#list>
                         </div>
+
+                        <h5>Choose a file or enter link</h5>
+                        <label for="file">File:</label>
+                        <input type="file" name="file">
+                        <br><br>
+
+                        <label for="imageLink"></label>
+                        <input placeholder="image link" type="text"
+                               name="imageLink" id="imageLink">
 
                         <a role="button" class="btn btn-outline-secondary mt-3"
                            href="/admin/panel">Cancel</a>
