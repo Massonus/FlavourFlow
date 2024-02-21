@@ -92,12 +92,7 @@ public class CompanyController {
                              @RequestParam Long typeId,
                              @RequestParam("file") MultipartFile multipartFile) {
 
-        Image uploadImage;
-        try {
-            uploadImage = imageService.upload(multipartFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Image uploadImage = imageService.upload(multipartFile);
 
         companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId), companyTypeService.getTypeById(typeId));
 

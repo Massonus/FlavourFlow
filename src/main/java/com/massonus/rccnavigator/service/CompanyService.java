@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -40,15 +39,9 @@ public class CompanyService {
     public void editCompany(final Long id, final Company company, KitchenCategory category, CompanyType type, MultipartFile multipartFile, String imageLink) {
         Company savedCompany = companyRepo.findCompanyById(id);
 
-
         if (!multipartFile.isEmpty()) {
-            Image uploadImage;
-            try {
-                uploadImage = imageService.upload(multipartFile);
-                savedCompany.setImage(uploadImage);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            Image uploadImage = imageService.upload(multipartFile);
+            savedCompany.setImage(uploadImage);
         }
 
         if (!imageLink.isEmpty()) {

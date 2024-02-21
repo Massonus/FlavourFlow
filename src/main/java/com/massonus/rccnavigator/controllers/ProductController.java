@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Set;
 
 @Controller
@@ -71,12 +70,8 @@ public class ProductController {
     public String newProduct(@PathVariable Long companyId, @Valid Product product,
                              @RequestParam("file") MultipartFile multipartFile) {
 
-        Image uploadImage;
-        try {
-            uploadImage = imageService.upload(multipartFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        Image uploadImage = imageService.upload(multipartFile);
 
         productService.saveProduct(product, uploadImage, companyId);
 
@@ -97,12 +92,7 @@ public class ProductController {
                                      @RequestParam("file") MultipartFile multipartFile,
                                      Product product) {
 
-        Image uploadImage;
-        try {
-            uploadImage = imageService.upload(multipartFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Image uploadImage = imageService.upload(multipartFile);
 
         Long companyId = productService.editProduct(id, product, uploadImage);
 

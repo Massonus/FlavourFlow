@@ -18,12 +18,18 @@ public class ImageService {
         this.imageRepo = imageRepo;
     }
 
-    public Image upload(final MultipartFile resource) throws IOException {
+    public Image upload(final MultipartFile resource) {
         Image createdFile = new Image();
-        createdFile.setBytes(resource.getBytes());
-        createdFile.setName(resource.getOriginalFilename());
-        createdFile.setSize(resource.getSize());
-        createdFile.setContentType(resource.getContentType());
+
+        try {
+            createdFile.setBytes(resource.getBytes());
+            createdFile.setName(resource.getOriginalFilename());
+            createdFile.setSize(resource.getSize());
+            createdFile.setContentType(resource.getContentType());
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+
 
         imageRepo.save(createdFile);
         return createdFile;
