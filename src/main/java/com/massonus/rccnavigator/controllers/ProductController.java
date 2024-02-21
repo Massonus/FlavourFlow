@@ -61,19 +61,18 @@ public class ProductController {
 
         model.addAttribute("id", id);
 
-        return "company/addProductToCompany";
+        return "product/addProductToCompany";
 
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/new-product/{companyId}")
-    public String newProduct(@PathVariable Long companyId, @Valid Product product,
-                             @RequestParam("file") MultipartFile multipartFile) {
+    public String newProduct(@PathVariable Long companyId,
+                             @Valid Product product,
+                             @RequestParam("file") MultipartFile multipartFile,
+                             @RequestParam String imageLink) {
 
-
-        Image uploadImage = imageService.upload(multipartFile);
-
-        productService.saveProduct(product, uploadImage, companyId);
+        productService.saveProduct(product, multipartFile, imageLink, companyId);
 
         return "redirect:/product/admin/all-products/" + companyId;
     }
@@ -90,11 +89,10 @@ public class ProductController {
     @PostMapping("/edit/{id}")
     public String saveUpdatedProduct(@PathVariable Long id,
                                      @RequestParam("file") MultipartFile multipartFile,
+                                     @RequestParam String imageLink,
                                      Product product) {
 
-        Image uploadImage = imageService.upload(multipartFile);
-
-        Long companyId = productService.editProduct(id, product, uploadImage);
+        Long companyId = productService.editProduct(id, product, multipartFile, imageLink);
 
         return "redirect:/product/admin/all-products/" + companyId;
     }

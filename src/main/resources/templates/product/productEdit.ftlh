@@ -27,8 +27,15 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <h5>Choose a file or enter link</h5>
                             <label for="file">File:</label>
                             <input type="file" name="file">
+                            <br><br>
+
+                            <label for="imageLink"></label>
+                            <input placeholder="image link" type="text"
+                                   name="imageLink" id="imageLink">
+                            <br><br>
                         </div>
 
                         <a role="button" class="btn btn-outline-secondary mt-3"

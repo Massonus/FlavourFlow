@@ -6,6 +6,7 @@ import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,17 +16,29 @@ public class ProductService {
 
     private final ProductRepo productRepo;
     private final CompanyRepo companyRepo;
+    private final ImageService imageService;
 
     @Autowired
-    public ProductService(ProductRepo productRepo, CompanyRepo companyRepo) {
+    public ProductService(ProductRepo productRepo, CompanyRepo companyRepo, ImageService imageService) {
         this.productRepo = productRepo;
         this.companyRepo = companyRepo;
+        this.imageService = imageService;
     }
 
-    public void saveProduct(final Product validProduct, final Image image, final Long companyId) {
+    public void saveProduct(final Product validProduct, final MultipartFile multipartFile, final String imageLink, final Long companyId) {
         Product product = new Product();
+
+        if (!multipartFile.isEmpty()) {
+            Image uploadImage = imageService.upload(multipartFile);
+            product.setImage(uploadImage);
+        }
+
+        if (!imageLink.isEmpty()) {
+            product.setImageLink(imageLink);
+            product.setImage(null);
+        }
+
         product.setTitle(validProduct.getTitle());
-        product.setImage(image);
         product.setPrice(validProduct.getPrice());
         product.setCompany(companyRepo.findCompanyById(companyId));
 
@@ -37,12 +50,21 @@ public class ProductService {
         productRepo.save(validProduct);
     }
 
-    public Long editProduct(final Long id, final Product product, final Image image) {
+    public Long editProduct(final Long id, final Product product, final MultipartFile multipartFile, String imageLink) {
         Product savedProduct = productRepo.findProductById(id);
+
+        if (!multipartFile.isEmpty()) {
+            Image uploadImage = imageService.upload(multipartFile);
+            savedProduct.setImage(uploadImage);
+        }
+
+        if (!imageLink.isEmpty()) {
+            savedProduct.setImageLink(imageLink);
+            savedProduct.setImage(null);
+        }
 
         savedProduct.setTitle(product.getTitle());
         savedProduct.setPrice(product.getPrice());
-        savedProduct.setImage(image);
 
         productRepo.save(savedProduct);
         return savedProduct.getCompany().getId();

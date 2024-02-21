@@ -17,7 +17,7 @@
                     </#if>
                     <div class="card-body">
                         <h5 class="card-title"><a href="/product/${product.getId()}">${product.getTitle()}</a></h5>
-                        <p class="text-muted">${product.getPrice()}</p>
+                        <p class="text-muted">${product.getPrice() + '$'}</p>
                         <div class="d-flex justify-content-between">
 
                             <a href="/product/new-basket-item/${product.getId()}"
