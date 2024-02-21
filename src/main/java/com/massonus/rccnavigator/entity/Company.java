@@ -25,6 +25,8 @@ public class Company {
     @JoinColumn(name = "image_id")
     private Image image;
 
+    private String imageLink;
+
     @OneToMany(mappedBy = "company",
             cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();

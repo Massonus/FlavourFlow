@@ -92,12 +92,7 @@ public class CompanyController {
                              @RequestParam Long typeId,
                              @RequestParam("file") MultipartFile multipartFile) {
 
-        Image uploadImage;
-        try {
-            uploadImage = imageService.upload(multipartFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Image uploadImage = imageService.upload(multipartFile);
 
         companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId), companyTypeService.getTypeById(typeId));
 
@@ -119,9 +114,11 @@ public class CompanyController {
     public String saveUpdatedCompany(@PathVariable Long id,
                                      @RequestParam Long categoryId,
                                      @RequestParam Long typeId,
+                                     @RequestParam("file") MultipartFile multipartFile,
+                                     @RequestParam String imageLink,
                                      Company company) {
 
-        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId), companyTypeService.getTypeById(typeId));
+        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId), companyTypeService.getTypeById(typeId), multipartFile, imageLink);
 
         return "redirect:/admin/panel";
     }

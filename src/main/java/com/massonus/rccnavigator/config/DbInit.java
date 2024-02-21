@@ -23,9 +23,7 @@ public class DbInit {
     @PostConstruct
     private void postConstruct() {
 
-        for (int i = 0; i < 2; i++) {
-            mainService.initialize();
-        }
+        mainService.initialize();
 
         final User user = new User();
         user.setEmail("user@gmail.com");

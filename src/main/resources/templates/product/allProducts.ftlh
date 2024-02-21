@@ -12,6 +12,8 @@
                         <a href="/product/${product.getId()}"><img alt="product image"
                                                                    src="/images/${product.getImage().getId()}.jpg"
                                                                    class="card-img-top"/></a>
+                        <#elseif product.getImageLink()??>
+                            <img src="${product.getImageLink()}" class="card-img-top" alt="product image">
                     </#if>
                     <div class="card-body">
                         <h5 class="card-title"><a href="/product/${product.getId()}">${product.getTitle()}</a></h5>

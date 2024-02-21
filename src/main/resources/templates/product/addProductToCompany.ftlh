@@ -12,8 +12,15 @@
             <label for="price">Price:</label>
             <input type="number" id="price" name="price" required><br><br>
 
+            <h5>Choose a file or enter link</h5>
             <label for="file">File:</label>
             <input type="file" name="file">
+            <br><br>
+
+            <label for="imageLink"></label>
+            <input placeholder="image link" type="text"
+                   name="imageLink" id="imageLink">
+            <br><br>
 
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <input type="submit" value="Send">

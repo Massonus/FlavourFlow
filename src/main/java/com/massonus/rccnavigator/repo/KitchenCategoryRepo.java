@@ -9,4 +9,6 @@ public interface KitchenCategoryRepo extends JpaRepository<KitchenCategory, Long
 
     KitchenCategory findKitchenCategoryById(Long id);
 
+    KitchenCategory findKitchenCategoryByTitle(String title);
+
 }

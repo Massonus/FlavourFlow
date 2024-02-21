@@ -1,22 +1,27 @@
 package com.massonus.rccnavigator.service;
 
-import com.massonus.rccnavigator.entity.*;
+import com.massonus.rccnavigator.entity.Company;
+import com.massonus.rccnavigator.entity.CompanyType;
+import com.massonus.rccnavigator.entity.Image;
+import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class CompanyService {
     private final CompanyRepo companyRepo;
-
-    private final ProductService productService;
+    private final ImageService imageService;
 
     @Autowired
-    public CompanyService(CompanyRepo companyRepo, ProductService productService) {
+    public CompanyService(CompanyRepo companyRepo, ImageService imageService) {
         this.companyRepo = companyRepo;
-        this.productService = productService;
+        this.imageService = imageService;
     }
 
     public Company saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyType type) {
@@ -33,8 +38,18 @@ public class CompanyService {
         return company;
     }
 
-    public void editCompany(final Long id, final Company company, KitchenCategory category, CompanyType type) {
+    public void editCompany(final Long id, final Company company, KitchenCategory category, CompanyType type, MultipartFile multipartFile, String imageLink) {
         Company savedCompany = companyRepo.findCompanyById(id);
+
+        if (!multipartFile.isEmpty()) {
+            Image uploadImage = imageService.upload(multipartFile);
+            savedCompany.setImage(uploadImage);
+        }
+
+        if (!imageLink.isEmpty()) {
+            savedCompany.setImageLink(imageLink);
+            savedCompany.setImage(null);
+        }
 
         savedCompany.setTitle(company.getTitle());
         savedCompany.setPriceCategory(company.getPriceCategory());
@@ -68,29 +83,6 @@ public class CompanyService {
 
     public Set<Company> getAllCompaniesByTitleContainingIgnoreCase(final String title) {
         return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
-    }
-
-    public Company createElementAuto() {
-        Company company = new Company();
-
-        company.setTitle("Test");
-        companyRepo.save(company);
-        company.setProducts(createAndFillProductsListForCompany(company));
-
-        return company;
-
-    }
-
-    private Set<Product> createAndFillProductsListForCompany(final Company company) {
-        Set<Product> products = new HashSet<>();
-        Random random = new Random();
-        int lengthMas = random.nextInt(1, 3);
-        for (int i = 0; i < lengthMas; i++) {
-            Product product = new Product("Title " + i, 21 + i + "", company);
-            productService.saveProduct(product);
-            products.add(product);
-        }
-        return products;
     }
 
     public List<Company> getSortedCompanies(String sort) {

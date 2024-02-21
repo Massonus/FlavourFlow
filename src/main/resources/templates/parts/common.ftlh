@@ -15,6 +15,9 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
         <script src="../../static/js/registration-validation.js"></script>
+        <script src="../../static/js/createKitchenCategory.js"></script>
+        <script src="../../static/js/editKitchenCategory.js"></script>
+        <script src="../../static/js/deleteKitchenCategory.js"></script>
         <link href="../../static/css/styles.css">
 
     </head>

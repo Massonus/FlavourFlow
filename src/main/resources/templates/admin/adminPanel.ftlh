@@ -56,10 +56,11 @@
                                            href="/category/edit-category/${category.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
-                            <a role="button" class="btn btn-outline-danger"
-                               href="/category/delete-category/${category.getId()}">
+                            <input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}"/>
+                            <button class="btn btn-outline-danger"
+                               onclick="deleteKitchenCategory(event, ${category.getId()})">
                                 <i class="bi bi-trash text-danger"></i>
-                            </a>
+                            </button>
                         </td>
                     </tr>
                 </#list>
