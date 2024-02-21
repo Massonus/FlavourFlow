@@ -33,6 +33,10 @@ public class CompanyTypeService {
         return companyTypeRepo.findCompanyTypeById(id);
     }
 
+    public CompanyType getTypeByTitle(String title) {
+        return companyTypeRepo.findCompanyTypeByTitle(title);
+    }
+
     public void editType(Long id, String title) {
 
         getTypeById(id).setTitle(title);

@@ -73,7 +73,6 @@ public class CompanyService {
     public Company createElementAuto() {
         Company company = new Company();
 
-        company.setTitle("Test");
         companyRepo.save(company);
         company.setProducts(createAndFillProductsListForCompany(company));
 
@@ -81,7 +80,7 @@ public class CompanyService {
 
     }
 
-    private Set<Product> createAndFillProductsListForCompany(final Company company) {
+    public Set<Product> createAndFillProductsListForCompany(final Company company) {
         Set<Product> products = new HashSet<>();
         Random random = new Random();
         int lengthMas = random.nextInt(1, 3);

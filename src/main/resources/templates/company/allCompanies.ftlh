@@ -54,7 +54,10 @@
                 <div class="card border-none">
                     <#if (company.getImage()??)>
                         <img alt="product image" src="/images/${company.getImage().getId()}.jpg" class="card-img-top"/>
+                    <#else>
+                        <img src="${company.getImageLink()}" class="card-img-top" alt="product image">
                     </#if>
+
                     <div class="card-body">
                         <h5 class="card-title">${company.getTitle()}</h5>
                         <h5 class="card-title">${company.getPriceCategory()}</h5>
