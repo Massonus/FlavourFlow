@@ -31,7 +31,7 @@ public class KitchenCategoryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add-new-category")
-    public String addCategoryPost(@Valid KitchenCategory category) {
+    public String addCategoryPost(@RequestBody KitchenCategory category) {
 
         categoryService.saveKitchenCategory(category);
 
