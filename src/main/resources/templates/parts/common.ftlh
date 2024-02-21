@@ -17,6 +17,7 @@
         <script src="../../static/js/registration-validation.js"></script>
         <script src="../../static/js/createKitchenCategory.js"></script>
         <script src="../../static/js/editKitchenCategory.js"></script>
+        <script src="../../static/js/deleteKitchenCategory.js"></script>
         <link href="../../static/css/styles.css">
 
     </head>

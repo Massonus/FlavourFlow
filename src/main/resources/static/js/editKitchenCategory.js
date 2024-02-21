@@ -13,7 +13,7 @@ function editKitchenCategory(event, categoryId) {
     const url = `/category/edit-category/${categoryId}`;
 
     fetch(url, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
             "X-CSRF-TOKEN": csrf,
