@@ -18,9 +18,9 @@ public class KitchenCategoryService {
         this.kitchenCategoryRepo = kitchenCategoryRepo;
     }
 
-    public void saveKitchenCategory(final KitchenCategory kitchenCategory) {
+    public KitchenCategory saveKitchenCategory(final KitchenCategory kitchenCategory) {
 
-        kitchenCategoryRepo.save(kitchenCategory);
+        return kitchenCategoryRepo.save(kitchenCategory);
     }
 
     public Set<KitchenCategory> getAllCategories() {
