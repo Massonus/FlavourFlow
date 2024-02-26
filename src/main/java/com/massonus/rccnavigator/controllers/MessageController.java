@@ -25,6 +25,12 @@ public class MessageController {
         return "redirect:/product/" + id;
     }
 
+    @PostMapping("/new-company-message/{id}")
+    public String addNewCompanyMessage(@PathVariable Long id, @AuthenticationPrincipal User user, @RequestParam String comment) {
+        messageService.saveMessage(user, id, comment);
+        return "redirect:/company/" + id;
+    }
+
     @GetMapping("/delete/{messageId}")
     public String deleteMessage(@PathVariable Long messageId) {
 

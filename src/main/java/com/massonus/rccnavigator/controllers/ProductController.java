@@ -23,14 +23,12 @@ import java.util.Set;
 public class ProductController {
 
     private final ProductService productService;
-    private final ImageService imageService;
     private final BasketService basketService;
     private final WishService wishService;
 
     @Autowired
-    public ProductController(ProductService productService, ImageService imageService, BasketService basketService, WishService wishService) {
+    public ProductController(ProductService productService, BasketService basketService, WishService wishService) {
         this.productService = productService;
-        this.imageService = imageService;
         this.basketService = basketService;
         this.wishService = wishService;
     }

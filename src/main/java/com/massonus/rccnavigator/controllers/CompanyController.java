@@ -2,13 +2,13 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Image;
-import com.massonus.rccnavigator.service.CompanyService;
-import com.massonus.rccnavigator.service.CompanyTypeService;
-import com.massonus.rccnavigator.service.ImageService;
-import com.massonus.rccnavigator.service.KitchenCategoryService;
+import com.massonus.rccnavigator.entity.Product;
+import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +26,15 @@ public class CompanyController {
     private final ImageService imageService;
     private final KitchenCategoryService kitchenCategoryService;
     private final CompanyTypeService companyTypeService;
+    private final RatingService ratingService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyTypeService companyTypeService) {
+    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyTypeService companyTypeService, RatingService ratingService) {
         this.companyService = companyService;
         this.imageService = imageService;
         this.kitchenCategoryService = kitchenCategoryService;
         this.companyTypeService = companyTypeService;
+        this.ratingService = ratingService;
     }
 
     @GetMapping
@@ -142,6 +144,24 @@ public class CompanyController {
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
 
         return "company/allCompanies";
+    }
+
+    @GetMapping("/{id}")
+    public String getCompany(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
+        Company company = companyService.getCompanyById(id);
+
+        model.addAttribute("user", user);
+        model.addAttribute("company", company);
+        return "company/companyInfo";
+    }
+
+    @PostMapping("/rate-company/{id}")
+    public String rateCompany(@PathVariable Long id, @AuthenticationPrincipal User author, @RequestParam Integer rate) {
+        Company companyById = companyService.getCompanyById(id);
+
+        ratingService.rateCompany(author, companyById, rate);
+
+        return "redirect:/companies/" + id;
     }
 
 }
