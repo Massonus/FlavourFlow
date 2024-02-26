@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Message;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
@@ -16,20 +17,33 @@ public class MessageService {
 
     private final MessageRepo messageRepo;
     private final ProductService productService;
+    private final CompanyService companyService;
 
     @Autowired
-    public MessageService(MessageRepo messageRepo, ProductService productService) {
+    public MessageService(MessageRepo messageRepo, ProductService productService, CompanyService companyService) {
         this.messageRepo = messageRepo;
         this.productService = productService;
+        this.companyService = companyService;
     }
 
-    public void saveMessage(User user, Long id, String commentText) {
+    public void saveProductMessage(User user, Long id, String commentText) {
         Product product = productService.getProductById(id);
 
         Message message = new Message();
         message.setAuthor(user);
         message.setProduct(product);
-        message.setCompany(product.getCompany());
+        message.setText(commentText);
+        message.setLikes(new HashSet<>());
+
+        messageRepo.save(message);
+    }
+
+    public void saveCompanyMessage(User user, Long id, String commentText) {
+        Company company = companyService.getCompanyById(id);
+
+        Message message = new Message();
+        message.setAuthor(user);
+        message.setCompany(company);
         message.setText(commentText);
         message.setLikes(new HashSet<>());
 
@@ -40,23 +54,28 @@ public class MessageService {
         return messageRepo.findMessageById(id);
     }
 
-    public Long deleteMessage(Long messageId) {
-        Message messageById = getMessageById(messageId);
-        messageRepo.delete(messageById);
-        return messageById.getProduct().getId();
+    public Set<Message> getMessagesByCompanyId(Long id) {
+        return messageRepo.findMessagesByCompanyId(id);
     }
 
-    public Long editMessage(Long id, String text) {
+    public Set<Message> getMessagesByProductId(Long id) {
+        return messageRepo.findMessagesByProductId(id);
+    }
+
+    public void deleteMessage(Long messageId) {
+        Message messageById = getMessageById(messageId);
+        messageRepo.delete(messageById);
+    }
+
+    public void editMessage(Long id, String text) {
         Message messageById = getMessageById(id);
 
         messageById.setText(text);
         messageRepo.save(messageById);
 
-        return messageById.getProduct().getId();
-
     }
 
-    public Long likeMessage(Long id, User user) {
+    public void likeMessage(Long id, User user) {
         Message messageById = getMessageById(id);
 
         Set<User> likes = messageById.getLikes();
@@ -69,13 +88,11 @@ public class MessageService {
             List<User> collect = likes.stream()
                     .filter(a -> a.getId().equals(user.getId()))
                     .toList();
-            User user1 = collect.getFirst();
-            likes.remove(user1);
+
+            likes.remove(collect.getFirst());
         } else {
             likes.add(user);
         }
-
-        return messageById.getProduct().getId();
     }
 
 }

@@ -27,14 +27,16 @@ public class CompanyController {
     private final KitchenCategoryService kitchenCategoryService;
     private final CompanyTypeService companyTypeService;
     private final RatingService ratingService;
+    private final MessageService messageService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyTypeService companyTypeService, RatingService ratingService) {
+    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyTypeService companyTypeService, RatingService ratingService, MessageService messageService) {
         this.companyService = companyService;
         this.imageService = imageService;
         this.kitchenCategoryService = kitchenCategoryService;
         this.companyTypeService = companyTypeService;
         this.ratingService = ratingService;
+        this.messageService = messageService;
     }
 
     @GetMapping
@@ -152,6 +154,7 @@ public class CompanyController {
 
         model.addAttribute("user", user);
         model.addAttribute("company", company);
+        model.addAttribute("messages", messageService.getMessagesByCompanyId(id));
         return "company/companyInfo";
     }
 

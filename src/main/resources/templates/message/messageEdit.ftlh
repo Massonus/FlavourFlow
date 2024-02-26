@@ -3,7 +3,7 @@
 <@c.page>
 
     <div class="form-group mt-3">
-        <form method="post" action="/message/edit/${id}">
+        <form method="post" action="/message/edit/${id}/${item}/${itemId}">
             <div class="form-group">
                 <input type="text"
                        value="<#if message??>${message.getText()}</#if>" name="text" placeholder="Enter new text"/>

@@ -3,10 +3,7 @@ package com.massonus.rccnavigator.controllers;
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.service.BasketService;
-import com.massonus.rccnavigator.service.ImageService;
-import com.massonus.rccnavigator.service.ProductService;
-import com.massonus.rccnavigator.service.WishService;
+import com.massonus.rccnavigator.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,12 +22,14 @@ public class ProductController {
     private final ProductService productService;
     private final BasketService basketService;
     private final WishService wishService;
+    private final MessageService messageService;
 
     @Autowired
-    public ProductController(ProductService productService, BasketService basketService, WishService wishService) {
+    public ProductController(ProductService productService, BasketService basketService, WishService wishService, MessageService messageService) {
         this.productService = productService;
         this.basketService = basketService;
         this.wishService = wishService;
+        this.messageService = messageService;
     }
 
     @GetMapping("/all-products/{id}")
@@ -125,6 +124,7 @@ public class ProductController {
 
         model.addAttribute("user", user);
         model.addAttribute("product", productById);
+        model.addAttribute("messages", messageService.getMessagesByProductId(id));
         return "product/productInfo";
     }
 
