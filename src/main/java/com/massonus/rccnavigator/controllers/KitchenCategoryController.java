@@ -30,11 +30,10 @@ public class KitchenCategoryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add-new-category")
-    public String addCategoryPost(@RequestBody KitchenCategory category) {
+    @ResponseBody
+    public KitchenCategory addCategoryPost(@RequestBody KitchenCategory category) {
 
-        categoryService.saveKitchenCategory(category);
-
-        return "redirect:/admin/panel";
+        return categoryService.saveKitchenCategory(category);
 
     }
 

@@ -21,40 +21,62 @@ public class MessageController {
 
     @PostMapping("/new-product-message/{id}")
     public String addNewProductMessage(@PathVariable Long id, @AuthenticationPrincipal User user, @RequestParam String comment) {
-        messageService.saveMessage(user, id, comment);
+        messageService.saveProductMessage(user, id, comment);
         return "redirect:/product/" + id;
     }
 
-    @GetMapping("/delete/{messageId}")
-    public String deleteMessage(@PathVariable Long messageId) {
-
-        Long productId = messageService.deleteMessage(messageId);
-        return "redirect:/product/" + productId;
+    @PostMapping("/new-company-message/{id}")
+    public String addNewCompanyMessage(@PathVariable Long id, @AuthenticationPrincipal User user, @RequestParam String comment) {
+        messageService.saveCompanyMessage(user, id, comment);
+        return "redirect:/companies/" + id;
     }
 
-    @GetMapping("/like/{id}")
-    public String like(@AuthenticationPrincipal User user, @PathVariable Long id) {
+    @GetMapping("/delete/{messageId}/{item}/{itemId}")
+    public String deleteMessage(@PathVariable Long messageId, @PathVariable String item, @PathVariable Long itemId) {
 
-        Long productId = messageService.likeMessage(id, user);
+        messageService.deleteMessage(messageId);
 
-        return "redirect:/product/" + productId;
+        if (item.equals("Company")) {
+            return "redirect:/companies/" + itemId;
+        } else {
+            return "redirect:/product/" + itemId;
+        }
     }
 
-    @GetMapping("/editing/{id}")
-    public String editMessage(@PathVariable Long id, Model model) {
+    @GetMapping("/like/{id}/{item}/{itemId}")
+    public String like(@AuthenticationPrincipal User user, @PathVariable Long id, @PathVariable String item, @PathVariable Long itemId) {
+
+        messageService.likeMessage(id, user);
+
+        if (item.equals("Company")) {
+            return "redirect:/companies/" + itemId;
+        } else {
+            return "redirect:/product/" + itemId;
+        }
+
+    }
+
+    @GetMapping("/editing/{id}/{item}/{itemId}")
+    public String editMessage(@PathVariable Long id, Model model, @PathVariable String item, @PathVariable Long itemId) {
 
         model.addAttribute("message", messageService.getMessageById(id));
+        model.addAttribute("itemId", itemId);
+        model.addAttribute("item", item);
 
         return "message/messageEdit";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/edit/{id}/{item}/{itemId}")
     public String editMessage(@PathVariable Long id,
-                              @RequestParam String text) {
+                              @RequestParam String text, @PathVariable Long itemId, @PathVariable String item) {
 
-        Long productId = messageService.editMessage(id, text);
+        messageService.editMessage(id, text);
 
-        return "redirect:/product/" + productId;
+        if (item.equals("Company")) {
+            return "redirect:/companies/" + itemId;
+        } else {
+            return "redirect:/product/" + itemId;
+        }
     }
 
 

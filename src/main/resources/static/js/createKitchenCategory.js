@@ -21,14 +21,10 @@ function createKitchenCategory(event) {
         },
         body: body,
     })
-        .then(res => {
-            if (res.ok) {
-                console.log("SUCCESS");
-                window.location.href = "/admin/panel";
-            } else {
-                return res.text();
-            }
-
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data.title)
+            window.location.href = "/admin/panel";
         })
         .catch(error => {
             console.log(error);

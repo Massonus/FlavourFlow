@@ -4,9 +4,9 @@
 <@c.page>
 
     <div class="card-columns" id="message-list">
-        <#if product.getMessages()?has_content>
+        <#if messages?has_content>
             <h2>Comments:</h2>
-            <#list product.getMessages() as message>
+            <#list messages as message>
                 <div class="card my-3">
                     <div class="m-2">
                         <span>${message.getText()}</span><br/>
@@ -14,7 +14,7 @@
                     <div class="card-footer text-muted container">
                         <div class="row">
                             <p>${message.getAuthor().getUsername()}:</p>
-                            <a class="col align-self-center" href="/message/like/${message.getId()}">
+                            <a class="col align-self-center" href="/message/like/${message.getId()}/${product.getClass().getSimpleName()}/${product.getId()}">
                                 <#if message.getIsUnliked()>
                                     <i class="bi bi-heart"></i>
                                 <#else>
@@ -24,8 +24,8 @@
                             </a>
                             <#if message.getAuthor().getId() == user.getId() || isAdmin>
                                 <a role="button" class="btn black-btn-outline"
-                                   href="/message/delete/${message.getId()}">Delete</a>
-                                <a class="col btn btn-primary" href="/message/editing/${message.getId()}">Edit</a>
+                                   href="/message/delete/${message.getId()}/${product.getClass().getSimpleName()}/${product.getId()}">Delete</a>
+                                <a class="col btn btn-primary" href="/message/editing/${message.getId()}/${product.getClass().getSimpleName()}/${product.getId()}">Edit</a>
                             </#if>
                         </div>
                     </div>

@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -46,7 +48,20 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();
 
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<Rating> rates = new ArrayList<>();
+
+    private Integer rating;
+
     public Integer getCountOfProducts() {
         return products.size();
+    }
+
+    public Integer currentRating() {
+        double currentRate = rates.stream()
+                .mapToDouble(Rating::getRate)
+                .average()
+                .orElse(0.0);
+        return (int) (Math.round(currentRate));
     }
 }

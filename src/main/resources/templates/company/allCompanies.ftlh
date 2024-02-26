@@ -59,7 +59,7 @@
                     </#if>
 
                     <div class="card-body">
-                        <h5 class="card-title">${company.getTitle()}</h5>
+                        <h5 class="card-title"><a href="/companies/${company.getId()}">${company.getTitle()}</a></h5>
                         <h5 class="card-title">${company.getPriceCategory()}</h5>
                         <p class="text-muted">${company.getCompanyType().getTitle()}</p>
                         <p class="text-muted">${company.getKitchenCategory().getTitle()}</p>
