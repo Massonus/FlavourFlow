@@ -2,7 +2,6 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Image;
-import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
 import jakarta.validation.Valid;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
