@@ -1,0 +1,255 @@
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    background-color: #fff;
+    min-width: 320px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+section {
+    padding: 50px 0;
+}
+
+a {
+    color: #111;
+}
+
+a:hover {
+    color: #555;
+}
+
+/* Header */
+.navbar-light .navbar-nav .nav-link {
+    color: #111;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.navbar-nav .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.top-menu li a::after {
+    content: '';
+    display: block;
+    width: 100%;
+    background-color: #e66060;
+    height: 2px;
+    transition: all .3s;
+    transform: scale(0);
+}
+
+.top-menu li a:hover::after {
+    transform: scale(1);
+}
+
+.modal-body img {
+    max-width: 100px;
+}
+
+/* Header */
+
+/* Carousel */
+.my-carousel {
+    padding: 0;
+}
+
+.my-carousel .carousel-item {
+    display: flex;
+    max-height: 500px;
+}
+
+.my-carousel .carousel-item img {
+    object-fit: cover;
+}
+
+/* Carousel */
+
+/* Product card */
+.product-card {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
+    transition: all .3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 14px 30px -15px rgba(0, 0, 0, 0.75);
+}
+
+.product-thumb a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    padding: 20px;
+}
+
+.product-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.product-details {
+    padding: 20px;
+}
+
+.product-details h4 a {
+    font-weight: 500;
+    display: block;
+    height: 60px;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.product-details p {
+    font-size: 15px;
+    margin-bottom: 20px;
+    color: #999;
+    height: 44px;
+    overflow: hidden;
+}
+
+.product-bottom-details {
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.product-price {
+    font-size: 18px;
+    color: #ee6e73;
+    font-weight: 600;
+}
+
+.product-price small {
+    color: #ccc;
+    font-weight: 400;
+    text-decoration: line-through;
+    margin-right: 5px;
+}
+
+.product-links a {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+/* Product card */
+
+/* Footer */
+.footer {
+    background-color: #343434;
+}
+
+.footer h4 {
+    color: #ccc;
+    text-transform: uppercase;
+    font-size: 16px;
+    border-bottom: 1px solid #666;
+    padding-bottom: 3px;
+}
+
+.footer a {
+    text-decoration: none;
+    transition: all .3s;
+}
+
+.footer a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.footer a, .footer li {
+    color: #c8c8c8;
+}
+
+.footer li a {
+    display: block;
+}
+
+.footer-icons a {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+/* Footer */
+
+
+.search:hover #search-input {
+    width: 250px;
+    padding: 0 10px;
+    margin: 4px;
+}
+
+
+.search input {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    font-size: 18px;
+    color: #fff;
+    width: 0;
+    transition: .4s;
+}
+
+.choose {
+    display: none;
+}
+
+.chooseLabel {
+    box-sizing: border-box;
+    position: relative;
+    width: 60px;
+    height: 30px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.6) inset;
+    border-radius: 65px;
+    cursor: pointer;
+    background: linear-gradient(to right, #ed1c24 0, #ff5a2f 45%, #7fd03e 55%, #009e00 100%) 0 0;
+    background-size: 650px 100%;
+    transition: .3s ease;
+    padding: 10px 10px;
+    margin: 4px;
+}
+
+.chooseLabel:before {
+    content: '';
+    width: 25px;
+    height: 20px;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    font-family: 'Montserrat', sans-serif;
+    background: radial-gradient(#ffffff, #f0f0f0);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+    border-radius: 100%;
+    text-align: center;
+    color: #ed1c24;
+    text-transform: uppercase;
+    transition: left .3s ease, color .3s ease, transform .1s ease;
+
+}
+
+label:active:before {
+    transform: scale(0.9);
+}
+
+input:checked + label {
+    background-position-x: -350px;
+}
+
+input:checked + label:before {
+    content: '';
+    color: #009e00;
+    left: 30px;
+}

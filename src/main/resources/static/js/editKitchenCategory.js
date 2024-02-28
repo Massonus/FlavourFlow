@@ -4,7 +4,7 @@ function editKitchenCategory(event, categoryId) {
     let form = document.getElementById("editCategory");
     let csrf = document.getElementById("_csrf").value;
 
-    let title = form.elements.title.value;
+    let title = form.elements.title.value.toUpperCase();
 
     const body = JSON.stringify({
         title: title

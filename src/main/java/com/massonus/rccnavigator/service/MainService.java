@@ -186,19 +186,19 @@ public class MainService {
             case 1:
                 product.setTitle("Risotto");
                 product.setPrice("24");
-                product.setImageLink("https://img.iamcook.ru/2021/upl/recipes/cat/u-3e13c39cc46b1a2bf1b0f86bdbd75873.jpg");
+                product.setImageLink("https://static01.nyt.com/images/2024/01/10/multimedia/10Risotto-gcmz/10Risotto-gcmz-superJumbo.jpg");
                 break;
 
             case 2:
                 product.setTitle("Lasagna");
                 product.setPrice("13");
-                product.setImageLink("https://fasol.tv/upload/iblock/f03/7tpqjk37izsfegtztrptl0yw0puvaomq.jpg");
+                product.setImageLink("https://images.ctfassets.net/hhv516v5f7sj/1AHBnS81eRgSBQwnkub3kF/f6a5d243c45d122ba4d419456c931d5c/lasagnabeeflite_1000x1000.jpg?fm=webp&q=90&w=3840");
                 break;
 
             case 3:
                 product.setTitle("Gelato");
                 product.setPrice("10");
-                product.setImageLink("https://img07.rl0.ru/afisha/e1200x1200i/daily.afisha.ru/uploads/images/a/cb/acba09cfc23be0751686e9bd50cbdf64.jpg");
+                product.setImageLink("https://www.watermelon.org/wp-content/uploads/2021/05/WATERMELON-GELATO-017-1x1-1.jpg");
                 break;
 
         }
@@ -226,7 +226,7 @@ public class MainService {
 
             case 2:
                 if (company.getCompanyType().getTitle().equals("CLUB")) {
-                    product.setTitle("whiskey");
+                    product.setTitle("Whiskey");
                     product.setPrice("132");
                     product.setImageLink("https://uc.kr.ua/wp-content/uploads/2023/07/Viski-v-bokalah.jpg");
                 } else {
