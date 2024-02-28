@@ -1,5 +1,6 @@
 <#include "security.ftlh">
 
+
 <nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">RCC Navigator</a>
