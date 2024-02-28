@@ -52,9 +52,10 @@ public class MainController {
     }
 
     @GetMapping("/search")
-    public String findProductByTitle(@RequestParam String title, @RequestParam String searchType, Model model) {
+    public String findProductByTitle(@RequestParam String title, Model model) {
 
-        if (searchType.equals("company")) {
+        boolean isEmpty = companyService.getAllCompaniesByTitleContainingIgnoreCase(title).isEmpty();
+        if (!isEmpty) {
             model.addAttribute("companies", companyService.getAllCompaniesByTitleContainingIgnoreCase(title));
             model.addAttribute("categories", kitchenCategoryService.getAllCategories());
             model.addAttribute("types", companyTypeService.getAllTypes());

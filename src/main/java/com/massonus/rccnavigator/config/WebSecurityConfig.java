@@ -32,7 +32,7 @@ public class WebSecurityConfig {
         return http
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/registration", "static/**", "/auth/status", "/all-lectures", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/registration", "static/**", "/auth/status", "/all-lectures", "/css/**", "/js/**", "/companies", "/companies/sort", "companies/filter", "/product/all-products/**", "/search").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                         .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                         .anyRequest().authenticated()

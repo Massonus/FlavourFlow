@@ -30,7 +30,8 @@ public class Company {
     private String imageLink;
 
     @OneToMany(mappedBy = "company",
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
 
     @Column(columnDefinition = "text", name = "price_category")

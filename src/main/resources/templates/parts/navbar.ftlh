@@ -10,25 +10,32 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
-                <#if known>
+
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="/">HOME</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="/companies">CATALOG</a>
+                </li>
+                <#if isAdmin>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="/companies">CATALOG</a>
+                        <a class="nav-item nav-link" href="/admin/panel">ADMIN-PANEL</a>
                     </li>
-                    <#if isAdmin>
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" href="/admin/panel">ADMIN-PANEL</a>
-                        </li>
-                    </#if>
                 </#if>
             </ul>
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <div id="search" class="search">
-                        <input id="search-input" type="search" placeholder="Type to search" class="search-input">
-                        <button id="search-button" class="search-button">
-                            <i class="fa fa-search"></i>
-                        </button>
+                        <form class="d-flex" role="search" action="/search" method="get">
+                            <input id="search-input" name="title" type="search" placeholder="Type to search" class="search-input">
+
+                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                            <button id="search-button" class="search-button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -36,11 +43,11 @@
                                 class="far fa-user"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <#if known>
-                            <li><a class="nav-item nav-link" href="/user/profile">${name}</a></li>
-                            <a class="nav-item nav-link" href="/logout">logout</a>
+                            <li><a class="dropdown-item" href="/user/profile">${name}</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         <#else>
-                            <li><a class="nav-item nav-link" href="/registration">registration</a></li>
-                            <li><a class="nav-item nav-link" href="/login">login</a></li>
+                            <li><a class="dropdown-item" href="/login">Login</a></li>
+                            <li><a class="dropdown-item" href="/registration">Registration</a></li>
                         </#if>
                     </ul>
                 </li>
