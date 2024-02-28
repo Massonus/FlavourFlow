@@ -1,0 +1,22 @@
+.search .search-input {
+    background: linear-gradient(45deg, #A9A9A9, #FFF8DC);
+    height: 34px;
+    border-radius: 50px;
+}
+
+
+.search:hover .search-button {
+    background-color: #E6E6E6;
+}
+
+.search .search-button {
+    color: #00B7FF;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #212529;
+    font-size: 20px;
+    cursor: pointer;
+    transition: .4s;
+}

@@ -1,0 +1,21 @@
+.search .search-input {
+    background: linear-gradient(45deg, #333, #5A5454);
+    height: 34px;
+    border-radius: 50px;
+}
+
+.search:hover .search-button {
+    background-color: #00B7FF;
+}
+
+.search .search-button {
+    color: black;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #F8F9FA;
+    font-size: 20px;
+    cursor: pointer;
+    transition: .4s;
+}

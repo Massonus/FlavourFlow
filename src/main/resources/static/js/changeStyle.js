@@ -1,21 +1,21 @@
+var theme = document.getElementById("theme");
+
 function changeStyle() {
-    let nav = document.getElementById('navbar');
-    let checked = document.getElementById("checker").checked;
-    let searchButton = document.getElementById("search-button");
-    let searchInput = document.getElementById("search-input");
 
-
-    if (checked) {
-        nav.className = "navbar fixed-top navbar-expand-lg navbar-dark bg-dark ";
-        searchButton.className = "search-button-dark";
-        searchInput.className = "search-input-dark";
-
+    if (theme.getAttribute("href") === "/css/light-theme.css") {
+        // …то переключаемся на "dark-theme.css"
+        theme.href = "/css/dark-theme.css";
+        // Сохраняем значение в хранилище
+        localStorage.setItem('theme', '/css/dark-theme.css');
+        // В противном случае…
     } else {
-        nav.className = "navbar fixed-top navbar-expand-lg navbar-light bg-light";
-        searchButton.className = "search-button-light";
-        searchInput.className = "search-input-light";
-
-
-
+        // …переключаемся на "light-theme.css"
+        theme.href = "/css/light-theme.css";
+        // Сохраняем значение в хранилище
+        localStorage.setItem('theme', '/css/light-theme.css');
     }
+}
+
+function setTheme() {
+    theme.href = localStorage.getItem('theme') || '/css/light-theme.css';
 }

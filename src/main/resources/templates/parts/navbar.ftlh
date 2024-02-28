@@ -24,8 +24,8 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <div id="search" class="search">
-                        <input id="search-input" type="search" placeholder="Type to search" class="search-input-light">
-                        <button id="search-button" class="search-button-light">
+                        <input id="search-input" type="search" placeholder="Type to search" class="search-input">
+                        <button id="search-button" class="search-button">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -57,8 +57,9 @@
                     </li>
                 </#if>
 
+                <script src="../../static/js/changeStyle.js"></script>
                 <li class="nav-item">
-                    <input class="choose" type="checkbox" id="checker" onclick="changeStyle()">
+                    <input class="choose" type="checkbox" id="checker" onchange="changeStyle()">
                     <label class="chooseLabel" for="checker"></label>
                 </li>
 

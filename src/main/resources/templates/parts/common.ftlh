@@ -26,11 +26,11 @@
         <script src="../../static/js/deleteKitchenCategory.js"></script>
         <script src="../../static/js/changeStyle.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="/css/styles.css">
+        <link id="theme" rel="stylesheet" type="text/css" href="/css/light-theme.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
 
     </head>
-    <body>
+    <body onload="setTheme()">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
