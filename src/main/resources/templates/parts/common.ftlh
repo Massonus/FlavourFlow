@@ -24,7 +24,10 @@
         <script src="../../static/js/createKitchenCategory.js"></script>
         <script src="../../static/js/editKitchenCategory.js"></script>
         <script src="../../static/js/deleteKitchenCategory.js"></script>
-        <link href="../../static/css/styles.css">
+        <script src="../../static/js/changeStyle.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/css/styles.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
 
     </head>
     <body>
