@@ -226,7 +226,7 @@ public class MainService {
 
             case 2:
                 if (company.getCompanyType().getTitle().equals("CLUB")) {
-                    product.setTitle("whiskey");
+                    product.setTitle("Whiskey");
                     product.setPrice("132");
                     product.setImageLink("https://uc.kr.ua/wp-content/uploads/2023/07/Viski-v-bokalah.jpg");
                 } else {

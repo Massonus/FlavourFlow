@@ -1,7 +1,6 @@
 var theme = document.getElementById("theme");
 var nav = document.getElementById('navbar');
 
-
 function changeStyle() {
 
     let checked = document.getElementById("checker").checked;

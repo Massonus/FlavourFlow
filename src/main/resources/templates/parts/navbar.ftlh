@@ -29,7 +29,8 @@
                 <li class="nav-item">
                     <div id="search" class="search">
                         <form class="d-flex" role="search" action="/search" method="get">
-                            <input id="search-input" name="title" type="search" placeholder="Type to search" class="search-input">
+                            <input id="search-input" name="title" type="search" placeholder="Type to search"
+                                   class="search-input">
 
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             <button id="search-button" class="search-button">
