@@ -42,8 +42,6 @@ public class CompanyController {
     public String getAllCompanies(Model model,
                                   @RequestParam(value = "page", defaultValue = "0") int page) {
 
-        List<Company> companies = companyService.getAllCompanies();
-
         Integer pageSize = 3;
         Page<Company> companyPage = companyService.getCompaniesInPage(page, pageSize);
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());

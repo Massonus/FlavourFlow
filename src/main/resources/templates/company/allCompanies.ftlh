@@ -5,12 +5,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-3 col-md-4 col-lg-12">
-                    <div class="dropdown mt-3 bg-light py-3 px-4 categories rounded">
+                    <div id="sort" class="dropdown mt-3 bg-light py-3 px-4 categories rounded">
                         <div class="dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"
                              aria-expanded="false">
                             <p class="mb-0">Sort by</p>
                         </div>
-                        <ul class="dropdown-menu">
+                        <ul id="dropdown-menu" class="dropdown-menu">
                             <li><a class="dropdown-item" href="/companies">(Default)</a></li>
                             <li><a class="dropdown-item" href="/companies/sort?sort=descending">Sort by price:
                                     descending</a>
@@ -88,6 +88,8 @@
                 </#list>
             </div>
         </div>
+
+    <script src="../../static/js/changeStyle.js"></script>
 
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">

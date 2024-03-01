@@ -1,9 +1,13 @@
+body {
+    color: #DA77EB;
+    background-color: #111111;
+}
+
 .search .search-input {
     background: linear-gradient(45deg, #A9A9A9, #FFF8DC);
     height: 34px;
     border-radius: 50px;
 }
-
 
 .search:hover .search-button {
     background-color: #E6E6E6;
@@ -19,4 +23,18 @@
     font-size: 20px;
     cursor: pointer;
     transition: .4s;
+}
+
+.product-card {
+    background-color: #1D1D1D;
+    box-shadow: 0 14px 30px -15px rgba(0, 0, 0, 0.75);
+    transition: all .3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 5px 2px 0 rgba(0, 000, 150, 54);
+}
+
+.dropdown-menu a {
+    color: #DA77EB;
 }
