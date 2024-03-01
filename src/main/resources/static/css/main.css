@@ -148,6 +148,7 @@ a:hover {
 }
 
 .product-links a {
+    cursor: pointer;
     font-size: 20px;
     margin-left: 10px;
 }

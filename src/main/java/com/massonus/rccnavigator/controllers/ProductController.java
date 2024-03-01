@@ -105,6 +105,7 @@ public class ProductController {
     }
 
     @GetMapping("/new-basket-item/{id}")
+    @ResponseBody
     public String addProductToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
 
         Long companyId = basketService.addProductToBasket(id, user);

@@ -4,8 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -35,9 +39,11 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Message> messages;
 
-    public Product(String title, String price, Company company) {
-        this.title = title;
-        this.price = price;
-        this.company = company;
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+    private Set<Basket> basket = new HashSet<>();
+
+    public Boolean getIsInBasket() {
+        return basket.isEmpty();
     }
+
 }

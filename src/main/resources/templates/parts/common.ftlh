@@ -23,6 +23,7 @@
         <script src="../../static/js/registration-validation.js"></script>
         <script src="../../static/js/kitchenCategory.js"></script>
         <script src="../../static/js/changeStyle.js"></script>
+        <script src="../../static/js/basket.js"></script>
 
         <link id="theme" rel="stylesheet" type="text/css" href="/css/light-theme.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
