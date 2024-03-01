@@ -1,7 +1,7 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.entity.Company;
-import com.massonus.rccnavigator.entity.CompanyType;
+import com.massonus.rccnavigator.entity.CompanyCountry;
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.repo.CompanyRepo;
@@ -24,11 +24,11 @@ public class CompanyService {
         this.imageService = imageService;
     }
 
-    public Company saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyType type) {
+    public Company saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyCountry type) {
         Company company = new Company();
         company.setTitle(validCompany.getTitle());
         company.setImage(image);
-        company.setCompanyType(type);
+        company.setCompanyCountry(type);
         company.setPriceCategory(validCompany.getPriceCategory());
         company.setProducts(validCompany.getProducts());
         company.setKitchenCategory(category);
@@ -38,7 +38,7 @@ public class CompanyService {
         return company;
     }
 
-    public void editCompany(final Long id, final Company company, KitchenCategory category, CompanyType type, MultipartFile multipartFile, String imageLink) {
+    public void editCompany(final Long id, final Company company, KitchenCategory category, CompanyCountry type, MultipartFile multipartFile, String imageLink) {
         Company savedCompany = companyRepo.findCompanyById(id);
 
         if (!multipartFile.isEmpty()) {
@@ -53,7 +53,7 @@ public class CompanyService {
 
         savedCompany.setTitle(company.getTitle());
         savedCompany.setPriceCategory(company.getPriceCategory());
-        savedCompany.setCompanyType(type);
+        savedCompany.setCompanyCountry(type);
         savedCompany.setKitchenCategory(category);
     }
 

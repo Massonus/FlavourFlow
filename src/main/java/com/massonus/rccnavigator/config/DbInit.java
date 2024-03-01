@@ -1,7 +1,6 @@
 package com.massonus.rccnavigator.config;
 
 import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.service.MainService;
 import com.massonus.rccnavigator.service.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +9,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class DbInit {
 
-    private final MainService mainService;
-
     private final UserService userService;
 
     @Autowired
-    public DbInit(MainService mainService, UserService userService) {
-        this.mainService = mainService;
+    public DbInit(UserService userService) {
         this.userService = userService;
     }
 
     @PostConstruct
     private void postConstruct() {
-
-        mainService.initialize();
 
         final User user = new User();
         user.setEmail("user@gmail.com");

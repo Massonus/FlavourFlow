@@ -39,8 +39,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="companyType" class="form-label">Company type:</label>
-                            <select name="typeId" class="form-select" id="companyType">
+                            <label for="companyCountry" class="form-label">Company type:</label>
+                            <select name="typeId" class="form-select" id="companyCountry">
                                 <option value=""></option>
                                 <#list types as type>
                                     <option value="${type.getId()}"> ${type.getTitle()}</option>
@@ -73,7 +73,7 @@
                                 <div class="product-details">
                                     <h4><a href="/product/all-products/${company.getId()}">${company.getTitle()}</a>
                                     </h4>
-                                    <h5>${company.getCompanyType().getTitle()}</h5>
+                                    <h5>${company.getCompanyCountry().getTitle()}</h5>
                                     <h5>${company.getKitchenCategory().getTitle()}</h5>
                                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
                                         repudiandae?</p>

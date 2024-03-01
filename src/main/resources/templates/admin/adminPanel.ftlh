@@ -48,17 +48,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <#list categories as category>
+                <#list companyCountry as country>
                     <tr>
-                        <th class="p-3" scope="row">${category.getId()}</th>
-                        <td class="p-3">${category.getTitle()}</td>
+                        <th class="p-3" scope="row">${country.getId()}</th>
+                        <td class="p-3">${country.getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/category/edit-category/${category.getId()}">Edit</a>
+                                           href="/category/edit-category/${country.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
                             <input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}"/>
                             <button class="btn btn-outline-danger"
-                               onclick="deleteKitchenCategory(event, ${category.getId()})">
+                               onclick="deleteKitchenCategory(event, ${country.getId()})">
                                 <i class="bi bi-trash text-danger"></i>
                             </button>
                         </td>
@@ -127,7 +127,7 @@
                         <td class="p-3">${company.getTitle()}</td>
                         <td class="p-3">${company.getPriceCategory()}</td>
                         <td class="p-3">${company.getCountOfProducts()}</td>
-                        <td class="p-3">${company.getCompanyType().getTitle()}</td>
+                        <td class="p-3">${company.getCompanyCountry().getTitle()}</td>
                         <td class="p-3">${company.getKitchenCategory().getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/companies/edit/${company.getId()}">Edit title</a>

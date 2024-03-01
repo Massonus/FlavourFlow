@@ -32,15 +32,15 @@
                             <label for="kitchenCategory" class="form-label">Kitchen category:</label>
                             <select name="categoryId" class="form-select" id="kitchenCategory">
                                 <option selected value=""></option>
-                                <#list categories as category>
+                                <#list companyCountry as category>
                                     <option value="${category.getId()}"> ${category.getTitle()}</option>
                                 </#list>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label for="companyType" class="form-label">Company type:</label>
-                            <select name="typeId" class="form-select" id="companyType">
+                            <label for="companyCountry" class="form-label">Company type:</label>
+                            <select name="typeId" class="form-select" id="companyCountry">
                                 <option value=""></option>
                                 <#list types as type>
                                     <option value="${type.getId()}"> ${type.getTitle()}</option>

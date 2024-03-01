@@ -45,7 +45,7 @@
                         <#list types as type>
                         <div class="mb-3 row">
                             <label>Category:
-                                <input type="radio" name="typeId" <#if company.getCompanyType().getId() == type.getId()>checked</#if> value=${type.getId()}> ${type.getTitle()}
+                                <input type="radio" name="typeId" <#if company.getCompanyCountry().getId() == type.getId()>checked</#if>value=${type.getId()}> ${type.getTitle()}
                             </label>
                             </#list>
                         </div>
