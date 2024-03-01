@@ -59,9 +59,7 @@ public class WishController {
     }
 
     @GetMapping("/delete-from-wishes/{id}")
-    @ResponseBody
     public String deleteProductFromWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
-
 
         wishService.deleteWishItem(id, user);
 
