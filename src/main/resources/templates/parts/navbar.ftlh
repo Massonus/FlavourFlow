@@ -66,7 +66,6 @@
                     </li>
                 </#if>
 
-                <script src="../../static/js/changeStyle.js"></script>
                 <li class="nav-item">
                     <input class="choose" type="checkbox" id="checker" onchange="changeStyle()">
                     <label class="chooseLabel" for="checker"></label>
@@ -76,5 +75,3 @@
         </div>
     </div>
 </nav>
-
-<br><br>

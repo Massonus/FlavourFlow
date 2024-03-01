@@ -1,3 +1,8 @@
+body {
+    color: black;
+    background-color: #fff;
+}
+
 .search .search-input {
     background: linear-gradient(45deg, #333, #5A5454);
     height: 34px;
@@ -19,3 +24,13 @@
     cursor: pointer;
     transition: .4s;
 }
+
+.product-card {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06);
+    transition: all .3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 14px 30px -15px rgba(0, 0, 0, 0.75);
+}
+

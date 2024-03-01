@@ -1,7 +1,7 @@
 package com.massonus.rccnavigator.controllers;
 
+import com.massonus.rccnavigator.service.CompanyCountryService;
 import com.massonus.rccnavigator.service.CompanyService;
-import com.massonus.rccnavigator.service.CompanyTypeService;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ public class MainController {
     private final ProductService productService;
     private final CompanyService companyService;
     private final KitchenCategoryService kitchenCategoryService;
-    private final CompanyTypeService companyTypeService;
+    private final CompanyCountryService companyCountryService;
 
     @Autowired
-    public MainController(ProductService productService, CompanyService companyService, KitchenCategoryService kitchenCategoryService, CompanyTypeService companyTypeService) {
+    public MainController(ProductService productService, CompanyService companyService, KitchenCategoryService kitchenCategoryService, CompanyCountryService companyCountryService) {
         this.productService = productService;
         this.companyService = companyService;
         this.kitchenCategoryService = kitchenCategoryService;
-        this.companyTypeService = companyTypeService;
+        this.companyCountryService = companyCountryService;
     }
 
     @GetMapping(value = "/static/css/{cssFile}")
@@ -58,7 +58,7 @@ public class MainController {
         if (!isEmpty) {
             model.addAttribute("companies", companyService.getAllCompaniesByTitleContainingIgnoreCase(title));
             model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-            model.addAttribute("types", companyTypeService.getAllTypes());
+            model.addAttribute("types", companyCountryService.getAllTypes());
             return "company/allCompanies";
         } else {
             model.addAttribute("products", productService.getAllProductsByTitleContainingIgnoreCase(title));

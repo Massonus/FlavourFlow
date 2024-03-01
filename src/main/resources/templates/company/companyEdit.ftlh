@@ -36,7 +36,8 @@
                         <#list categories as category>
                         <div class="mb-3 row">
                             <label>Category:
-                                <input type="radio" name="categoryId" <#if company.getKitchenCategory().getId() == category.getId()>checked</#if>
+                                <input type="radio" name="categoryId"
+                                       <#if company.getKitchenCategory().getId() == category.getId()>checked</#if>
                                        value=${category.getId()}> ${category.getTitle()}
                             </label>
                             </#list>
@@ -45,7 +46,8 @@
                         <#list types as type>
                         <div class="mb-3 row">
                             <label>Category:
-                                <input type="radio" name="typeId" <#if company.getCompanyType().getId() == type.getId()>checked</#if> value=${type.getId()}> ${type.getTitle()}
+                                <input type="radio" name="typeId"
+                                       <#if company.getCompanyCountry().getId() == type.getId()>checked</#if>value=${type.getId()}> ${type.getTitle()}
                             </label>
                             </#list>
                         </div>

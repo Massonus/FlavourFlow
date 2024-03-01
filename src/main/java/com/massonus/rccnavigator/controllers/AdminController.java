@@ -1,8 +1,8 @@
 package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.service.CompanyCountryService;
 import com.massonus.rccnavigator.service.CompanyService;
-import com.massonus.rccnavigator.service.CompanyTypeService;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ public class AdminController {
     private final UserService userService;
     private final KitchenCategoryService kitchenCategoryService;
     private final CompanyService companyService;
-    private final CompanyTypeService companyTypeService;
+    private final CompanyCountryService companyCountryService;
 
     @Autowired
-    public AdminController(UserService userService, KitchenCategoryService kitchenCategoryService, CompanyService companyService, CompanyTypeService companyTypeService) {
+    public AdminController(UserService userService, KitchenCategoryService kitchenCategoryService, CompanyService companyService, CompanyCountryService companyCountryService) {
         this.userService = userService;
         this.kitchenCategoryService = kitchenCategoryService;
         this.companyService = companyService;
-        this.companyTypeService = companyTypeService;
+        this.companyCountryService = companyCountryService;
     }
 
     @GetMapping("/panel")
@@ -36,8 +36,8 @@ public class AdminController {
 
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyTypeService.getAllTypes());
+        model.addAttribute("companyCountry", kitchenCategoryService.getAllCategories());
+        model.addAttribute("types", companyCountryService.getAllTypes());
         model.addAttribute("companies", companyService.getAllCompanies());
 
         return "admin/adminPanel";

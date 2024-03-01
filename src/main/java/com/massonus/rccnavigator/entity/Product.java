@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -33,11 +36,20 @@ public class Product {
     private Company company;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
 
-    public Product(String title, String price, Company company) {
-        this.title = title;
-        this.price = price;
-        this.company = company;
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+    private Set<Basket> basket = new HashSet<>();
+
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+    private Set<Wish> wishes = new HashSet<>();
+
+    public Boolean getIsInBasket() {
+        return basket.isEmpty();
     }
+
+    public Boolean getIsinWishes() {
+        return wishes.isEmpty();
+    }
+
 }

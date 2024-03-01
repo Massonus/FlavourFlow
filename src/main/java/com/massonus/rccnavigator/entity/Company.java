@@ -43,8 +43,8 @@ public class Company {
     private KitchenCategory kitchenCategory;
 
     @ManyToOne
-    @JoinColumn(name = "type_id")
-    private CompanyType companyType;
+    @JoinColumn(name = "country_id")
+    private CompanyCountry companyCountry;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();

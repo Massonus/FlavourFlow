@@ -1,7 +1,7 @@
 package com.massonus.rccnavigator.controllers;
 
-import com.massonus.rccnavigator.entity.CompanyType;
-import com.massonus.rccnavigator.service.CompanyTypeService;
+import com.massonus.rccnavigator.entity.CompanyCountry;
+import com.massonus.rccnavigator.service.CompanyCountryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/type")
-public class CompanyTypeController {
+public class CompanyCountryController {
 
-    private final CompanyTypeService typeService;
+    private final CompanyCountryService typeService;
 
     @Autowired
-    public CompanyTypeController(CompanyTypeService typeService) {
+    public CompanyCountryController(CompanyCountryService typeService) {
         this.typeService = typeService;
     }
 
@@ -30,7 +30,7 @@ public class CompanyTypeController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add-new-type")
-    public String addTypePost(@Valid CompanyType type) {
+    public String addTypePost(@Valid CompanyCountry type) {
 
         typeService.saveCompanyType(type);
 

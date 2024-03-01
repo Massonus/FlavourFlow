@@ -2,74 +2,114 @@
 <#import "../parts/common.ftlh" as c>
 
 <@c.page>
+    <div class="container">
+        <div class="row">
+            <div class="col-3 col-md-4 col-lg-12">
+                <div id="sort" class="dropdown mt-3 bg-light py-3 px-4 categories rounded">
+                    <div class="dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"
+                         aria-expanded="false">
+                        <p class="mb-0">Sort by</p>
+                    </div>
+                    <ul id="dropdown-menu" class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/companies">(Default)</a></li>
+                        <li><a class="dropdown-item" href="/companies/sort?sort=descending">Sort by price:
+                                descending</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/companies/sort?sort=ascending">Sort by price:
+                                ascending</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/companies/sort?sort=a-z">Sort by name: A-Z</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/companies/sort?sort=z-a">Sort by name: Z-A</a>
+                        </li>
+                    </ul>
+                </div>
 
-    <div class="dropdown mt-3 bg-light py-3 px-4 rounded">
-        <div class="dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"
-             aria-expanded="false">
-            <p class="mb-0">Sort by</p>
-        </div>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/companies">(Default)</a></li>
-            <li><a class="dropdown-item" href="/companies/sort?sort=descending">Sort by price:
-                    descending</a>
-            </li>
-            <li><a class="dropdown-item" href="/companies/sort?sort=ascending">Sort by price:
-                    ascending</a>
-            </li>
-            <li><a class="dropdown-item" href="/companies/sort?sort=a-z">Sort by name: A-Z</a>
-            </li>
-            <li><a class="dropdown-item" href="/companies/sort?sort=z-a">Sort by name: Z-A</a>
-            </li>
-        </ul>
-    </div>
+                <form action="/companies/filter" method="get" class="me-2">
+                    <div class="mb-3">
+                        <label for="kitchenCategory" class="form-label">Kitchen category:</label>
+                        <select name="categoryId" class="form-select" id="kitchenCategory">
+                            <option selected value=""></option>
+                            <#list categories as category>
+                                <option class="filterOption"
+                                        value="${category.getId()}"> ${category.getTitle()}</option>
+                            </#list>
+                        </select>
+                    </div>
 
-    <form action="/companies/filter" method="get" class="me-2">
-        <div class="mb-3">
-            <label for="kitchenCategory" class="form-label">Kitchen category:</label>
-            <select name="categoryId" class="form-select" id="kitchenCategory">
-                <option selected value=""></option>
-                <#list categories as category>
-                    <option value="${category.getId()}"> ${category.getTitle()}</option>
-                </#list>
-            </select>
-        </div>
+                    <div class="mb-3">
+                        <label for="companyCountry" class="form-label">Company type:</label>
+                        <select name="typeId" class="form-select" id="companyCountry">
+                            <option value=""></option>
+                            <#list types as type>
+                                <option class="filterOption" value="${type.getId()}"> ${type.getTitle()}</option>
+                            </#list>
+                        </select>
+                    </div>
 
-        <div class="mb-3">
-            <label for="companyType" class="form-label">Company type:</label>
-            <select name="typeId" class="form-select" id="companyType">
-                <option value=""></option>
-                <#list types as type>
-                    <option value="${type.getId()}"> ${type.getTitle()}</option>
-                </#list>
-            </select>
-        </div>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
 
-        <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-    <br><br>
-
-    <#list companies as company>
-        <div class="col-12 col-md-8 col-lg-9">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                <div class="card border-none">
-                    <#if (company.getImage()??)>
-                        <img alt="product image" src="/images/${company.getImage().getId()}.jpg" class="card-img-top"/>
-                    <#else>
-                        <img alt="product image" src="${company.getImageLink()}" class="card-img-top" >
-                    </#if>
-
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="/companies/${company.getId()}">${company.getTitle()}</a></h5>
-                        <h5 class="card-title">${company.getPriceCategory()}</h5>
-                        <p class="text-muted">${company.getCompanyType().getTitle()}</p>
-                        <p class="text-muted">${company.getKitchenCategory().getTitle()}</p>
-                        <a role="button" class="btn black-btn-outline"
-                           href="/product/all-products/${company.getId()}">Go to products of this company</a>
+            <#list companies as company>
+                <div class="col-lg-4 col-sm-6 mb-3">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="product-card">
+                                <div class="product-thumb">
+                                    <#if (company.getImage()??)>
+                                        <div class="filters__img">
+                                            <a href="/product/all-products/${company.getId()}"><img alt="product image"
+                                                                                                    src="/images/${company.getImage().getId()}.jpg"
+                                                                                                    class="card-img-top"/></a>
+                                        </div>
+                                    <#else>
+                                        <div class="filters__img">
+                                            <a href="/product/all-products/${company.getId()}"><img alt="product image"
+                                                                                                    src="${company.getImageLink()}"
+                                                                                                    class="card-img-top"></a>
+                                        </div>
+                                    </#if>
+                                </div>
+                                <div class="product-details">
+                                    <h4><a href="/product/all-products/${company.getId()}">${company.getTitle()}</a>
+                                    </h4>
+                                    <h5>${company.getCompanyCountry().getTitle()}</h5>
+                                    <h5>${company.getKitchenCategory().getTitle()}</h5>
+                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
+                                        repudiandae?</p>
+                                    <div class="product-bottom-details d-flex justify-content-between">
+                                        <div class="product-price">
+                                            <p>${company.getPriceCategory()}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </#list>
         </div>
-    </#list>
-    <br>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <#if currentPage?number gt 0>
+                <li class="page-item">
+                    <a class="page-link" href="/companies?page=${currentPage - 1}">Previous</a>
+                </li>
+            </#if>
+            <#list 1..totalPages as i>
+                <li class="page-item<#if i == currentPage + 1> active</#if>">
+                    <a class="page-link" href="companies?page=${i-1}">${i}</a>
+                </li>
+            </#list>
+            <#if currentPage < totalPages - 1>
+                <li class="page-item">
+                    <a class="page-link" href="/companies?page=${currentPage + 1}">Next</a>
+                </li>
+            </#if>
+        </ul>
+    </nav>
 
 </@c.page>

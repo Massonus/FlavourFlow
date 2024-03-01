@@ -6,6 +6,7 @@ import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -23,28 +24,31 @@ public class CompanyController {
     private final CompanyService companyService;
     private final ImageService imageService;
     private final KitchenCategoryService kitchenCategoryService;
-    private final CompanyTypeService companyTypeService;
+    private final CompanyCountryService companyCountryService;
     private final RatingService ratingService;
     private final MessageService messageService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyTypeService companyTypeService, RatingService ratingService, MessageService messageService) {
+    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyCountryService companyCountryService, RatingService ratingService, MessageService messageService) {
         this.companyService = companyService;
         this.imageService = imageService;
         this.kitchenCategoryService = kitchenCategoryService;
-        this.companyTypeService = companyTypeService;
+        this.companyCountryService = companyCountryService;
         this.ratingService = ratingService;
         this.messageService = messageService;
     }
 
     @GetMapping
-    public String getAllCompanies(Model model) {
+    public String getAllCompanies(Model model,
+                                  @RequestParam(value = "page", defaultValue = "0") int page) {
 
-        List<Company> companies = companyService.getAllCompanies();
-
+        Integer pageSize = 3;
+        Page<Company> companyPage = companyService.getCompaniesInPage(page, pageSize);
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyTypeService.getAllTypes());
-        model.addAttribute("companies", companies);
+        model.addAttribute("types", companyCountryService.getAllTypes());
+        model.addAttribute("companies", companyPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", companyPage.getTotalPages());
 
         return "company/allCompanies";
     }
@@ -64,12 +68,12 @@ public class CompanyController {
 
         if (Objects.nonNull(typeId)) {
             companies = companies.stream()
-                    .filter(c -> c.getCompanyType().getId().equals(typeId))
+                    .filter(c -> c.getCompanyCountry().getId().equals(typeId))
                     .toList();
         }
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyTypeService.getAllTypes());
+        model.addAttribute("types", companyCountryService.getAllTypes());
         model.addAttribute("companies", companies);
 
         return "company/allCompanies";
@@ -81,7 +85,7 @@ public class CompanyController {
     public String getAddCompanyForm(Model model) {
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyTypeService.getAllTypes());
+        model.addAttribute("types", companyCountryService.getAllTypes());
 
         return "company/addCompany";
 
@@ -96,7 +100,7 @@ public class CompanyController {
 
         Image uploadImage = imageService.upload(multipartFile);
 
-        companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId), companyTypeService.getTypeById(typeId));
+        companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId), companyCountryService.getTypeById(typeId));
 
         return "redirect:/admin/panel";
     }
@@ -106,7 +110,7 @@ public class CompanyController {
     public String updateCompany(@PathVariable("id") Long id, Model model) {
         Company company = companyService.getCompanyById(id);
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyTypeService.getAllTypes());
+        model.addAttribute("types", companyCountryService.getAllTypes());
         model.addAttribute("company", company);
         return "company/companyEdit";
     }
@@ -120,7 +124,7 @@ public class CompanyController {
                                      @RequestParam String imageLink,
                                      Company company) {
 
-        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId), companyTypeService.getTypeById(typeId), multipartFile, imageLink);
+        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId), companyCountryService.getTypeById(typeId), multipartFile, imageLink);
 
         return "redirect:/admin/panel";
     }
@@ -140,7 +144,7 @@ public class CompanyController {
         List<Company> companies = (companyService.getSortedCompanies(sort));
 
         model.addAttribute("companies", companies);
-        model.addAttribute("types", companyTypeService.getAllTypes());
+        model.addAttribute("types", companyCountryService.getAllTypes());
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
 
         return "company/allCompanies";

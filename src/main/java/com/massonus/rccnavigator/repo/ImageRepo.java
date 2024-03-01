@@ -9,6 +9,4 @@ public interface ImageRepo extends JpaRepository<Image, Long> {
 
     Image findImageById(Long id);
 
-    Image findImageByName(String name);
-
 }

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Set;
 
@@ -33,6 +34,15 @@ public class BasketController {
         model.addAttribute("products", products);
 
         return "basket/basket";
+    }
+
+    @GetMapping("/new-basket-item/{id}")
+    @ResponseBody
+    public String addProductToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
+
+        Long companyId = basketService.addProductToBasket(id, user);
+
+        return "redirect:/product/all-products/" + companyId;
     }
 
     @GetMapping("/delete-from-basket/{id}")

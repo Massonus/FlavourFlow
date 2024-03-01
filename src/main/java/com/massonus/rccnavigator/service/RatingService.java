@@ -13,12 +13,9 @@ public class RatingService {
 
     private final RatingRepo ratingRepo;
 
-    private final CompanyService companyService;
-
     @Autowired
-    public RatingService(RatingRepo ratingRepo, CompanyService companyService) {
+    public RatingService(RatingRepo ratingRepo) {
         this.ratingRepo = ratingRepo;
-        this.companyService = companyService;
     }
 
     public void rateCompany(User author, Company company, Integer rate) {

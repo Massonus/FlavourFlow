@@ -14,7 +14,8 @@
                     <div class="card-footer text-muted container">
                         <div class="row">
                             <p>${message.getAuthor().getUsername()}:</p>
-                            <a class="col align-self-center" href="/message/like/${message.getId()}/${product.getClass().getSimpleName()}/${product.getId()}">
+                            <a class="col align-self-center"
+                               href="/message/like/${message.getId()}/${product.getClass().getSimpleName()}/${product.getId()}">
                                 <#if message.getIsUnliked()>
                                     <i class="bi bi-heart"></i>
                                 <#else>
@@ -25,7 +26,8 @@
                             <#if message.getAuthor().getId() == user.getId() || isAdmin>
                                 <a role="button" class="btn black-btn-outline"
                                    href="/message/delete/${message.getId()}/${product.getClass().getSimpleName()}/${product.getId()}">Delete</a>
-                                <a class="col btn btn-primary" href="/message/editing/${message.getId()}/${product.getClass().getSimpleName()}/${product.getId()}">Edit</a>
+                                <a class="col btn btn-primary"
+                                   href="/message/editing/${message.getId()}/${product.getClass().getSimpleName()}/${product.getId()}">Edit</a>
                             </#if>
                         </div>
                     </div>
