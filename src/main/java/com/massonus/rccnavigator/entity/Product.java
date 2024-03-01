@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,13 +36,20 @@ public class Product {
     private Company company;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<Basket> basket = new HashSet<>();
 
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+    private Set<Wish> wishes = new HashSet<>();
+
     public Boolean getIsInBasket() {
         return basket.isEmpty();
+    }
+
+    public Boolean getIsinWishes() {
+        return wishes.isEmpty();
     }
 
 }

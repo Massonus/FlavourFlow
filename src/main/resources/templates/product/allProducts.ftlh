@@ -81,12 +81,18 @@
                                                 ${product.getPrice() + '$'}
                                             </div>
                                             <div class="product-links">
+
                                                 <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}')"><#if product.getIsInBasket()>
                                                         <i id="cart-${product.getId()}" class="bi bi-cart"></i>
                                                     <#else>
                                                     <i id="cart-${product.getId()}" class="bi bi-cart-fill"></i>
                                                     </#if></a>
-									            <a href="/product/new-wish-item/${product.getId()}"><i class="far fa-heart"></i></a>
+
+									            <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if product.getIsinWishes()>
+									            <i id="wish-${product.getId()}" class="far fa-heart"></i>
+                                                    <#else>
+                                                        <i id="wish-${product.getId()}" class="fa-solid fa-heart"></i>
+                                                    </#if></a>
 								            </div>
                                         </div>
                                     </div>

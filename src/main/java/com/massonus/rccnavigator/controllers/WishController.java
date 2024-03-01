@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Set;
 
@@ -28,14 +29,6 @@ public class WishController {
         this.basketService = basketService;
     }
 
-    @GetMapping("/new-wish-item/{id}")
-    public String addProductToWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
-
-        Long companyId = wishService.addProductToWishes(id, user);
-
-        return "redirect:/product/all-products/" + companyId;
-    }
-
     @GetMapping
     public String getWishes(Model model, @AuthenticationPrincipal User user) {
 
@@ -46,7 +39,16 @@ public class WishController {
         return "wish/wishes";
     }
 
+    @GetMapping("/new-wish-item/{id}")
+    public String addProductToWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
+
+        Long companyId = wishService.addProductToWishes(id, user);
+
+        return "redirect:/product/all-products/" + companyId;
+    }
+
     @GetMapping("/move-wish-to-basket/{id}")
+    @ResponseBody
     public String moveToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
 
         basketService.addProductToBasket(id, user);
@@ -57,6 +59,7 @@ public class WishController {
     }
 
     @GetMapping("/delete-from-wishes/{id}")
+    @ResponseBody
     public String deleteProductFromWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
 
 

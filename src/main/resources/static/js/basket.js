@@ -2,13 +2,13 @@ function saveOrDeleteBasketItem(productId, csrf) {
     let element = document.getElementById(`cart-${productId}`);
 
     if (element.className === "bi bi-cart") {
-        saveItem(productId, csrf, element);
+        saveBasketItem(productId, csrf, element);
     } else {
-        deleteItem(productId, csrf, element);
+        deleteBasketItem(productId, csrf, element);
     }
 }
 
-function saveItem(productId, csrf, iconElement) {
+function saveBasketItem(productId, csrf, iconElement) {
     fetch(`/basket/new-basket-item/${productId}`, {
         method: 'GET',
         headers: {
@@ -26,7 +26,7 @@ function saveItem(productId, csrf, iconElement) {
         .catch(error => console.log(error));
 }
 
-function deleteItem(productId, csrf, iconElement) {
+function deleteBasketItem(productId, csrf, iconElement) {
     fetch(`/basket/delete-from-basket/${productId}`, {
         method: 'GET',
         headers: {
