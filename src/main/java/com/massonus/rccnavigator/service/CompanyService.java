@@ -6,6 +6,9 @@ import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -57,6 +60,10 @@ public class CompanyService {
         savedCompany.setKitchenCategory(category);
     }
 
+    public Page<Company> getCompaniesInPage(Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return companyRepo.findAll(pageable);
+    }
     public void saveCompany(Company company) {
         companyRepo.save(company);
     }

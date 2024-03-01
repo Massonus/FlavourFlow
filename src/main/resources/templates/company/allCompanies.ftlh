@@ -2,8 +2,6 @@
 <#import "../parts/common.ftlh" as c>
 
 <@c.page>
-
-    <section>
         <div class="container">
             <div class="row">
                 <div class="col-3 col-md-4 col-lg-12">
@@ -90,6 +88,25 @@
                 </#list>
             </div>
         </div>
-    </section>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <#if currentPage?number gt 0>
+                <li class="page-item">
+                    <a class="page-link" href="/companies?page=${currentPage - 1}">Previous</a>
+                </li>
+            </#if>
+            <#list 1..totalPages as i>
+                <li class="page-item<#if i == currentPage + 1> active</#if>">
+                    <a class="page-link" href="companies?page=${i-1}">${i}</a>
+                </li>
+            </#list>
+            <#if currentPage < totalPages - 1>
+                <li class="page-item">
+                    <a class="page-link" href="/companies?page=${currentPage + 1}">Next</a>
+                </li>
+            </#if>
+        </ul>
+    </nav>
 
 </@c.page>

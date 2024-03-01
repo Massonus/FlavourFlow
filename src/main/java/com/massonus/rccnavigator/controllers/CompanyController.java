@@ -6,6 +6,7 @@ import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -38,13 +39,18 @@ public class CompanyController {
     }
 
     @GetMapping
-    public String getAllCompanies(Model model) {
+    public String getAllCompanies(Model model,
+                                  @RequestParam(value = "page", defaultValue = "0") int page) {
 
         List<Company> companies = companyService.getAllCompanies();
 
+        Integer pageSize = 3;
+        Page<Company> companyPage = companyService.getCompaniesInPage(page, pageSize);
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
         model.addAttribute("types", companyCountryService.getAllTypes());
-        model.addAttribute("companies", companies);
+        model.addAttribute("companies", companyPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", companyPage.getTotalPages());
 
         return "company/allCompanies";
     }
