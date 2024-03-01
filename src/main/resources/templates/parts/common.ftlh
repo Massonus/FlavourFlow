@@ -21,9 +21,7 @@
         <script src="https://kit.fontawesome.com/9deb3ecfc7.js" crossorigin="anonymous"></script>
 
         <script src="../../static/js/registration-validation.js"></script>
-        <script src="../../static/js/createKitchenCategory.js"></script>
-        <script src="../../static/js/editKitchenCategory.js"></script>
-        <script src="../../static/js/deleteKitchenCategory.js"></script>
+        <script src="../../static/js/kitchenCategory.js"></script>
         <script src="../../static/js/changeStyle.js"></script>
 
         <link id="theme" rel="stylesheet" type="text/css" href="/css/light-theme.css">
