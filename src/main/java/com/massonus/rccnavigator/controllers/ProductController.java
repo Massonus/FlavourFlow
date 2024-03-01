@@ -2,10 +2,8 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.service.BasketService;
 import com.massonus.rccnavigator.service.MessageService;
 import com.massonus.rccnavigator.service.ProductService;
-import com.massonus.rccnavigator.service.WishService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,15 +20,11 @@ import java.util.Set;
 public class ProductController {
 
     private final ProductService productService;
-    private final BasketService basketService;
-    private final WishService wishService;
     private final MessageService messageService;
 
     @Autowired
-    public ProductController(ProductService productService, BasketService basketService, WishService wishService, MessageService messageService) {
+    public ProductController(ProductService productService, MessageService messageService) {
         this.productService = productService;
-        this.basketService = basketService;
-        this.wishService = wishService;
         this.messageService = messageService;
     }
 
@@ -104,22 +98,7 @@ public class ProductController {
         return "redirect:/product/admin/all-products/" + productById.getCompany().getId();
     }
 
-    @GetMapping("/new-basket-item/{id}")
-    @ResponseBody
-    public String addProductToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
 
-        Long companyId = basketService.addProductToBasket(id, user);
-
-        return "redirect:/product/all-products/" + companyId;
-    }
-
-    @GetMapping("/new-wish-item/{id}")
-    public String addProductToWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
-
-        Long companyId = wishService.addProductToWishes(id, user);
-
-        return "redirect:/product/all-products/" + companyId;
-    }
 
     @GetMapping("/{id}")
     public String getProduct(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {

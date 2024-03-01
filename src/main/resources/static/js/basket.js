@@ -9,7 +9,7 @@ function saveOrDeleteBasketItem(productId, csrf) {
 }
 
 function saveItem(productId, csrf, iconElement) {
-    fetch(`/product/new-basket-item/${productId}`, {
+    fetch(`/basket/new-basket-item/${productId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

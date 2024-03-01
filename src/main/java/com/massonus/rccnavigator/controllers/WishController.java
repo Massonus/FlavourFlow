@@ -28,6 +28,14 @@ public class WishController {
         this.basketService = basketService;
     }
 
+    @GetMapping("/new-wish-item/{id}")
+    public String addProductToWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
+
+        Long companyId = wishService.addProductToWishes(id, user);
+
+        return "redirect:/product/all-products/" + companyId;
+    }
+
     @GetMapping
     public String getWishes(Model model, @AuthenticationPrincipal User user) {
 
