@@ -94,13 +94,16 @@ a:hover {
     padding: 20px;
 }
 
-#filters {
-    left: 100px;
-}
-
 .filters__img {
     width: 400px;
     height: 250px;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.filters__product-img {
+    width: 290px;
+    height: 200px;
     overflow: hidden;
     margin: 10px;
 }

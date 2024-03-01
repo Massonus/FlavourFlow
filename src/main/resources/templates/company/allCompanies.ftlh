@@ -60,13 +60,13 @@
                                 <div class="product-thumb">
                                     <#if (company.getImage()??)>
                                         <div class="filters__img">
-                                            <img alt="product image" src="/images/${company.getImage().getId()}.jpg"
-                                                 class="card-img-top"/>
+                                            <a href="/product/all-products/${company.getId()}"><img alt="product image" src="/images/${company.getImage().getId()}.jpg"
+                                                 class="card-img-top"/></a>
                                         </div>
                                     <#else>
                                         <div class="filters__img">
-                                            <img alt="product image" src="${company.getImageLink()}"
-                                                 class="card-img-top">
+                                            <a href="/product/all-products/${company.getId()}"><img alt="product image" src="${company.getImageLink()}"
+                                                 class="card-img-top"></a>
                                         </div>
                                     </#if>
                                 </div>
@@ -80,10 +80,6 @@
                                     <div class="product-bottom-details d-flex justify-content-between">
                                         <div class="product-price">
                                             <p>${company.getPriceCategory()}</p>
-                                        </div>
-                                        <div class="product-links">
-                                            <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                                            <a href="#"><i class="far fa-heart"></i></a>
                                         </div>
                                     </div>
                                 </div>
