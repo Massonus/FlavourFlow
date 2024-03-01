@@ -99,7 +99,6 @@ public class ProductController {
     }
 
 
-
     @GetMapping("/{id}")
     public String getProduct(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
         Product productById = productService.getProductById(id);

@@ -26,30 +26,30 @@
                             </li>
                         </ul>
                     </div>
-<#--
-                    <form action="/companies/filter" method="get" class="me-2">
-                        <div class="mb-3">
-                            <label for="kitchenCategory" class="form-label">Kitchen category:</label>
-                            <select name="categoryId" class="form-select" id="kitchenCategory">
-                                <option selected value=""></option>
-                                <#list companyCountry as category>
-                                    <option value="${category.getId()}"> ${category.getTitle()}</option>
-                                </#list>
-                            </select>
-                        </div>
+                    <#--
+                                        <form action="/companies/filter" method="get" class="me-2">
+                                            <div class="mb-3">
+                                                <label for="kitchenCategory" class="form-label">Kitchen category:</label>
+                                                <select name="categoryId" class="form-select" id="kitchenCategory">
+                                                    <option selected value=""></option>
+                                                    <#list companyCountry as category>
+                                                        <option value="${category.getId()}"> ${category.getTitle()}</option>
+                                                    </#list>
+                                                </select>
+                                            </div>
 
-                        <div class="mb-3">
-                            <label for="companyCountry" class="form-label">Company type:</label>
-                            <select name="typeId" class="form-select" id="companyCountry">
-                                <option value=""></option>
-                                <#list types as type>
-                                    <option value="${type.getId()}"> ${type.getTitle()}</option>
-                                </#list>
-                            </select>
-                        </div>
+                                            <div class="mb-3">
+                                                <label for="companyCountry" class="form-label">Company type:</label>
+                                                <select name="typeId" class="form-select" id="companyCountry">
+                                                    <option value=""></option>
+                                                    <#list types as type>
+                                                        <option value="${type.getId()}"> ${type.getTitle()}</option>
+                                                    </#list>
+                                                </select>
+                                            </div>
 
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>-->
+                                            <button class="btn btn-outline-success" type="submit">Search</button>
+                                        </form>-->
                 </div>
 
                 <#list products as product>
@@ -58,17 +58,17 @@
                             <div class="col-lg-12">
                                 <div class="product-card">
                                     <div class="product-thumb">
-                                         <#if (product.getImage()??)>
+                                        <#if (product.getImage()??)>
                                             <div class="filters__product-img">
                                                 <a href="/product/${product.getId()}"><img alt="product image"
-                                                                   src="/images/${product.getImage().getId()}.jpg"
-                                                                   class="card-img-top"/></a>
+                                                                                           src="/images/${product.getImage().getId()}.jpg"
+                                                                                           class="card-img-top"/></a>
                                             </div>
                                         <#else>
                                             <div class="filters__product-img">
                                                 <a href="/product/${product.getId()}"><img alt="product image"
-                                                src="${product.getImageLink()}"
-                                                class="card-img-top"></a>
+                                                                                           src="${product.getImageLink()}"
+                                                                                           class="card-img-top"></a>
                                             </div>
                                         </#if>
                                     </div>
@@ -85,15 +85,15 @@
                                                 <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}')"><#if product.getIsInBasket()>
                                                         <i id="cart-${product.getId()}" class="bi bi-cart"></i>
                                                     <#else>
-                                                    <i id="cart-${product.getId()}" class="bi bi-cart-fill"></i>
+                                                        <i id="cart-${product.getId()}" class="bi bi-cart-fill"></i>
                                                     </#if></a>
 
-									            <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if product.getIsinWishes()>
-									            <i id="wish-${product.getId()}" class="far fa-heart"></i>
+                                                <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if product.getIsinWishes()>
+                                                        <i id="wish-${product.getId()}" class="far fa-heart"></i>
                                                     <#else>
                                                         <i id="wish-${product.getId()}" class="fa-solid fa-heart"></i>
                                                     </#if></a>
-								            </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

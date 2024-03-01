@@ -57,7 +57,10 @@
     <div class="container mt-5">
         <#nested>
     </div>
+
+
     </body>
+    <script src="../../static/js/changeStyle.js"></script>
 
     </html>
 </#macro>

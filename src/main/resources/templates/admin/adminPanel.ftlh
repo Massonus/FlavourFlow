@@ -58,7 +58,7 @@
                         <td class="p-3 align-middle">
                             <input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}"/>
                             <button class="btn btn-outline-danger"
-                               onclick="deleteKitchenCategory(event, ${country.getId()})">
+                                    onclick="deleteKitchenCategory(event, ${country.getId()})">
                                 <i class="bi bi-trash text-danger"></i>
                             </button>
                         </td>

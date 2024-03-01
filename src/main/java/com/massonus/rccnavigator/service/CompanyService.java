@@ -64,6 +64,7 @@ public class CompanyService {
         Pageable pageable = PageRequest.of(page, pageSize);
         return companyRepo.findAll(pageable);
     }
+
     public void saveCompany(Company company) {
         companyRepo.save(company);
     }

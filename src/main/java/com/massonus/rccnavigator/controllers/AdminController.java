@@ -1,8 +1,8 @@
 package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.CompanyCountryService;
+import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import com.massonus.rccnavigator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
