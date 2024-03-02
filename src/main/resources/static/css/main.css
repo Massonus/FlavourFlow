@@ -238,3 +238,12 @@ input:checked + label:before {
     color: #009e00;
     left: 30px;
 }
+
+/*.pagination {
+    --bs-pagination-border-color: red;
+    --bs-pagination-color: red;
+    --bs-pagination-hover-color: red;
+    --bs-pagination-hover-border-color: red;
+    --bs-pagination-active-bg: red;
+    --bs-pagination-active-border-color: red;
+}*/

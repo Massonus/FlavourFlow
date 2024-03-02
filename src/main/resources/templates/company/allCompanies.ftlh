@@ -72,8 +72,7 @@
                                     </#if>
                                 </div>
                                 <div class="product-details">
-                                    <h4><a href="/product/all-products/${company.getId()}">${company.getTitle()}</a>
-                                    </h4>
+                                    <h4><a href="/product/all-products/${company.getId()}">${company.getTitle()}</a></h4>
                                     <h5>${company.getCompanyCountry().getTitle()}</h5>
                                     <h5>${company.getKitchenCategory().getTitle()}</h5>
                                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
@@ -93,7 +92,7 @@
     </div>
 
     <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-center fixed-bottom">
             <#if currentPage?number gt 0>
                 <li class="page-item">
                     <a class="page-link" href="/companies?page=${currentPage - 1}">Previous</a>
