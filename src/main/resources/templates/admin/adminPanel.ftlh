@@ -3,7 +3,7 @@
 <@c.page>
 
     <section>
-        <div class="container py-5">
+        <div class="container">
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>

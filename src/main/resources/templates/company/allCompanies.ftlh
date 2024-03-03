@@ -2,7 +2,7 @@
 <#import "../parts/common.ftlh" as c>
 
 <@c.page>
-    <div class="container py-5">
+    <div class="container">
         <div class="row">
             <div class="col-3 col-md-4 col-lg-12">
 
