@@ -59,9 +59,9 @@ public class CompanyController {
         model.addAttribute("companies", companyPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", companyPage.getTotalPages());
-        model.addAttribute("categoryId", categoryId);
-        model.addAttribute("countryId", countryId);
-        model.addAttribute("sort", sort);
+        model.addAttribute("categoryId", categoryId == null ? 0L : categoryId);
+        model.addAttribute("countryId", countryId == null ? 0L : countryId);
+        model.addAttribute("sort", sort == null ? "Default" : sort);
 
         return "company/allCompanies";
     }

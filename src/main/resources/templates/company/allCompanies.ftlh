@@ -8,32 +8,31 @@
 
                 <div class="mb-3">
                     <label for="sort" class="form-label">Sort:</label>
-                    <select onchange="filterCompany()" name="sort" class="form-select" id="sort">
-                        <option selected value="Default">Default</option>
-                        <option class="filterOption" value="priceDesc"> Sort by price: descending</option>
-                        <option class="filterOption" value="priceAsc"> Sort by price: ascending</option>
-                        <option class="filterOption" value="nameA"> Sort by name: A-Z</option>
-                        <option class="filterOption" value="nameZ"> Sort by name: Z-A</option>
-
+                    <select onchange="filterCompany(event)" name="sort" class="form-select" id="sort">
+                        <option <#if sort == "Default">selected</#if> value="Default">Default</option>
+                        <option <#if sort == "priceDesc">selected</#if> class="filterOption" value="priceDesc"> Sort by price: descending</option>
+                        <option <#if sort == "priceAsc">selected</#if> class="filterOption" value="priceAsc"> Sort by price: ascending</option>
+                        <option <#if sort == "nameA">selected</#if> class="filterOption" value="nameA"> Sort by name: A-Z</option>
+                        <option <#if sort == "nameZ">selected</#if> class="filterOption" value="nameZ"> Sort by name: Z-A</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label for="kitchenCategory" class="form-label">Kitchen category:</label>
-                    <select onchange="filterCompany()" name="categoryId" class="form-select" id="kitchenCategory">
+                    <select onchange="filterCompany(event)" name="categoryId" class="form-select" id="kitchenCategory">
                         <option selected value="">Default</option>
                         <#list categories as category>
-                            <option class="filterOption" value="${category.getId()}">${category.getTitle()}</option>
+                            <option <#if categoryId == category.getId()>selected</#if> class="filterOption" value="${category.getId()}">${category.getTitle()}</option>
                         </#list>
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label for="companyCountry" class="form-label">Company type:</label>
-                    <select onchange="filterCompany()" name="countryId" class="form-select" id="companyCountry">
+                    <select onchange="filterCompany(event)" name="countryId" class="form-select" id="companyCountry">
                         <option value="">Default</option>
                         <#list countries as country>
-                            <option class="filterOption" value="${country.getId()}">${country.getTitle()}</option>
+                            <option <#if countryId == country.getId()>selected</#if> class="filterOption" value="${country.getId()}">${country.getTitle()}</option>
                         </#list>
                     </select>
                 </div>

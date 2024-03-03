@@ -1,4 +1,5 @@
-function filterCompany() {
+function filterCompany(event) {
+    event.preventDefault();
     let sort = document.getElementById("sort").value;
     let categoryId = document.getElementById("kitchenCategory").value;
     let countryId = document.getElementById("companyCountry").value;
@@ -9,10 +10,7 @@ function filterCompany() {
         method: 'GET',
     })
         .then(response => {
-            return response.text();
-        })
-        .then((html) => {
-            document.body.innerHTML = html;
+            window.location.href = response.url;
         })
         .catch(error => console.error(error));
 }
