@@ -8,6 +8,8 @@ import com.massonus.rccnavigator.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -42,14 +44,17 @@ public class CompanyController {
     public String getAllCompanies(Model model,
                                   @RequestParam(value = "page", defaultValue = "0") int page,
                                   @RequestParam(required = false) Long categoryId,
-                                  @RequestParam(required = false) Long countryId) {
+                                  @RequestParam(required = false) Long countryId,
+                                  @RequestParam(required = false) String sort) {
 
         final CompanyFilterDto companyFilterDto = new CompanyFilterDto();
         companyFilterDto.setCategoryId(categoryId);
         companyFilterDto.setCountryId(countryId);
 
         Integer pageSize = 3;
-        Page<Company> companyPage = companyService.getCompaniesInPage(companyFilterDto, page, pageSize);
+
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Company> companyPage = companyService.getCompaniesInPage(companyFilterDto, pageable, sort);
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
         model.addAttribute("types", companyCountryService.getAllTypes());
@@ -58,6 +63,7 @@ public class CompanyController {
         model.addAttribute("totalPages", companyPage.getTotalPages());
         model.addAttribute("categoryId", categoryId);
         model.addAttribute("countryId", countryId);
+        model.addAttribute("sort", sort);
 
         return "company/allCompanies";
     }
@@ -117,19 +123,6 @@ public class CompanyController {
         Company companyById = companyService.getCompanyById(id);
         companyService.deleteCompany(companyById);
         return "redirect:/admin/panel";
-    }
-
-
-    @RequestMapping("/sort")
-    public String getAllSortedCompanies(@RequestParam String sort, Model model) {
-
-        List<Company> companies = (companyService.getSortedCompanies(sort));
-
-        model.addAttribute("companies", companies);
-        model.addAttribute("types", companyCountryService.getAllTypes());
-        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-
-        return "company/allCompanies";
     }
 
     @GetMapping("/{id}")

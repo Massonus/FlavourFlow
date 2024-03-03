@@ -7,9 +7,7 @@ import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,8 +59,7 @@ public class CompanyService {
         savedCompany.setKitchenCategory(category);
     }
 
-    public Page<Company> getCompaniesInPage(CompanyFilterDto companyFilterDto, Integer page, Integer pageSize) {
-        Pageable pageable = PageRequest.of(page, pageSize);
+    public Page<Company> getCompaniesInPage(CompanyFilterDto companyFilterDto, Pageable pageable, String sort) {
 
         if (Objects.nonNull(companyFilterDto.getCountryId())) {
 
@@ -72,10 +69,12 @@ public class CompanyService {
 
             return getCompaniesByCategoryId(companyFilterDto.getCategoryId(), pageable);
 
+        } else if (Objects.nonNull(sort)) {
+            return getSortedCompanies(sort, pageable);
+
         } else {
             companyRepo.findAll(pageable);
         }
-
 
         return companyRepo.findAll(pageable);
     }
@@ -114,7 +113,7 @@ public class CompanyService {
         return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
     }
 
-    public List<Company> getSortedCompanies(String sort) {
+    public Page<Company> getSortedCompanies(String sort, Pageable pageable) {
 
         List<Company> companies = getAllCompanies();
 
@@ -139,7 +138,9 @@ public class CompanyService {
             default -> companies;
         };
 
-        return companies;
+        final int start = (int) pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), companies.size());
 
+        return new PageImpl<>(companies.subList(start, end), pageable, companies.size());
     }
 }

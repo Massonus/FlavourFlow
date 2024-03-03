@@ -20,4 +20,5 @@ public interface CompanyRepo extends JpaRepository<Company, Long> {
     Page<Company> findCompaniesByKitchenCategoryId(Long categoryId, Pageable pageable);
 
     Page<Company> findCompaniesByCompanyCountryId(Long countryId, Pageable pageable);
+
 }
