@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controllers;
 
+import com.massonus.rccnavigator.dto.CompanyFilterDto;
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.User;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/companies")
@@ -40,44 +40,26 @@ public class CompanyController {
 
     @GetMapping
     public String getAllCompanies(Model model,
-                                  @RequestParam(value = "page", defaultValue = "0") int page) {
+                                  @RequestParam(value = "page", defaultValue = "0") int page,
+                                  @RequestParam(required = false) Long categoryId,
+                                  @RequestParam(required = false) Long countryId) {
+
+        final CompanyFilterDto companyFilterDto = new CompanyFilterDto();
+        companyFilterDto.setCategoryId(categoryId);
+        companyFilterDto.setCountryId(countryId);
 
         Integer pageSize = 3;
-        Page<Company> companyPage = companyService.getCompaniesInPage(page, pageSize);
+        Page<Company> companyPage = companyService.getCompaniesInPage(companyFilterDto, page, pageSize);
+
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
         model.addAttribute("types", companyCountryService.getAllTypes());
         model.addAttribute("companies", companyPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", companyPage.getTotalPages());
+        model.addAttribute("categoryId", categoryId);
+        model.addAttribute("countryId", countryId);
 
         return "company/allCompanies";
-    }
-
-    @GetMapping("/filter")
-    public String getAllFilterCompanies(Model model,
-                                        @RequestParam(required = false) Long categoryId,
-                                        @RequestParam(required = false) Long typeId) {
-
-        List<Company> companies = companyService.getAllCompanies();
-
-        if (Objects.nonNull(categoryId)) {
-            companies = companies.stream()
-                    .filter(c -> c.getKitchenCategory().getId().equals(categoryId))
-                    .toList();
-        }
-
-        if (Objects.nonNull(typeId)) {
-            companies = companies.stream()
-                    .filter(c -> c.getCompanyCountry().getId().equals(typeId))
-                    .toList();
-        }
-
-        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCountryService.getAllTypes());
-        model.addAttribute("companies", companies);
-
-        return "company/allCompanies";
-
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

@@ -25,7 +25,7 @@
                     </ul>
                 </div>
 
-                <form action="/companies/filter" method="get" class="me-2">
+                <form action="/companies" method="get" class="me-2">
                     <div class="mb-3">
                         <label for="kitchenCategory" class="form-label">Kitchen category:</label>
                         <select name="categoryId" class="form-select" id="kitchenCategory">
@@ -39,7 +39,7 @@
 
                     <div class="mb-3">
                         <label for="companyCountry" class="form-label">Company type:</label>
-                        <select name="typeId" class="form-select" id="companyCountry">
+                        <select name="countryId" class="form-select" id="companyCountry">
                             <option value=""></option>
                             <#list types as type>
                                 <option class="filterOption" value="${type.getId()}"> ${type.getTitle()}</option>
@@ -95,17 +95,17 @@
         <ul class="pagination justify-content-center fixed-bottom">
             <#if currentPage?number gt 0>
                 <li class="page-item">
-                    <a class="page-link" href="/companies?page=${currentPage - 1}">Previous</a>
+                    <a class="page-link" href="/companies?page=${currentPage - 1}&categoryId=${categoryId!''}&countryId=${countryId!''}">Previous</a>
                 </li>
             </#if>
             <#list 1..totalPages as i>
                 <li class="page-item<#if i == currentPage + 1> active</#if>">
-                    <a class="page-link" href="companies?page=${i-1}">${i}</a>
+                    <a class="page-link" href="companies?page=${i-1}&categoryId=${categoryId!''}&countryId=${countryId!''}">${i}</a>
                 </li>
             </#list>
             <#if currentPage < totalPages - 1>
                 <li class="page-item">
-                    <a class="page-link" href="/companies?page=${currentPage + 1}">Next</a>
+                    <a class="page-link" href="/companies?page=${currentPage + 1}&categoryId=${categoryId!''}&countryId=${countryId!''}">Next</a>
                 </li>
             </#if>
         </ul>
