@@ -2,53 +2,41 @@
 <#import "../parts/common.ftlh" as c>
 
 <@c.page>
-    <div class="container">
+    <div class="container py-5">
         <div class="row">
             <div class="col-3 col-md-4 col-lg-12">
-                <div id="sort" class="dropdown mt-3 bg-light py-3 px-4 categories rounded">
-                    <div class="dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown"
-                         aria-expanded="false">
-                        <p class="mb-0">Sort by</p>
-                    </div>
-                    <ul id="dropdown-menu" class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/companies">(Default)</a></li>
-                        <li><a class="dropdown-item" href="/companies?sort=descending">Sort by price:
-                                descending</a>
-                        </li>
-                        <li><a class="dropdown-item" href="/companies?sort=ascending">Sort by price:
-                                ascending</a>
-                        </li>
-                        <li><a class="dropdown-item" href="/companies?sort=a-z">Sort by name: A-Z</a>
-                        </li>
-                        <li><a class="dropdown-item" href="/companies?sort=z-a">Sort by name: Z-A</a>
-                        </li>
-                    </ul>
+
+                <div class="mb-3">
+                    <label for="sort" class="form-label">Sort:</label>
+                    <select onchange="filterCompany()" name="sort" class="form-select" id="sort">
+                        <option selected value="Default">Default</option>
+                        <option class="filterOption" value="priceDesc"> Sort by price: descending</option>
+                        <option class="filterOption" value="priceAsc"> Sort by price: ascending</option>
+                        <option class="filterOption" value="nameA"> Sort by name: A-Z</option>
+                        <option class="filterOption" value="nameZ"> Sort by name: Z-A</option>
+
+                    </select>
                 </div>
 
-                <form action="/companies" method="get" class="me-2">
-                    <div class="mb-3">
-                        <label for="kitchenCategory" class="form-label">Kitchen category:</label>
-                        <select name="categoryId" class="form-select" id="kitchenCategory">
-                            <option selected value=""></option>
-                            <#list categories as category>
-                                <option class="filterOption"
-                                        value="${category.getId()}"> ${category.getTitle()}</option>
-                            </#list>
-                        </select>
-                    </div>
+                <div class="mb-3">
+                    <label for="kitchenCategory" class="form-label">Kitchen category:</label>
+                    <select onchange="filterCompany()" name="categoryId" class="form-select" id="kitchenCategory">
+                        <option selected value="">Default</option>
+                        <#list categories as category>
+                            <option class="filterOption" value="${category.getId()}">${category.getTitle()}</option>
+                        </#list>
+                    </select>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="companyCountry" class="form-label">Company type:</label>
-                        <select name="countryId" class="form-select" id="companyCountry">
-                            <option value=""></option>
-                            <#list types as type>
-                                <option class="filterOption" value="${type.getId()}"> ${type.getTitle()}</option>
-                            </#list>
-                        </select>
-                    </div>
-
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <div class="mb-3">
+                    <label for="companyCountry" class="form-label">Company type:</label>
+                    <select onchange="filterCompany()" name="countryId" class="form-select" id="companyCountry">
+                        <option value="">Default</option>
+                        <#list countries as country>
+                            <option class="filterOption" value="${country.getId()}">${country.getTitle()}</option>
+                        </#list>
+                    </select>
+                </div>
             </div>
 
             <#list companies as company>
@@ -72,7 +60,8 @@
                                     </#if>
                                 </div>
                                 <div class="product-details">
-                                    <h4><a href="/product/all-products/${company.getId()}">${company.getTitle()}</a></h4>
+                                    <h4><a href="/product/all-products/${company.getId()}">${company.getTitle()}</a>
+                                    </h4>
                                     <h5>${company.getCompanyCountry().getTitle()}</h5>
                                     <h5>${company.getKitchenCategory().getTitle()}</h5>
                                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
@@ -95,17 +84,20 @@
         <ul class="pagination justify-content-center fixed-bottom">
             <#if currentPage?number gt 0>
                 <li class="page-item">
-                    <a class="page-link" href="/companies?page=${currentPage - 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}">Previous</a>
+                    <a class="page-link"
+                       href="/companies?page=${currentPage - 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}">Previous</a>
                 </li>
             </#if>
             <#list 1..totalPages as i>
                 <li class="page-item<#if i == currentPage + 1> active</#if>">
-                    <a class="page-link" href="companies?page=${i-1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}">${i}</a>
+                    <a class="page-link"
+                       href="companies?page=${i-1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}">${i}</a>
                 </li>
             </#list>
             <#if currentPage < totalPages - 1>
                 <li class="page-item">
-                    <a class="page-link" href="/companies?page=${currentPage + 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}">Next</a>
+                    <a class="page-link"
+                       href="/companies?page=${currentPage + 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}">Next</a>
                 </li>
             </#if>
         </ul>

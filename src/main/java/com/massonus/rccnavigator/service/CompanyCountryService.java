@@ -24,7 +24,7 @@ public class CompanyCountryService {
     }
 
 
-    public Set<CompanyCountry> getAllTypes() {
+    public Set<CompanyCountry> getAllCountries() {
 
         return new HashSet<>(companyCountryRepo.findAll());
     }

@@ -70,7 +70,6 @@ public class CompanyService {
             companies = companies.stream()
                     .filter(company -> company.getCompanyCountry().getId().equals(companyFilterDto.getCountryId()))
                     .toList();
-
         }
 
         if (Objects.nonNull(companyFilterDto.getCategoryId())) {
@@ -78,12 +77,10 @@ public class CompanyService {
             companies = companies.stream()
                     .filter(company -> company.getKitchenCategory().getId().equals(companyFilterDto.getCategoryId()))
                     .toList();
-
         }
 
         if (Objects.nonNull(sort)) {
             companies = getSortedCompanies(sort, companies);
-
         }
 
         final int start = (int) pageable.getOffset();
@@ -96,19 +93,19 @@ public class CompanyService {
 
         companies = switch (sort) {
 
-            case "descending" -> companies.stream()
+            case "priceDesc" -> companies.stream()
                     .sorted(Comparator.comparing(Company::getPriceCategory))
                     .toList();
 
-            case "ascending" -> companies.stream()
+            case "priceAsc" -> companies.stream()
                     .sorted(Comparator.comparing(Company::getPriceCategory).reversed())
                     .toList();
 
-            case "a-z" -> companies.stream()
+            case "nameA" -> companies.stream()
                     .sorted(Comparator.comparing(Company::getTitle))
                     .toList();
 
-            case "z-a" -> companies.stream()
+            case "nameZ" -> companies.stream()
                     .sorted(Comparator.comparing(Company::getTitle).reversed())
                     .toList();
 

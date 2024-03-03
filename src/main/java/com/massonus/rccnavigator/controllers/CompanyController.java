@@ -55,7 +55,7 @@ public class CompanyController {
         Page<Company> companyPage = companyService.getCompaniesInPage(companyFilterDto, pageable, sort);
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCountryService.getAllTypes());
+        model.addAttribute("countries", companyCountryService.getAllCountries());
         model.addAttribute("companies", companyPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", companyPage.getTotalPages());
@@ -81,7 +81,7 @@ public class CompanyController {
     public String getAddCompanyForm(Model model) {
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCountryService.getAllTypes());
+        model.addAttribute("types", companyCountryService.getAllCountries());
 
         return "company/addCompany";
 
@@ -106,7 +106,7 @@ public class CompanyController {
     public String updateCompany(@PathVariable("id") Long id, Model model) {
         Company company = companyService.getCompanyById(id);
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCountryService.getAllTypes());
+        model.addAttribute("types", companyCountryService.getAllCountries());
         model.addAttribute("company", company);
         return "company/companyEdit";
     }

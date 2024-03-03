@@ -58,7 +58,7 @@ public class MainController {
         if (!isEmpty) {
             model.addAttribute("companies", companyService.getAllCompaniesByTitleContainingIgnoreCase(title));
             model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-            model.addAttribute("types", companyCountryService.getAllTypes());
+            model.addAttribute("types", companyCountryService.getAllCountries());
             return "company/allCompanies";
         } else {
             model.addAttribute("products", productService.getAllProductsByTitleContainingIgnoreCase(title));

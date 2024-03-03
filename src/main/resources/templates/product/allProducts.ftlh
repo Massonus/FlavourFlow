@@ -42,7 +42,7 @@
                                                 <label for="companyCountry" class="form-label">Company type:</label>
                                                 <select name="typeId" class="form-select" id="companyCountry">
                                                     <option value=""></option>
-                                                    <#list types as type>
+                                                    <#list countries as type>
                                                         <option value="${type.getId()}"> ${type.getTitle()}</option>
                                                     </#list>
                                                 </select>
@@ -104,7 +104,7 @@
             </div>
         </div>
     </section>
-
+<#--
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center fixed-bottom">
             <#if currentPage?number gt 0>
@@ -123,7 +123,7 @@
                 </li>
             </#if>
         </ul>
-    </nav>
+    </nav>-->
 
 </@c.page>
 
