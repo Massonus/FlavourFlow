@@ -7,7 +7,9 @@ import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,32 +63,60 @@ public class CompanyService {
 
     public Page<Company> getCompaniesInPage(CompanyFilterDto companyFilterDto, Pageable pageable, String sort) {
 
+        List<Company> companies = getAllCompanies();
+
         if (Objects.nonNull(companyFilterDto.getCountryId())) {
 
-            return getCompaniesByCountryId(companyFilterDto.getCountryId(), pageable);
+            companies = companies.stream()
+                    .filter(company -> company.getCompanyCountry().getId().equals(companyFilterDto.getCountryId()))
+                    .toList();
 
-        } else if (Objects.nonNull(companyFilterDto.getCategoryId())) {
-
-            return getCompaniesByCategoryId(companyFilterDto.getCategoryId(), pageable);
-
-        } else if (Objects.nonNull(sort)) {
-            return getSortedCompanies(sort, pageable);
-
-        } else {
-            companyRepo.findAll(pageable);
         }
 
-        return companyRepo.findAll(pageable);
+        if (Objects.nonNull(companyFilterDto.getCategoryId())) {
+
+            companies = companies.stream()
+                    .filter(company -> company.getKitchenCategory().getId().equals(companyFilterDto.getCategoryId()))
+                    .toList();
+
+        }
+
+        if (Objects.nonNull(sort)) {
+            companies = getSortedCompanies(sort, companies);
+
+        }
+
+        final int start = (int) pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), companies.size());
+
+        return new PageImpl<>(companies.subList(start, end), pageable, companies.size());
     }
 
-    private Page<Company> getCompaniesByCategoryId(Long categoryId, Pageable pageable) {
+    public List<Company> getSortedCompanies(String sort, List<Company> companies) {
 
-        return companyRepo.findCompaniesByKitchenCategoryId(categoryId, pageable);
-    }
+        companies = switch (sort) {
 
-    private Page<Company> getCompaniesByCountryId(Long countryId, Pageable pageable) {
+            case "descending" -> companies.stream()
+                    .sorted(Comparator.comparing(Company::getPriceCategory))
+                    .toList();
 
-        return companyRepo.findCompaniesByCompanyCountryId(countryId, pageable);
+            case "ascending" -> companies.stream()
+                    .sorted(Comparator.comparing(Company::getPriceCategory).reversed())
+                    .toList();
+
+            case "a-z" -> companies.stream()
+                    .sorted(Comparator.comparing(Company::getTitle))
+                    .toList();
+
+            case "z-a" -> companies.stream()
+                    .sorted(Comparator.comparing(Company::getTitle).reversed())
+                    .toList();
+
+            default -> companies;
+        };
+
+        return companies;
+
     }
 
     public void saveCompany(Company company) {
@@ -111,36 +141,5 @@ public class CompanyService {
 
     public Set<Company> getAllCompaniesByTitleContainingIgnoreCase(final String title) {
         return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
-    }
-
-    public Page<Company> getSortedCompanies(String sort, Pageable pageable) {
-
-        List<Company> companies = getAllCompanies();
-
-        companies = switch (sort) {
-
-            case "descending" -> companies.stream()
-                    .sorted(Comparator.comparing(Company::getPriceCategory))
-                    .toList();
-
-            case "ascending" -> companies.stream()
-                    .sorted(Comparator.comparing(Company::getPriceCategory).reversed())
-                    .toList();
-
-            case "a-z" -> companies.stream()
-                    .sorted(Comparator.comparing(Company::getTitle))
-                    .toList();
-
-            case "z-a" -> companies.stream()
-                    .sorted(Comparator.comparing(Company::getTitle).reversed())
-                    .toList();
-
-            default -> companies;
-        };
-
-        final int start = (int) pageable.getOffset();
-        final int end = Math.min((start + pageable.getPageSize()), companies.size());
-
-        return new PageImpl<>(companies.subList(start, end), pageable, companies.size());
     }
 }

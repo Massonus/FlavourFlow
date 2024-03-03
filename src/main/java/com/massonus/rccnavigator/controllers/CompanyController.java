@@ -17,8 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/companies")
 public class CompanyController {
@@ -42,7 +40,7 @@ public class CompanyController {
 
     @GetMapping
     public String getAllCompanies(Model model,
-                                  @RequestParam(value = "page", defaultValue = "0") int page,
+                                  @RequestParam(value = "page", defaultValue = "0") Integer page,
                                   @RequestParam(required = false) Long categoryId,
                                   @RequestParam(required = false) Long countryId,
                                   @RequestParam(required = false) String sort) {
@@ -51,7 +49,7 @@ public class CompanyController {
         companyFilterDto.setCategoryId(categoryId);
         companyFilterDto.setCountryId(countryId);
 
-        Integer pageSize = 3;
+        int pageSize = 3;
 
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<Company> companyPage = companyService.getCompaniesInPage(companyFilterDto, pageable, sort);
@@ -66,6 +64,16 @@ public class CompanyController {
         model.addAttribute("sort", sort);
 
         return "company/allCompanies";
+    }
+
+    @GetMapping("/{id}")
+    public String getCompany(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
+        Company company = companyService.getCompanyById(id);
+
+        model.addAttribute("user", user);
+        model.addAttribute("company", company);
+        model.addAttribute("messages", messageService.getMessagesByCompanyId(id));
+        return "company/companyInfo";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -123,16 +131,6 @@ public class CompanyController {
         Company companyById = companyService.getCompanyById(id);
         companyService.deleteCompany(companyById);
         return "redirect:/admin/panel";
-    }
-
-    @GetMapping("/{id}")
-    public String getCompany(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
-        Company company = companyService.getCompanyById(id);
-
-        model.addAttribute("user", user);
-        model.addAttribute("company", company);
-        model.addAttribute("messages", messageService.getMessagesByCompanyId(id));
-        return "company/companyInfo";
     }
 
     @PostMapping("/rate-company/{id}")

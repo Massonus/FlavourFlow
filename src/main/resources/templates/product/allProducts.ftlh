@@ -14,15 +14,15 @@
                         </div>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/companies">(Default)</a></li>
-                            <li><a class="dropdown-item" href="/companies/sort?sort=descending">Sort by price:
+                            <li><a class="dropdown-item" href="/companies?sort=descending">Sort by price:
                                     descending</a>
                             </li>
-                            <li><a class="dropdown-item" href="/companies/sort?sort=ascending">Sort by price:
+                            <li><a class="dropdown-item" href="/companies?sort=ascending">Sort by price:
                                     ascending</a>
                             </li>
-                            <li><a class="dropdown-item" href="/companies/sort?sort=a-z">Sort by name: A-Z</a>
+                            <li><a class="dropdown-item" href="/companies?sort=a-z">Sort by name: A-Z</a>
                             </li>
-                            <li><a class="dropdown-item" href="/companies/sort?sort=z-a">Sort by name: Z-A</a>
+                            <li><a class="dropdown-item" href="/companies?sort=z-a">Sort by name: Z-A</a>
                             </li>
                         </ul>
                     </div>
@@ -104,6 +104,26 @@
             </div>
         </div>
     </section>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center fixed-bottom">
+            <#if currentPage?number gt 0>
+                <li class="page-item">
+                    <a class="page-link" href="/companies?page=${currentPage - 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}">Previous</a>
+                </li>
+            </#if>
+            <#list 1..totalPages as i>
+                <li class="page-item<#if i == currentPage + 1> active</#if>">
+                    <a class="page-link" href="companies?page=${i-1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}">${i}</a>
+                </li>
+            </#list>
+            <#if currentPage < totalPages - 1>
+                <li class="page-item">
+                    <a class="page-link" href="/companies?page=${currentPage + 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}">Next</a>
+                </li>
+            </#if>
+        </ul>
+    </nav>
 
 </@c.page>
 
