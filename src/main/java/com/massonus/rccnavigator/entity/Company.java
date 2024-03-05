@@ -16,9 +16,11 @@ import java.util.Set;
 @Table(name = "company")
 @NoArgsConstructor
 public class Company {
+    private static final String SEQUENCE_NAME = "company_seq";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
+    @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
     private String title;

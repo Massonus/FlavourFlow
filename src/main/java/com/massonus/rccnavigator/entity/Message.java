@@ -18,8 +18,11 @@ import java.util.Set;
 @NoArgsConstructor
 public class Message {
 
+    private static final String SEQUENCE_NAME = "message_seq";
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
+    @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
     @NotBlank(message = "Please fill the message")
