@@ -69,8 +69,8 @@ public class BasketService {
         return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
     }
 
-    public void changeAmount(Long productId, User user, Integer amount) {
-        BasketObject basketObject = basketObjectRepo.findBasketObjectByProductIdAndUserId(productId, user.getId());
+    public void changeAmount(Long productId, Integer amount) {
+        BasketObject basketObject = basketObjectRepo.findBasketObjectById(productId);
         basketObject.setAmount(amount);
     }
 
@@ -83,7 +83,7 @@ public class BasketService {
     }
 
     public void deleteBasketItem(Long id, User user) {
-        BasketObject basketObject = basketObjectRepo.findBasketObjectByProductIdAndUserId(id, user.getId());
+        BasketObject basketObject = basketObjectRepo.findBasketObjectById(id);
         Basket basketByUserId = getBasketByUserId(user.getId());
         basketByUserId.getBasketObjects().remove(basketObject);
     }

@@ -52,11 +52,10 @@ public class BasketController {
     }
 
     @GetMapping("/change-amount")
-    public String changeProductAmount(@AuthenticationPrincipal User user,
-                                      @RequestParam Integer amount,
+    public String changeProductAmount(@RequestParam Integer amount,
                                       @RequestParam Long productId) {
 
-        basketService.changeAmount(productId, user, amount);
+        basketService.changeAmount(productId, amount);
 
         return "redirect:/basket";
     }
