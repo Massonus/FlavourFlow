@@ -33,8 +33,8 @@ public class CompanyCountryService {
         return companyCountryRepo.findCompanyTypeById(id);
     }
 
-    public CompanyCountry getTypeByTitle(String title) {
-        return companyCountryRepo.findCompanyTypeByTitle(title);
+    public CompanyCountry getCountryByTitle(String title) {
+        return companyCountryRepo.findCompanyTypeByTitleContainingIgnoreCase(title);
     }
 
     public void editType(Long id, String title) {

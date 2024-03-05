@@ -30,3 +30,19 @@ function filterProduct(event, productId) {
         })
         .catch(error => console.error(error));
 }
+
+function search(event) {
+    event.preventDefault();
+
+    let search = document.getElementById("search").value;
+
+    const url = `/companies?search=${search}`;
+
+    fetch(url, {
+        method: 'GET',
+    })
+        .then(response => {
+            window.location.href = response.url;
+        })
+        .catch(error => console.error(error));
+}

@@ -16,17 +16,20 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Service
 public class CompanyService {
     private final CompanyRepo companyRepo;
     private final ImageService imageService;
+    private final CompanyCountryService countryService;
+    private final KitchenCategoryService categoryService;
 
     @Autowired
-    public CompanyService(CompanyRepo companyRepo, ImageService imageService) {
+    public CompanyService(CompanyRepo companyRepo, ImageService imageService, CompanyCountryService countryService, KitchenCategoryService categoryService) {
         this.companyRepo = companyRepo;
         this.imageService = imageService;
+        this.countryService = countryService;
+        this.categoryService = categoryService;
     }
 
     public void saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyCountry type) {
@@ -61,7 +64,7 @@ public class CompanyService {
         savedCompany.setKitchenCategory(category);
     }
 
-    public Page<Company> getCompaniesInPage(CompanyFilterDto companyFilterDto, Pageable pageable, String sort) {
+    public Page<Company> getCompaniesInPage(CompanyFilterDto companyFilterDto, Pageable pageable, String sort, String search) {
 
         List<Company> companies = getAllCompanies();
 
@@ -81,6 +84,10 @@ public class CompanyService {
 
         if (Objects.nonNull(sort)) {
             companies = getSortedCompanies(sort, companies);
+        }
+
+        if (Objects.nonNull(search)) {
+            companies = getSearchCompanies(search);
         }
 
         final int start = (int) pageable.getOffset();
@@ -136,7 +143,19 @@ public class CompanyService {
         return companyRepo.findAll();
     }
 
-    public Set<Company> getAllCompaniesByTitleContainingIgnoreCase(final String title) {
-        return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
+    public List<Company> getSearchCompanies(final String title) {
+
+        KitchenCategory category = categoryService.getCategoryByTitle(title);
+        CompanyCountry country = countryService.getCountryByTitle(title);
+
+        if (Objects.nonNull(category)) {
+            return companyRepo.findCompaniesByKitchenCategoryId(category.getId());
+
+        } else if (Objects.nonNull(country)) {
+            return companyRepo.findCompaniesByCompanyCountryId(country.getId());
+
+        } else {
+            return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
+        }
     }
 }

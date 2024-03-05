@@ -9,5 +9,5 @@ public interface CompanyCountryRepo extends JpaRepository<CompanyCountry, Long> 
 
     CompanyCountry findCompanyTypeById(Long id);
 
-    CompanyCountry findCompanyTypeByTitle(String title);
+    CompanyCountry findCompanyTypeByTitleContainingIgnoreCase(String title);
 }

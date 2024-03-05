@@ -33,7 +33,7 @@ public class KitchenCategoryService {
     }
 
     public KitchenCategory getCategoryByTitle(String title) {
-        return kitchenCategoryRepo.findKitchenCategoryByTitle(title);
+        return kitchenCategoryRepo.findKitchenCategoryByTitleContainingIgnoreCase(title);
     }
 
     public KitchenCategory editCategory(Long id, KitchenCategory category) {
