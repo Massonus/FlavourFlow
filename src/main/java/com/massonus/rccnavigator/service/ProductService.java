@@ -5,10 +5,15 @@ import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashSet;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -70,6 +75,61 @@ public class ProductService {
         return savedProduct.getCompany().getId();
     }
 
+    public Page<Product> getProductsInPage(Long companyId, Pageable pageable, String sort) {
+
+        List<Product> products = getAllProductsByCompanyId(companyId);
+
+        /*if (Objects.nonNull(companyFilterDto.getCountryId())) {
+
+            products = products.stream()
+                    .filter(company -> company.getCompanyCountry().getId().equals(companyFilterDto.getCountryId()))
+                    .toList();
+        }
+
+        if (Objects.nonNull(companyFilterDto.getCategoryId())) {
+
+            products = products.stream()
+                    .filter(company -> company.getKitchenCategory().getId().equals(companyFilterDto.getCategoryId()))
+                    .toList();
+        }*/
+
+        if (Objects.nonNull(sort)) {
+            products = getSortedProducts(sort, products);
+        }
+
+        final int start = (int) pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), products.size());
+
+        return new PageImpl<>(products.subList(start, end), pageable, products.size());
+    }
+
+    private List<Product> getSortedProducts(String sort, List<Product> products) {
+
+        products = switch (sort) {
+
+            case "priceDesc" -> products.stream()
+                    .sorted(Comparator.comparing(Product::getPrice))
+                    .toList();
+
+            case "priceAsc" -> products.stream()
+                    .sorted(Comparator.comparing(Product::getPrice).reversed())
+                    .toList();
+
+            case "nameA" -> products.stream()
+                    .sorted(Comparator.comparing(Product::getTitle))
+                    .toList();
+
+            case "nameZ" -> products.stream()
+                    .sorted(Comparator.comparing(Product::getTitle).reversed())
+                    .toList();
+
+            default -> products;
+        };
+
+        return products;
+
+    }
+
     public void deleteProduct(final Product product) {
         productRepo.delete(product);
     }
@@ -78,12 +138,12 @@ public class ProductService {
         return productRepo.findProductById(id);
     }
 
-    public Set<Product> getAllProducts() {
+    public List<Product> getAllProducts() {
 
-        return new HashSet<>(productRepo.findAll());
+        return productRepo.findAll();
     }
 
-    public Set<Product> getAllProductsByCompanyId(final Long companyId) {
+    public List<Product> getAllProductsByCompanyId(final Long companyId) {
         return productRepo.findProductsByCompanyId(companyId);
     }
 

@@ -6,6 +6,9 @@ import com.massonus.rccnavigator.service.MessageService;
 import com.massonus.rccnavigator.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -28,12 +32,21 @@ public class ProductController {
         this.messageService = messageService;
     }
 
-    @GetMapping("/all-products/{id}")
-    public String getProductsOfCompany(@PathVariable Long id, Model model) {
-        Set<Product> products = productService.getAllProductsByCompanyId(id);
+    @GetMapping("/all-products")
+    public String getProductsOfCompany(@RequestParam Long id, Model model,
+                                       @RequestParam(value = "page", defaultValue = "0") Integer page,
+                                       @RequestParam(required = false) String sort) {
 
-        model.addAttribute("products", products);
+        int pageSize = 4;
+
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Product> productPage = productService.getProductsInPage(id, pageable, sort);
+
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("currentPage", page);
         model.addAttribute("id", id);
+        model.addAttribute("sort", sort == null ? "Default" : sort);
 
         return "product/allProducts";
     }
@@ -41,7 +54,7 @@ public class ProductController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin/all-products/{id}")
     public String getProductsOfCompanyForAdmin(@PathVariable Long id, Model model) {
-        Set<Product> products = productService.getAllProductsByCompanyId(id);
+        List<Product> products = productService.getAllProductsByCompanyId(id);
         model.addAttribute("products", products);
         model.addAttribute("id", id);
 

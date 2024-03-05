@@ -89,7 +89,7 @@ public class CompanyService {
         return new PageImpl<>(companies.subList(start, end), pageable, companies.size());
     }
 
-    public List<Company> getSortedCompanies(String sort, List<Company> companies) {
+    private List<Company> getSortedCompanies(String sort, List<Company> companies) {
 
         companies = switch (sort) {
 

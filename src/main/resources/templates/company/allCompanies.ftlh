@@ -22,8 +22,7 @@
                     <select onchange="filterCompany(event)" name="categoryId" class="form-select" id="kitchenCategory">
                         <option selected value="">Default</option>
                         <#list categories as category>
-
-                            <option <#if category.id = (categoryId)!-1>selected</#if> class="filterOption" value="${category.getId()}">${category.getTitle()}</option>
+                            <option <#if category.getId() = (categoryId)!-1>selected</#if> class="filterOption" value="${category.getId()}">${category.getTitle()}</option>
                         </#list>
                     </select>
                 </div>
@@ -33,7 +32,7 @@
                     <select onchange="filterCompany(event)" name="countryId" class="form-select" id="companyCountry">
                         <option value="">Default</option>
                         <#list countries as country>
-                            <option <#if country.id = (countryId)!-1>selected</#if> class="filterOption" value="${country.getId()}">${country.getTitle()}</option>
+                            <option <#if country.getId() = (countryId)!-1>selected</#if> class="filterOption" value="${country.getId()}">${country.getTitle()}</option>
                         </#list>
                     </select>
                 </div>
@@ -47,20 +46,20 @@
                                 <div class="product-thumb">
                                     <#if (company.getImage()??)>
                                         <div class="filters__img">
-                                            <a href="/product/all-products/${company.getId()}"><img alt="product image"
+                                            <a href="/product/all-products?id=${company.getId()}"><img alt="product image"
                                                                                                     src="/images/${company.getImage().getId()}.jpg"
                                                                                                     class="card-img-top"/></a>
                                         </div>
                                     <#else>
                                         <div class="filters__img">
-                                            <a href="/product/all-products/${company.getId()}"><img alt="product image"
+                                            <a href="/product/all-products?id=${company.getId()}"><img alt="product image"
                                                                                                     src="${company.getImageLink()}"
                                                                                                     class="card-img-top"></a>
                                         </div>
                                     </#if>
                                 </div>
                                 <div class="product-details">
-                                    <h4><a href="/product/all-products/${company.getId()}">${company.getTitle()}</a>
+                                    <h4><a href="/product/all-products?id=${company.getId()}">${company.getTitle()}</a>
                                     </h4>
                                     <h5>${company.getCompanyCountry().getTitle()}</h5>
                                     <h5>${company.getKitchenCategory().getTitle()}</h5>
