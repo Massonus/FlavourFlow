@@ -86,7 +86,7 @@ public class CompanyService {
             companies = getSortedCompanies(sort, companies);
         }
 
-        if (Objects.nonNull(search)) {
+        if (Objects.nonNull(search) && !search.isEmpty()) {
             companies = getSearchCompanies(search);
         }
 
