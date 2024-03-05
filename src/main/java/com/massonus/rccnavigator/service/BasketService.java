@@ -29,11 +29,11 @@ public class BasketService {
         this.userRepo = userRepo;
     }
 
-    public Long addProductToBasket(Long id, User user) {
+    public Long addProductToBasket(Long id, Long userId) {
 
         final Product productById = productService.getProductById(id);
 
-        final Basket currentBasket = getUserBasket(user);
+        final Basket currentBasket = getUserBasket(userId);
         Set<BasketObject> basketObjects = currentBasket.getBasketObjects();
 
         BasketObject basketObject = new BasketObject();
@@ -42,7 +42,7 @@ public class BasketService {
         basketObject.setImage(productById.getImage());
         basketObject.setImageLink(productById.getImageLink());
         basketObject.setPrice(productById.getPrice());
-        basketObject.setUser(user);
+        basketObject.setUser(userRepo.findUserById(userId));
         basketObject.setCompany(productById.getCompany());
 
         basketObjectRepo.save(basketObject);
@@ -54,26 +54,22 @@ public class BasketService {
         return productById.getCompany().getId();
     }
 
-    public Basket getUserBasket(User user) {
-        Basket basketByUserId = getBasketByUserId(user.getId());
+    public Basket getUserBasket(Long userId) {
+        Basket basketByUserId = getBasketByUserId(userId);
         if (Objects.isNull(basketByUserId)) {
             Basket basket = new Basket();
-            basket.setUser(user);
+            basket.setUser(userRepo.findUserById(userId));
             return basketRepo.save(basket);
         }
         return basketByUserId;
     }
 
-    public Boolean isInBasket(String id, String userId) {
+    public Boolean isInBasket(String productId, String userId) {
 
-        Long productId = Long.valueOf(id);
-        User userById = userRepo.findUserById(Long.valueOf(userId));
-
-        return getUserBasket(userById).getBasketObjects().stream().anyMatch(o -> o.getProductId().equals(productId));
+        return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
     }
 
     public void changeAmount(Long productId, User user, Integer amount) {
-
         BasketObject basketObject = basketObjectRepo.findBasketObjectByProductIdAndUserId(productId, user.getId());
         basketObject.setAmount(amount);
     }

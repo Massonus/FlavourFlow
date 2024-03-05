@@ -2,7 +2,6 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Basket;
 import com.massonus.rccnavigator.entity.BasketObject;
-import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.BasketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class BasketController {
     @GetMapping
     public String getBasket(Model model, @AuthenticationPrincipal User user) {
 
-        Basket userBasket = basketService.getUserBasket(user);
+        Basket userBasket = basketService.getUserBasket(user.getId());
         Set<BasketObject> basketObjects = userBasket.getBasketObjects();
         model.addAttribute("products", basketObjects);
 
@@ -38,7 +37,7 @@ public class BasketController {
     @ResponseBody
     public String addProductToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
 
-        Long companyId = basketService.addProductToBasket(id, user);
+        Long companyId = basketService.addProductToBasket(id, user.getId());
 
         return "redirect:/product/all-products/" + companyId;
     }

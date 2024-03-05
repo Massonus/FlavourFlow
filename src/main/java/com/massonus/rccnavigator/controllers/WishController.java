@@ -51,7 +51,7 @@ public class WishController {
     @ResponseBody
     public String moveToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
 
-        basketService.addProductToBasket(id, user);
+        basketService.addProductToBasket(id, user.getId());
         wishService.deleteWishItem(id, user);
 
         return "redirect:/wishes";
