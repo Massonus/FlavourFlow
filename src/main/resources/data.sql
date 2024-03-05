@@ -15,7 +15,7 @@ VALUES (1, 'ITALIAN'),
 INSERT INTO public.company(id, title, price_category, category_id, country_id, image_link)
 VALUES (1, 'PNS', 'LOW', 4, 4, 'https://img.freepik.com/free-photo/cocktail-wooden-table-restaurant_23-2147936121.jpg?t=st=1709304734~exp=1709308334~hmac=d4a8d61fe99303ee2f6b1a8caefe0b15d1a628e0680861ce1ae68f095dcedbae&w=1380'),
        (2, 'The Minty Pantry', 'MEDIUM', 3, 1, 'https://img.freepik.com/free-photo/wide-restaurant-hall-with-wooden-table-chairs-6-persons_140725-8910.jpg?t=st=1709304730~exp=1709308330~hmac=2a9a09cd42399f5381d28e35595079083b7bb7af695a8b0c73363e729d475024&w=1380'),
-       (3, 'The Bamboo Word', 'MEDIUM', 1, 3, 'https://i.pinimg.com/564x/74/39/56/7439562aba5c13cacc7429df288dcf6b.jpg'),
+       (3, 'The Bamboo Word', 'MEDIUM', 3, 3, 'https://i.pinimg.com/564x/74/39/56/7439562aba5c13cacc7429df288dcf6b.jpg'),
        (4, 'The Ukrainian Cloud', 'MEDIUM', 1, 2, 'https://i.pinimg.com/564x/64/f1/26/64f1265f2667a3617a4a04c5f905476a.jpg'),
        (5, 'The Autumn Room', 'HIGH', 3, 3, 'https://i.pinimg.com/564x/aa/23/24/aa2324d993b70ad283baa2ba761f44ad.jpg'),
        (6, 'The Lunar Dragon', 'HIGH', 3, 2, 'https://i.pinimg.com/564x/ef/a7/78/efa77888bc356a201691eaef37e91431.jpg'),
