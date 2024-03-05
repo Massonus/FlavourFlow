@@ -22,7 +22,8 @@
                     <select onchange="filterCompany(event)" name="categoryId" class="form-select" id="kitchenCategory">
                         <option selected value="">Default</option>
                         <#list categories as category>
-                            <option <#if categoryId == category.getId()>selected</#if> class="filterOption" value="${category.getId()}">${category.getTitle()}</option>
+
+                            <option <#if category.id = (categoryId)!-1>selected</#if> class="filterOption" value="${category.getId()}">${category.getTitle()}</option>
                         </#list>
                     </select>
                 </div>
@@ -32,7 +33,7 @@
                     <select onchange="filterCompany(event)" name="countryId" class="form-select" id="companyCountry">
                         <option value="">Default</option>
                         <#list countries as country>
-                            <option <#if countryId == country.getId()>selected</#if> class="filterOption" value="${country.getId()}">${country.getTitle()}</option>
+                            <option <#if country.id = (countryId)!-1>selected</#if> class="filterOption" value="${country.getId()}">${country.getTitle()}</option>
                         </#list>
                     </select>
                 </div>
