@@ -26,6 +26,7 @@ public class BasketService {
     public Long addProductToBasket(Long id, User user) {
 
         final Product productById = productService.getProductById(id);
+        productById.setAmount(1);
         final Basket currentBasket = getUserBasket(user);
         final Set<Product> products = currentBasket.getProducts();
         products.add(productById);
@@ -43,6 +44,15 @@ public class BasketService {
             return basketRepo.save(basket);
         }
         return basketByUserId;
+    }
+
+    public void changeAmount(Long productId, User user, Integer amount) {
+
+        Product product = getUserBasket(user).getProducts().stream()
+                .filter(p -> p.getId().equals(productId))
+                .toList().getFirst();
+
+        product.setAmount(amount);
     }
 
     private Basket getBasketByUserId(Long id) {

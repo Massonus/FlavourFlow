@@ -45,7 +45,6 @@ public class Product {
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<Wish> wishes = new HashSet<>();
 
-    @Transient
     private Integer amount;
 
     @Transient

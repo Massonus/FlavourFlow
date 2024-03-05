@@ -72,15 +72,19 @@
                                         <a class="d-block">
                                             <#if (product.getImage()??)>
 
-                                                <a href="/product/${product.getId()}"><img style="object-fit: cover; height: 80px; width: 80px;" alt="product image"
-                                                                                           src="/images/${product.getImage().getId()}.jpg"
-                                                                                           class="card-img-top"/></a>
+                                                <a href="/product/${product.getId()}"><img
+                                                            style="object-fit: cover; height: 80px; width: 80px;"
+                                                            alt="product image"
+                                                            src="/images/${product.getImage().getId()}.jpg"
+                                                            class="card-img-top"/></a>
 
                                             <#else>
 
-                                                <a href="/product/${product.getId()}"><img style="object-fit: cover; height: 80px; width: 80px;" alt="product image"
-                                                                                           src="${product.getImageLink()}"
-                                                                                           class="card-img-top"></a>
+                                                <a href="/product/${product.getId()}"><img
+                                                            style="object-fit: cover; height: 80px; width: 80px;"
+                                                            alt="product image"
+                                                            src="${product.getImageLink()}"
+                                                            class="card-img-top"></a>
 
                                             </#if>
                                         </a>
@@ -97,7 +101,15 @@
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-center justify-content-between px-3">
-                                        <span class="small text-uppercase text-gray headings-font-family">${product.getAmount()}</span>
+                                        <span class="small text-uppercase text-gray headings-font-family"><input
+                                                    class="form-control"
+                                                    id="newAmount"
+                                                    name="newAmount"
+                                                    type="number"
+                                                    onchange="changeAmount(event, ${product.getId()})"
+                                                    value="${product.getAmount()}" step="1"
+                                                    min="1" required></span>
+
                                     </div>
                                 </td>
                                 <td class="p-3 align-middle border-light">
