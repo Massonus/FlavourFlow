@@ -26,10 +26,8 @@ public class BasketService {
     public Long addProductToBasket(Long id, User user) {
 
         final Product productById = productService.getProductById(id);
-
         final Basket currentBasket = getUserBasket(user);
         final Set<Product> products = currentBasket.getProducts();
-
         products.add(productById);
 
         basketRepo.save(currentBasket);

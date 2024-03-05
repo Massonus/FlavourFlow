@@ -32,6 +32,8 @@ public class BasketController {
         Basket userBasket = basketService.getUserBasket(user);
         Set<Product> products = userBasket.getProducts();
         model.addAttribute("products", products);
+        model.addAttribute("amount", products);
+
 
         return "basket/basket";
     }

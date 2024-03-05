@@ -14,7 +14,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "product")
-@NoArgsConstructor
 public class Product {
     private static final String SEQUENCE_NAME = "product_seq";
 
@@ -45,6 +44,20 @@ public class Product {
 
     @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<Wish> wishes = new HashSet<>();
+
+    @Transient
+    private Integer amount;
+
+    @Transient
+    private Integer sum;
+
+    public Product() {
+        this.amount = 1;
+    }
+
+    public Integer getSum() {
+        return price * amount;
+    }
 
     public Boolean getIsInBasket() {
         return basket.isEmpty();
