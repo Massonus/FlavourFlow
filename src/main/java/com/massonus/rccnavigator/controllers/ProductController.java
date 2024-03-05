@@ -2,6 +2,7 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.service.BasketService;
 import com.massonus.rccnavigator.service.MessageService;
 import com.massonus.rccnavigator.service.ProductService;
 import jakarta.validation.Valid;
@@ -25,11 +26,13 @@ public class ProductController {
 
     private final ProductService productService;
     private final MessageService messageService;
+    private final BasketService basketService;
 
     @Autowired
-    public ProductController(ProductService productService, MessageService messageService) {
+    public ProductController(ProductService productService, MessageService messageService, BasketService basketService) {
         this.productService = productService;
         this.messageService = messageService;
+        this.basketService = basketService;
     }
 
     @GetMapping("/all-products")

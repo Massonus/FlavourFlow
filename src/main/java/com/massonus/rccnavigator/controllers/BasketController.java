@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Basket;
+import com.massonus.rccnavigator.entity.BasketObject;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.BasketService;
@@ -27,9 +28,8 @@ public class BasketController {
     public String getBasket(Model model, @AuthenticationPrincipal User user) {
 
         Basket userBasket = basketService.getUserBasket(user);
-        Set<Product> products = userBasket.getProducts();
-        model.addAttribute("products", products);
-        model.addAttribute("amount", products);
+        Set<BasketObject> basketObjects = userBasket.getBasketObjects();
+        model.addAttribute("products", basketObjects);
 
         return "basket/basket";
     }

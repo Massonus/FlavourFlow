@@ -30,6 +30,6 @@ public class Basket {
     @JoinTable(name = "basket_product",
             joinColumns = @JoinColumn(name = "basket_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> products = new HashSet<>();
+    private Set<BasketObject> basketObjects = new HashSet<>();
 
 }

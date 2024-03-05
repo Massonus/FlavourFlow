@@ -69,16 +69,16 @@
                                             </div>
                                             <div class="product-links">
 
-                                                <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}')"><#if product.getIsInBasket()>
-                                                        <i id="cart-${product.getId()}" class="bi bi-cart"></i>
-                                                    <#else>
+                                                <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}')"><#if false>
                                                         <i id="cart-${product.getId()}" class="bi bi-cart-fill"></i>
+                                                    <#else>
+                                                        <i id="cart-${product.getId()}" class="bi bi-cart"></i>
                                                     </#if></a>
 
                                                 <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if product.getIsinWishes()>
-                                                        <i id="wish-${product.getId()}" class="far fa-heart"></i>
-                                                    <#else>
                                                         <i id="wish-${product.getId()}" class="fa-solid fa-heart"></i>
+                                                    <#else>
+                                                        <i id="wish-${product.getId()}" class="far fa-heart"></i>
                                                     </#if></a>
                                             </div>
                                         </div>
