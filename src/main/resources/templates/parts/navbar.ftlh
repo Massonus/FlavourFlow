@@ -28,7 +28,7 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <div id="search" class="search">
-                        <form class="d-flex" role="search" action="/companies" method="get">
+                        <form class="d-flex" role="search" onsubmit="search(event)" method="get">
                             <input id="search-input" name="search" type="search" placeholder="Type to search"
                                    class="search-input">
 
