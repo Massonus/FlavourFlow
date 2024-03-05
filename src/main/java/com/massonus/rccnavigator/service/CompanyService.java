@@ -1,11 +1,9 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
-import com.massonus.rccnavigator.entity.Company;
-import com.massonus.rccnavigator.entity.CompanyCountry;
-import com.massonus.rccnavigator.entity.Image;
-import com.massonus.rccnavigator.entity.KitchenCategory;
+import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.CompanyRepo;
+import com.massonus.rccnavigator.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,17 +14,22 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Service
 public class CompanyService {
     private final CompanyRepo companyRepo;
     private final ImageService imageService;
+    private final CompanyCountryService countryService;
+    private final KitchenCategoryService categoryService;
+    private final ProductRepo productRepo;
 
     @Autowired
-    public CompanyService(CompanyRepo companyRepo, ImageService imageService) {
+    public CompanyService(CompanyRepo companyRepo, ImageService imageService, CompanyCountryService countryService, KitchenCategoryService categoryService, ProductRepo productRepo) {
         this.companyRepo = companyRepo;
         this.imageService = imageService;
+        this.countryService = countryService;
+        this.categoryService = categoryService;
+        this.productRepo = productRepo;
     }
 
     public void saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyCountry type) {
@@ -61,7 +64,7 @@ public class CompanyService {
         savedCompany.setKitchenCategory(category);
     }
 
-    public Page<Company> getCompaniesInPage(CompanyFilterDto companyFilterDto, Pageable pageable, String sort) {
+    public Page<Company> getCompaniesInPage(CompanyFilterDto companyFilterDto, Pageable pageable, String sort, String search) {
 
         List<Company> companies = getAllCompanies();
 
@@ -83,13 +86,17 @@ public class CompanyService {
             companies = getSortedCompanies(sort, companies);
         }
 
+        if (Objects.nonNull(search) && !search.isEmpty()) {
+            companies = getSearchCompanies(search);
+        }
+
         final int start = (int) pageable.getOffset();
         final int end = Math.min((start + pageable.getPageSize()), companies.size());
 
         return new PageImpl<>(companies.subList(start, end), pageable, companies.size());
     }
 
-    public List<Company> getSortedCompanies(String sort, List<Company> companies) {
+    private List<Company> getSortedCompanies(String sort, List<Company> companies) {
 
         companies = switch (sort) {
 
@@ -136,7 +143,24 @@ public class CompanyService {
         return companyRepo.findAll();
     }
 
-    public Set<Company> getAllCompaniesByTitleContainingIgnoreCase(final String title) {
-        return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
+    public List<Company> getSearchCompanies(final String title) {
+
+        KitchenCategory category = categoryService.getCategoryByTitle(title);
+        CompanyCountry country = countryService.getCountryByTitle(title);
+        List<Company> companies = companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
+
+        if (Objects.nonNull(category)) {
+            return companyRepo.findCompaniesByKitchenCategoryId(category.getId());
+
+        } else if (Objects.nonNull(country)) {
+            return companyRepo.findCompaniesByCompanyCountryId(country.getId());
+
+        } else if (companies.isEmpty()) {
+            return productRepo.findProductsByTitleContainingIgnoreCase(title).stream()
+                    .map(Product::getCompany)
+                    .toList();
+        } else {
+            return companies;
+        }
     }
 }

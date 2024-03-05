@@ -14,3 +14,35 @@ function filterCompany(event) {
         })
         .catch(error => console.error(error));
 }
+
+function filterProduct(event, productId) {
+    event.preventDefault();
+
+    let sort = document.getElementById("sort").value;
+
+    const url = `/product/all-products?id=${productId}&sort=${sort}`;
+
+    fetch(url, {
+        method: 'GET',
+    })
+        .then(response => {
+            window.location.href = response.url;
+        })
+        .catch(error => console.error(error));
+}
+
+function search(event) {
+    event.preventDefault();
+
+    let search = document.getElementById("search").value;
+
+    const url = `/companies?search=${search}`;
+
+    fetch(url, {
+        method: 'GET',
+    })
+        .then(response => {
+            window.location.href = response.url;
+        })
+        .catch(error => console.error(error));
+}

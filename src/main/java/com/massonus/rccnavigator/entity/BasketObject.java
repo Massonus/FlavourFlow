@@ -4,22 +4,23 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "product")
-public class Product {
-    private static final String SEQUENCE_NAME = "product_seq";
+@Table(name = "basket_object")
+public class BasketObject {
+
+    private static final String SEQUENCE_NAME = "object_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
+
+    private Long productId;
 
     private String title;
 
@@ -35,14 +36,23 @@ public class Product {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Message> messages = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
-    private Set<Wish> wishes = new HashSet<>();
+    @ManyToMany(mappedBy = "basketObjects", fetch = FetchType.LAZY)
+    private Set<Basket> basket = new HashSet<>();
 
-    public Boolean getIsinWishes() {
-        return !wishes.isEmpty();
+    private Integer amount;
+
+    @Transient
+    private Integer sum;
+
+    public BasketObject() {
+        this.amount = 1;
     }
 
+    public Integer getSum() {
+        return price * amount;
+    }
 }

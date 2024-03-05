@@ -43,3 +43,22 @@ function deleteBasketItem(productId, csrf, iconElement) {
         })
         .catch(error => console.log(error));
 }
+
+function changeAmount(event, productId) {
+
+    event.preventDefault();
+
+    let amount = document.getElementById("newAmount").value;
+
+    const url = `/basket/change-amount?amount=${amount}&productId=${productId}`;
+
+    fetch(url, {
+        method: 'GET',
+    })
+        .then(response => {
+            window.location.href = response.url;
+        })
+        .catch(error => console.error(error));
+
+
+}

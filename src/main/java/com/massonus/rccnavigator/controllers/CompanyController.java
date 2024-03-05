@@ -43,7 +43,8 @@ public class CompanyController {
                                   @RequestParam(value = "page", defaultValue = "0") Integer page,
                                   @RequestParam(required = false) Long categoryId,
                                   @RequestParam(required = false) Long countryId,
-                                  @RequestParam(required = false) String sort) {
+                                  @RequestParam(required = false) String sort,
+                                  @RequestParam(required = false) String search) {
 
         final CompanyFilterDto companyFilterDto = new CompanyFilterDto();
         companyFilterDto.setCategoryId(categoryId);
@@ -52,16 +53,17 @@ public class CompanyController {
         int pageSize = 3;
 
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Company> companyPage = companyService.getCompaniesInPage(companyFilterDto, pageable, sort);
+        Page<Company> companyPage = companyService.getCompaniesInPage(companyFilterDto, pageable, sort, search);
 
         model.addAttribute("categories", kitchenCategoryService.getAllCategories());
         model.addAttribute("countries", companyCountryService.getAllCountries());
         model.addAttribute("companies", companyPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", companyPage.getTotalPages());
-        model.addAttribute("categoryId", categoryId == null ? 0L : categoryId);
-        model.addAttribute("countryId", countryId == null ? 0L : countryId);
+        model.addAttribute("categoryId", categoryId);
+        model.addAttribute("countryId", countryId);
         model.addAttribute("sort", sort == null ? "Default" : sort);
+        model.addAttribute("search", search);
 
         return "company/allCompanies";
     }

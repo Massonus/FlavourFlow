@@ -239,6 +239,10 @@ input:checked + label:before {
     left: 30px;
 }
 
+#newAmount {
+    width: 60px;
+}
+
 /*.pagination {
     --bs-pagination-border-color: red;
     --bs-pagination-color: red;

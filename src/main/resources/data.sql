@@ -4,6 +4,7 @@ VALUES (1, 'CAFFE'),
        (3, 'RESTAURANT'),
        (4, 'FAST FOOD');
 
+ALTER SEQUENCE category_seq RESTART WITH 5;
 
 INSERT INTO public.company_country(id, title)
 VALUES (1, 'ITALIAN'),
@@ -11,6 +12,7 @@ VALUES (1, 'ITALIAN'),
        (3, 'AMERICAN'),
        (4, 'SPANISH');
 
+ALTER SEQUENCE country_seq RESTART WITH 5;
 
 INSERT INTO public.company(id, title, price_category, category_id, country_id, image_link)
 VALUES (1, 'PNS', 'LOW', 4, 4, 'https://img.freepik.com/free-photo/cocktail-wooden-table-restaurant_23-2147936121.jpg?t=st=1709304734~exp=1709308334~hmac=d4a8d61fe99303ee2f6b1a8caefe0b15d1a628e0680861ce1ae68f095dcedbae&w=1380'),
@@ -23,6 +25,7 @@ VALUES (1, 'PNS', 'LOW', 4, 4, 'https://img.freepik.com/free-photo/cocktail-wood
        (8, 'The Sapphire Nights', 'PREMIUM', 2, 2, 'https://i.pinimg.com/564x/c5/a5/2a/c5a52a35f7556b5e17563f7c5ca97a4c.jpg'),
        (9, 'The Square', 'PREMIUM', 2, 3, 'https://i.pinimg.com/564x/22/e5/11/22e511fe8a5bc8ae6bb56ea4ac5b2836.jpg');
 
+ALTER SEQUENCE company_seq RESTART WITH 10;
 
 INSERT INTO public.product(id, title, price, company_id, image_link)
 VALUES (1, 'Pizza', 10, 1, 'https://i.pinimg.com/564x/f0/86/c2/f086c2b68c7bc41d5371815fb4e0fc58.jpg'),
@@ -85,3 +88,6 @@ VALUES (1, 'Pizza', 10, 1, 'https://i.pinimg.com/564x/f0/86/c2/f086c2b68c7bc41d5
        (43, 'Fajitas', 37, 9, 'https://i.pinimg.com/564x/38/bf/9e/38bf9e3b81c26d989c9291b012cf420f.jpg'),
        (44, 'Manhattan', 47, 9, 'https://i.pinimg.com/564x/49/c5/10/49c510dcec7ca7417727ef466e71bfa4.jpg'),
        (45, 'Spritz', 49, 9, 'https://i.pinimg.com/564x/06/36/ee/0636eeda6325e36ba1cea59a2bd35f2e.jpg');
+
+
+ALTER SEQUENCE product_seq RESTART WITH 46;
