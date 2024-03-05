@@ -1,11 +1,9 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
-import com.massonus.rccnavigator.entity.Company;
-import com.massonus.rccnavigator.entity.CompanyCountry;
-import com.massonus.rccnavigator.entity.Image;
-import com.massonus.rccnavigator.entity.KitchenCategory;
+import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.CompanyRepo;
+import com.massonus.rccnavigator.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,13 +21,15 @@ public class CompanyService {
     private final ImageService imageService;
     private final CompanyCountryService countryService;
     private final KitchenCategoryService categoryService;
+    private final ProductRepo productRepo;
 
     @Autowired
-    public CompanyService(CompanyRepo companyRepo, ImageService imageService, CompanyCountryService countryService, KitchenCategoryService categoryService) {
+    public CompanyService(CompanyRepo companyRepo, ImageService imageService, CompanyCountryService countryService, KitchenCategoryService categoryService, ProductRepo productRepo) {
         this.companyRepo = companyRepo;
         this.imageService = imageService;
         this.countryService = countryService;
         this.categoryService = categoryService;
+        this.productRepo = productRepo;
     }
 
     public void saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyCountry type) {
@@ -147,6 +147,7 @@ public class CompanyService {
 
         KitchenCategory category = categoryService.getCategoryByTitle(title);
         CompanyCountry country = countryService.getCountryByTitle(title);
+        List<Company> companies = companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
 
         if (Objects.nonNull(category)) {
             return companyRepo.findCompaniesByKitchenCategoryId(category.getId());
@@ -154,8 +155,12 @@ public class CompanyService {
         } else if (Objects.nonNull(country)) {
             return companyRepo.findCompaniesByCompanyCountryId(country.getId());
 
+        } else if (companies.isEmpty()) {
+            return productRepo.findProductsByTitleContainingIgnoreCase(title).stream()
+                    .map(Product::getCompany)
+                    .toList();
         } else {
-            return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
+            return companies;
         }
     }
 }

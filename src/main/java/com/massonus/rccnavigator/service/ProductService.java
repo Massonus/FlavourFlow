@@ -147,7 +147,7 @@ public class ProductService {
         return productRepo.findProductsByCompanyId(companyId);
     }
 
-    public Set<Product> getAllProductsByTitleContainingIgnoreCase(String title) {
+    public List<Product> getAllProductsByTitleContainingIgnoreCase(String title) {
         return productRepo.findProductsByTitleContainingIgnoreCase(title);
     }
 

@@ -63,7 +63,7 @@ public class CompanyController {
         model.addAttribute("categoryId", categoryId);
         model.addAttribute("countryId", countryId);
         model.addAttribute("sort", sort == null ? "Default" : sort);
-        /*model.addAttribute("search", search);*/
+        model.addAttribute("search", search);
 
         return "company/allCompanies";
     }
