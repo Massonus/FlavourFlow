@@ -2,6 +2,7 @@ package com.massonus.rccnavigator.controllers;
 
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.repo.BasketObjectRepo;
 import com.massonus.rccnavigator.service.BasketService;
 import com.massonus.rccnavigator.service.MessageService;
 import com.massonus.rccnavigator.service.ProductService;
@@ -26,12 +27,14 @@ public class ProductController {
 
     private final ProductService productService;
     private final MessageService messageService;
+    private final BasketObjectRepo basketObjectRepo;
     private final BasketService basketService;
 
     @Autowired
-    public ProductController(ProductService productService, MessageService messageService, BasketService basketService) {
+    public ProductController(ProductService productService, MessageService messageService, BasketObjectRepo basketObjectRepo, BasketService basketService) {
         this.productService = productService;
         this.messageService = messageService;
+        this.basketObjectRepo = basketObjectRepo;
         this.basketService = basketService;
     }
 
@@ -46,6 +49,8 @@ public class ProductController {
         Page<Product> productPage = productService.getProductsInPage(id, pageable, sort);
 
         model.addAttribute("products", productPage.getContent());
+        model.addAttribute("objects", basketObjectRepo.findAll());
+        model.addAttribute("service", basketService);
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("id", id);

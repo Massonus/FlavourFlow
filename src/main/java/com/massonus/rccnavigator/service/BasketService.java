@@ -6,6 +6,7 @@ import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.repo.BasketObjectRepo;
 import com.massonus.rccnavigator.repo.BasketRepo;
+import com.massonus.rccnavigator.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,14 @@ public class BasketService {
     private final ProductService productService;
     private final BasketRepo basketRepo;
     private final BasketObjectRepo basketObjectRepo;
+    private final UserRepo userRepo;
 
     @Autowired
-    public BasketService(ProductService productService, BasketRepo basketRepo, BasketObjectRepo basketObjectRepo) {
+    public BasketService(ProductService productService, BasketRepo basketRepo, BasketObjectRepo basketObjectRepo, UserRepo userRepo) {
         this.productService = productService;
         this.basketRepo = basketRepo;
         this.basketObjectRepo = basketObjectRepo;
+        this.userRepo = userRepo;
     }
 
     public Long addProductToBasket(Long id, User user) {
@@ -59,6 +62,14 @@ public class BasketService {
             return basketRepo.save(basket);
         }
         return basketByUserId;
+    }
+
+    public Boolean isInBasket(String id, String userId) {
+
+        Long productId = Long.valueOf(id);
+        User userById = userRepo.findUserById(Long.valueOf(userId));
+
+        return getUserBasket(userById).getBasketObjects().stream().anyMatch(o -> o.getProductId().equals(productId));
     }
 
     public void changeAmount(Long productId, User user, Integer amount) {

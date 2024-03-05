@@ -36,7 +36,7 @@ public class BasketObject {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
