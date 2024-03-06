@@ -44,11 +44,9 @@ function deleteBasketItem(productId, csrf, iconElement) {
         .catch(error => console.log(error));
 }
 
-function changeAmount(event, productId) {
+function changeAmount(productId) {
 
-    event.preventDefault();
-
-    let amount = document.getElementById("newAmount").value;
+    let amount = document.getElementById(`newAmount-${productId}`).value;
 
     const url = `/basket/change-amount?amount=${amount}&productId=${productId}`;
 

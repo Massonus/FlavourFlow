@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -30,6 +29,5 @@ public class Basket {
     @JoinTable(name = "basket_product",
             joinColumns = @JoinColumn(name = "basket_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<BasketObject> basketObjects = new HashSet<>();
-
+    private List<BasketObject> basketObjects = new ArrayList<>();
 }

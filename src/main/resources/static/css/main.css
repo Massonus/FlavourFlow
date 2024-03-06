@@ -239,7 +239,7 @@ input:checked + label:before {
     left: 30px;
 }
 
-#newAmount {
+#amount-input input {
     width: 60px;
 }
 

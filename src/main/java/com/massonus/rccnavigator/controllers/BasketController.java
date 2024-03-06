@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -27,7 +29,7 @@ public class BasketController {
     public String getBasket(Model model, @AuthenticationPrincipal User user) {
 
         Basket userBasket = basketService.getUserBasket(user.getId());
-        Set<BasketObject> basketObjects = userBasket.getBasketObjects();
+        List<BasketObject> basketObjects = userBasket.getBasketObjects().stream().sorted(Comparator.comparing(BasketObject::getTitle)).toList();
         model.addAttribute("products", basketObjects);
 
         return "basket/basket";

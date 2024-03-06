@@ -10,6 +10,7 @@ import com.massonus.rccnavigator.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -34,7 +35,7 @@ public class BasketService {
         final Product productById = productService.getProductById(id);
 
         final Basket currentBasket = getUserBasket(userId);
-        Set<BasketObject> basketObjects = currentBasket.getBasketObjects();
+        List<BasketObject> basketObjects = currentBasket.getBasketObjects();
 
         BasketObject basketObject = new BasketObject();
         basketObject.setProductId(productById.getId());

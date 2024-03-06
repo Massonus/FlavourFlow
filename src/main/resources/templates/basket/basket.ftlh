@@ -67,14 +67,12 @@
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-center justify-content-between px-3">
-                                        <span class="small text-uppercase text-gray headings-font-family"><input
+                                        <span id="amount-input" class="small text-uppercase text-gray headings-font-family"><input
                                                     class="form-control"
-                                                    id="newAmount"
-                                                    name="newAmount"
+                                                    id="newAmount-${product.getId()}"
                                                     type="number"
-                                                    onchange="changeAmount(event, ${product.getId()})"
-                                                    value="${product.getAmount()}" step="1"
-                                                    min="1" required></span>
+                                                    onchange="changeAmount(${product.getId()})"
+                                                    value="${product.getAmount()}"></span>
 
                                     </div>
                                 </td>
