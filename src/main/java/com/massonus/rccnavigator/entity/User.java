@@ -43,6 +43,10 @@ public class User implements UserDetails {
 
     private Long redactor;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Service
 public class BasketService {
@@ -35,6 +34,7 @@ public class BasketService {
         final Product productById = productService.getProductById(id);
 
         final Basket currentBasket = getUserBasket(userId);
+        User userById = userRepo.findUserById(userId);
         List<BasketObject> basketObjects = currentBasket.getBasketObjects();
 
         BasketObject basketObject = new BasketObject();
@@ -43,7 +43,7 @@ public class BasketService {
         basketObject.setImage(productById.getImage());
         basketObject.setImageLink(productById.getImageLink());
         basketObject.setPrice(productById.getPrice());
-        basketObject.setUser(userRepo.findUserById(userId));
+        basketObject.setUser(userById);
         basketObject.setCompany(productById.getCompany());
 
         basketObjectRepo.save(basketObject);
@@ -51,6 +51,7 @@ public class BasketService {
         basketObjects.add(basketObject);
 
         basketRepo.save(currentBasket);
+        userById.setBasket(currentBasket);
 
         return productById.getCompany().getId();
     }
