@@ -32,7 +32,7 @@ public class WishController {
     @GetMapping
     public String getWishes(Model model, @AuthenticationPrincipal User user) {
 
-        Wish userWish = wishService.getUserWish(user);
+        Wish userWish = wishService.getUserWish(user.getId());
         Set<Product> products = userWish.getProducts();
         model.addAttribute("products", products);
 
@@ -44,7 +44,7 @@ public class WishController {
 
         Long companyId = wishService.addProductToWishes(id, user);
 
-        return "redirect:/product/all-products/" + companyId;
+        return "redirect:/product/all-products?id=" + companyId;
     }
 
     @GetMapping("/move-wish-to-basket/{id}")

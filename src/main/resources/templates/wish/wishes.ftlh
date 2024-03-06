@@ -3,29 +3,102 @@
 
 <@c.page>
 
-    <#list products as product>
-        <div class="col-12 col-md-8 col-lg-9">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                <div class="card border-none">
-                    <#if (product.getImage()??)>
-                        <img alt="product image" src="/images/${product.getImage().getId()}.jpg" class="card-img-top"/>
-                    </#if>
-                    <div class="card-body">
-                        <h5 class="card-title">${product.getTitle()}</h5>
-                        <p class="text-muted">${product.getPrice() + '$'}</p>
-                        <div class="d-flex justify-content-between">
+    <div class="container">
+        <h2 class="h5 text-uppercase mb-4">Wishlist</h2>
+        <div class="row">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <!--BASKET OBJECTS TABLE-->
+                <div class="table-responsive mb-4">
+                    <table class="table text-nowrap">
+                        <thead class="bg-light">
+                        <tr>
+                            <th class="border-0 p-3" scope="col"><strong
+                                        class="text-sm text-uppercase">Product</strong>
+                            </th>
+                            <th class="border-0 p-3" scope="col"><strong
+                                        class="text-sm text-uppercase">Company</strong>
+                            </th>
+                            <th class="border-0 p-3" scope="col"><strong
+                                        class="text-sm text-uppercase">Price</strong>
+                            </th>
+                            <th class="border-0 p-3" scope="col"><strong class="text-sm text-uppercase"></strong>
+                            </th>
+                        </tr>
+                        </thead>
+                        <#list products as product>
+                            <tbody class="border-0">
+                            <tr>
+                                <th class="ps-0 py-3 border-light" scope="row">
+                                    <div class="d-flex align-items-center">
+                                        <a class="d-block">
+                                            <#if (product.getImage()??)>
 
-                            <a role="button" class="btn btn-success btn-sm"
-                               href="wishes/move-wish-to-basket/${product.getId()}">To Basket</a>
-                            <a role="button" class="btn black-btn-outline"
-                               href="wishes/delete-from-wishes/${product.getId()}">Delete</a>
-                        </div>
+                                                <a href="/product/${product.getId()}"><img
+                                                            style="object-fit: cover; height: 80px; width: 80px;"
+                                                            alt="product image"
+                                                            src="/images/${product.getImage().getId()}.jpg"
+                                                            class="card-img-top"/></a>
+
+                                            <#else>
+
+                                                <a href="/product/${product.getId()}"><img
+                                                            style="object-fit: cover; height: 80px; width: 80px;"
+                                                            alt="product image"
+                                                            src="${product.getImageLink()}"
+                                                            class="card-img-top"></a>
+
+                                            </#if>
+                                        </a>
+                                        <div class="ms-3">
+                                            <span class="fw-medium">${product.getTitle()}</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td class="p-3 align-middle border-light">
+                                    <p class="mb-0 small">${product.getCompany().getTitle()}</p>
+                                </td>
+                                <td class="p-3 align-middle border-light">
+                                    <p class="mb-0 small">${product.getPrice() + '$'}</p>
+                                </td>
+                                <td class="p-3 align-middle border-light">
+                                    <div class="d-flex align-items-stretch">
+
+                                        <a role="button" class="btn btn-success btn-sm"
+                                           href="wishes/move-wish-to-basket/${product.getId()}">To Basket</a>
+
+                                        <a role="button" class="btn black-btn-outline"
+                                           href="wishes/delete-from-wishes/${product.getId()}">
+                                            <i class="bi bi-trash text-danger"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tbody>
+                        </#list>
+                    </table>
+                </div>
+            </div>
+            <!-- TOTAL-->
+            <div class="col-lg-4">
+                <div class="card border-0 rounded-0 p-lg-4 bg-light">
+                    <div class="card-body">
+                        <h5 class="text-uppercase mb-4">Navigation</h5>
+                        <ul class="list-unstyled mb-0">
+
+                            <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                               href="/companies">Continue shopping</a></li>
+
+                            <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                               href="/basket">Go to basket</a></li>
+
+                            <li>
+                            <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the wishes
+                            </button></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </#list>
-    <br>
+    </div>
 
 </@c.page>
 

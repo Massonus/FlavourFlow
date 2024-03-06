@@ -78,13 +78,13 @@
                                             <div class="product-links">
 
                                                 <#if known>
-                                                    <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}')"><#if service.isInBasket("${product.getId()}", "${currentUserId}")>
+                                                    <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}')"><#if basketService.isInBasket("${product.getId()}", "${currentUserId}")>
                                                             <i id="cart-${product.getId()}" class="bi bi-cart-fill"></i>
                                                         <#else>
                                                             <i id="cart-${product.getId()}" class="bi bi-cart"></i>
                                                         </#if></a>
 
-                                                    <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if product.getIsinWishes()>
+                                                    <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if wishService.isInWishes("${product.getId()}", "${currentUserId}")>
                                                             <i id="wish-${product.getId()}"
                                                                class="fa-solid fa-heart"></i>
                                                         <#else>

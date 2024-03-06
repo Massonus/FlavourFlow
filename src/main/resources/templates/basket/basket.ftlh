@@ -7,7 +7,7 @@
         <h2 class="h5 text-uppercase mb-4">Shopping cart</h2>
         <div class="row">
             <div class="col-lg-8 mb-4 mb-lg-0">
-                <!-- CART TABLE-->
+                <!--BASKET OBJECTS TABLE-->
                 <div class="table-responsive mb-4">
                     <table class="table text-nowrap">
                         <thead class="bg-light">
@@ -67,7 +67,8 @@
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-center justify-content-between px-3">
-                                        <span id="amount-input" class="small text-uppercase text-gray headings-font-family"><input
+                                        <span id="amount-input"
+                                              class="small text-uppercase text-gray headings-font-family"><input
                                                     class="form-control"
                                                     id="newAmount-${product.getId()}"
                                                     type="number"
@@ -81,10 +82,6 @@
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-stretch">
-                                        <#--<a role="button" class="btn btn-outline-danger"
-                                           th:href="@{/basket/removeOneUnitOfProduct/{id}(id=${detail.getProductId()})}">
-                                            Reduce quantity by one
-                                        </a>-->
                                         <a role="button" class="btn black-btn-outline"
                                            href="basket/delete-from-basket/${product.getId()}">
                                             <i class="bi bi-trash text-danger"></i>
@@ -96,7 +93,7 @@
                     </table>
                 </div>
             </div>
-            <!-- ORDER TOTAL-->
+            <!-- TOTAL-->
             <div class="col-lg-4">
                 <div class="card border-0 rounded-0 p-lg-4 bg-light">
                     <div class="card-body">
@@ -106,13 +103,15 @@
                                         class="text-uppercase small font-weight-bold">Total</strong>
                                 <span>${basket.getTotal() + '$'}</span></li>
 
-                            <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               href="/companies">Continue shopping</a>
+                            <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                               href="/companies">Continue shopping</a></li>
 
+                            <li>
                             <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               href="/">Checkout</a>
+                               href="/">Checkout</a></li>
 
-                            <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the basket</button>
+                            <li><button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the basket
+                            </button></li>
                         </ul>
                     </div>
                 </div>
