@@ -30,6 +30,7 @@ public class BasketController {
         Basket userBasket = basketService.getUserBasket(user.getId());
         List<BasketObject> basketObjects = userBasket.getBasketObjects().stream().sorted(Comparator.comparing(BasketObject::getTitle)).toList();
         model.addAttribute("products", basketObjects);
+        model.addAttribute("basket", userBasket);
 
         return "basket/basket";
     }

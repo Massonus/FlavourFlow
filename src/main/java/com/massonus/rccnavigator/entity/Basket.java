@@ -2,7 +2,6 @@ package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "basket")
-@NoArgsConstructor
 public class Basket {
 
     private static final String SEQUENCE_NAME = "basket_seq";
@@ -32,4 +30,10 @@ public class Basket {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<BasketObject> basketObjects = new ArrayList<>();
 
+
+    public Double getTotal() {
+        return basketObjects.stream()
+                .mapToDouble(BasketObject::getSum)
+                .sum();
+    }
 }

@@ -26,7 +26,7 @@ public class BasketObject {
 
     private String title;
 
-    private Integer price;
+    private Double price;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
@@ -47,14 +47,13 @@ public class BasketObject {
 
     private Integer amount;
 
-    @Transient
-    private Integer sum;
+    private Double sum;
 
     public BasketObject() {
         this.amount = 1;
     }
 
-    public Integer getSum() {
+    public Double getSum() {
         return price * amount;
     }
 }

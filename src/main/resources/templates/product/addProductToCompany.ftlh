@@ -10,7 +10,7 @@
             <input type="text" id="title" name="title" required><br><br>
 
             <label for="price">Price:</label>
-            <input type="number" id="price" name="price" required><br><br>
+            <input type="number" step="0.01" min="0" id="price" name="price" required><br><br>
 
             <h5>Choose a file or enter link</h5>
             <label for="file">File:</label>

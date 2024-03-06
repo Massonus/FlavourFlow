@@ -104,16 +104,17 @@
                         <ul class="list-unstyled mb-0">
                             <li class="d-flex align-items-center justify-content-between mb-4"><strong
                                         class="text-uppercase small font-weight-bold">Total</strong>
-                                <#-- <span th:text="${basket.sum + '$'}">250.0</span>--></li>
-                            <#--<a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               th:href="@{/products}">Continue shopping</a>
-                            <button class="btn black-btn-outline w-100 mt-2"
-                                    data-bs-toggle="modal" data-bs-target="#motiv">Get motivation
-                            </button>-->
+                                <span>${basket.getTotal() + '$'}</span></li>
+
+                            <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                               href="/companies">Continue shopping</a>
+
+                            <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                               href="/">Checkout</a>
+
                             <a role="button" class="btn btn-outline-danger w-100 mt-2"
                                href="/basket/clear">
-                                Clear the basket
-                            </a>
+                                Clear the basket</a>
                         </ul>
                     </div>
                 </div>
