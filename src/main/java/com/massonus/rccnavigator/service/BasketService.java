@@ -85,13 +85,11 @@ public class BasketService {
 
     public void deleteBasketItem(Long id, User user) {
         BasketObject basketObject = basketObjectRepo.findBasketObjectById(id);
-        Basket basketByUserId = getBasketByUserId(user.getId());
-        basketByUserId.getBasketObjects().remove(basketObject);
+        getBasketByUserId(user.getId()).getBasketObjects().remove(basketObject);
+        basketObjectRepo.delete(basketObject);
     }
 
     public void clearBasket(final User user) {
-        Basket basketByUserId = getBasketByUserId(user.getId());
-        basketByUserId.getBasketObjects().clear();
-        basketRepo.save(basketByUserId);
+        basketRepo.delete(getBasketByUserId(user.getId()));
     }
 }
