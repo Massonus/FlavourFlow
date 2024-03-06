@@ -57,6 +57,25 @@ function changeAmount(productId) {
             window.location.href = response.url;
         })
         .catch(error => console.error(error));
+}
+
+function clearBasket() {
+
+    let url;
+
+    if (confirm("Do you really want to clear the basket?")) {
+        url = `/basket/clear`;
+    } else {
+        url = `/basket`;
+    }
+
+    fetch(url, {
+        method: 'GET',
+    })
+        .then(response => {
+            window.location.href = response.url;
+        })
+        .catch(error => console.error(error));
 
 
 }

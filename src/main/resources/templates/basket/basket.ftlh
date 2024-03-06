@@ -112,9 +112,7 @@
                             <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
                                href="/">Checkout</a>
 
-                            <a role="button" class="btn btn-outline-danger w-100 mt-2"
-                               href="/basket/clear">
-                                Clear the basket</a>
+                            <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the basket</button>
                         </ul>
                     </div>
                 </div>

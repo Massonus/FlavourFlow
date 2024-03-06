@@ -240,7 +240,7 @@ input:checked + label:before {
 }
 
 #amount-input input {
-    width: 60px;
+    width: 80px;
 }
 
 /*.pagination {
