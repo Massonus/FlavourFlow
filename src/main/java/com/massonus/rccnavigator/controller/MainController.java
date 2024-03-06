@@ -1,4 +1,4 @@
-package com.massonus.rccnavigator.controllers;
+package com.massonus.rccnavigator.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

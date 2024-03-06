@@ -34,7 +34,7 @@ function filterProduct(event, productId) {
 function search(event) {
     event.preventDefault();
 
-    let search = document.getElementById("search").value;
+    let search = document.getElementById("search-input").value;
 
     const url = `/companies?search=${search}`;
 

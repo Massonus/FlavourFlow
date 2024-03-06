@@ -23,7 +23,7 @@ public class Product {
 
     private String title;
 
-    private Integer price;
+    private Double price;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")

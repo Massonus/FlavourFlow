@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface BasketObjectRepo extends JpaRepository<BasketObject, Long> {
 
     BasketObject findBasketObjectById(Long id);
+
+    BasketObject findBasketObjectByProductId(Long id);
 }

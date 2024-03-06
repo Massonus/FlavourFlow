@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,7 +26,7 @@ public class BasketObject {
 
     private String title;
 
-    private Integer price;
+    private Double price;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
@@ -41,18 +43,17 @@ public class BasketObject {
     private User user;
 
     @ManyToMany(mappedBy = "basketObjects", fetch = FetchType.LAZY)
-    private Set<Basket> basket = new HashSet<>();
+    private List<Basket> basket = new ArrayList<>();
 
     private Integer amount;
 
-    @Transient
-    private Integer sum;
+    private Double sum;
 
     public BasketObject() {
         this.amount = 1;
     }
 
-    public Integer getSum() {
+    public Double getSum() {
         return price * amount;
     }
 }

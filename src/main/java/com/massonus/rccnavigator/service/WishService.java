@@ -3,6 +3,7 @@ package com.massonus.rccnavigator.service;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.entity.Wish;
+import com.massonus.rccnavigator.repo.UserRepo;
 import com.massonus.rccnavigator.repo.WishRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,18 +17,20 @@ public class WishService {
     private final ProductService productService;
 
     private final WishRepo wishRepo;
+    private final UserRepo userRepo;
 
     @Autowired
-    public WishService(ProductService productService, WishRepo wishRepo) {
+    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo) {
         this.productService = productService;
         this.wishRepo = wishRepo;
+        this.userRepo = userRepo;
     }
 
     public Long addProductToWishes(Long id, User user) {
 
         final Product productById = productService.getProductById(id);
 
-        final Wish currentWish = getUserWish(user);
+        final Wish currentWish = getUserWish(user.getId());
         final Set<Product> products = currentWish.getProducts();
 
         products.add(productById);
@@ -37,12 +40,12 @@ public class WishService {
         return productById.getCompany().getId();
     }
 
-    public Wish getUserWish(User user) {
-        Wish wishByUserId = getWishByUserId(user.getId());
+    public Wish getUserWish(Long userId) {
+        Wish wishByUserId = getWishByUserId(userId);
 
         if (Objects.isNull(wishByUserId)) {
             Wish wish = new Wish();
-            wish.setUser(user);
+            wish.setUser(userRepo.findUserById(userId));
             return wishRepo.save(wish);
         }
         return wishByUserId;
@@ -54,6 +57,11 @@ public class WishService {
 
     public Wish getWishById(Long id) {
         return wishRepo.findWishById(id);
+    }
+
+    public Boolean isInWishes(String productId, String userId) {
+
+        return getUserWish(Long.valueOf(userId)).getProducts().stream().anyMatch(p -> p.getId().equals(Long.valueOf(productId)));
     }
 
     public void deleteWishItem(Long id, User user) {

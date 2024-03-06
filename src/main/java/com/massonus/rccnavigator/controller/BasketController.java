@@ -1,4 +1,4 @@
-package com.massonus.rccnavigator.controllers;
+package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.entity.Basket;
 import com.massonus.rccnavigator.entity.BasketObject;
@@ -10,7 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.Comparator;
+import java.util.List;
 
 @Controller
 @RequestMapping("/basket")
@@ -27,8 +28,9 @@ public class BasketController {
     public String getBasket(Model model, @AuthenticationPrincipal User user) {
 
         Basket userBasket = basketService.getUserBasket(user.getId());
-        Set<BasketObject> basketObjects = userBasket.getBasketObjects();
+        List<BasketObject> basketObjects = userBasket.getBasketObjects().stream().sorted(Comparator.comparing(BasketObject::getTitle)).toList();
         model.addAttribute("products", basketObjects);
+        model.addAttribute("basket", userBasket);
 
         return "basket/basket";
     }

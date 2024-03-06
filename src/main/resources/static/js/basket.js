@@ -44,13 +44,30 @@ function deleteBasketItem(productId, csrf, iconElement) {
         .catch(error => console.log(error));
 }
 
-function changeAmount(event, productId) {
+function changeAmount(productId) {
 
-    event.preventDefault();
-
-    let amount = document.getElementById("newAmount").value;
+    let amount = document.getElementById(`newAmount-${productId}`).value;
 
     const url = `/basket/change-amount?amount=${amount}&productId=${productId}`;
+
+    fetch(url, {
+        method: 'GET',
+    })
+        .then(response => {
+            window.location.href = response.url;
+        })
+        .catch(error => console.error(error));
+}
+
+function clearBasket() {
+
+    let url;
+
+    if (confirm("Do you really want to clear the basket?")) {
+        url = `/basket/clear`;
+    } else {
+        url = `/basket`;
+    }
 
     fetch(url, {
         method: 'GET',

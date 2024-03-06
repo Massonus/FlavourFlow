@@ -1,19 +1,16 @@
-package com.massonus.rccnavigator.controllers;
+package com.massonus.rccnavigator.controller;
 
-import com.massonus.rccnavigator.entity.Product;
-import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.entity.Wish;
+import com.massonus.rccnavigator.entity.*;
+import com.massonus.rccnavigator.repo.BasketObjectRepo;
 import com.massonus.rccnavigator.service.BasketService;
 import com.massonus.rccnavigator.service.WishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -22,17 +19,19 @@ public class WishController {
 
     private final WishService wishService;
     private final BasketService basketService;
+    private final BasketObjectRepo basketObjectRepo;
 
     @Autowired
-    public WishController(WishService wishService, BasketService basketService) {
+    public WishController(WishService wishService, BasketService basketService, BasketObjectRepo basketObjectRepo) {
         this.wishService = wishService;
         this.basketService = basketService;
+        this.basketObjectRepo = basketObjectRepo;
     }
 
     @GetMapping
     public String getWishes(Model model, @AuthenticationPrincipal User user) {
 
-        Wish userWish = wishService.getUserWish(user);
+        Wish userWish = wishService.getUserWish(user.getId());
         Set<Product> products = userWish.getProducts();
         model.addAttribute("products", products);
 
@@ -44,18 +43,23 @@ public class WishController {
 
         Long companyId = wishService.addProductToWishes(id, user);
 
-        return "redirect:/product/all-products/" + companyId;
+        return "redirect:/product/all-products?id=" + companyId;
     }
 
-    @GetMapping("/move-wish-to-basket/{id}")
+    @GetMapping("/move-wish-to-basket")
     @ResponseBody
-    public String moveToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    public Boolean moveToBasket(@RequestParam Long id, @AuthenticationPrincipal User user) {
 
-        basketService.addProductToBasket(id, user.getId());
-        wishService.deleteWishItem(id, user);
+        Basket userBasket = basketService.getUserBasket(user.getId());
+        List<BasketObject> basketObjects = userBasket.getBasketObjects();
 
-        return "redirect:/wishes";
-
+        if (basketObjects.contains(basketObjectRepo.findBasketObjectByProductId(id))) {
+            return true;
+        } else {
+            basketService.addProductToBasket(id, user.getId());
+            wishService.deleteWishItem(id, user);
+            return false;
+        }
     }
 
     @GetMapping("/delete-from-wishes/{id}")

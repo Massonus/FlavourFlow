@@ -116,7 +116,8 @@ public class CompanyService {
                     .sorted(Comparator.comparing(Company::getTitle).reversed())
                     .toList();
 
-            default -> companies;
+            default -> companies.stream().sorted(Comparator.comparing(Company::getId))
+                    .toList();
         };
 
         return companies;

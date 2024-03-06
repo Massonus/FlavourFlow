@@ -70,7 +70,7 @@
                                             <p>${company.getPriceCategory()}</p>
                                         </div>
                                         <div class="product-links">
-                                            <a href="/companies/${company.getId()}">Comments</a>
+                                            <a href="/companies/info/${company.getId()}">Comments</a>
                                         </div>
                                     </div>
                                 </div>

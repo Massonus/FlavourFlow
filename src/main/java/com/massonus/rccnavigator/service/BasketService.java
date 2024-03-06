@@ -10,8 +10,8 @@ import com.massonus.rccnavigator.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Service
 public class BasketService {
@@ -34,7 +34,8 @@ public class BasketService {
         final Product productById = productService.getProductById(id);
 
         final Basket currentBasket = getUserBasket(userId);
-        Set<BasketObject> basketObjects = currentBasket.getBasketObjects();
+        User userById = userRepo.findUserById(userId);
+        List<BasketObject> basketObjects = currentBasket.getBasketObjects();
 
         BasketObject basketObject = new BasketObject();
         basketObject.setProductId(productById.getId());
@@ -42,7 +43,7 @@ public class BasketService {
         basketObject.setImage(productById.getImage());
         basketObject.setImageLink(productById.getImageLink());
         basketObject.setPrice(productById.getPrice());
-        basketObject.setUser(userRepo.findUserById(userId));
+        basketObject.setUser(userById);
         basketObject.setCompany(productById.getCompany());
 
         basketObjectRepo.save(basketObject);
@@ -50,6 +51,7 @@ public class BasketService {
         basketObjects.add(basketObject);
 
         basketRepo.save(currentBasket);
+        userById.setBasket(currentBasket);
 
         return productById.getCompany().getId();
     }
@@ -84,13 +86,12 @@ public class BasketService {
 
     public void deleteBasketItem(Long id, User user) {
         BasketObject basketObject = basketObjectRepo.findBasketObjectById(id);
-        Basket basketByUserId = getBasketByUserId(user.getId());
-        basketByUserId.getBasketObjects().remove(basketObject);
+        getBasketByUserId(user.getId()).getBasketObjects().remove(basketObject);
+        basketObjectRepo.delete(basketObject);
     }
 
     public void clearBasket(final User user) {
-        Basket basketByUserId = getBasketByUserId(user.getId());
-        basketByUserId.getBasketObjects().clear();
-        basketRepo.save(basketByUserId);
+        userRepo.findUserById(user.getId()).setBasket(null);
+        basketRepo.delete(getBasketByUserId(user.getId()));
     }
 }

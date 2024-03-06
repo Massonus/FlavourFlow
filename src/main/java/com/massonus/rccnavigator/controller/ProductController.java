@@ -1,4 +1,4 @@
-package com.massonus.rccnavigator.controllers;
+package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
@@ -6,6 +6,7 @@ import com.massonus.rccnavigator.repo.BasketObjectRepo;
 import com.massonus.rccnavigator.service.BasketService;
 import com.massonus.rccnavigator.service.MessageService;
 import com.massonus.rccnavigator.service.ProductService;
+import com.massonus.rccnavigator.service.WishService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/product")
@@ -29,13 +29,15 @@ public class ProductController {
     private final MessageService messageService;
     private final BasketObjectRepo basketObjectRepo;
     private final BasketService basketService;
+    private final WishService wishService;
 
     @Autowired
-    public ProductController(ProductService productService, MessageService messageService, BasketObjectRepo basketObjectRepo, BasketService basketService) {
+    public ProductController(ProductService productService, MessageService messageService, BasketObjectRepo basketObjectRepo, BasketService basketService, WishService wishService) {
         this.productService = productService;
         this.messageService = messageService;
         this.basketObjectRepo = basketObjectRepo;
         this.basketService = basketService;
+        this.wishService = wishService;
     }
 
     @GetMapping("/all-products")
@@ -50,7 +52,8 @@ public class ProductController {
 
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("objects", basketObjectRepo.findAll());
-        model.addAttribute("service", basketService);
+        model.addAttribute("basketService", basketService);
+        model.addAttribute("wishService", wishService);
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("id", id);
@@ -60,8 +63,8 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/admin/all-products/{id}")
-    public String getProductsOfCompanyForAdmin(@PathVariable Long id, Model model) {
+    @GetMapping("/admin/all-products")
+    public String getProductsOfCompanyForAdmin(@RequestParam Long id, Model model) {
         List<Product> products = productService.getAllProductsByCompanyId(id);
         model.addAttribute("products", products);
         model.addAttribute("id", id);

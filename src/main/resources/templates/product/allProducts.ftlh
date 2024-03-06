@@ -48,56 +48,58 @@
                 </div>
 
                 <#list products as product>
-                        <div class="col-lg-3 col-sm-6 mb-3">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="product-card">
-                                        <div class="product-thumb">
-                                            <#if (product.getImage()??)>
-                                                <div class="filters__product-img">
-                                                    <a href="/product/${product.getId()}"><img alt="product image"
-                                                                                               src="/images/${product.getImage().getId()}.jpg"
-                                                                                               class="card-img-top"/></a>
-                                                </div>
-                                            <#else>
-                                                <div class="filters__product-img">
-                                                    <a href="/product/${product.getId()}"><img alt="product image"
-                                                                                               src="${product.getImageLink()}"
-                                                                                               class="card-img-top"></a>
-                                                </div>
-                                            </#if>
-                                        </div>
-                                        <div class="product-details">
-                                            <h4><a href="/product/${product.getId()}">${product.getTitle()}</a></h4>
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
-                                                repudiandae?</p>
-                                            <div class="product-bottom-details d-flex justify-content-between">
-                                                <div class="product-price">
-                                                    ${product.getPrice() + '$'}
-                                                </div>
-                                                <div class="product-links">
+                    <div class="col-lg-3 col-sm-6 mb-3">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="product-card">
+                                    <div class="product-thumb">
+                                        <#if (product.getImage()??)>
+                                            <div class="filters__product-img">
+                                                <a href="/product/${product.getId()}"><img alt="product image"
+                                                                                           src="/images/${product.getImage().getId()}.jpg"
+                                                                                           class="card-img-top"/></a>
+                                            </div>
+                                        <#else>
+                                            <div class="filters__product-img">
+                                                <a href="/product/${product.getId()}"><img alt="product image"
+                                                                                           src="${product.getImageLink()}"
+                                                                                           class="card-img-top"></a>
+                                            </div>
+                                        </#if>
+                                    </div>
+                                    <div class="product-details">
+                                        <h4><a href="/product/${product.getId()}">${product.getTitle()}</a></h4>
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
+                                            repudiandae?</p>
+                                        <div class="product-bottom-details d-flex justify-content-between">
+                                            <div class="product-price">
+                                                ${product.getPrice() + '$'}
+                                            </div>
+                                            <div class="product-links">
 
-                                                    <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}')"><#if service.isInBasket("${product.getId()}", "${currentUserId}")>
+                                                <#if known>
+                                                    <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}')"><#if basketService.isInBasket("${product.getId()}", "${currentUserId}")>
                                                             <i id="cart-${product.getId()}" class="bi bi-cart-fill"></i>
                                                         <#else>
                                                             <i id="cart-${product.getId()}" class="bi bi-cart"></i>
                                                         </#if></a>
 
-                                                    <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if product.getIsinWishes()>
+                                                    <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if wishService.isInWishes("${product.getId()}", "${currentUserId}")>
                                                             <i id="wish-${product.getId()}"
                                                                class="fa-solid fa-heart"></i>
                                                         <#else>
                                                             <i id="wish-${product.getId()}" class="far fa-heart"></i>
                                                         </#if></a>
+                                                </#if>
 
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </#list>
+                    </div>
+                </#list>
             </div>
         </div>
     </section>

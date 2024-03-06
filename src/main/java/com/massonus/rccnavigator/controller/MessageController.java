@@ -1,4 +1,4 @@
-package com.massonus.rccnavigator.controllers;
+package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.MessageService;
@@ -28,7 +28,7 @@ public class MessageController {
     @PostMapping("/new-company-message/{id}")
     public String addNewCompanyMessage(@PathVariable Long id, @AuthenticationPrincipal User user, @RequestParam String comment) {
         messageService.saveCompanyMessage(user, id, comment);
-        return "redirect:/companies/" + id;
+        return "redirect:/companies/info/" + id;
     }
 
     @GetMapping("/delete/{messageId}/{item}/{itemId}")
@@ -37,7 +37,7 @@ public class MessageController {
         messageService.deleteMessage(messageId);
 
         if (item.equals("Company")) {
-            return "redirect:/companies/" + itemId;
+            return "redirect:/companies/info/" + itemId;
         } else {
             return "redirect:/product/" + itemId;
         }
@@ -49,7 +49,7 @@ public class MessageController {
         messageService.likeMessage(id, user);
 
         if (item.equals("Company")) {
-            return "redirect:/companies/" + itemId;
+            return "redirect:/companies/info/" + itemId;
         } else {
             return "redirect:/product/" + itemId;
         }
@@ -73,7 +73,7 @@ public class MessageController {
         messageService.editMessage(id, text);
 
         if (item.equals("Company")) {
-            return "redirect:/companies/" + itemId;
+            return "redirect:/companies/info/" + itemId;
         } else {
             return "redirect:/product/" + itemId;
         }

@@ -28,7 +28,7 @@ VALUES (1, 'PNS', 'LOW', 4, 4, 'https://img.freepik.com/free-photo/cocktail-wood
 ALTER SEQUENCE company_seq RESTART WITH 10;
 
 INSERT INTO public.product(id, title, price, company_id, image_link)
-VALUES (1, 'Pizza', 10, 1, 'https://i.pinimg.com/564x/f0/86/c2/f086c2b68c7bc41d5371815fb4e0fc58.jpg'),
+VALUES (1, 'Pizza', 10.2, 1, 'https://i.pinimg.com/564x/f0/86/c2/f086c2b68c7bc41d5371815fb4e0fc58.jpg'),
        (2, 'Nuggets', 8, 1, 'https://i.pinimg.com/564x/f9/da/1b/f9da1b2af51741c14d8f5f27f16b00fa.jpg'),
        (3, 'Hamburger', 5, 1, 'https://i.pinimg.com/564x/1e/65/4f/1e654fac595d426d7ffffccd754b5977.jpg'),
        (4, 'French fries', 3, 1, 'https://i.pinimg.com/564x/57/22/00/57220047fc59da5722f2daf2bf683b67.jpg'),

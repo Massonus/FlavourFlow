@@ -18,7 +18,6 @@ import java.util.Set;
 public class UserService implements UserDetailsService {
 
     private final UserRepo userRepo;
-
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -91,11 +90,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void deleteUser(Long id) {
-
-        User user = userRepo.findUserById(id);
-        userRepo.delete(user);
-
-
+        userRepo.delete(getUserById(id));
     }
 
 

@@ -7,7 +7,7 @@
         <h2 class="h5 text-uppercase mb-4">Shopping cart</h2>
         <div class="row">
             <div class="col-lg-8 mb-4 mb-lg-0">
-                <!-- CART TABLE-->
+                <!--BASKET OBJECTS TABLE-->
                 <div class="table-responsive mb-4">
                     <table class="table text-nowrap">
                         <thead class="bg-light">
@@ -67,14 +67,13 @@
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-center justify-content-between px-3">
-                                        <span class="small text-uppercase text-gray headings-font-family"><input
+                                        <span id="amount-input"
+                                              class="small text-uppercase text-gray headings-font-family"><input
                                                     class="form-control"
-                                                    id="newAmount"
-                                                    name="newAmount"
+                                                    id="newAmount-${product.getId()}"
                                                     type="number"
-                                                    onchange="changeAmount(event, ${product.getId()})"
-                                                    value="${product.getAmount()}" step="1"
-                                                    min="1" required></span>
+                                                    onchange="changeAmount(${product.getId()})"
+                                                    value="${product.getAmount()}"></span>
 
                                     </div>
                                 </td>
@@ -83,10 +82,6 @@
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-stretch">
-                                        <#--<a role="button" class="btn btn-outline-danger"
-                                           th:href="@{/basket/removeOneUnitOfProduct/{id}(id=${detail.getProductId()})}">
-                                            Reduce quantity by one
-                                        </a>-->
                                         <a role="button" class="btn black-btn-outline"
                                            href="basket/delete-from-basket/${product.getId()}">
                                             <i class="bi bi-trash text-danger"></i>
@@ -98,7 +93,7 @@
                     </table>
                 </div>
             </div>
-            <!-- ORDER TOTAL-->
+            <!-- TOTAL-->
             <div class="col-lg-4">
                 <div class="card border-0 rounded-0 p-lg-4 bg-light">
                     <div class="card-body">
@@ -106,16 +101,17 @@
                         <ul class="list-unstyled mb-0">
                             <li class="d-flex align-items-center justify-content-between mb-4"><strong
                                         class="text-uppercase small font-weight-bold">Total</strong>
-                                <#-- <span th:text="${basket.sum + '$'}">250.0</span>--></li>
-                            <#--<a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               th:href="@{/products}">Continue shopping</a>
-                            <button class="btn black-btn-outline w-100 mt-2"
-                                    data-bs-toggle="modal" data-bs-target="#motiv">Get motivation
-                            </button>-->
-                            <a role="button" class="btn btn-outline-danger w-100 mt-2"
-                               href="/basket/clear">
-                                Clear the basket
-                            </a>
+                                <span>${basket.getTotal() + '$'}</span></li>
+
+                            <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                               href="/companies">Continue shopping</a></li>
+
+                            <li>
+                            <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                               href="/">Checkout</a></li>
+
+                            <li><button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the basket
+                            </button></li>
                         </ul>
                     </div>
                 </div>
