@@ -63,8 +63,8 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/admin/all-products/{id}")
-    public String getProductsOfCompanyForAdmin(@PathVariable Long id, Model model) {
+    @GetMapping("/admin/all-products")
+    public String getProductsOfCompanyForAdmin(@RequestParam Long id, Model model) {
         List<Product> products = productService.getAllProductsByCompanyId(id);
         model.addAttribute("products", products);
         model.addAttribute("id", id);

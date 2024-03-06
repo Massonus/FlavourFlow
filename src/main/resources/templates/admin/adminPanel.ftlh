@@ -134,7 +134,7 @@
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/product/admin/all-products/${company.getId()}">Edit products</a>
+                                           href="/product/admin/all-products?id=${company.getId()}">Edit products</a>
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
