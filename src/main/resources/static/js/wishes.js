@@ -59,6 +59,18 @@ function moveWishToBasket(productId, csrf) {
 
             if (data) {
                 document.getElementById("my-modal").classList.add("open");
+                window.addEventListener('keydown', (e) => {
+                    if (e.key === "Escape") {
+                        document.getElementById("my-modal").classList.remove("open")
+                    }
+                });
+                document.querySelector("#my-modal .modal__box").addEventListener('click', event => {
+                    event._isClickWithInModal = true;
+                });
+                document.getElementById("my-modal").addEventListener('click', event => {
+                    if (event._isClickWithInModal) return;
+                    event.currentTarget.classList.remove('open');
+                });
             } else {
                 window.location.href = "/wishes";
             }
@@ -66,4 +78,8 @@ function moveWishToBasket(productId, csrf) {
         })
         .catch(error => console.log(error));
 
+}
+
+function closeWindow() {
+    document.getElementById("my-modal").classList.remove("open")
 }

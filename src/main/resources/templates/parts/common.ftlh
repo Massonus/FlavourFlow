@@ -26,7 +26,6 @@
         <script src="../../static/js/basket.js"></script>
         <script src="../../static/js/wishes.js"></script>
         <script src="../../static/js/filterSearch.js"></script>
-        <script defer src="../../static/js/modalWindow.js"></script>
 
         <link id="theme" rel="stylesheet" type="text/css" href="/css/light-theme.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
