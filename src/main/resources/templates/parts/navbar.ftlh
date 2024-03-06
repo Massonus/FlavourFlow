@@ -28,11 +28,10 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <div id="search" class="search">
-                        <form class="d-flex" role="search" onsubmit="search(event)" method="get">
-                            <input id="search-input" name="search" type="search" placeholder="Type to search"
+                        <form class="d-flex" onsubmit="search(event)">
+                            <input id="search-input" placeholder="Type to search"
                                    class="search-input">
 
-                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             <button id="search-button" class="search-button">
                                 <i class="fa fa-search"></i>
                             </button>
