@@ -64,7 +64,8 @@
                                     <div class="d-flex align-items-stretch">
 
                                         <a role="button" class="btn btn-success btn-sm"
-                                           href="wishes/move-wish-to-basket/${product.getId()}">To Basket</a>
+                                           onclick="moveWishToBasket(${product.getId()}, '${_csrf.token}')">To
+                                            Basket</a>
 
                                         <a role="button" class="btn black-btn-outline"
                                            href="wishes/delete-from-wishes/${product.getId()}">
@@ -85,18 +86,34 @@
                         <ul class="list-unstyled mb-0">
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               href="/companies">Continue shopping</a></li>
+                                   href="/companies">Continue shopping</a></li>
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               href="/basket">Go to basket</a></li>
+                                   href="/basket">Go to basket</a></li>
 
                             <li>
-                            <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the wishes
-                            </button></li>
+                                <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                    wishes
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal" id="my-modal">
+        <div class="modal__box">
+            <button onclick="closeWindow()" class="modal__close-btn" id="close-my-modal-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <form>
+                <input type="text" placeholder="Ваше имя и фамилия">
+                <input type="text" placeholder="Ваш телефон">
+                <input type="date" name="Date" id="davaToday">
+                <input type="submit" value="Отправить">
+            </form>
         </div>
     </div>
 
