@@ -1,4 +1,4 @@
-package com.massonus.rccnavigator.controllers;
+package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.service.ImageService;

@@ -1,4 +1,4 @@
-package com.massonus.rccnavigator.controllers;
+package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
 import com.massonus.rccnavigator.entity.Company;

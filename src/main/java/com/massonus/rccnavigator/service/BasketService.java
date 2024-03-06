@@ -91,6 +91,7 @@ public class BasketService {
     }
 
     public void clearBasket(final User user) {
+        userRepo.findUserById(user.getId()).setBasket(null);
         basketRepo.delete(getBasketByUserId(user.getId()));
     }
 }

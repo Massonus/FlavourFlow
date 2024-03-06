@@ -1,4 +1,4 @@
-package com.massonus.rccnavigator.controllers;
+package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/product")

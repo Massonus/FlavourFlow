@@ -1,4 +1,4 @@
-package com.massonus.rccnavigator.controllers;
+package com.massonus.rccnavigator.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
