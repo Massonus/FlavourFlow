@@ -68,7 +68,7 @@ public class CompanyController {
         return "company/allCompanies";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/info/{id}")
     public String getCompany(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
         Company company = companyService.getCompanyById(id);
 
@@ -141,7 +141,7 @@ public class CompanyController {
 
         ratingService.rateCompany(author, companyById, rate);
 
-        return "redirect:/companies/" + id;
+        return "redirect:/companies/info/" + id;
     }
 
 }

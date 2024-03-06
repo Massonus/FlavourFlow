@@ -18,15 +18,18 @@
                 </#list>
             </div>
         </#if>
-        <div class="d-flex justify-content-center" style="width: 100%; display: flex; justify-content: center;">
-            <form method="post" action="/companies/rate-company/${company.getId()}"
-                  style="display: flex; flex-direction: row; align-items: center;">
-                <input class="form-control me-2" placeholder="Rate" type="number" id="mark" name="rate" min="1" max="5"
-                       step="1" required style="margin-right: 10px; width: 100px;">
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <button type="submit" class="btn btn-outline-warning">Rate</button>
-            </form>
-        </div>
+        <#if known>
+            <div class="d-flex justify-content-center" style="width: 100%; display: flex; justify-content: center;">
+                <form method="post" action="/companies/rate-company/${company.getId()}"
+                      style="display: flex; flex-direction: row; align-items: center;">
+                    <input class="form-control me-2" placeholder="Rate" type="number" id="mark" name="rate" min="1"
+                           max="5"
+                           step="1" required style="margin-right: 10px; width: 100px;">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                    <button type="submit" class="btn btn-outline-warning">Rate</button>
+                </form>
+            </div>
+        </#if>
     </div>
     <br><br>
     <div class="card-columns" id="message-list">
@@ -49,7 +52,7 @@
                                 </#if>
                                 ${message.getLikesCount()}
                             </a>
-                            <#if message.getAuthor().getId() == user.getId() || isAdmin>
+                            <#if message.getAuthor().getId() == currentUserId || isAdmin>
                                 <a role="button" class="btn black-btn-outline"
                                    href="/message/delete/${message.getId()}/${company.getClass().getSimpleName()}/${company.getId()}">Delete</a>
                                 <a class="col btn btn-primary"
@@ -65,15 +68,17 @@
     </div>
 
     <br>
-    <div class="d-flex justify-content-center" style="width: 100%; display: flex; justify-content: center;">
-        <form method="post" action="/message/new-company-message/${company.getId()}"
-              style="display: flex; flex-direction: row; align-items: center; justify-content: center; width: 70%;">
-            <label for="comment" class="col-sm-4 col-form-label">Comment</label>
-            <input type="text" class="form-control me-2 flex-grow-1" placeholder="Write your comment" name="comment"
-                   id="comment" style="height: 68px; margin-right: 10px;">
-            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <button type="submit" class="btn btn-outline-success">Post comment</button>
-        </form>
-    </div>
+    <#if known>
+        <div class="d-flex justify-content-center" style="width: 100%; display: flex; justify-content: center;">
+            <form method="post" action="/message/new-company-message/${company.getId()}"
+                  style="display: flex; flex-direction: row; align-items: center; justify-content: center; width: 70%;">
+                <label for="comment" class="col-sm-4 col-form-label">Comment</label>
+                <input type="text" class="form-control me-2 flex-grow-1" placeholder="Write your comment" name="comment"
+                       id="comment" style="height: 68px; margin-right: 10px;">
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-outline-success">Post comment</button>
+            </form>
+        </div>
+    </#if>
 
 </@c.page>
