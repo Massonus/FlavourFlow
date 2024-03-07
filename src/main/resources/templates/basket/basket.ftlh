@@ -104,14 +104,17 @@
                                 <span>${basket.getTotal() + '$'}</span></li>
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               href="/companies">Continue shopping</a></li>
+                                   href="/companies">Continue shopping</a></li>
 
                             <li>
-                            <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               onclick="checkOrder()">Checkout</a></li>
+                                <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                                   onclick="checkOrder()">Checkout</a></li>
 
-                            <li><button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the basket
-                            </button></li>
+                            <li>
+                                <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                    basket
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </div>
