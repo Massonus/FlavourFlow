@@ -59,7 +59,6 @@ function changeStyle() {
 }
 
 function setTheme() {
-    theme.href = localStorage.getItem('theme') || '/css/light-theme.css';
     nav.className = localStorage.getItem('class') || 'navbar fixed-top navbar-expand-lg navbar-light bg-light';
 
     if (!(sort === null)) {

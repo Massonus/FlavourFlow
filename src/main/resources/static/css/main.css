@@ -319,10 +319,19 @@ input:checked + label:before {
     width: 100%;
     height: 100%;
     z-index: 99999999;
-    background: #6F6F6F;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+.card {
+    transition: .2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.06);
 }
 
 /*.pagination {

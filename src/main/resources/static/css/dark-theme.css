@@ -50,3 +50,7 @@ body {
 .product-details a {
     color: #DA77EB;
 }
+
+#preloader {
+    background: #111111;
+}
