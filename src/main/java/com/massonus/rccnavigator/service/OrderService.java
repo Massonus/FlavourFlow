@@ -28,16 +28,6 @@ public class OrderService {
 
         List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(user.getId());
 
-        List<String> companyTitles = basketObjects.stream()
-                .map(o -> o.getCompany().getTitle())
-                .distinct()
-                .toList();
-
-        if (companyTitles.size() > 1) {
-            orderDto.setIsSuccess(false);
-            return orderDto;
-        }
-
         for (BasketObject basketObject : basketObjects) {
 
             OrderObject orderObject = new OrderObject();

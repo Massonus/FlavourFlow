@@ -260,7 +260,7 @@ input:checked + label:before {
     transition: opacity .4s, visibility .4s;
 }
 
-#order-modal input{
+#order-modal, #order-alert-modal input{
     width: 100%;
     margin-bottom: 20px;
     outline: none;
@@ -271,7 +271,7 @@ input:checked + label:before {
     font-weight: 400;
 }
 
-#order-modal input[type="submit"]{
+#order-modal, #order-alert-modal input[type="submit"]{
     background-color: #ffc222;
     border: none;
 }

@@ -1,5 +1,24 @@
-function createOrder(event) {
-    event.preventDefault();
+function checkOrder() {
+
+    fetch("/basket/check", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            if (!(data.isSuccess)) {
+                window.location.href = `/basket?size=${data.size}`;
+            } else {
+                openOrderForm();
+            }
+        })
+        .catch(error => console.log(error));
+}
+
+function createOrder() {
 
     let csrf = document.getElementById("_csrf").value;
 
@@ -15,7 +34,8 @@ function createOrder(event) {
     const body = JSON.stringify({
         name: name,
         phone: phone,
-        date: date
+        date: date,
+        isSuccess: true
     });
 
     const url = "/order/create";
@@ -31,8 +51,13 @@ function createOrder(event) {
     })
         .then(res => res.json())
         .then((data) => {
-            console.log(data.isSuccess);
-            window.location.href = "/basket";
+            if (!(data.isSuccess)) {
+                /*window.location.href = "/order";*/
+                openOrderAlertForm();
+            } else {
+                window.location.href = "/basket";
+            }
+
         })
         .catch(error => {
             console.log(error);
@@ -56,6 +81,26 @@ function openOrderForm() {
     });
 }
 
+function openOrderAlertForm() {
+    document.getElementById("order-alert-modal").classList.add("open");
+    window.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") {
+            document.getElementById("order-alert-modal").classList.remove("open")
+        }
+    });
+    document.querySelector("#order-alert-modal .modal__box").addEventListener('click', event => {
+        event._isClickWithInModal = true;
+    });
+    document.getElementById("order-alert-modal").addEventListener('click', event => {
+        if (event._isClickWithInModal) return;
+        event.currentTarget.classList.remove('open');
+    });
+}
+
 function closeOrderForm() {
     document.getElementById("order-modal").classList.remove("open");
+}
+
+function closeOrderAlertForm() {
+    document.getElementById("order-alert-modal").classList.remove("open");
 }

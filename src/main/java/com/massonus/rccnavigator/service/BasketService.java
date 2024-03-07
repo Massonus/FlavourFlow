@@ -83,6 +83,21 @@ public class BasketService {
         return basketRepo.findBasketById(id);
     }
 
+    public Integer amountCompanies(User user) {
+
+        return getCompanyTitles(user).size();
+    }
+
+    public List<String> getCompanyTitles(User user) {
+
+        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(user.getId());
+
+        return basketObjects.stream()
+                .map(o -> o.getCompany().getTitle())
+                .distinct()
+                .toList();
+    }
+
     public void deleteBasketItem(Long id, User user) {
         BasketObject basketObject = basketObjectService.getBasketByProductIdAndUserId(id, user.getId());
         getBasketByUserId(user.getId()).getBasketObjects().remove(basketObject);
