@@ -59,6 +59,13 @@
         <#nested>
     </div>
 
+
+    <div id="preloader">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
     </body>
     <script src="../../static/js/changeStyle.js"></script>
 

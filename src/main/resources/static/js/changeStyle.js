@@ -64,6 +64,9 @@ function setTheme() {
 
     if (!(sort === null)) {
         sort.className = localStorage.getItem('sort') || 'form-select';
+    }
+
+    if (!(companyCountry === null)) {
         companyCountry.className = localStorage.getItem('form-select') || 'form-select';
         kitchenCategory.className = localStorage.getItem('form-select') || 'form-select';
     }
@@ -78,3 +81,7 @@ function setTheme() {
         checker.removeAttribute("checked");
     }
 }
+
+$(document).ready(function () {
+    $('#preloader').fadeOut();
+})
