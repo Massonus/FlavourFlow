@@ -1,7 +1,6 @@
 function createOrder(event) {
     event.preventDefault();
 
-    let form = document.getElementById("order-checkout");
     let csrf = document.getElementById("_csrf").value;
 
     let name = document.getElementById("orderName").value;
@@ -32,8 +31,8 @@ function createOrder(event) {
     })
         .then(res => res.json())
         .then((data) => {
-            console.log(data.date);
-            /*window.location.href = "/admin/panel";*/
+            console.log(data.isSuccess);
+            window.location.href = "/basket";
         })
         .catch(error => {
             console.log(error);

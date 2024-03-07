@@ -28,11 +28,7 @@ public class OrderController {
     @ResponseBody
     public OrderDto createOrder(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user) {
 
-        Order order = new Order();
-        order.setDate(orderDto.getDate());
-        orderService.saveOrder(order);
-
-        return orderDto;
+        return orderService.checkout(orderDto, user);
 
     }
 
