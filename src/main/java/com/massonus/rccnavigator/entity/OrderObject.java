@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 public class OrderObject {
 
-    private static final String SEQUENCE_NAME = "object_seq";
+    private static final String SEQUENCE_NAME = "order_object_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "wish_object")
 public class WishObject {
 
-    private static final String SEQUENCE_NAME = "object_seq";
+    private static final String SEQUENCE_NAME = "wish_object_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

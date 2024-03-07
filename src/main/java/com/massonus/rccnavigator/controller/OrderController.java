@@ -1,8 +1,10 @@
 package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.dto.OrderDto;
+import com.massonus.rccnavigator.entity.Order;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.OrderService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -26,7 +28,9 @@ public class OrderController {
     @ResponseBody
     public OrderDto createOrder(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user) {
 
-        System.out.println(orderDto.getDate());
+        Order order = new Order();
+        order.setDate(orderDto.getDate());
+        orderService.saveOrder(order);
 
         return orderDto;
 

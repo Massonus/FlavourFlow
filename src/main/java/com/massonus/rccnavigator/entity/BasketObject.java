@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "basket_object")
 public class BasketObject {
 
-    private static final String SEQUENCE_NAME = "object_seq";
+    private static final String SEQUENCE_NAME = "basket_object_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
