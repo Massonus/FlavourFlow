@@ -260,6 +260,22 @@ input:checked + label:before {
     transition: opacity .4s, visibility .4s;
 }
 
+#order-modal input{
+    width: 100%;
+    margin-bottom: 20px;
+    outline: none;
+    height: 40px;
+    border: 1px solid #e6e6e6;
+    padding: 0px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+#order-modal input[type="submit"]{
+    background-color: #ffc222;
+    border: none;
+}
+
 .modal__box {
     position: relative;
     max-width: 500px;
@@ -280,6 +296,23 @@ input:checked + label:before {
 #my-modal a{
     width: 100%;
 }
+
+/*#my-modal input{
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    outline: none;
+    height: 40px;
+    border: 1px solid #e6e6e6;
+    padding: 0px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+#my-modal input[type="submit"]{
+    background-color: #ffc222;
+    border: none;
+}*/
 
 .modal__close-btn {
     position: absolute;

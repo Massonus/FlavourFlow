@@ -28,6 +28,7 @@
         <script src="../../static/js/basket.js"></script>
         <script src="../../static/js/wishes.js"></script>
         <script src="../../static/js/filterSearch.js"></script>
+        <script src="../../static/js/order.js"></script>
 
         <script>
             if (localStorage.getItem('theme') === "/css/dark-theme.css") {

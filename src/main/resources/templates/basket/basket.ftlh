@@ -108,7 +108,7 @@
 
                             <li>
                             <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               href="/">Checkout</a></li>
+                               onclick="openOrderForm()">Checkout</a></li>
 
                             <li><button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the basket
                             </button></li>
@@ -118,6 +118,8 @@
             </div>
         </div>
     </div>
+
+    <#include "../order/order.ftlh">
 
 </@c.page>
 
