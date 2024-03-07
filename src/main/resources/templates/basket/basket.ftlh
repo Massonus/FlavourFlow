@@ -83,7 +83,7 @@
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-stretch">
                                         <a role="button" class="btn black-btn-outline"
-                                           href="basket/delete-from-basket/${product.getId()}">
+                                           href="basket/delete-from-basket/${product.getProductId()}">
                                             <i class="bi bi-trash text-danger"></i>
                                         </a>
                                     </div>

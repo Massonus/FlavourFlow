@@ -11,4 +11,6 @@ public interface WishObjectRepo extends JpaRepository<WishObject, Long> {
     WishObject findWishObjectById(Long id);
 
     WishObject findWishObjectByProductId(Long id);
+
+    WishObject findWishObjectByProductIdAndUserId(Long productId, Long userId);
 }

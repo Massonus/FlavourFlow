@@ -80,7 +80,7 @@ public class WishService {
     }
 
     public void deleteWishItem(Long id, User user) {
-        WishObject wishObjectById = wishObjectService.getWishObjectById(id);
+        WishObject wishObjectById = wishObjectService.getWishObjectByProductIdAndUserId(id, user.getId());
         getWishByUserId(user.getId()).getWishObjects().remove(wishObjectById);
         wishObjectService.deleteWishObject(wishObjectById);
     }

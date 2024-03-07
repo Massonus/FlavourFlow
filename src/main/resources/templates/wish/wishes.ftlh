@@ -68,7 +68,7 @@
                                             Basket</a>
 
                                         <a role="button" class="btn black-btn-outline"
-                                           href="wishes/delete-from-wishes/${product.getId()}">
+                                           href="wishes/delete-from-wishes/${product.getProductId()}">
                                             <i class="bi bi-trash text-danger"></i>
                                         </a>
                                     </div>

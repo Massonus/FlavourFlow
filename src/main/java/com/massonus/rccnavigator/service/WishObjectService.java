@@ -31,4 +31,9 @@ public class WishObjectService {
     public WishObject getWishObjectByProductId(Long productId) {
         return wishObjectRepo.findWishObjectByProductId(productId);
     }
+
+    public WishObject getWishObjectByProductIdAndUserId(Long productId, Long userId) {
+
+        return wishObjectRepo.findWishObjectByProductIdAndUserId(productId, userId);
+    }
 }
