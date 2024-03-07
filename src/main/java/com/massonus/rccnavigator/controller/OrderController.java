@@ -26,7 +26,7 @@ public class OrderController {
     @ResponseBody
     public OrderDto createOrder(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user) {
 
-        System.out.println(orderDto.getName());
+        System.out.println(orderDto.getDate());
 
         return orderDto;
 

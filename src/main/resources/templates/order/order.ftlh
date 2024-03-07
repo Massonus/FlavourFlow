@@ -8,7 +8,7 @@
         <form id="order-checkout" onsubmit="createOrder(event)">
             <input id="orderName" name="name" type="text" placeholder="Your name">
             <input id="orderPhone" name="phone" type="text" placeholder="Mobile phone">
-            <#--<input type="date" name="Date" id="davaToday">-->
+            <input type="date" name="date" id="date">
 
             <input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}"/>
             <input type="submit" value="Отправить">

@@ -6,10 +6,12 @@ function createOrder(event) {
 
     let name = document.getElementById("orderName").value;
     let phone = document.getElementById("orderPhone").value;
+    let date = document.getElementById("date").valueAsDate;
 
     const body = JSON.stringify({
         name: name,
-        phone: phone
+        phone: phone,
+        date: date
     });
 
     const url = "/order/create";
@@ -25,7 +27,7 @@ function createOrder(event) {
     })
         .then(res => res.json())
         .then((data) => {
-            console.log(data.name);
+            console.log(data.date);
             /*window.location.href = "/admin/panel";*/
         })
         .catch(error => {
