@@ -8,6 +8,11 @@ function createOrder(event) {
     let phone = document.getElementById("orderPhone").value;
     let date = document.getElementById("date").valueAsDate;
 
+    if (date <= new Date()) {
+        console.log("error");
+        return;
+    }
+
     const body = JSON.stringify({
         name: name,
         phone: phone,
