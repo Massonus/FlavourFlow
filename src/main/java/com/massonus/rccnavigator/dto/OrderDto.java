@@ -1,0 +1,15 @@
+package com.massonus.rccnavigator.dto;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class OrderDto {
+
+    private String name;
+
+    private String phone;
+}

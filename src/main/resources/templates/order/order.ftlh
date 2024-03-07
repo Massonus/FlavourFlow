@@ -4,12 +4,13 @@
         <button onclick="closeOrderForm()" class="modal__close-btn" id="close-my-modal-btn">
             <i class="fa-solid fa-xmark"></i>
         </button>
-       <#-- <h2>This product is already in basket</h2>-->
 
-        <form>
-            <input type="text" placeholder="Ваше имя и фамилия">
-            <input type="text" placeholder="Ваш телефон">
-            <input type="date" name="Date" id="davaToday">
+        <form id="order-checkout" onsubmit="createOrder(event)">
+            <input id="orderName" name="name" type="text" placeholder="Your name">
+            <input id="orderPhone" name="phone" type="text" placeholder="Mobile phone">
+            <#--<input type="date" name="Date" id="davaToday">-->
+
+            <input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}"/>
             <input type="submit" value="Отправить">
         </form>
 
