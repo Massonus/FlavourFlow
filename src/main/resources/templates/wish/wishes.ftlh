@@ -64,11 +64,11 @@
                                     <div class="d-flex align-items-stretch">
 
                                         <a role="button" class="btn btn-success btn-sm"
-                                           onclick="moveWishToBasket(${product.getId()}, '${_csrf.token}')">To
+                                           onclick="moveWishToBasket(${product.getProductId()}, '${_csrf.token}')">To
                                             Basket</a>
 
                                         <a role="button" class="btn black-btn-outline"
-                                           href="wishes/delete-from-wishes/${product.getId()}">
+                                           href="wishes/delete-from-wishes/${product.getProductId()}">
                                             <i class="bi bi-trash text-danger"></i>
                                         </a>
                                     </div>
@@ -92,7 +92,7 @@
                                    href="/basket">Go to basket</a></li>
 
                             <li>
-                                <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                <button onclick="clearWishes()" class="btn btn-outline-danger w-100 mt-2">Clear the
                                     wishes
                                 </button>
                             </li>
@@ -106,7 +106,7 @@
     <div class="modal" id="my-modal">
         <div class="modal__box">
 
-            <button onclick="closeWindow()" class="modal__close-btn" id="close-my-modal-btn">
+            <button onclick="closeWishAlertWindow()" class="modal__close-btn" id="close-my-modal-btn">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h2>This product is already in basket</h2>

@@ -2,11 +2,7 @@ package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.repo.BasketObjectRepo;
-import com.massonus.rccnavigator.service.BasketService;
-import com.massonus.rccnavigator.service.MessageService;
-import com.massonus.rccnavigator.service.ProductService;
-import com.massonus.rccnavigator.service.WishService;
+import com.massonus.rccnavigator.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,15 +23,15 @@ public class ProductController {
 
     private final ProductService productService;
     private final MessageService messageService;
-    private final BasketObjectRepo basketObjectRepo;
+    private final BasketObjectService basketObjectService;
     private final BasketService basketService;
     private final WishService wishService;
 
     @Autowired
-    public ProductController(ProductService productService, MessageService messageService, BasketObjectRepo basketObjectRepo, BasketService basketService, WishService wishService) {
+    public ProductController(ProductService productService, MessageService messageService, BasketObjectService basketObjectService, BasketService basketService, WishService wishService) {
         this.productService = productService;
         this.messageService = messageService;
-        this.basketObjectRepo = basketObjectRepo;
+        this.basketObjectService = basketObjectService;
         this.basketService = basketService;
         this.wishService = wishService;
     }
@@ -51,7 +47,7 @@ public class ProductController {
         Page<Product> productPage = productService.getProductsInPage(id, pageable, sort);
 
         model.addAttribute("products", productPage.getContent());
-        model.addAttribute("objects", basketObjectRepo.findAll());
+        model.addAttribute("objects", basketObjectService.getAllBasketObjects());
         model.addAttribute("basketService", basketService);
         model.addAttribute("wishService", wishService);
         model.addAttribute("totalPages", productPage.getTotalPages());

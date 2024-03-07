@@ -44,6 +44,25 @@ function deleteItem(productId, csrf, iconElement) {
         .catch(error => console.log(error));
 }
 
+function clearWishes() {
+
+    let url;
+
+    if (confirm("Do you really want to clear the wishes?")) {
+        url = `/wishes/clear`;
+    } else {
+        url = `/wishes`;
+    }
+
+    fetch(url, {
+        method: 'GET',
+    })
+        .then(response => {
+            window.location.href = response.url;
+        })
+        .catch(error => console.error(error));
+}
+
 function moveWishToBasket(productId, csrf) {
 
     fetch(`/wishes/move-wish-to-basket?id=${productId}`, {
@@ -58,19 +77,7 @@ function moveWishToBasket(productId, csrf) {
         .then((data) => {
 
             if (data) {
-                document.getElementById("my-modal").classList.add("open");
-                window.addEventListener('keydown', (e) => {
-                    if (e.key === "Escape") {
-                        document.getElementById("my-modal").classList.remove("open")
-                    }
-                });
-                document.querySelector("#my-modal .modal__box").addEventListener('click', event => {
-                    event._isClickWithInModal = true;
-                });
-                document.getElementById("my-modal").addEventListener('click', event => {
-                    if (event._isClickWithInModal) return;
-                    event.currentTarget.classList.remove('open');
-                });
+                openAlertWindow();
             } else {
                 window.location.href = "/wishes";
             }
@@ -80,6 +87,22 @@ function moveWishToBasket(productId, csrf) {
 
 }
 
-function closeWindow() {
-    document.getElementById("my-modal").classList.remove("open")
+function openAlertWindow() {
+    document.getElementById("my-modal").classList.add("open");
+    window.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") {
+            document.getElementById("my-modal").classList.remove("open")
+        }
+    });
+    document.querySelector("#my-modal .modal__box").addEventListener('click', event => {
+        event._isClickWithInModal = true;
+    });
+    document.getElementById("my-modal").addEventListener('click', event => {
+        if (event._isClickWithInModal) return;
+        event.currentTarget.classList.remove('open');
+    });
+}
+
+function closeWishAlertWindow() {
+    document.getElementById("my-modal").classList.remove("open");
 }

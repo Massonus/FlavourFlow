@@ -1,7 +1,7 @@
 package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.entity.*;
-import com.massonus.rccnavigator.repo.BasketObjectRepo;
+import com.massonus.rccnavigator.service.BasketObjectService;
 import com.massonus.rccnavigator.service.BasketService;
 import com.massonus.rccnavigator.service.WishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/wishes")
@@ -19,20 +18,20 @@ public class WishController {
 
     private final WishService wishService;
     private final BasketService basketService;
-    private final BasketObjectRepo basketObjectRepo;
+    private final BasketObjectService basketObjectService;
 
     @Autowired
-    public WishController(WishService wishService, BasketService basketService, BasketObjectRepo basketObjectRepo) {
+    public WishController(WishService wishService, BasketService basketService, BasketObjectService basketObjectService) {
         this.wishService = wishService;
         this.basketService = basketService;
-        this.basketObjectRepo = basketObjectRepo;
+        this.basketObjectService = basketObjectService;
     }
 
     @GetMapping
     public String getWishes(Model model, @AuthenticationPrincipal User user) {
 
         Wish userWish = wishService.getUserWish(user.getId());
-        Set<Product> products = userWish.getProducts();
+        List<WishObject> products = userWish.getWishObjects();
         model.addAttribute("products", products);
 
         return "wish/wishes";
@@ -41,7 +40,7 @@ public class WishController {
     @GetMapping("/new-wish-item/{id}")
     public String addProductToWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
 
-        Long companyId = wishService.addProductToWishes(id, user);
+        Long companyId = wishService.addProductToWishes(id, user.getId());
 
         return "redirect:/product/all-products?id=" + companyId;
     }
@@ -53,7 +52,7 @@ public class WishController {
         Basket userBasket = basketService.getUserBasket(user.getId());
         List<BasketObject> basketObjects = userBasket.getBasketObjects();
 
-        if (basketObjects.contains(basketObjectRepo.findBasketObjectByProductId(id))) {
+        if (basketObjects.contains(basketObjectService.getBasketObjectByProductId(id))) {
             return true;
         } else {
             basketService.addProductToBasket(id, user.getId());
@@ -69,5 +68,13 @@ public class WishController {
 
         return "redirect:/wishes";
 
+    }
+
+    @GetMapping("/clear")
+    public String clearWishes(@AuthenticationPrincipal User user) {
+
+        wishService.clearWishes(user);
+
+        return "redirect:/wishes";
     }
 }

@@ -59,11 +59,13 @@ function changeStyle() {
 }
 
 function setTheme() {
-    theme.href = localStorage.getItem('theme') || '/css/light-theme.css';
     nav.className = localStorage.getItem('class') || 'navbar fixed-top navbar-expand-lg navbar-light bg-light';
 
     if (!(sort === null)) {
         sort.className = localStorage.getItem('sort') || 'form-select';
+    }
+
+    if (!(companyCountry === null)) {
         companyCountry.className = localStorage.getItem('form-select') || 'form-select';
         kitchenCategory.className = localStorage.getItem('form-select') || 'form-select';
     }
@@ -78,3 +80,7 @@ function setTheme() {
         checker.removeAttribute("checked");
     }
 }
+
+$(document).ready(function () {
+    $('#preloader').fadeOut();
+})

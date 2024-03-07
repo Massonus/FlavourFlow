@@ -83,7 +83,7 @@
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-stretch">
                                         <a role="button" class="btn black-btn-outline"
-                                           href="basket/delete-from-basket/${product.getId()}">
+                                           href="basket/delete-from-basket/${product.getProductId()}">
                                             <i class="bi bi-trash text-danger"></i>
                                         </a>
                                     </div>
@@ -104,20 +104,25 @@
                                 <span>${basket.getTotal() + '$'}</span></li>
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               href="/companies">Continue shopping</a></li>
+                                   href="/companies">Continue shopping</a></li>
 
                             <li>
-                            <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                               href="/">Checkout</a></li>
+                                <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                                   onclick="checkOrder()">Checkout</a></li>
 
-                            <li><button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the basket
-                            </button></li>
+                            <li>
+                                <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                    basket
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <#include "../order/order.ftlh">
 
 </@c.page>
 

@@ -4,24 +4,25 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Getter
 @Setter
-@Table(name = "product")
-public class Product {
-    private static final String SEQUENCE_NAME = "product_seq";
+@Getter
+public class OrderObject {
+
+    private static final String SEQUENCE_NAME = "order_object_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
+    private Long productId;
+
     private String title;
 
-    private Double price;
+    private Integer amount;
+
+    private Double sum;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
@@ -33,7 +34,8 @@ public class Product {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Message> messages = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

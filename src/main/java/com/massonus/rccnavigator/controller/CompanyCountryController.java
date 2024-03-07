@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/type")
 public class CompanyCountryController {
 
-    private final CompanyCountryService typeService;
+    private final CompanyCountryService countryService;
 
     @Autowired
-    public CompanyCountryController(CompanyCountryService typeService) {
-        this.typeService = typeService;
+    public CompanyCountryController(CompanyCountryService countryService) {
+        this.countryService = countryService;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -32,7 +32,7 @@ public class CompanyCountryController {
     @PostMapping("/add-new-type")
     public String addTypePost(@Valid CompanyCountry type) {
 
-        typeService.saveCompanyType(type);
+        countryService.saveCompanyType(type);
 
         return "redirect:/admin/panel";
 
@@ -42,7 +42,7 @@ public class CompanyCountryController {
     @GetMapping("/edit-type/{id}")
     public String getTypeEditForm(@PathVariable Long id, Model model) {
 
-        model.addAttribute("type", typeService.getTypeById(id));
+        model.addAttribute("type", countryService.getTypeById(id));
 
         return "type/editType";
 
@@ -53,7 +53,7 @@ public class CompanyCountryController {
     public String editTypePost(@PathVariable Long id,
                                @RequestParam String title) {
 
-        typeService.editType(id, title);
+        countryService.editType(id, title);
 
         return "redirect:/admin/panel";
     }
@@ -62,7 +62,7 @@ public class CompanyCountryController {
     @GetMapping("/delete-type/{id}")
     public String deleteType(@PathVariable Long id) {
 
-        typeService.deleteType(id);
+        countryService.deleteType(id);
 
         return "redirect:/admin/panel";
 

@@ -19,7 +19,7 @@ body {
     height: 40px;
     border-radius: 50%;
     border: none;
-    background-color: #F8F9FA;
+    background-color: #FDFDFF;
     font-size: 20px;
     cursor: pointer;
     transition: .4s;
@@ -32,5 +32,9 @@ body {
 
 .product-card:hover {
     box-shadow: 0 14px 30px -15px rgba(0, 0, 0, 0.75);
+}
+
+#preloader {
+    background: #f9f9f9;
 }
 

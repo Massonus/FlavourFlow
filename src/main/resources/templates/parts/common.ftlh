@@ -1,4 +1,5 @@
 <#macro page>
+
     <!doctype html>
     <html lang="en">
     <head>
@@ -20,14 +21,22 @@
 
         <script src="https://kit.fontawesome.com/9deb3ecfc7.js" crossorigin="anonymous"></script>
 
+
         <script src="../../static/js/registration-validation.js"></script>
         <script src="../../static/js/kitchenCategory.js"></script>
         <script src="../../static/js/changeStyle.js"></script>
         <script src="../../static/js/basket.js"></script>
         <script src="../../static/js/wishes.js"></script>
         <script src="../../static/js/filterSearch.js"></script>
+        <script src="../../static/js/order.js"></script>
 
-        <link id="theme" rel="stylesheet" type="text/css" href="/css/light-theme.css">
+        <script>
+            if (localStorage.getItem('theme') === "/css/dark-theme.css") {
+                document.write('<link id="theme" rel="stylesheet" type="text/css" href="/css/dark-theme.css">');
+            } else {
+                document.write('<link id="theme" rel="stylesheet" type="text/css" href="/css/light-theme.css">');
+            }
+        </script>
         <link rel="stylesheet" type="text/css" href="/css/main.css">
 
     </head>
@@ -57,6 +66,13 @@
     <#include "navbar.ftlh">
     <div class="container mt-5">
         <#nested>
+    </div>
+
+
+    <div id="preloader">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
 
     </body>
