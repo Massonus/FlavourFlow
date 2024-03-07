@@ -122,7 +122,9 @@ public class ProductService {
                     .sorted(Comparator.comparing(Product::getTitle).reversed())
                     .toList();
 
-            default -> products;
+            default -> products.stream()
+                    .sorted(Comparator.comparing(Product::getId))
+                    .toList();
         };
 
         return products;

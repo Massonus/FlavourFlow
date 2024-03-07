@@ -64,7 +64,7 @@
                                     <div class="d-flex align-items-stretch">
 
                                         <a role="button" class="btn btn-success btn-sm"
-                                           onclick="moveWishToBasket(${product.getId()}, '${_csrf.token}')">To
+                                           onclick="moveWishToBasket(${product.getProductId()}, '${_csrf.token}')">To
                                             Basket</a>
 
                                         <a role="button" class="btn black-btn-outline"
