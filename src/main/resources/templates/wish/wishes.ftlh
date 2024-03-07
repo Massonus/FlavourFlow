@@ -92,7 +92,7 @@
                                    href="/basket">Go to basket</a></li>
 
                             <li>
-                                <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                <button onclick="clearWishes()" class="btn btn-outline-danger w-100 mt-2">Clear the
                                     wishes
                                 </button>
                             </li>

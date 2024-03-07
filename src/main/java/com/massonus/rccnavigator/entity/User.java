@@ -47,6 +47,10 @@ public class User implements UserDetails {
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "wish_id")
+    private Wish wish;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

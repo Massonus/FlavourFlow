@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/category")
 public class KitchenCategoryController {
 
-
     private final KitchenCategoryService categoryService;
 
     @Autowired

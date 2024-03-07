@@ -44,6 +44,25 @@ function deleteItem(productId, csrf, iconElement) {
         .catch(error => console.log(error));
 }
 
+function clearWishes() {
+
+    let url;
+
+    if (confirm("Do you really want to clear the wishes?")) {
+        url = `/wishes/clear`;
+    } else {
+        url = `/wishes`;
+    }
+
+    fetch(url, {
+        method: 'GET',
+    })
+        .then(response => {
+            window.location.href = response.url;
+        })
+        .catch(error => console.error(error));
+}
+
 function moveWishToBasket(productId, csrf) {
 
     fetch(`/wishes/move-wish-to-basket?id=${productId}`, {

@@ -3,13 +3,14 @@ package com.massonus.rccnavigator.service;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.entity.Wish;
+import com.massonus.rccnavigator.entity.WishObject;
 import com.massonus.rccnavigator.repo.UserRepo;
 import com.massonus.rccnavigator.repo.WishRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Service
 public class WishService {
@@ -18,31 +19,45 @@ public class WishService {
 
     private final WishRepo wishRepo;
     private final UserRepo userRepo;
+    private final WishObjectService wishObjectService;
 
     @Autowired
-    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo) {
+    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo, WishObjectService wishObjectService) {
         this.productService = productService;
         this.wishRepo = wishRepo;
         this.userRepo = userRepo;
+        this.wishObjectService = wishObjectService;
     }
 
-    public Long addProductToWishes(Long id, User user) {
+    public Long addProductToWishes(Long id, Long userId) {
 
         final Product productById = productService.getProductById(id);
 
-        final Wish currentWish = getUserWish(user.getId());
-        final Set<Product> products = currentWish.getProducts();
+        final Wish currentWish = getUserWish(userId);
+        User userById = userRepo.findUserById(userId);
+        List<WishObject> wishObjects = currentWish.getWishObjects();
 
-        products.add(productById);
+        WishObject wishObject = new WishObject();
+        wishObject.setProductId(productById.getId());
+        wishObject.setTitle(productById.getTitle());
+        wishObject.setImage(productById.getImage());
+        wishObject.setImageLink(productById.getImageLink());
+        wishObject.setPrice(productById.getPrice());
+        wishObject.setUser(userById);
+        wishObject.setCompany(productById.getCompany());
+
+        wishObjectService.saveWishObject(wishObject);
+
+        wishObjects.add(wishObject);
 
         wishRepo.save(currentWish);
+        userById.setWish(currentWish);
 
         return productById.getCompany().getId();
     }
 
     public Wish getUserWish(Long userId) {
         Wish wishByUserId = getWishByUserId(userId);
-
         if (Objects.isNull(wishByUserId)) {
             Wish wish = new Wish();
             wish.setUser(userRepo.findUserById(userId));
@@ -61,14 +76,17 @@ public class WishService {
 
     public Boolean isInWishes(String productId, String userId) {
 
-        return getUserWish(Long.valueOf(userId)).getProducts().stream().anyMatch(p -> p.getId().equals(Long.valueOf(productId)));
+        return getUserWish(Long.valueOf(userId)).getWishObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
     }
 
     public void deleteWishItem(Long id, User user) {
+        WishObject wishObjectById = wishObjectService.getWishObjectById(id);
+        getWishByUserId(user.getId()).getWishObjects().remove(wishObjectById);
+        wishObjectService.deleteWishObject(wishObjectById);
+    }
 
-        Product productById = productService.getProductById(id);
-        Wish wishByUserId = wishRepo.findWishByUserId(user.getId());
-        wishByUserId.getProducts().remove(productById);
-
+    public void clearWishes(final User user) {
+        userRepo.findUserById(user.getId()).setWish(null);
+        wishRepo.delete(getWishByUserId(user.getId()));
     }
 }

@@ -76,6 +76,4 @@ function clearBasket() {
             window.location.href = response.url;
         })
         .catch(error => console.error(error));
-
-
 }
