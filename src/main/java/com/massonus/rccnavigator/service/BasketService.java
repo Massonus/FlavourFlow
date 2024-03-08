@@ -91,9 +91,15 @@ public class BasketService {
     }
 
     public void deleteBasketItem(Long id, User user) {
-        BasketObject basketObject = basketObjectService.getBasketByProductIdAndUserId(id, user.getId());
+        BasketObject basketObject = basketObjectService.getBasketObjectByProductIdAndUserId(id, user.getId());
         getBasketByUserId(user.getId()).getBasketObjects().remove(basketObject);
         basketObjectService.deleteBasketObject(basketObject);
+    }
+
+    public void deleteBasketItemsByCompanyId(Long id, User user) {
+        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByCompanyIdAndUserId(id, user.getId());
+        getBasketByUserId(user.getId()).getBasketObjects().removeAll(basketObjects);
+        basketObjectService.deleteBasketObjectsByList(basketObjects);
     }
 
     public void clearBasket(final User user) {

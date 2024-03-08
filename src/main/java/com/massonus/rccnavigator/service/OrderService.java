@@ -45,7 +45,8 @@ public class OrderService {
 
             orderObjectService.saveOrderObject(orderObject);
         }
-        basketService.clearBasket(user);
+
+        basketService.deleteBasketItemsByCompanyId(orderDto.getCompanyId(), user);
 
         orderDto.setIsSuccess(true);
         return orderDto;
