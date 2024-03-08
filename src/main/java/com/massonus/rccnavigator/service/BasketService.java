@@ -1,9 +1,6 @@
 package com.massonus.rccnavigator.service;
 
-import com.massonus.rccnavigator.entity.Basket;
-import com.massonus.rccnavigator.entity.BasketObject;
-import com.massonus.rccnavigator.entity.Product;
-import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.BasketRepo;
 import com.massonus.rccnavigator.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,17 +80,11 @@ public class BasketService {
         return basketRepo.findBasketById(id);
     }
 
-    public Integer amountCompanies(User user) {
-
-        return getCompanyTitles(user).size();
-    }
-
-    public List<String> getCompanyTitles(User user) {
+    public List<BasketObject> getAllCompaniesInUserBasket(User user) {
 
         List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(user.getId());
 
         return basketObjects.stream()
-                .map(o -> o.getCompany().getTitle())
                 .distinct()
                 .toList();
     }

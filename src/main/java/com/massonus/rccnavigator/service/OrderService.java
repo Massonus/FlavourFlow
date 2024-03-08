@@ -28,7 +28,9 @@ public class OrderService {
 
     public OrderDto checkout(final OrderDto orderDto, final User user) {
 
-        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(user.getId());
+        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(user.getId()).stream()
+                .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
+                .toList();
 
         for (BasketObject basketObject : basketObjects) {
 

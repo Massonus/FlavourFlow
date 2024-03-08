@@ -20,4 +20,6 @@ public class OrderDto {
     private Date date;
 
     private Boolean isSuccess;
+
+    private Long companyId;
 }

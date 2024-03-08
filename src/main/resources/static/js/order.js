@@ -18,7 +18,12 @@ function checkOrder() {
         .catch(error => console.log(error));
 }
 
-function createOrder() {
+function afterAlert(companyId) {
+    console.log(companyId);
+    window.location.href = `/basket?companyId=${companyId}`;
+}
+
+function createOrder(companyId) {
 
     let csrf = document.getElementById("_csrf").value;
 
@@ -35,7 +40,8 @@ function createOrder() {
         name: name,
         phone: phone,
         date: date,
-        isSuccess: true
+        isSuccess: true,
+        companyId: companyId
     });
 
     const url = "/order/create";
@@ -53,9 +59,9 @@ function createOrder() {
         .then((data) => {
             if (!(data.isSuccess)) {
                 /*window.location.href = "/order";*/
-                openOrderAlertForm();
+                /*openOrderAlertForm();*/
             } else {
-                window.location.href = "/basket";
+                /*window.location.href = "/basket";*/
             }
 
         })
