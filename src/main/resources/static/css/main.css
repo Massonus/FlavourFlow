@@ -288,10 +288,16 @@ input:checked + label:before {
     transition: transform .8s;
 }
 
-.container-buttons {
+.container-buttons{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+
+.container-buttons button {
+    margin: 7px;
+    background-color: #ffc222;
+    border: none;
 }
 
 .modal__close-btn {
