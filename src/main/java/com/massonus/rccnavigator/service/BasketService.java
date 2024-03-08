@@ -80,11 +80,12 @@ public class BasketService {
         return basketRepo.findBasketById(id);
     }
 
-    public List<BasketObject> getAllCompaniesInUserBasket(User user) {
+    public List<Company> getAllCompaniesInUserBasket(User user) {
 
         List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(user.getId());
 
         return basketObjects.stream()
+                .map(BasketObject::getCompany)
                 .distinct()
                 .toList();
     }

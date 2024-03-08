@@ -39,7 +39,7 @@ public class BasketController {
 
         if (Objects.nonNull(size)) {
             model.addAttribute("modal", "modal open");
-            model.addAttribute("objects", basketService.getAllCompaniesInUserBasket(user));
+            model.addAttribute("companies", basketService.getAllCompaniesInUserBasket(user));
         } else {
             model.addAttribute("modal", "modal");
         }

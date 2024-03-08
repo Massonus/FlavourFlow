@@ -23,7 +23,8 @@ function afterAlert(companyId) {
     window.location.href = `/basket?companyId=${companyId}`;
 }
 
-function createOrder(companyId) {
+function createOrder(event, companyId) {
+    event.preventDefault();
 
     let csrf = document.getElementById("_csrf").value;
 
@@ -55,15 +56,8 @@ function createOrder(companyId) {
         },
         body: body,
     })
-        .then(res => res.json())
-        .then((data) => {
-            if (!(data.isSuccess)) {
-                /*window.location.href = "/order";*/
-                /*openOrderAlertForm();*/
-            } else {
-                /*window.location.href = "/basket";*/
-            }
-
+        .then(res => {
+            window.location.href = "/basket";
         })
         .catch(error => {
             console.log(error);
@@ -89,13 +83,13 @@ function openOrderForm() {
 function openOrderAlertForm() {
     window.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
-            document.getElementById("order-alert-modal").classList.remove("open")
+            document.getElementById("order-alert").classList.remove("open")
         }
     });
-    document.querySelector("#order-alert-modal .modal__box").addEventListener('click', event => {
+    document.querySelector("#order-alert .modal__box").addEventListener('click', event => {
         event._isClickWithInModal = true;
     });
-    document.getElementById("order-alert-modal").addEventListener('click', event => {
+    document.getElementById("order-alert").addEventListener('click', event => {
         if (event._isClickWithInModal) return;
         event.currentTarget.classList.remove('open');
     });
@@ -106,5 +100,5 @@ function closeOrderForm() {
 }
 
 function closeOrderAlertForm() {
-    document.getElementById("order-alert-modal").classList.remove("open");
+    document.getElementById("order-alert").classList.remove("open");
 }

@@ -141,7 +141,7 @@ public class CompanyController {
 
         ratingService.rateCompany(author, companyById, rate);
 
-        return "redirect:/objects/info/" + id;
+        return "redirect:/companies/info/" + id;
     }
 
 }
