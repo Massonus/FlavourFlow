@@ -4,24 +4,21 @@
 
     <h1>Your orders</h1>
     <br>
-    <#if purchases?has_content>
+    <#if orders?has_content>
         <div class="container d-flex flex-column justify-content-center align-items-center">
-            <#list purchases as purchase>
+            <#list orders as order>
                 <div class="card w-50 mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">${purchase.getFormattedDate()}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Books:</h6>
+                        <h5 class="card-title">${order.getDate()}</h5>
+                        <h5 class="card-title">${order.getCompany().getTitle()}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Products:</h6>
                         <ul>
-                            <#list purchase.books as book>
-                                <li>${book.name} (${book.price}&nbsp;UAH)</li>
+                            <#list order.getOrderObjects() as product>
+                                <li>${product.getTitle()} ${product.getAmount()} (${product.getSum() + '$'})</li>
                             </#list>
                         </ul>
-                        <#assign total=0>
-                        <#list purchase.books as book>
-                            <#assign total=total+book.price>
-                        </#list>
                         <h6>
-                            Total Price: ${total}&nbsp;UAH
+                            Total Price: ${order.getTotal() + '$'}&nbsp;
                         </h6>
                     </div>
                 </div>

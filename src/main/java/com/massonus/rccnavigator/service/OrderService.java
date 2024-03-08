@@ -4,7 +4,6 @@ import com.massonus.rccnavigator.dto.OrderDto;
 import com.massonus.rccnavigator.entity.BasketObject;
 import com.massonus.rccnavigator.entity.Order;
 import com.massonus.rccnavigator.entity.OrderObject;
-import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.repo.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +18,15 @@ public class OrderService {
     private final OrderObjectService orderObjectService;
     private final BasketService basketService;
     private final BasketObjectService basketObjectService;
+    private final CompanyService companyService;
 
     @Autowired
-    public OrderService(OrderRepo orderRepo, OrderObjectService orderObjectService, BasketService basketService, BasketObjectService basketObjectService) {
+    public OrderService(OrderRepo orderRepo, OrderObjectService orderObjectService, BasketService basketService, BasketObjectService basketObjectService, CompanyService companyService) {
         this.orderRepo = orderRepo;
         this.orderObjectService = orderObjectService;
         this.basketService = basketService;
         this.basketObjectService = basketObjectService;
+        this.companyService = companyService;
     }
 
     public OrderDto checkout(final OrderDto orderDto) {
@@ -40,7 +41,6 @@ public class OrderService {
 
             OrderObject orderObject = new OrderObject();
             orderObject.setTitle(basketObject.getTitle());
-            orderObject.setImage(basketObject.getImage());
             orderObject.setCompany(basketObject.getCompany());
             orderObject.setUser(orderDto.getUser());
             orderObject.setAmount(basketObject.getAmount());
@@ -64,8 +64,27 @@ public class OrderService {
         order.setUser(orderDto.getUser());
         order.setDate(orderDto.getDate());
         order.setOrderObjects(orderObjects);
+        order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
+
+        double total = orderObjects.stream()
+                .mapToDouble(OrderObject::getSum)
+                .sum();
+
+        order.setTotal(total);
 
         orderRepo.save(order);
+
+        List<OrderObject> objects = orderObjectService.getOrderObjectsByUserId(orderDto.getUser().getId());
+
+        for (OrderObject object : objects) {
+            object.setOrder(order);
+        }
+
+    }
+
+    public List<Order> getUserOrders(Long userId) {
+
+        return orderRepo.findOrdersByUserId(userId);
 
     }
 

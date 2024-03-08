@@ -24,12 +24,6 @@ public class OrderObject {
 
     private Double sum;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
-    private Image image;
-
-    private String imageLink;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;

@@ -31,6 +31,12 @@ public class Order {
             orphanRemoval = true)
     private List<OrderObject> orderObjects = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
     @Future
     private Date date;
+
+    private Double total;
 }
