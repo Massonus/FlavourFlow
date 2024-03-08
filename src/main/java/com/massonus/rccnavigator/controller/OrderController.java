@@ -24,9 +24,11 @@ public class OrderController {
 
     @PostMapping("/create")
     @ResponseBody
-    public OrderDto createOrder(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user) {
+    public OrderDto checkout(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user) {
 
-        return orderService.checkout(orderDto, user);
+        orderDto.setUser(user);
+
+        return orderService.checkout(orderDto);
 
     }
 

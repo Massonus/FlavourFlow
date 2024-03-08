@@ -162,7 +162,5 @@
         </div>
     </div>
 
-    <#include "../order/order.ftlh">
-
 </@c.page>
 
