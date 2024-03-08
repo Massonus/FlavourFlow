@@ -66,7 +66,6 @@ function createOrder() {
 }
 
 function openOrderForm() {
-    document.getElementById("order-modal").classList.add("open");
     window.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
             document.getElementById("order-modal").classList.remove("open")
@@ -82,7 +81,6 @@ function openOrderForm() {
 }
 
 function openOrderAlertForm() {
-    document.getElementById("order-alert-modal").classList.add("open");
     window.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
             document.getElementById("order-alert-modal").classList.remove("open")

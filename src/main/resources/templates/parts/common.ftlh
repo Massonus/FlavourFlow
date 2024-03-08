@@ -40,7 +40,7 @@
         <link rel="stylesheet" type="text/css" href="/css/main.css">
 
     </head>
-    <body onload="setTheme()">
+    <body onload="setTheme(); openOrderAlertForm()">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
