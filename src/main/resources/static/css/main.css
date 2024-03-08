@@ -260,7 +260,7 @@ input:checked + label:before {
     transition: opacity .4s, visibility .4s;
 }
 
-#order-modal, #order-alert-modal input{
+.modal input{
     width: 100%;
     margin-bottom: 20px;
     outline: none;
@@ -271,7 +271,7 @@ input:checked + label:before {
     font-weight: 400;
 }
 
-#order-modal, #order-alert-modal input[type="submit"]{
+.modal input[type="submit"]{
     background-color: #ffc222;
     border: none;
 }
@@ -292,10 +292,6 @@ input:checked + label:before {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-}
-
-#my-modal a{
-    width: 100%;
 }
 
 .modal__close-btn {

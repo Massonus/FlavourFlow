@@ -36,6 +36,7 @@ public class BasketController {
         model.addAttribute("products", basketObjects);
         model.addAttribute("basket", userBasket);
         model.addAttribute("size", size);
+        model.addAttribute("orderModal", "modal");
 
         if (Objects.nonNull(size)) {
             model.addAttribute("modal", "modal open");
@@ -48,7 +49,7 @@ public class BasketController {
             model.addAttribute("orderModal", "modal open");
             model.addAttribute("companyId", companyId);
         } else {
-            model.addAttribute("orderModal", "modal");
+            model.addAttribute("companyId", basketService.getAllCompaniesInUserBasket(user).isEmpty() ? 0L : basketService.getAllCompaniesInUserBasket(user).getFirst().getId());
         }
 
         return "basket/basket";

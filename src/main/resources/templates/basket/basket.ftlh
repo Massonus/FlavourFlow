@@ -106,15 +106,16 @@
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
                                    href="/companies">Continue shopping</a></li>
 
-                            <li>
-                                <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                                   onclick="checkOrder()">Checkout</a></li>
-
-                            <li>
-                                <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the
-                                    basket
-                                </button>
-                            </li>
+                            <#if products?has_content>
+                                <li>
+                                    <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                                       onclick="checkOrder()">Checkout</a></li>
+                                <li>
+                                    <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                        basket
+                                    </button>
+                                </li>
+                            </#if>
                         </ul>
                     </div>
                 </div>
@@ -122,12 +123,13 @@
         </div>
     </div>
 
-    <div class="${orderModal}" id="order-alert-modal">
+    <div class="${orderModal}" id="order-form-modal">
         <div class="modal__box">
 
             <button onclick="closeOrderForm()" class="modal__close-btn" id="close-my-modal-btn">
                 <i class="fa-solid fa-xmark"></i>
             </button>
+
 
             <form id="order-checkout" onsubmit="createOrder(event, ${companyId!''})">
                 <input id="orderName" name="name" type="text" placeholder="Your name">
@@ -136,8 +138,8 @@
 
                 <input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}"/>
                 <input type="submit" value="Отправить">
-
             </form>
+
 
         </div>
     </div>
