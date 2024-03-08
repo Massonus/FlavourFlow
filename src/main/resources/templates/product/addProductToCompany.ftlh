@@ -17,6 +17,13 @@
             <input type="file" name="file">
             <br><br>
 
+            <div class="mb-3 row">
+                <label>Product Category:
+                    <input type="radio" name="productCategory" value="MEAL" checked>MEAL
+                    <input type="radio" name="productCategory" value="DRINK">DRINK
+                </label><br><br>
+            </div>
+
             <label for="imageLink"></label>
             <input placeholder="image link" type="text"
                    name="imageLink" id="imageLink">

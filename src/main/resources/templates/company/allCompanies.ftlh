@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="companyCountry" class="form-label">Company type:</label>
+                    <label for="companyCountry" class="form-label">Company country:</label>
                     <select onchange="filterCompany(event)" name="countryId" class="form-select" id="companyCountry">
                         <option value="">Default</option>
                         <#list countries as country>
