@@ -11,24 +11,20 @@ function uploadFile(file, companyId, title) {
         method: "POST",
         body: formData
     });
-
-    if (response.status === 200) {
-        alert("File successfully uploaded!");
-    }
 }
 
-function checkFile() {
+function checkFile(fileId) {
 
-    let file = productFileUpload.files[0];
+    let file = fileId === "productFileUpload" ? productFileUpload.files[0] : companyFileUpload.files[0];
 
     if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type)) {
         alert("Only images");
-        document.getElementById("fileUpload").value = '';
+        document.getElementById(fileId).value = '';
         return;
     }
 
     if (file.size > 1024 * 1024) {
         alert("File must be less then 1 MB");
-        document.getElementById("fileUpload").value = '';
+        document.getElementById(fileId).value = '';
     }
 }

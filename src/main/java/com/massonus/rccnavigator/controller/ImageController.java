@@ -41,7 +41,7 @@ public class ImageController {
 
     @PostMapping("/upload")
     public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file,
-                                              @RequestParam Long companyId,
+                                              @RequestParam(required = false) Long companyId,
                                               @RequestParam String title) {
 
         Image upload = imageService.upload(file);

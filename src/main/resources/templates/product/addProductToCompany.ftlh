@@ -12,11 +12,6 @@
             <label for="productPrice">Price:</label>
             <input type="number" step="0.01" min="0" id="productPrice" name="productPrice" required><br><br>
 
-            <h5>Choose a file or enter link</h5>
-            <label for="productFileUpload">File:</label>
-            <input type="file" id="productFileUpload" name="productFileUpload" onchange="checkFile()">
-            <br><br>
-
             <div class="mb-3 row">
                 <label for="productCategory">Product Category:</label>
                 <select class="form-select" id="productCategory">
@@ -25,8 +20,12 @@
                 </select>
             </div>
 
-            <br><br>
+            <span id="imageError" class="error"></span>
+            <h5>Choose a file or enter link</h5>
+            <label for="productFileUpload">File:</label>
+            <input type="file" id="productFileUpload" name="productFileUpload" onchange="checkFile('productFileUpload')">
 
+            <br><br>
             <label for="productImageLink"></label>
             <input placeholder="image link" type="text"
                    name="productImageLink" id="productImageLink">

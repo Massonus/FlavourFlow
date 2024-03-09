@@ -10,6 +10,11 @@ function createProduct(event, companyId) {
 
     let file = productFileUpload.files[0];
 
+    if (file === undefined && imageLink.trim() === "") {
+        document.getElementById("imageError").textContent = "Please input image link or upload your file";
+        return;
+    }
+
     const body = JSON.stringify({
         companyId: companyId,
         title: title,
@@ -32,7 +37,7 @@ function createProduct(event, companyId) {
     })
         .then(res => {
 
-            if ((imageLink.trim() === "")) {
+            if (imageLink.trim() === "") {
                 uploadFile(file, companyId, title);
                 window.location.href = "/admin/panel";
             } else {
