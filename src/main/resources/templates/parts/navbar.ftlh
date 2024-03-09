@@ -18,6 +18,10 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="/companies">CATALOG</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="/test">TEST</a>
+                </li>
                 <#if known>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="/order">ORDERS</a>
