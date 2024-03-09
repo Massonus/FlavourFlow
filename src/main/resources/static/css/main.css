@@ -260,7 +260,7 @@ input:checked + label:before {
     transition: opacity .4s, visibility .4s;
 }
 
-#order-modal, #order-alert-modal input{
+.modal input{
     width: 100%;
     margin-bottom: 20px;
     outline: none;
@@ -271,7 +271,7 @@ input:checked + label:before {
     font-weight: 400;
 }
 
-#order-modal, #order-alert-modal input[type="submit"]{
+.modal input[type="submit"]{
     background-color: #ffc222;
     border: none;
 }
@@ -288,31 +288,17 @@ input:checked + label:before {
     transition: transform .8s;
 }
 
-.container-buttons {
+.container-buttons{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
 }
 
-#my-modal a{
-    width: 100%;
-}
-
-/*#my-modal input{
-    display: block;
-    width: 100%;
-    margin-bottom: 20px;
-    outline: none;
-    height: 40px;
-    border: 1px solid #e6e6e6;
-    padding: 0px 10px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-}
-
-#my-modal input[type="submit"]{
+.container-buttons button {
+    margin: 7px;
     background-color: #ffc222;
     border: none;
-}*/
+}
 
 .modal__close-btn {
     position: absolute;
@@ -358,12 +344,16 @@ input:checked + label:before {
 }
 
 
-.card {
+#basket-card, #wish-card {
     transition: .2s;
     cursor: pointer;
 }
 
-.card:hover {
+#basket-card:hover {
+    transform: scale(1.06);
+}
+
+#wish-card:hover {
     transform: scale(1.06);
 }
 

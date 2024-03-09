@@ -9,16 +9,23 @@ function checkOrder() {
         .then(res => res.json())
         .then((data) => {
 
-            if (!(data.isSuccess)) {
-                window.location.href = `/basket?size=${data.size}`;
-            } else {
+            console.log(data.isSuccess);
+            if (data.isSuccess) {
                 openOrderForm();
+            } else {
+                window.location.href = `/basket?size=${data.size}`;
             }
         })
         .catch(error => console.log(error));
 }
 
-function createOrder() {
+function afterAlert(companyId) {
+    console.log(companyId);
+    window.location.href = `/basket?companyId=${companyId}`;
+}
+
+function createOrder(event, companyId) {
+    event.preventDefault();
 
     let csrf = document.getElementById("_csrf").value;
 
@@ -35,7 +42,8 @@ function createOrder() {
         name: name,
         phone: phone,
         date: date,
-        isSuccess: true
+        isSuccess: true,
+        companyId: companyId
     });
 
     const url = "/order/create";
@@ -49,15 +57,8 @@ function createOrder() {
         },
         body: body,
     })
-        .then(res => res.json())
-        .then((data) => {
-            if (!(data.isSuccess)) {
-                /*window.location.href = "/order";*/
-                openOrderAlertForm();
-            } else {
-                window.location.href = "/basket";
-            }
-
+        .then(res => {
+            window.location.href = "/basket";
         })
         .catch(error => {
             console.log(error);
@@ -66,41 +67,41 @@ function createOrder() {
 }
 
 function openOrderForm() {
-    document.getElementById("order-modal").classList.add("open");
+    document.getElementById("order-form-modal").classList.add("open");
+
     window.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
-            document.getElementById("order-modal").classList.remove("open")
+            document.getElementById("order-form-modal").classList.remove("open")
         }
     });
-    document.querySelector("#order-modal .modal__box").addEventListener('click', event => {
+    document.querySelector("#order-form-modal .modal__box").addEventListener('click', event => {
         event._isClickWithInModal = true;
     });
-    document.getElementById("order-modal").addEventListener('click', event => {
+    document.getElementById("order-form-modal").addEventListener('click', event => {
         if (event._isClickWithInModal) return;
         event.currentTarget.classList.remove('open');
     });
 }
 
 function openOrderAlertForm() {
-    document.getElementById("order-alert-modal").classList.add("open");
     window.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
-            document.getElementById("order-alert-modal").classList.remove("open")
+            document.getElementById("order-alert").classList.remove("open")
         }
     });
-    document.querySelector("#order-alert-modal .modal__box").addEventListener('click', event => {
+    document.querySelector("#order-alert .modal__box").addEventListener('click', event => {
         event._isClickWithInModal = true;
     });
-    document.getElementById("order-alert-modal").addEventListener('click', event => {
+    document.getElementById("order-alert").addEventListener('click', event => {
         if (event._isClickWithInModal) return;
         event.currentTarget.classList.remove('open');
     });
 }
 
 function closeOrderForm() {
-    document.getElementById("order-modal").classList.remove("open");
+    document.getElementById("order-form-modal").classList.remove("open");
 }
 
 function closeOrderAlertForm() {
-    document.getElementById("order-alert-modal").classList.remove("open");
+    document.getElementById("order-alert").classList.remove("open");
 }

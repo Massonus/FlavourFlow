@@ -1,15 +1,16 @@
 package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.dto.OrderDto;
+import com.massonus.rccnavigator.entity.Order;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/order")
@@ -24,11 +25,26 @@ public class OrderController {
 
     @PostMapping("/create")
     @ResponseBody
-    public OrderDto createOrder(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user) {
+    public OrderDto checkout(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user) {
 
-        return orderService.checkout(orderDto, user);
+        orderDto.setUser(user);
+
+        return orderService.checkout(orderDto);
 
     }
+
+    @GetMapping()
+    public String getUserOrders(@AuthenticationPrincipal User user, Model model) {
+
+        List<Order> userOrders = orderService.getUserOrders(user.getId());
+
+        model.addAttribute("orders", userOrders);
+        /*model.addAttribute("orderObjects", )*/
+
+        return "order/ordersInfo";
+
+    }
+
 
 
 }

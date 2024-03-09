@@ -27,6 +27,13 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label>Product Category:
+                                <input <#if product.getProductCategory() == "MEAL">checked</#if> type="radio" name="productCategory" value="MEAL">MEAL
+                                <input <#if product.getProductCategory() == "DRINK">checked</#if> type="radio" name="productCategory" value="DRINK">DRINK
+                            </label><br><br>
+                        </div>
+
+                        <div class="mb-3 row">
                             <h5>Choose a file or enter link</h5>
                             <label for="file">File:</label>
                             <input type="file" name="file">

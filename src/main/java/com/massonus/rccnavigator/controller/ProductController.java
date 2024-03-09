@@ -87,7 +87,7 @@ public class ProductController {
 
         productService.saveProduct(product, multipartFile, imageLink, companyId);
 
-        return "redirect:/product/admin/all-products/" + companyId;
+        return "redirect:/product/admin/all-products?id=" + companyId;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -107,7 +107,7 @@ public class ProductController {
 
         Long companyId = productService.editProduct(id, product, multipartFile, imageLink);
 
-        return "redirect:/product/admin/all-products/" + companyId;
+        return "redirect:/product/admin/all-products?id=" + companyId;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -115,7 +115,7 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id) {
         Product productById = productService.getProductById(id);
         productService.deleteProduct(productById);
-        return "redirect:/product/admin/all-products/" + productById.getCompany().getId();
+        return "redirect:/product/admin/all-products?id=" + productById.getCompany().getId();
     }
 
 

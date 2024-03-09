@@ -1,9 +1,6 @@
 package com.massonus.rccnavigator.service;
 
-import com.massonus.rccnavigator.entity.Basket;
-import com.massonus.rccnavigator.entity.BasketObject;
-import com.massonus.rccnavigator.entity.Product;
-import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.BasketRepo;
 import com.massonus.rccnavigator.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,25 +80,26 @@ public class BasketService {
         return basketRepo.findBasketById(id);
     }
 
-    public Integer amountCompanies(User user) {
-
-        return getCompanyTitles(user).size();
-    }
-
-    public List<String> getCompanyTitles(User user) {
+    public List<Company> getAllCompaniesInUserBasket(User user) {
 
         List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(user.getId());
 
         return basketObjects.stream()
-                .map(o -> o.getCompany().getTitle())
+                .map(BasketObject::getCompany)
                 .distinct()
                 .toList();
     }
 
     public void deleteBasketItem(Long id, User user) {
-        BasketObject basketObject = basketObjectService.getBasketByProductIdAndUserId(id, user.getId());
+        BasketObject basketObject = basketObjectService.getBasketObjectByProductIdAndUserId(id, user.getId());
         getBasketByUserId(user.getId()).getBasketObjects().remove(basketObject);
         basketObjectService.deleteBasketObject(basketObject);
+    }
+
+    public void deleteBasketItemsByCompanyId(Long id, User user) {
+        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByCompanyIdAndUserId(id, user.getId());
+        getBasketByUserId(user.getId()).getBasketObjects().removeAll(basketObjects);
+        basketObjectService.deleteBasketObjectsByList(basketObjects);
     }
 
     public void clearBasket(final User user) {

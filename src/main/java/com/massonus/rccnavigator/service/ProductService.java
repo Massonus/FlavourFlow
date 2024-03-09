@@ -42,6 +42,7 @@ public class ProductService {
             product.setImage(null);
         }
 
+        product.setProductCategory(validProduct.getProductCategory());
         product.setTitle(validProduct.getTitle());
         product.setPrice(validProduct.getPrice());
         product.setCompany(companyRepo.findCompanyById(companyId));
@@ -67,6 +68,7 @@ public class ProductService {
             savedProduct.setImage(null);
         }
 
+        savedProduct.setProductCategory(product.getProductCategory());
         savedProduct.setTitle(product.getTitle());
         savedProduct.setPrice(product.getPrice());
 

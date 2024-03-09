@@ -29,6 +29,10 @@ public class Product {
 
     private String imageLink;
 
+    @Column(columnDefinition = "text", name = "product_category")
+    @Enumerated(EnumType.STRING)
+    private ProductCategory productCategory;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;

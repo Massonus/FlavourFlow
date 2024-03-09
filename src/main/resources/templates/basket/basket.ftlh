@@ -95,7 +95,7 @@
             </div>
             <!-- TOTAL-->
             <div class="col-lg-4">
-                <div class="card border-0 rounded-0 p-lg-4 bg-light">
+                <div id="basket-card" class="card border-0 rounded-0 p-lg-4 bg-light">
                     <div class="card-body">
                         <h5 class="text-uppercase mb-4">Cart total</h5>
                         <ul class="list-unstyled mb-0">
@@ -106,15 +106,16 @@
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
                                    href="/companies">Continue shopping</a></li>
 
-                            <li>
-                                <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                                   onclick="checkOrder()">Checkout</a></li>
-
-                            <li>
-                                <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the
-                                    basket
-                                </button>
-                            </li>
+                            <#if products?has_content>
+                                <li>
+                                    <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                                       onclick="checkOrder()">Checkout</a></li>
+                                <li>
+                                    <button onclick="clearBasket()" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                        basket
+                                    </button>
+                                </li>
+                            </#if>
                         </ul>
                     </div>
                 </div>
@@ -122,7 +123,44 @@
         </div>
     </div>
 
-    <#include "../order/order.ftlh">
+    <div class="${orderModal}" id="order-form-modal">
+        <div class="modal__box">
+
+            <button onclick="closeOrderForm()" class="modal__close-btn" id="close-my-modal-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+
+            <form id="order-checkout" onsubmit="createOrder(event, ${companyId!''})">
+                <input id="orderName" name="name" type="text" placeholder="Your name">
+                <input id="orderPhone" name="phone" type="text" placeholder="Mobile phone">
+                <input type="date" name="date" id="date">
+
+                <input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}"/>
+                <input type="submit" value="Отправить">
+            </form>
+
+
+        </div>
+    </div>
+
+    <div class="${modal}" id="order-alert">
+        <div class="modal__box">
+
+            <button onclick="closeOrderAlertForm()" class="modal__close-btn" id="close-my-modal-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <#if companies?has_content>
+                <p>You have ${size!''} different companies in your basket, please choose only one for checkout</p>
+                <div class="container-buttons">
+                    <#list companies as company>
+                        <button type="submit" onclick="afterAlert(${company.getId()})">${company.getTitle()}</button>
+                    </#list>
+                </div>
+            </#if>
+        </div>
+    </div>
 
 </@c.page>
 

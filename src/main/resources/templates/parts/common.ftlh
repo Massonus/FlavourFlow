@@ -29,6 +29,7 @@
         <script src="../../static/js/wishes.js"></script>
         <script src="../../static/js/filterSearch.js"></script>
         <script src="../../static/js/order.js"></script>
+        <script src="../../static/js/uploadFile.js"></script>
 
         <script>
             if (localStorage.getItem('theme') === "/css/dark-theme.css") {
@@ -40,7 +41,7 @@
         <link rel="stylesheet" type="text/css" href="/css/main.css">
 
     </head>
-    <body onload="setTheme()">
+    <body onload="setTheme(); openOrderAlertForm()">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

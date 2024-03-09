@@ -30,6 +30,10 @@ public class BasketObjectService {
         basketObjectRepo.delete(basketObject);
     }
 
+    public void deleteBasketObjectsByList(List<BasketObject> basketObjects) {
+        basketObjectRepo.deleteAll(basketObjects);
+    }
+
     public BasketObject getBasketObjectById(Long id) {
         return basketObjectRepo.findBasketObjectById(id);
     }
@@ -38,12 +42,18 @@ public class BasketObjectService {
         return basketObjectRepo.findBasketObjectByProductId(productId);
     }
 
-    public BasketObject getBasketByProductIdAndUserId(Long productId, Long userId) {
+    public BasketObject getBasketObjectByProductIdAndUserId(Long productId, Long userId) {
 
         return basketObjectRepo.findBasketObjectByProductIdAndUserId(productId, userId);
     }
 
     public List<BasketObject> getBasketObjectsByUserId(Long userId) {
         return basketObjectRepo.findBasketObjectsByUserId(userId);
+    }
+
+    public List<BasketObject> getBasketObjectsByCompanyIdAndUserId(Long companyId, Long userId) {
+
+        return basketObjectRepo.findBasketObjectsByCompanyIdAndUserId(companyId, userId);
+
     }
 }

@@ -27,19 +27,29 @@ public class BasketController {
     }
 
     @GetMapping
-    public String getBasket(Model model, @AuthenticationPrincipal User user, @RequestParam(required = false) Integer size) {
+    public String getBasket(Model model, @AuthenticationPrincipal User user,
+                            @RequestParam(required = false) Integer size,
+                            @RequestParam(required = false) Long companyId) {
 
         Basket userBasket = basketService.getUserBasket(user.getId());
         List<BasketObject> basketObjects = userBasket.getBasketObjects().stream().sorted(Comparator.comparing(BasketObject::getTitle)).toList();
         model.addAttribute("products", basketObjects);
         model.addAttribute("basket", userBasket);
         model.addAttribute("size", size);
+        model.addAttribute("orderModal", "modal");
 
         if (Objects.nonNull(size)) {
             model.addAttribute("modal", "modal open");
-            model.addAttribute("companies", basketService.getCompanyTitles(user));
+            model.addAttribute("companies", basketService.getAllCompaniesInUserBasket(user));
         } else {
             model.addAttribute("modal", "modal");
+        }
+
+        if (Objects.nonNull(companyId)) {
+            model.addAttribute("orderModal", "modal open");
+            model.addAttribute("companyId", companyId);
+        } else {
+            model.addAttribute("companyId", basketService.getAllCompaniesInUserBasket(user).isEmpty() ? 0L : basketService.getAllCompaniesInUserBasket(user).getFirst().getId());
         }
 
         return "basket/basket";
@@ -84,7 +94,7 @@ public class BasketController {
     @ResponseBody
     public BasketCheckDto checkOrder(@AuthenticationPrincipal User user) {
 
-        Integer amountCompanies = basketService.amountCompanies(user);
+        int amountCompanies = basketService.getAllCompaniesInUserBasket(user).size();
 
         BasketCheckDto basketCheckDto = new BasketCheckDto();
         basketCheckDto.setSize(amountCompanies);

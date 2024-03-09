@@ -16,4 +16,6 @@ public interface BasketObjectRepo extends JpaRepository<BasketObject, Long> {
     BasketObject findBasketObjectByProductIdAndUserId(Long productId, Long userId);
 
     List<BasketObject> findBasketObjectsByUserId(Long id);
+
+    List<BasketObject> findBasketObjectsByCompanyIdAndUserId(Long companyId, Long userId);
 }

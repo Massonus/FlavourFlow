@@ -80,7 +80,7 @@
             </div>
             <!-- TOTAL-->
             <div class="col-lg-4">
-                <div class="card border-0 rounded-0 p-lg-4 bg-light">
+                <div id="wish-card" class="card border-0 rounded-0 p-lg-4 bg-light">
                     <div class="card-body">
                         <h5 class="text-uppercase mb-4">Navigation</h5>
                         <ul class="list-unstyled mb-0">
