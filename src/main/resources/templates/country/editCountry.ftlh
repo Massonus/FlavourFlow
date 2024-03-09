@@ -2,10 +2,10 @@
 
 <@c.page>
 
-    <form action="/type/add-new-type" method="post">
+    <form action="/country/edit-country/${country.getId()}" method="post">
         <div>
             <label for="title">Title</label>
-            <input type="text" id="title" name="title">
+            <input type="text" id="title" name="title" value="${country.getTitle()}">
         </div>
         <br>
         <div>

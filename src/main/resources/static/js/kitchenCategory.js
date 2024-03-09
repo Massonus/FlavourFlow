@@ -2,7 +2,7 @@ function createKitchenCategory(event) {
     event.preventDefault();
 
     let form = document.getElementById("addCategory");
-    let csrf = document.getElementById("_csrf").value;
+    let csrf = document.getElementById("csrf").value;
 
     let title = form.elements.title.value.toUpperCase();
 
@@ -34,7 +34,7 @@ function createKitchenCategory(event) {
 function deleteKitchenCategory(event, categoryId) {
     event.preventDefault();
 
-    let csrf = document.getElementById("_csrf").value;
+    let csrf = document.getElementById("csrf").value;
 
 
     const url = `/category/delete-category/${categoryId}`;
@@ -63,7 +63,7 @@ function editKitchenCategory(event, categoryId) {
     event.preventDefault();
 
     let form = document.getElementById("editCategory");
-    let csrf = document.getElementById("_csrf").value;
+    let csrf = document.getElementById("csrf").value;
 
     let title = form.elements.title.value.toUpperCase();
 

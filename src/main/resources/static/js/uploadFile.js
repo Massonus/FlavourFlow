@@ -1,5 +1,5 @@
 async function uploadFile() {
-    let csrf = document.getElementById("_csrf").value;
+    let csrf = document.getElementById("csrf").value;
 
     let file = fileupload.files[0];
 
@@ -32,6 +32,5 @@ function checkFile() {
     if (file.size > 1024 * 1024) {
         alert("File must be less then 1 MB");
         document.getElementById("fileupload").value = '';
-        return;
     }
 }

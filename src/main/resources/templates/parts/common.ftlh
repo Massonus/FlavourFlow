@@ -30,12 +30,13 @@
         <script src="../../static/js/filterSearch.js"></script>
         <script src="../../static/js/order.js"></script>
         <script src="../../static/js/uploadFile.js"></script>
+        <script src="../../static/js/product.js"></script>
 
         <script>
             if (localStorage.getItem('theme') === "/css/dark-theme.css") {
-                document.write('<link id="theme" rel="stylesheet" type="text/css" href="/css/dark-theme.css">');
+                document.write('<link id="theme" rel="stylesheet" country="text/css" href="/css/dark-theme.css">');
             } else {
-                document.write('<link id="theme" rel="stylesheet" type="text/css" href="/css/light-theme.css">');
+                document.write('<link id="theme" rel="stylesheet" country="text/css" href="/css/light-theme.css">');
             }
         </script>
         <link rel="stylesheet" type="text/css" href="/css/main.css">

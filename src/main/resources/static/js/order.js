@@ -27,7 +27,7 @@ function afterAlert(companyId) {
 function createOrder(event, companyId) {
     event.preventDefault();
 
-    let csrf = document.getElementById("_csrf").value;
+    let csrf = document.getElementById("csrf").value;
 
     let name = document.getElementById("orderName").value;
     let phone = document.getElementById("orderPhone").value;

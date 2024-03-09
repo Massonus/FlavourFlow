@@ -37,7 +37,7 @@
         <label for="file">File:</label>
         <input type="file" name="file">
 
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+        <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
         <input type="submit" value="Send">
     </form>
     <br><br>
