@@ -8,6 +8,8 @@ function createProduct(event, companyId) {
     let productCategory = document.getElementById("productCategory").value;
     let imageLink = document.getElementById("productImageLink").value;
 
+    let file = productFileUpload.files[0];
+
     const body = JSON.stringify({
         companyId: companyId,
         title: title,
@@ -26,11 +28,17 @@ function createProduct(event, companyId) {
             "X-CSRF-TOKEN": csrf,
         },
         body: body,
+
     })
-        .then(res => res.json())
-        .then((data) => {
-            console.log(data.title)
-            window.location.href = "/admin/panel";
+        .then(res => {
+
+            if ((imageLink.trim() === "")) {
+                uploadFile(file);
+                /*window.location.href = "/admin/panel";*/
+            } else {
+                /*window.location.href = "/admin/panel";*/
+            }
+
         })
         .catch(error => {
             console.log(error);

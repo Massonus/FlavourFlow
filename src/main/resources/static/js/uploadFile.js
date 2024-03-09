@@ -1,12 +1,10 @@
-async function uploadFile() {
+function uploadFile(file) {
     let csrf = document.getElementById("csrf").value;
-
-    let file = fileUpload.files[0];
 
     let formData = new FormData();
     formData.append("file", file);
 
-    let response = await fetch('/upload', {
+    let response = fetch(`/upload`, {
         headers: {
             "X-CSRF-TOKEN": csrf
         },
@@ -21,7 +19,7 @@ async function uploadFile() {
 
 function checkFile() {
 
-    let file = fileUpload.files[0];
+    let file = productFileUpload.files[0];
 
     if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type)) {
         alert("Only images");

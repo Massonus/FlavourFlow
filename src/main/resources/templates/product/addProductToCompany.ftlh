@@ -12,10 +12,10 @@
             <label for="productPrice">Price:</label>
             <input type="number" step="0.01" min="0" id="productPrice" name="productPrice" required><br><br>
 
-            <#--<h5>Choose a file or enter link</h5>
-            <label for="fileUpload">File:</label>
-            <input type="file" name="fileUpload" onchange="checkFile()">
-            <br><br>-->
+            <h5>Choose a file or enter link</h5>
+            <label for="productFileUpload">File:</label>
+            <input type="file" id="productFileUpload" name="productFileUpload" onchange="checkFile()">
+            <br><br>
 
             <div class="mb-3 row">
                 <label for="productCategory">Product Category:</label>

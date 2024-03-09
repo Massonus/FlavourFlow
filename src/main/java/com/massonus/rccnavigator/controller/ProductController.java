@@ -83,8 +83,7 @@ public class ProductController {
     public String newProduct(@RequestBody ProductDto productDto) {
 
         productService.saveProduct(productDto);
-
-        return "redirect:/product/admin/all-products?id=" + productDto.getCompanyId();
+        return "redirect:/product";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

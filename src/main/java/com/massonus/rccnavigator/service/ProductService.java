@@ -31,7 +31,7 @@ public class ProductService {
         this.imageService = imageService;
     }
 
-    public void saveProduct(final ProductDto productDto) {
+    public Product saveProduct(final ProductDto productDto) {
         Product product = new Product();
 
         /*if (!multipartFile.isEmpty()) {
@@ -49,7 +49,7 @@ public class ProductService {
         product.setPrice(productDto.getPrice());
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
 
-        productRepo.save(product);
+        return productRepo.save(product);
     }
 
     public void saveProduct(final Product validProduct) {
@@ -133,6 +133,10 @@ public class ProductService {
 
         return products;
 
+    }
+
+    public void setProductImage(String title, Long companyId, Image image) {
+        getProductByTitleAndCompanyId(title, companyId).setImage(image);
     }
 
     public void deleteProduct(final Product product) {
