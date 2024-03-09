@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 public class ProductDto {
 
+    private Long companyId;
+
     private String title;
 
     private Double price;

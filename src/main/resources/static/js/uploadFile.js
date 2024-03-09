@@ -1,7 +1,7 @@
 async function uploadFile() {
     let csrf = document.getElementById("csrf").value;
 
-    let file = fileupload.files[0];
+    let file = fileUpload.files[0];
 
     let formData = new FormData();
     formData.append("file", file);
@@ -21,16 +21,16 @@ async function uploadFile() {
 
 function checkFile() {
 
-    let file = fileupload.files[0];
+    let file = fileUpload.files[0];
 
     if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type)) {
         alert("Only images");
-        document.getElementById("fileupload").value = '';
+        document.getElementById("fileUpload").value = '';
         return;
     }
 
     if (file.size > 1024 * 1024) {
         alert("File must be less then 1 MB");
-        document.getElementById("fileupload").value = '';
+        document.getElementById("fileUpload").value = '';
     }
 }

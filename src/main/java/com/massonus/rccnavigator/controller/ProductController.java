@@ -1,9 +1,9 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.ProductDto;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -69,25 +69,22 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/add-product/{id}")
-    public String addProduct(@PathVariable Long id, Model model) {
+    @GetMapping("/add-product/{companyId}")
+    public String addProduct(@PathVariable Long companyId, Model model) {
 
-        model.addAttribute("id", id);
+        model.addAttribute("companyId", companyId);
 
         return "product/addProductToCompany";
 
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/new-product/{companyId}")
-    public String newProduct(@PathVariable Long companyId,
-                             @Valid Product product,
-                             @RequestParam("file") MultipartFile multipartFile,
-                             @RequestParam String imageLink) {
+    @PostMapping("/add")
+    public String newProduct(@RequestBody ProductDto productDto) {
 
-        productService.saveProduct(product, multipartFile, imageLink, companyId);
+        productService.saveProduct(productDto);
 
-        return "redirect:/product/admin/all-products?id=" + companyId;
+        return "redirect:/product/admin/all-products?id=" + productDto.getCompanyId();
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

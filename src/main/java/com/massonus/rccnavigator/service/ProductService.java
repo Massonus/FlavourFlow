@@ -1,7 +1,9 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.ProductDto;
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.Product;
+import com.massonus.rccnavigator.entity.ProductCategory;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +31,23 @@ public class ProductService {
         this.imageService = imageService;
     }
 
-    public void saveProduct(final Product validProduct, final MultipartFile multipartFile, final String imageLink, final Long companyId) {
+    public void saveProduct(final ProductDto productDto) {
         Product product = new Product();
 
-        if (!multipartFile.isEmpty()) {
+        /*if (!multipartFile.isEmpty()) {
             Image uploadImage = imageService.upload(multipartFile);
             product.setImage(uploadImage);
-        }
+        }*/
 
-        if (!imageLink.isEmpty()) {
-            product.setImageLink(imageLink);
+        if (!productDto.getImageLink().isEmpty()) {
+            product.setImageLink(productDto.getImageLink());
             product.setImage(null);
         }
 
-        product.setProductCategory(validProduct.getProductCategory());
-        product.setTitle(validProduct.getTitle());
-        product.setPrice(validProduct.getPrice());
-        product.setCompany(companyRepo.findCompanyById(companyId));
+        product.setProductCategory(ProductCategory.valueOf(productDto.getProductCategory()));
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
 
         productRepo.save(product);
     }
@@ -139,6 +141,10 @@ public class ProductService {
 
     public Product getProductById(final Long id) {
         return productRepo.findProductById(id);
+    }
+
+    public Product getProductByTitleAndCompanyId(String title, Long companyId) {
+        return productRepo.findProductByTitleAndCompanyId(title, companyId);
     }
 
     public List<Product> getAllProducts() {

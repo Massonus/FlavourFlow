@@ -1,16 +1,22 @@
-function createProduct(event) {
+function createProduct(event, companyId) {
     event.preventDefault();
 
-    let form = document.getElementById("addCategory");
-    let csrf = document.getElementById("_csrf").value;
+    let csrf = document.getElementById("csrf").value;
 
-    let title = form.elements.title.value.toUpperCase();
+    let title = document.getElementById("productTitle").value;
+    let price = document.getElementById("productPrice").value;
+    let productCategory = document.getElementById("productCategory").value;
+    let imageLink = document.getElementById("productImageLink").value;
 
     const body = JSON.stringify({
-        title: title
+        companyId: companyId,
+        title: title,
+        price: price,
+        productCategory: productCategory,
+        imageLink: imageLink
     });
 
-    const url = "/category/add-new-category";
+    const url = "/product/add";
 
     fetch(url, {
         method: "POST",
