@@ -40,10 +40,12 @@ public class ImageController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file,
+                                              @RequestParam Long companyId,
+                                              @RequestParam String title) {
 
         Image upload = imageService.upload(file);
-        /*productService.setProductImage(title, companyId, upload);*/
+        productService.setProductImage(title, companyId, upload);
 
         return ResponseEntity.ok("upload success");
     }

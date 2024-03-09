@@ -33,10 +33,10 @@ function createProduct(event, companyId) {
         .then(res => {
 
             if ((imageLink.trim() === "")) {
-                uploadFile(file);
-                /*window.location.href = "/admin/panel";*/
+                uploadFile(file, companyId, title);
+                window.location.href = "/admin/panel";
             } else {
-                /*window.location.href = "/admin/panel";*/
+                window.location.href = "/admin/panel";
             }
 
         })

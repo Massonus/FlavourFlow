@@ -1,10 +1,10 @@
-function uploadFile(file) {
+function uploadFile(file, companyId, title) {
     let csrf = document.getElementById("csrf").value;
 
     let formData = new FormData();
     formData.append("file", file);
 
-    let response = fetch(`/upload`, {
+    let response = fetch(`/upload?companyId=${companyId}&title=${title}`, {
         headers: {
             "X-CSRF-TOKEN": csrf
         },
