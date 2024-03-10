@@ -57,13 +57,9 @@ function editCountry(event, countryId) {
         })
 }
 
-function deleteCountry(event, categoryId) {
-    event.preventDefault();
+function deleteCountry(countryId, csrf) {
 
-    let csrf = document.getElementById("csrf").value;
-
-
-    const url = `/category/delete/${categoryId}`;
+    const url = `/country/delete?id=${countryId}`;
 
     fetch(url, {
         method: "DELETE",
@@ -72,14 +68,7 @@ function deleteCountry(event, categoryId) {
         },
     })
         .then(res => {
-
-            if (res.ok) {
-                console.log("SUCCESS");
-                window.location.href = "/admin/panel";
-
-            } else {
-                return res.text();
-            }
+            document.getElementById(`country-table-${countryId}`).remove();
         })
         .catch(error =>
             console.error(error));

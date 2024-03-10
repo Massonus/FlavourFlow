@@ -59,13 +59,9 @@ function editKitchenCategory(event, categoryId) {
         })
 }
 
-function deleteKitchenCategory(event, categoryId) {
-    event.preventDefault();
+function deleteKitchenCategory(categoryId, csrf) {
 
-    let csrf = document.getElementById("csrf").value;
-
-
-    const url = `/category/delete/${categoryId}`;
+    const url = `/category/delete?id=${categoryId}`;
 
     fetch(url, {
         method: "DELETE",
@@ -74,14 +70,7 @@ function deleteKitchenCategory(event, categoryId) {
         },
     })
         .then(res => {
-
-            if (res.ok) {
-                console.log("SUCCESS");
-                window.location.href = "/admin/panel";
-
-            } else {
-                return res.text();
-            }
+            document.getElementById(`category-table-${categoryId}`).remove();
         })
         .catch(error =>
             console.error(error));

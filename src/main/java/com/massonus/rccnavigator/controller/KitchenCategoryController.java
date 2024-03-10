@@ -55,8 +55,8 @@ public class KitchenCategoryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @DeleteMapping("/delete/{id}")
-    public void deleteCategory(@PathVariable Long id) {
+    @DeleteMapping("/delete")
+    public void deleteCategory(@RequestParam Long id) {
 
         categoryService.deleteCategory(id);
 

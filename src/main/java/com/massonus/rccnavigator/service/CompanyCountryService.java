@@ -45,7 +45,7 @@ public class CompanyCountryService {
         getCountryById(countryDto.getCountryId()).setTitle(countryDto.getTitle());
     }
 
-    public void deleteType(Long id) {
+    public void deleteCountry(Long id) {
 
         countryRepo.delete(getCountryById(id));
     }

@@ -53,12 +53,10 @@ public class CompanyCountryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/delete/{id}")
-    public String deleteCountry(@PathVariable Long id) {
+    @DeleteMapping("/delete")
+    public void deleteCountry(@RequestParam Long id) {
 
-        countryService.deleteType(id);
-
-        return "redirect:/admin/panel";
+        countryService.deleteCountry(id);
 
     }
 }

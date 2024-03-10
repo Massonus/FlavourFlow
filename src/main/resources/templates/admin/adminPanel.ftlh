@@ -48,17 +48,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <#list companyCountry as country>
-                    <tr>
-                        <th class="p-3" scope="row">${country.getId()}</th>
-                        <td class="p-3">${country.getTitle()}</td>
+                <#list categories as category>
+                    <tr id="category-table-${category.getId()}">
+                        <th class="p-3" scope="row">${category.getId()}</th>
+                        <td class="p-3">${category.getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/category/edit/${country.getId()}">Edit</a>
+                                           href="/category/edit/${category.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
-                            <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                             <button class="btn btn-outline-danger"
-                                    onclick="deleteKitchenCategory(event, ${country.getId()})">
+                                    onclick="deleteKitchenCategory(${category.getId()}, '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </button>
                         </td>
@@ -84,7 +83,7 @@
                 </thead>
                 <tbody>
                 <#list countries as country>
-                    <tr>
+                    <tr id="country-table-${country.getId()}">
                         <th class="p-3" scope="row">${country.getId()}</th>
                         <td class="p-3">${country.getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
@@ -92,7 +91,7 @@
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               href="/country/delete/${country.getId()}">
+                               onclick="deleteCountry(${country.getId()}, '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
