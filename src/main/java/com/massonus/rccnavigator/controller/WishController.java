@@ -71,7 +71,8 @@ public class WishController {
         return itemDto;
     }
 
-    @GetMapping("/clear")
+    @DeleteMapping("/clear")
+    @ResponseBody
     public String clearWishes(@AuthenticationPrincipal User user) {
 
         wishService.clearWishes(user);

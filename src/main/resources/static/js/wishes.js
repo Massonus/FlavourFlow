@@ -59,25 +59,6 @@ function deleteWishItem(productId, csrf, iconElement) {
 
 }
 
-function clearWishes() {
-
-    let url;
-
-    if (confirm("Do you really want to clear the wishes?")) {
-        url = `/wishes/clear`;
-    } else {
-        url = `/wishes`;
-    }
-
-    fetch(url, {
-        method: 'GET',
-    })
-        .then(response => {
-            window.location.href = response.url;
-        })
-        .catch(error => console.error(error));
-}
-
 function moveWishToBasket(productId, csrf) {
 
     const body = JSON.stringify({
@@ -104,6 +85,30 @@ function moveWishToBasket(productId, csrf) {
         })
         .catch(error => console.log(error));
 
+}
+
+function clearWishes(csrf) {
+
+    let url;
+
+    if (confirm("Do you really want to clear your wishes?")) {
+        url = `/wishes/clear`;
+    } else {
+        url = `/wishes`;
+    }
+
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrf
+        },
+    })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "/wishes";
+            }
+        })
+        .catch(error => console.error(error));
 }
 
 function openAlertWindow() {

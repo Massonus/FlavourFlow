@@ -92,7 +92,7 @@ function clearBasket(csrf) {
 
     let url;
 
-    if (confirm("Do you really want to clear the basket?")) {
+    if (confirm("Do you really want to clear your basket?")) {
         url = `/basket/clear`;
     } else {
         url = `/basket`;

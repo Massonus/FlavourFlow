@@ -93,7 +93,7 @@
 
                             <#if products?has_content>
                                 <li>
-                                    <button onclick="clearWishes()" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                    <button onclick="clearWishes('${_csrf.token}')" class="btn btn-outline-danger w-100 mt-2">Clear the
                                         wishes
                                     </button>
                                 </li>
