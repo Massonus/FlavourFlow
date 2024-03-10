@@ -12,4 +12,10 @@ public class BasketObjectDto {
     private Long productId;
 
     private Integer amount;
+
+    private Double sum;
+
+    private Double total;
+
+    private Long userId;
 }

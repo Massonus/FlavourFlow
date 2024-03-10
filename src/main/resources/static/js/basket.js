@@ -66,8 +66,10 @@ function changeAmount(productId, csrf) {
         },
         body: body,
     })
-        .then(response => {
-            window.location.href = "/basket";
+        .then(res => res.json())
+        .then((data) => {
+            document.getElementById(`object-sum-${productId}`).innerHTML = `${data.sum.toFixed(2) + '$'}`;
+            document.getElementById("basket-total").innerHTML = `${data.total.toFixed(2) + '$'}`;
         })
         .catch(error => console.error(error));
 }

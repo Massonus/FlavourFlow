@@ -67,19 +67,18 @@
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-center justify-content-between px-3">
-                                        <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                                         <span id="amount-input"
                                               class="small text-uppercase text-gray headings-font-family"><input
                                                     class="form-control"
                                                     id="newAmount-${product.getId()}"
                                                     type="number"
-                                                    onchange="changeAmount(${product.getId()})"
-                                                    value="${product.getAmount()}"></span>
+                                                    onchange="changeAmount(${product.getId()}, '${_csrf.token}')"
+                                                    value="${product.getAmount()}" min="1"></span>
 
                                     </div>
                                 </td>
                                 <td class="p-3 align-middle border-light">
-                                    <p class="mb-0 small">${product.getSum() + '$'}</p>
+                                    <p id="object-sum-${product.getId()}" class="mb-0 small">${product.getSum() + '$'}</p>
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-stretch">
@@ -102,7 +101,7 @@
                         <ul class="list-unstyled mb-0">
                             <li class="d-flex align-items-center justify-content-between mb-4"><strong
                                         class="text-uppercase small font-weight-bold">Total</strong>
-                                <span>${basket.getTotal() + '$'}</span></li>
+                                <span id="basket-total">${basket.getTotal() + '$'}</span></li>
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
                                    href="/company">Continue shopping</a></li>

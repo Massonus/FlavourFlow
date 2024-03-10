@@ -68,9 +68,13 @@ public class BasketService {
         return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
     }
 
-    public void changeAmount(final BasketObjectDto basketObjectDto) {
+    public BasketObjectDto changeAmount(final BasketObjectDto basketObjectDto) {
         BasketObject basketObject = basketObjectService.getBasketObjectById(basketObjectDto.getProductId());
         basketObject.setAmount(basketObjectDto.getAmount());
+        basketObjectDto.setSum(basketObject.getSum());
+        Double total = getUserBasket(basketObjectDto.getUserId()).getTotal();
+        basketObjectDto.setTotal(total);
+        return basketObjectDto;
     }
 
     private Basket getBasketByUserId(Long id) {

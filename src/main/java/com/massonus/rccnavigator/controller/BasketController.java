@@ -76,9 +76,12 @@ public class BasketController {
     }
 
     @PutMapping("/change-amount")
-    public void changeProductAmount(@RequestBody BasketObjectDto basketObjectDto) {
+    @ResponseBody
+    public BasketObjectDto changeProductAmount(@RequestBody BasketObjectDto basketObjectDto, @AuthenticationPrincipal User user) {
 
-        basketService.changeAmount(basketObjectDto);
+        basketObjectDto.setUserId(user.getId());
+
+        return basketService.changeAmount(basketObjectDto);
 
     }
 
