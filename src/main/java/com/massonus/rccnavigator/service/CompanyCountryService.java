@@ -40,9 +40,9 @@ public class CompanyCountryService {
         return countryRepo.findCompanyTypeByTitleContainingIgnoreCase(title);
     }
 
-    public void editType(Long id, String title) {
+    public void editCountry(final CountryDto countryDto) {
 
-        getCountryById(id).setTitle(title);
+        getCountryById(countryDto.getCountryId()).setTitle(countryDto.getTitle());
     }
 
     public void deleteType(Long id) {

@@ -27,22 +27,22 @@ function createCountry(event) {
         })
 }
 
-function editCountry(event, categoryId) {
+function editCountry(event, countryId) {
     event.preventDefault();
 
-    let form = document.getElementById("editCategory");
     let csrf = document.getElementById("csrf").value;
-
-    let title = form.elements.title.value.toUpperCase();
+    let title = document.getElementById("countryTitle").value.toUpperCase();
 
     const body = JSON.stringify({
+        countryId: countryId,
         title: title
     });
 
-    const url = `/category/edit/${categoryId}`;
+    const url = `/country/edit`;
 
     fetch(url, {
         method: "PUT",
+        redirect: 'follow',
         headers: {
             "Content-Type": "application/json",
             "X-CSRF-TOKEN": csrf,
@@ -50,13 +50,7 @@ function editCountry(event, categoryId) {
         body: body,
     })
         .then(res => {
-            if (res.ok) {
-                console.log("SUCCESS");
-                window.location.href = "/admin/panel";
-            } else {
-                return res.text();
-            }
-
+            window.location.href = "/admin/panel";
         })
         .catch(error => {
             console.log(error);

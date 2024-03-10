@@ -4,8 +4,8 @@
 
     <form id="addCategory" onsubmit="createKitchenCategory(event)">
         <div>
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title">
+            <label for="categoryTitle">Title</label>
+            <input type="text" id="categoryTitle" name="categoryTitle">
         </div>
         <br>
         <div>

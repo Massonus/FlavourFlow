@@ -21,7 +21,7 @@ public class CompanyCountryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add")
-    public String getAddTypeForm() {
+    public String getAddCountryForm() {
 
         return "country/addCountry";
 
@@ -29,7 +29,7 @@ public class CompanyCountryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
-    public void addTypePost(@RequestBody CountryDto countryDto) {
+    public void addCountry(@RequestBody CountryDto countryDto) {
 
         countryService.saveCompanyCountry(countryDto);
 
@@ -37,7 +37,7 @@ public class CompanyCountryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/edit/{id}")
-    public String getTypeEditForm(@PathVariable Long id, Model model) {
+    public String getCountryEditForm(@PathVariable Long id, Model model) {
 
         model.addAttribute("country", countryService.getCountryById(id));
 
@@ -46,18 +46,15 @@ public class CompanyCountryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit/{id}")
-    public String editTypePost(@PathVariable Long id,
-                               @RequestParam String title) {
+    @PutMapping("/edit")
+    public void editCountry(@RequestBody CountryDto countryDto) {
 
-        countryService.editType(id, title);
-
-        return "redirect:/admin/panel";
+        countryService.editCountry(countryDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delete/{id}")
-    public String deleteType(@PathVariable Long id) {
+    public String deleteCountry(@PathVariable Long id) {
 
         countryService.deleteType(id);
 

@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.KitchenCategoryDto;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,16 +48,14 @@ public class KitchenCategoryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PutMapping("/edit/{id}")
-    @ResponseBody
-    public KitchenCategory categoryPutEdit(@PathVariable Long id, @RequestBody KitchenCategory category) {
+    @PutMapping("/edit")
+    public void categoryPutEdit(@RequestBody KitchenCategoryDto categoryDto) {
 
-        return categoryService.editCategory(id, category);
+        categoryService.editCategory(categoryDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{id}")
-    @ResponseBody
     public void deleteCategory(@PathVariable Long id) {
 
         categoryService.deleteCategory(id);
