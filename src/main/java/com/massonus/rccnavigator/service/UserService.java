@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.UserDto;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.repo.UserRepo;
@@ -37,24 +38,22 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean saveUser(final User user, final boolean isAdmin) {
-        User userFromDb = userRepo.findByUsername(user.getUsername());
+    public User createUser(final UserDto userDto) {
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setRoles(Collections.singleton(Role.valueOf(userDto.getRole())));
+        user.setPassword(userDto.getPassword());
+        user.setRedactor(userDto.getRedactor());
 
-        if (userFromDb != null) {
-            return false;
-        }
+        saveUser(user);
 
-        if (isAdmin) {
-            user.setRoles(Collections.singleton(Role.ADMIN));
-        } else {
-            user.setRoles(Collections.singleton(Role.USER));
-        }
+        return user;
+    }
 
+    public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         userRepo.save(user);
-
-        return true;
     }
 
     public void editUser(User redactor, Long id, String username, String email, String password, Role role) {

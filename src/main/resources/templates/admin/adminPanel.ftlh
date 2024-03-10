@@ -34,7 +34,7 @@
                 </#list>
                 </tbody>
             </table>
-            <a role="button" class="btn black-btn-outline mt-3" href="/user/add-new-user">Add new user</a>
+            <a role="button" class="btn black-btn-outline mt-3" href="/user/add">Add new user</a>
         </div>
     </section>
 

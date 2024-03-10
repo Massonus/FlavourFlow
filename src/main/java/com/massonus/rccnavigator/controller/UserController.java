@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.UserDto;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.UserService;
@@ -9,8 +10,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
 
 @Controller
 @RequestMapping("/user")
@@ -56,7 +55,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/add-new-user")
+    @GetMapping("/add")
     public String getAddUserForm() {
 
         return "user/addUser";
@@ -64,35 +63,13 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/add-new-user")
-    public String registrationPost(@AuthenticationPrincipal User redactor,
-                                   @RequestParam String username,
-                                   @RequestParam String password,
-                                   @RequestParam String confirmPassword,
-                                   @RequestParam String email,
-                                   @RequestParam String role) {
+    @PostMapping("/add")
+    @ResponseBody
+    public User addUser(@RequestBody UserDto userDto, @AuthenticationPrincipal User redactor) {
 
-        final User user = new User();
-        user.setRedactor(redactor.getId());
-        user.setUsername(username);
+        userDto.setRedactor(redactor.getId());
 
-        if (password.equals(confirmPassword)) {
-            user.setPassword(password);
-        } else {
-            return "redirect:/admin/panel";
-        }
-
-        user.setEmail(email);
-
-        if (role.equals("ADMIN")) {
-            user.setRoles(Collections.singleton(Role.ADMIN));
-            userService.saveUser(user, true);
-        } else {
-            user.setRoles(Collections.singleton(Role.USER));
-            userService.saveUser(user, false);
-        }
-
-        return "redirect:/admin/panel";
+        return userService.createUser(userDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

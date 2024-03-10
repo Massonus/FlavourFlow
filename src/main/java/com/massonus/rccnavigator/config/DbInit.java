@@ -1,10 +1,13 @@
 package com.massonus.rccnavigator.config;
 
+import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
 
 @Component
 public class DbInit {
@@ -24,16 +27,18 @@ public class DbInit {
         user.setUsername("cat");
         user.setPassword("cat");
         user.setRedactor(1337L);
+        user.setRoles(Collections.singleton(Role.USER));
 
-        userService.saveUser(user, false);
+        userService.saveUser(user);
 
         final User admin = new User();
         admin.setEmail("admin@gmail.com");
         admin.setUsername("admin");
         admin.setPassword("admin");
         admin.setRedactor(1337L);
+        admin.setRoles(Collections.singleton(Role.ADMIN));
 
-        userService.saveUser(admin, true);
+        userService.saveUser(admin);
 
     }
 }
