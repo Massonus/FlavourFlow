@@ -32,6 +32,8 @@
             <br><br>
 
             <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
+            <a role="button" class="btn btn-outline-secondary mt-3"
+               href="/product/admin/all-products?companyId=${companyId}">Cancel</a>
             <input type="submit" value="Send">
         </form>
     </#if>

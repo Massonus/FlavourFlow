@@ -4,7 +4,7 @@ function createProduct(event, companyId) {
     let csrf = document.getElementById("csrf").value;
 
     let title = document.getElementById("productTitle").value;
-    let price = document.getElementById("productPrice").value;
+    let price = parseFloat(document.getElementById("productPrice").value.replace(/,/, '.'));
     let productCategory = document.getElementById("productCategory").value;
     let imageLink = document.getElementById("productImageLink").value;
 
@@ -56,7 +56,7 @@ function editProduct(event, productId, companyId) {
     let csrf = document.getElementById("csrf").value;
 
     let title = document.getElementById("productTitle").value;
-    let price = document.getElementById("productPrice").value;
+    let price = parseFloat(document.getElementById("productPrice").value.replace(/,/, '.'));
     let productCategory = document.getElementById("productCategory").value;
     let imageLink = document.getElementById("productImageLink").value;
 
@@ -95,4 +95,22 @@ function editProduct(event, productId, companyId) {
         .catch(error => {
             console.log(error);
         })
+}
+
+function deleteProduct(productId, csrf) {
+
+    const url = `/product/delete?productId=${productId}`;
+
+    fetch(url, {
+        method: "DELETE",
+        headers: {
+            'X-CSRF-TOKEN': csrf,
+        },
+    })
+        .then(res => res.json())
+        .then((data) => {
+            window.location.href = `/product/admin/all-products?companyId=${data}`;
+        })
+        .catch(error =>
+            console.error(error));
 }

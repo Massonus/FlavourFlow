@@ -69,6 +69,8 @@ public class ProductService {
         savedProduct.setTitle(productDto.getTitle());
         savedProduct.setPrice(productDto.getPrice());
 
+        productRepo.save(savedProduct);
+
         return savedProduct.getCompany().getId();
     }
 
