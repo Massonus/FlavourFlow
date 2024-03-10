@@ -32,17 +32,19 @@ function deleteBasketItem(productId, csrf, iconElement) {
             'X-CSRF-TOKEN': csrf
         },
     })
-        .then(response => {
+        .then(res => res.json())
+        .then((data) => {
 
-            if (iconElement === undefined) {
-                document.getElementById(`basket-item-${productId}`).remove();
-
-            } else if (response.ok) {
+            if (iconElement !== undefined) {
                 iconElement.className = "bi bi-cart";
 
+            } else if (data !== undefined) {
+                document.getElementById(`basket-item-${productId}`).remove();
+                document.getElementById("basket-total").innerHTML = `${data.toFixed(2) + '$'}`;
             } else {
                 alert("Error! Reload the page and try again");
             }
+
         })
         .catch(error => console.log(error));
 }
@@ -50,6 +52,10 @@ function deleteBasketItem(productId, csrf, iconElement) {
 function changeAmount(productId, csrf) {
 
     let amount = document.getElementById(`newAmount-${productId}`).value;
+
+    if (amount <= 0) {
+        return;
+    }
 
     const url = `/basket/change-amount`;
 

@@ -2,6 +2,7 @@ package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,5 +39,6 @@ public class Order {
     @Future
     private Date date;
 
+    @Positive
     private Double total;
 }

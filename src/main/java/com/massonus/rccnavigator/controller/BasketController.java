@@ -67,11 +67,11 @@ public class BasketController {
 
     @DeleteMapping("/delete-item")
     @ResponseBody
-    public String deleteProductFromBasket(@RequestParam Long productId, @AuthenticationPrincipal User user) {
+    public Double deleteProductFromBasket(@RequestParam Long productId, @AuthenticationPrincipal User user) {
 
         basketService.deleteBasketItem(productId, user);
 
-        return "redirect:/basket";
+        return basketService.getBasketTotal(user.getId());
 
     }
 

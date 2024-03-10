@@ -73,7 +73,7 @@
                                                     id="newAmount-${product.getId()}"
                                                     type="number"
                                                     onchange="changeAmount(${product.getId()}, '${_csrf.token}')"
-                                                    value="${product.getAmount()}" min="1"></span>
+                                                    value="${product.getAmount()}" min="1" required></span>
 
                                     </div>
                                 </td>

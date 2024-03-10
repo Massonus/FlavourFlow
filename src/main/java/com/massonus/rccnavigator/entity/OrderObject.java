@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,8 +21,10 @@ public class OrderObject {
 
     private String title;
 
+    @Positive
     private Integer amount;
 
+    @Positive
     private Double sum;
 
     @ManyToOne(fetch = FetchType.LAZY)

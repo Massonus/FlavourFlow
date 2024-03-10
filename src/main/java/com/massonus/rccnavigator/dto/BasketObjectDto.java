@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.dto;
 
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ public class BasketObjectDto {
 
     private Long productId;
 
+    @Positive
     private Integer amount;
 
     private Double sum;
