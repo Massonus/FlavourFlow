@@ -58,11 +58,9 @@ public class BasketController {
 
     @PostMapping("/add-item")
     @ResponseBody
-    public String addProductToBasket(@RequestParam Long productId, @AuthenticationPrincipal User user) {
+    public Long addProductToBasket(@RequestParam Long productId, @AuthenticationPrincipal User user) {
 
-        Long companyId = basketService.addProductToBasket(productId, user.getId());
-
-        return "redirect:/product/all-products/" + companyId;
+        return basketService.addProductToBasket(productId, user.getId());
     }
 
     @DeleteMapping("/delete-item")

@@ -9,8 +9,8 @@ function saveOrDeleteWishItem(productId, csrf) {
 }
 
 function saveItem(productId, csrf, iconElement) {
-    fetch(`/wishes/new-wish-item/${productId}`, {
-        method: 'GET',
+    fetch(`/wishes/add-item?id=${productId}`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrf,

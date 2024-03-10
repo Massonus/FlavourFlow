@@ -37,12 +37,11 @@ public class WishController {
         return "wish/wishes";
     }
 
-    @GetMapping("/new-wish-item/{id}")
-    public String addProductToWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    @PostMapping("/add-item")
+    @ResponseBody
+    public Long addWishItem(@RequestParam Long id, @AuthenticationPrincipal User user) {
 
-        Long companyId = wishService.addProductToWishes(id, user.getId());
-
-        return "redirect:/product/all-products?companyId=" + companyId;
+        return wishService.addProductToWishes(id, user.getId());
     }
 
     @GetMapping("/move-wish-to-basket")
