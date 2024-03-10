@@ -57,22 +57,17 @@ public class ProductService {
         productRepo.save(validProduct);
     }
 
-    public Long editProduct(final Long id, final Product product, final MultipartFile multipartFile, String imageLink) {
-        Product savedProduct = productRepo.findProductById(id);
+    public Long editProduct(final ProductDto productDto) {
+        Product savedProduct = getProductById(productDto.getProductId());
 
-        if (!multipartFile.isEmpty()) {
-            Image uploadImage = imageService.upload(multipartFile);
-            savedProduct.setImage(uploadImage);
-        }
-
-        if (!imageLink.isEmpty()) {
-            savedProduct.setImageLink(imageLink);
+        if (!productDto.getImageLink().isEmpty()) {
+            savedProduct.setImageLink(productDto.getImageLink());
             savedProduct.setImage(null);
         }
 
-        savedProduct.setProductCategory(product.getProductCategory());
-        savedProduct.setTitle(product.getTitle());
-        savedProduct.setPrice(product.getPrice());
+        savedProduct.setProductCategory(ProductCategory.valueOf(productDto.getProductCategory()));
+        savedProduct.setTitle(productDto.getTitle());
+        savedProduct.setPrice(productDto.getPrice());
 
         productRepo.save(savedProduct);
         return savedProduct.getCompany().getId();

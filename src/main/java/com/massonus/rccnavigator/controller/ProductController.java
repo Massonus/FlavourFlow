@@ -13,7 +13,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -80,10 +79,9 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
-    public String newProduct(@RequestBody ProductDto productDto) {
+    public void newProduct(@RequestBody ProductDto productDto) {
 
         productService.saveProduct(productDto);
-        return "redirect:/product";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -95,15 +93,10 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit/{id}")
-    public String saveUpdatedProduct(@PathVariable Long id,
-                                     @RequestParam("file") MultipartFile multipartFile,
-                                     @RequestParam String imageLink,
-                                     Product product) {
+    @PutMapping("/edit")
+    public void saveUpdatedProduct(@RequestBody ProductDto productDto) {
 
-        Long companyId = productService.editProduct(id, product, multipartFile, imageLink);
-
-        return "redirect:/product/admin/all-products?id=" + companyId;
+        Long companyId = productService.editProduct(productDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
