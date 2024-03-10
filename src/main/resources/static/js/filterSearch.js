@@ -4,7 +4,7 @@ function filterCompany(event) {
     let categoryId = document.getElementById("kitchenCategory").value;
     let countryId = document.getElementById("companyCountry").value;
 
-    const url = `/companies?categoryId=${categoryId}&countryId=${countryId}&sort=${sort}`;
+    const url = `/company?categoryId=${categoryId}&countryId=${countryId}&sort=${sort}`;
 
     fetch(url, {
         method: 'GET',
@@ -15,12 +15,12 @@ function filterCompany(event) {
         .catch(error => console.error(error));
 }
 
-function filterProduct(event, productId) {
+function filterProduct(event, companyId) {
     event.preventDefault();
 
     let sort = document.getElementById("sort").value;
 
-    const url = `/product/all-products?id=${productId}&sort=${sort}`;
+    const url = `/product/all-products?companyId=${companyId}&sort=${sort}`;
 
     fetch(url, {
         method: 'GET',
@@ -36,7 +36,7 @@ function search(event) {
 
     let search = document.getElementById("search-input").value;
 
-    const url = `/companies?search=${search}`;
+    const url = `/company?search=${search}`;
 
     fetch(url, {
         method: 'GET',
