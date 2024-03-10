@@ -1,9 +1,7 @@
 package com.massonus.rccnavigator.service;
 
-import com.massonus.rccnavigator.entity.Product;
-import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.entity.Wish;
-import com.massonus.rccnavigator.entity.WishObject;
+import com.massonus.rccnavigator.dto.ItemDto;
+import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.UserRepo;
 import com.massonus.rccnavigator.repo.WishRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,10 +76,12 @@ public class WishService {
         return getUserWish(Long.valueOf(userId)).getWishObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
     }
 
-    public void deleteWishItem(Long id, User user) {
-        WishObject wishObjectById = objectService.getWishObjectByProductIdAndUserId(id, user.getId());
+    public ItemDto deleteWishItem(ItemDto itemDto, User user) {
+        WishObject wishObjectById = objectService.getWishObjectByProductIdAndUserId(itemDto.getProductId(), user.getId());
         getWishByUserId(user.getId()).getWishObjects().remove(wishObjectById);
         objectService.deleteWishObject(wishObjectById);
+        itemDto.setItemId(wishObjectById.getId());
+        return itemDto;
     }
 
     public void clearWishes(final User user) {

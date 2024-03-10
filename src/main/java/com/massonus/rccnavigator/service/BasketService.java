@@ -1,6 +1,6 @@
 package com.massonus.rccnavigator.service;
 
-import com.massonus.rccnavigator.dto.BasketObjectDto;
+import com.massonus.rccnavigator.dto.ItemDto;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.BasketRepo;
 import com.massonus.rccnavigator.repo.UserRepo;
@@ -68,12 +68,12 @@ public class BasketService {
         return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
     }
 
-    public BasketObjectDto changeAmount(final BasketObjectDto basketObjectDto) {
-        BasketObject basketObject = basketObjectService.getBasketObjectById(basketObjectDto.getProductId());
-        basketObject.setAmount(basketObjectDto.getAmount());
-        basketObjectDto.setSum(basketObject.getSum());
-        basketObjectDto.setTotal(getBasketTotal(basketObjectDto.getUserId()));
-        return basketObjectDto;
+    public ItemDto changeAmount(final ItemDto itemDto) {
+        BasketObject basketObject = basketObjectService.getBasketObjectById(itemDto.getProductId());
+        basketObject.setAmount(itemDto.getAmount());
+        itemDto.setSum(basketObject.getSum());
+        itemDto.setTotal(getBasketTotal(itemDto.getUserId()));
+        return itemDto;
     }
 
     public Double getBasketTotal(Long userId) {
@@ -98,13 +98,13 @@ public class BasketService {
                 .toList();
     }
 
-    public BasketObjectDto deleteBasketItem(final BasketObjectDto basketObjectDto, User user) {
-        BasketObject basketObject = basketObjectService.getBasketObjectByProductIdAndUserId(basketObjectDto.getProductId(), user.getId());
+    public ItemDto deleteBasketItem(final ItemDto itemDto, User user) {
+        BasketObject basketObject = basketObjectService.getBasketObjectByProductIdAndUserId(itemDto.getProductId(), user.getId());
         getBasketByUserId(user.getId()).getBasketObjects().remove(basketObject);
         basketObjectService.deleteBasketObject(basketObject);
-        basketObjectDto.setTotal(getBasketTotal(user.getId()));
-        basketObjectDto.setObjectId(basketObject.getId());
-        return basketObjectDto;
+        itemDto.setTotal(getBasketTotal(user.getId()));
+        itemDto.setItemId(basketObject.getId());
+        return itemDto;
     }
 
     public void deleteBasketItemsByCompanyId(Long id, User user) {

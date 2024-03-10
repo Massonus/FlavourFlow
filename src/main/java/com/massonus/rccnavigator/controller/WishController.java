@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.ItemDto;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.service.BasketObjectService;
 import com.massonus.rccnavigator.service.BasketService;
@@ -44,6 +45,14 @@ public class WishController {
         return wishService.addProductToWishes(id, user.getId());
     }
 
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public ItemDto deleteProductFromWishes(@RequestBody ItemDto itemDto, @AuthenticationPrincipal User user) {
+
+        return wishService.deleteWishItem(itemDto, user);
+
+    }
+
     @GetMapping("/move-wish-to-basket")
     @ResponseBody
     public Boolean moveToBasket(@RequestParam Long id, @AuthenticationPrincipal User user) {
@@ -55,18 +64,9 @@ public class WishController {
             return true;
         } else {
             basketService.addProductToBasket(id, user.getId());
-            wishService.deleteWishItem(id, user);
+            /*wishService.deleteWishItem(id, user);*/
             return false;
         }
-    }
-
-    @GetMapping("/delete-from-wishes/{id}")
-    public String deleteProductFromWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
-
-        wishService.deleteWishItem(id, user);
-
-        return "redirect:/wishes";
-
     }
 
     @GetMapping("/clear")

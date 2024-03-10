@@ -46,8 +46,8 @@ function deleteBasketItem(productId, csrf, iconElement) {
                 iconElement.className = "bi bi-cart";
 
             } else if (data !== undefined) {
-                console.log(data.objectId);
-                document.getElementById(`basket-item-${data.objectId}`).remove();
+                console.log(data.itemId);
+                document.getElementById(`basket-item-${data.itemId}`).remove();
                 document.getElementById("basket-total").innerHTML = `${data.total.toFixed(2) + '$'}`;
             } else {
                 alert("Error! Reload the page and try again");

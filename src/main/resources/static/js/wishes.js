@@ -4,7 +4,7 @@ function saveOrDeleteWishItem(productId, csrf) {
     if (element.className === "far fa-heart") {
         saveItem(productId, csrf, element);
     } else {
-        deleteItem(productId, csrf, element);
+        deleteWishItem(productId, csrf, element);
     }
 }
 
@@ -26,22 +26,37 @@ function saveItem(productId, csrf, iconElement) {
         .catch(error => console.log(error));
 }
 
-function deleteItem(productId, csrf, iconElement) {
-    fetch(`/wishes/delete-from-wishes/${productId}`, {
-        method: 'GET',
+function deleteWishItem(productId, csrf, iconElement) {
+
+    const body = JSON.stringify({
+        productId: productId
+    });
+
+    fetch("/wishes/delete", {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrf,
         },
+        body: body
     })
-        .then(response => {
-            if (response.ok) {
+        .then(res => res.json())
+        .then((data) => {
+
+            if (iconElement !== undefined) {
                 iconElement.className = "far fa-heart";
+
+            } else if (data !== undefined) {
+                console.log(data.itemId);
+                document.getElementById(`wish-item-${data.itemId}`).remove();
             } else {
                 alert("Error! Reload the page and try again");
             }
+
         })
         .catch(error => console.log(error));
+
+
 }
 
 function clearWishes() {

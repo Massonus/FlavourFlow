@@ -6,9 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BasketObjectDto {
+public class ItemDto {
 
-    private Long objectId;
+    private Long itemId;
 
     private Long basketId;
 

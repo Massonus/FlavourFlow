@@ -1,7 +1,7 @@
 package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.dto.BasketCheckDto;
-import com.massonus.rccnavigator.dto.BasketObjectDto;
+import com.massonus.rccnavigator.dto.ItemDto;
 import com.massonus.rccnavigator.entity.Basket;
 import com.massonus.rccnavigator.entity.BasketObject;
 import com.massonus.rccnavigator.entity.User;
@@ -65,18 +65,18 @@ public class BasketController {
 
     @DeleteMapping("/delete-item")
     @ResponseBody
-    public BasketObjectDto deleteProductFromBasket(@RequestBody BasketObjectDto basketObjectDto, @AuthenticationPrincipal User user) {
+    public ItemDto deleteProductFromBasket(@RequestBody ItemDto itemDto, @AuthenticationPrincipal User user) {
 
-        return basketService.deleteBasketItem(basketObjectDto, user);
+        return basketService.deleteBasketItem(itemDto, user);
     }
 
     @PutMapping("/change-amount")
     @ResponseBody
-    public BasketObjectDto changeProductAmount(@RequestBody BasketObjectDto basketObjectDto, @AuthenticationPrincipal User user) {
+    public ItemDto changeProductAmount(@RequestBody ItemDto itemDto, @AuthenticationPrincipal User user) {
 
-        basketObjectDto.setUserId(user.getId());
+        itemDto.setUserId(user.getId());
 
-        return basketService.changeAmount(basketObjectDto);
+        return basketService.changeAmount(itemDto);
 
     }
 
