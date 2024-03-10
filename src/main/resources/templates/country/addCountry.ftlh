@@ -2,10 +2,10 @@
 
 <@c.page>
 
-    <form action="/country/add-new-country" method="post">
+    <form onsubmit="createCountry(event)">
         <div>
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title">
+            <label for="countryTitle">Title</label>
+            <input type="text" id="countryTitle" name="countryTitle">
         </div>
         <br>
         <div>

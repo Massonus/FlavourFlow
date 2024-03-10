@@ -34,7 +34,7 @@
                 </#list>
                 </tbody>
             </table>
-            <a role="button" class="btn black-btn-outline mt-3" href="/user/add-new-user">Add new</a>
+            <a role="button" class="btn black-btn-outline mt-3" href="/user/add-new-user">Add new user</a>
         </div>
     </section>
 
@@ -53,7 +53,7 @@
                         <th class="p-3" scope="row">${country.getId()}</th>
                         <td class="p-3">${country.getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/category/edit-category/${country.getId()}">Edit</a>
+                                           href="/category/edit/${country.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
                             <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
@@ -67,7 +67,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/category/add-new-category">Add new
+                <a role="button" class="btn black-btn-outline mt-3" href="/category/add">Add new
                     category</a>
             </div>
         </div>
@@ -88,11 +88,11 @@
                         <th class="p-3" scope="row">${country.getId()}</th>
                         <td class="p-3">${country.getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/country/edit-country/${country.getId()}">Edit</a>
+                                           href="/country/edit/${country.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               href="/country/delete-country/${country.getId()}">
+                               href="/country/delete/${country.getId()}">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
@@ -101,7 +101,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/country/add-new-country">Add new country</a>
+                <a role="button" class="btn black-btn-outline mt-3" href="/country/add">Add new country</a>
             </div>
         </div>
     </section>

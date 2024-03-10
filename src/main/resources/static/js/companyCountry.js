@@ -1,16 +1,14 @@
-function createKitchenCategory(event) {
+function createCountry(event) {
     event.preventDefault();
 
-    let form = document.getElementById("addCategory");
     let csrf = document.getElementById("csrf").value;
-
-    let title = form.elements.title.value.toUpperCase();
+    let title = document.getElementById("countryTitle").value.toUpperCase();
 
     const body = JSON.stringify({
         title: title
     });
 
-    const url = "/category/add";
+    const url = "/country/add";
 
     fetch(url, {
         method: "POST",
@@ -21,9 +19,7 @@ function createKitchenCategory(event) {
         },
         body: body,
     })
-        .then(res => res.json())
-        .then((data) => {
-            console.log(data.title)
+        .then(res => {
             window.location.href = "/admin/panel";
         })
         .catch(error => {
@@ -31,7 +27,7 @@ function createKitchenCategory(event) {
         })
 }
 
-function editKitchenCategory(event, categoryId) {
+function editCountry(event, categoryId) {
     event.preventDefault();
 
     let form = document.getElementById("editCategory");
@@ -67,7 +63,7 @@ function editKitchenCategory(event, categoryId) {
         })
 }
 
-function deleteKitchenCategory(event, categoryId) {
+function deleteCountry(event, categoryId) {
     event.preventDefault();
 
     let csrf = document.getElementById("csrf").value;

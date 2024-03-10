@@ -1,8 +1,7 @@
 package com.massonus.rccnavigator.controller;
 
-import com.massonus.rccnavigator.entity.CompanyCountry;
+import com.massonus.rccnavigator.dto.CountryDto;
 import com.massonus.rccnavigator.service.CompanyCountryService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ public class CompanyCountryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/add-new-country")
+    @GetMapping("/add")
     public String getAddTypeForm() {
 
         return "country/addCountry";
@@ -29,17 +28,15 @@ public class CompanyCountryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/add-new-country")
-    public String addTypePost(@Valid CompanyCountry type) {
+    @PostMapping("/add")
+    public void addTypePost(@RequestBody CountryDto countryDto) {
 
-        countryService.saveCompanyType(type);
-
-        return "redirect:/admin/panel";
+        countryService.saveCompanyCountry(countryDto);
 
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/edit-country/{id}")
+    @GetMapping("/edit/{id}")
     public String getTypeEditForm(@PathVariable Long id, Model model) {
 
         model.addAttribute("country", countryService.getCountryById(id));
@@ -49,7 +46,7 @@ public class CompanyCountryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit-country/{id}")
+    @PostMapping("/edit/{id}")
     public String editTypePost(@PathVariable Long id,
                                @RequestParam String title) {
 
@@ -59,7 +56,7 @@ public class CompanyCountryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/delete-country/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteType(@PathVariable Long id) {
 
         countryService.deleteType(id);

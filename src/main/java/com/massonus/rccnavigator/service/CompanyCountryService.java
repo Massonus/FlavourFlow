@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.CountryDto;
 import com.massonus.rccnavigator.entity.CompanyCountry;
 import com.massonus.rccnavigator.repo.CompanyCountryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ public class CompanyCountryService {
         this.countryRepo = countryRepo;
     }
 
-    public void saveCompanyType(final CompanyCountry companyCountry) {
+    public void saveCompanyCountry(final CountryDto countryDto) {
+        CompanyCountry companyCountry = new CompanyCountry();
+        companyCountry.setTitle(countryDto.getTitle());
 
         countryRepo.save(companyCountry);
     }

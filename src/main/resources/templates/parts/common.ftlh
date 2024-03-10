@@ -24,6 +24,7 @@
 
         <script src="../../static/js/registration-validation.js"></script>
         <script src="../../static/js/kitchenCategory.js"></script>
+        <script src="../../static/js/companyCountry.js"></script>
         <script src="../../static/js/changeStyle.js"></script>
         <script src="../../static/js/basket.js"></script>
         <script src="../../static/js/wishes.js"></script>
