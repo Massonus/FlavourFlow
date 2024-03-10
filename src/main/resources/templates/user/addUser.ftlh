@@ -1,8 +1,9 @@
 <#import "../parts/common.ftlh" as c>
+<#include "../parts/security.ftlh">
 
 <@c.page>
 
-    <form onsubmit="createUser(event)">
+    <form onsubmit="createUser(event, ${currentUserId})">
         <div>
             <label for="username">Username</label>
             <input type="text" id="username" name="username">

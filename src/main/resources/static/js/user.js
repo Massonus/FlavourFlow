@@ -1,4 +1,4 @@
-function createUser(event) {
+function createUser(event, redactor) {
     event.preventDefault();
 
     let csrf = document.getElementById("csrf").value;
@@ -13,15 +13,17 @@ function createUser(event) {
         return;
     }
 
-    if (role === undefined) {
+    if (role === undefined && redactor === undefined) {
         role = "USER";
+        redactor = 1337;
     }
 
     const body = JSON.stringify({
         username: username,
         email: email,
         role: role,
-        password: password
+        password: password,
+        redactor: redactor
     });
 
     const url = "/user/add";

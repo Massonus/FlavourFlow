@@ -36,9 +36,7 @@ public class UserController {
                                     @RequestParam String email,
                                     @RequestParam String password) {
 
-
         userService.updateUser(user.getId(), password, username, email);
-
 
         return "redirect:/user/profile";
 
@@ -65,9 +63,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     @ResponseBody
-    public User addUser(@RequestBody UserDto userDto, @AuthenticationPrincipal User redactor) {
-
-        userDto.setRedactor(redactor.getId());
+    public User addUser(@RequestBody UserDto userDto) {
 
         return userService.createUser(userDto);
     }
@@ -76,9 +72,7 @@ public class UserController {
     @GetMapping("/edit-user/{id}")
     public String getEditUserForm(@PathVariable Long id, Model model) {
 
-        User userById = userService.getUserById(id);
-
-        model.addAttribute("user", userById);
+        model.addAttribute("user", userService.getUserById(id));
 
         return "user/editUser";
 
