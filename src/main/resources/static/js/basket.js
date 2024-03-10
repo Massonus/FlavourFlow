@@ -80,7 +80,7 @@ function changeAmount(productId, csrf) {
         .catch(error => console.error(error));
 }
 
-function clearBasket() {
+function clearBasket(csrf) {
 
     let url;
 
@@ -91,10 +91,15 @@ function clearBasket() {
     }
 
     fetch(url, {
-        method: 'GET',
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrf
+        },
     })
         .then(response => {
-            window.location.href = response.url;
+            if (response.ok) {
+                window.location.href = "/basket";
+            }
         })
         .catch(error => console.error(error));
 }

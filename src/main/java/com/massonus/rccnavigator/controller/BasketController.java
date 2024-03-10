@@ -85,7 +85,8 @@ public class BasketController {
 
     }
 
-    @GetMapping("/clear")
+    @DeleteMapping("/clear")
+    @ResponseBody
     public String clearBasket(@AuthenticationPrincipal User user) {
 
         basketService.clearBasket(user);
