@@ -26,9 +26,9 @@ public class BasketService {
         this.userRepo = userRepo;
     }
 
-    public Long addProductToBasket(Long id, Long userId) {
+    public Long addProductToBasket(Long productId, Long userId) {
 
-        final Product productById = productService.getProductById(id);
+        final Product productById = productService.getProductById(productId);
 
         final Basket currentBasket = getUserBasket(userId);
         User userById = userRepo.findUserById(userId);

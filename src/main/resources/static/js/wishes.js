@@ -80,21 +80,25 @@ function clearWishes() {
 
 function moveWishToBasket(productId, csrf) {
 
-    fetch(`/wishes/move-wish-to-basket?id=${productId}`, {
+    const body = JSON.stringify({
+        productId: productId
+    });
 
-        method: 'GET',
+    fetch("/wishes/move", {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrf,
         },
+        body: body
     })
         .then(res => res.json())
         .then((data) => {
 
-            if (data) {
+            if (data.isInBasket) {
                 openAlertWindow();
             } else {
-                window.location.href = "/wishes";
+                document.getElementById(`wish-item-${data.itemId}`).remove();
             }
 
         })

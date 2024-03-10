@@ -53,20 +53,22 @@ public class WishController {
 
     }
 
-    @GetMapping("/move-wish-to-basket")
+    @DeleteMapping("/move")
     @ResponseBody
-    public Boolean moveToBasket(@RequestParam Long id, @AuthenticationPrincipal User user) {
+    public ItemDto moveToBasket(@RequestBody ItemDto itemDto, @AuthenticationPrincipal User user) {
 
         Basket userBasket = basketService.getUserBasket(user.getId());
         List<BasketObject> basketObjects = userBasket.getBasketObjects();
 
-        if (basketObjects.contains(basketObjectService.getBasketObjectByProductId(id))) {
-            return true;
+        if (basketObjects.contains(basketObjectService.getBasketObjectByProductId(itemDto.getProductId()))) {
+            itemDto.setIsInBasket(true);
         } else {
-            basketService.addProductToBasket(id, user.getId());
-            /*wishService.deleteWishItem(id, user);*/
-            return false;
+            basketService.addProductToBasket(itemDto.getProductId(), user.getId());
+            itemDto.setItemId(wishService.deleteWishItem(itemDto, user).getItemId());
+            itemDto.setIsInBasket(false);
         }
+
+        return itemDto;
     }
 
     @GetMapping("/clear")

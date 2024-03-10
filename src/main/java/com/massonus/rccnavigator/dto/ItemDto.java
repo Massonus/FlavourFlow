@@ -22,4 +22,6 @@ public class ItemDto {
     private Double total;
 
     private Long userId;
+
+    private Boolean isInBasket;
 }
