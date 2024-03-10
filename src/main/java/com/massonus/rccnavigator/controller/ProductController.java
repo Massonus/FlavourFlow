@@ -36,14 +36,14 @@ public class ProductController {
     }
 
     @GetMapping("/all-products")
-    public String getProductsOfCompany(@RequestParam Long id, Model model,
+    public String getProductsOfCompany(@RequestParam Long companyId, Model model,
                                        @RequestParam(value = "page", defaultValue = "0") Integer page,
                                        @RequestParam(required = false) String sort) {
 
         int pageSize = 4;
 
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Product> productPage = productService.getProductsInPage(id, pageable, sort);
+        Page<Product> productPage = productService.getProductsInPage(companyId, pageable, sort);
 
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("objects", basketObjectService.getAllBasketObjects());
@@ -51,7 +51,7 @@ public class ProductController {
         model.addAttribute("wishService", wishService);
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("currentPage", page);
-        model.addAttribute("id", id);
+        model.addAttribute("companyId", companyId);
         model.addAttribute("sort", sort == null ? "Default" : sort);
 
         return "product/allProducts";
@@ -59,10 +59,10 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin/all-products")
-    public String getProductsOfCompanyForAdmin(@RequestParam Long id, Model model) {
-        List<Product> products = productService.getAllProductsByCompanyId(id);
+    public String getProductsOfCompanyForAdmin(@RequestParam Long companyId, Model model) {
+        List<Product> products = productService.getAllProductsByCompanyId(companyId);
         model.addAttribute("products", products);
-        model.addAttribute("id", id);
+        model.addAttribute("companyId", companyId);
 
         return "product/productsInAdminPanel";
     }

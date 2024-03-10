@@ -32,7 +32,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline" href="/product/add-product/${id}">Add product</a>
+                <a role="button" class="btn black-btn-outline" href="/product/add-product/${companyId}">Add product</a>
             </div>
         </div>
     </section>

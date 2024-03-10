@@ -34,9 +34,9 @@
 
         <script>
             if (localStorage.getItem('theme') === "/css/dark-theme.css") {
-                document.write('<link id="theme" rel="stylesheet" country="text/css" href="/css/dark-theme.css">');
+                document.write('<link id="theme" rel="stylesheet" type="text/css" href="/css/dark-theme.css">');
             } else {
-                document.write('<link id="theme" rel="stylesheet" country="text/css" href="/css/light-theme.css">');
+                document.write('<link id="theme" rel="stylesheet" type="text/css" href="/css/light-theme.css">');
             }
         </script>
         <link rel="stylesheet" type="text/css" href="/css/main.css">
