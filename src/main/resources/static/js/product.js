@@ -38,7 +38,7 @@ function createProduct(event, companyId) {
         .then(res => {
 
             if (imageLink.trim() === "") {
-                uploadFile(file, companyId, title);
+                uploadProductFile(file, companyId, title, undefined);
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
@@ -85,7 +85,7 @@ function editProduct(event, productId, companyId) {
         .then(res => {
 
             if (!(file === undefined)) {
-                uploadFile(file, companyId, title);
+                uploadProductFile(file, companyId, title, productId);
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;

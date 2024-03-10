@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.util.Objects;
 
 @Controller
 public class ImageController {
@@ -44,21 +45,33 @@ public class ImageController {
 
     @PostMapping("/upload-product")
     public ResponseEntity<?> uploadProductImage(@RequestParam("file") MultipartFile file,
-                                              @RequestParam(required = false) Long companyId,
-                                              @RequestParam String title) {
+                                                @RequestParam(required = false) Long companyId,
+                                                @RequestParam(required = false) String title,
+                                                @RequestParam(required = false) Long productId) {
 
-        Image upload = imageService.upload(file);
-        productService.setProductImage(title, companyId, upload);
+        final Image upload = imageService.upload(file);
+
+        if (Objects.isNull(productId)) {
+            productService.setProductImage(title, companyId, upload);
+        } else {
+            productService.setProductImage(productId, upload);
+        }
 
         return ResponseEntity.ok("upload success");
     }
 
     @PostMapping("/upload-company")
     public ResponseEntity<?> uploadCompanyImage(@RequestParam("file") MultipartFile file,
-                                                @RequestParam String title) {
+                                                @RequestParam(required = false) String title,
+                                                @RequestParam(required = false) Long companyId) {
 
-        Image upload = imageService.upload(file);
-        companyService.setCompanyImage(title, upload);
+        final Image upload = imageService.upload(file);
+
+        if (Objects.isNull(title)) {
+            companyService.setCompanyImage(companyId, upload);
+        } else {
+            companyService.setCompanyImage(title, upload);
+        }
 
         return ResponseEntity.ok("upload success");
     }

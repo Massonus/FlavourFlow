@@ -28,7 +28,7 @@ public class ProductService {
         this.companyRepo = companyRepo;
     }
 
-    public Product saveProduct(final ProductDto productDto) {
+    public void saveProduct(final ProductDto productDto) {
         Product product = new Product();
 
         if (!productDto.getImageLink().isEmpty()) {
@@ -41,7 +41,7 @@ public class ProductService {
         product.setPrice(productDto.getPrice());
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
 
-        return productRepo.save(product);
+        productRepo.save(product);
     }
 
     public void saveProduct(final Product validProduct) {
@@ -123,8 +123,12 @@ public class ProductService {
 
     }
 
-    public void setProductImage(String title, Long companyId, Image image) {
+    public void setProductImage(final String title, final Long companyId, final Image image) {
         getProductByTitleAndCompanyId(title, companyId).setImage(image);
+    }
+
+    public void setProductImage(final Long productId, final Image image) {
+        getProductById(productId).setImage(image);
     }
 
     public void deleteProduct(final Product product) {
@@ -139,17 +143,8 @@ public class ProductService {
         return productRepo.findProductByTitleAndCompanyId(title, companyId);
     }
 
-    public List<Product> getAllProducts() {
-
-        return productRepo.findAll();
-    }
-
     public List<Product> getAllProductsByCompanyId(final Long companyId) {
         return productRepo.findProductsByCompanyId(companyId);
-    }
-
-    public List<Product> getAllProductsByTitleContainingIgnoreCase(String title) {
-        return productRepo.findProductsByTitleContainingIgnoreCase(title);
     }
 
 }

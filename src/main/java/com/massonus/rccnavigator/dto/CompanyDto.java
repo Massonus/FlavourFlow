@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class CompanyDto {
 
+    private Long companyId;
 
     private String title;
 

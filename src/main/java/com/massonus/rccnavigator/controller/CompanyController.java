@@ -100,21 +100,16 @@ public class CompanyController {
     public String updateCompany(@PathVariable("id") Long id, Model model) {
         Company company = companyService.getCompanyById(id);
         model.addAttribute("categories", categoryService.getAllCategories());
-        model.addAttribute("types", countryService.getAllCountries());
+        model.addAttribute("countries", countryService.getAllCountries());
         model.addAttribute("company", company);
         return "company/companyEdit";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit/{id}")
-    public String saveUpdatedCompany(@PathVariable Long id,
-                                     @RequestParam Long categoryId,
-                                     @RequestParam Long typeId,
-                                     @RequestParam("file") MultipartFile multipartFile,
-                                     @RequestParam String imageLink,
-                                     Company company) {
+    @PutMapping("/edit")
+    public String saveUpdatedCompany(@RequestBody CompanyDto companyDto) {
 
-        companyService.editCompany(id, company, categoryService.getCategoryById(categoryId), countryService.getCountryById(typeId), multipartFile, imageLink);
+        companyService.editCompany(companyDto);
 
         return "redirect:/admin/panel";
     }
