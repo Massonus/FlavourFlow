@@ -89,13 +89,11 @@ function moveWishToBasket(productId, csrf) {
 
 function clearWishes(csrf) {
 
-    let url;
-
-    if (confirm("Do you really want to clear your wishes?")) {
-        url = `/wishes/clear`;
-    } else {
-        url = `/wishes`;
+    if (!confirm("Do you really want to clear your wishes?")) {
+        window.location.href = "/wishes";
     }
+
+    let url = `/wishes/clear`;
 
     fetch(url, {
         method: 'DELETE',

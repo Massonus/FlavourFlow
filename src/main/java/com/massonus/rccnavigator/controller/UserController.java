@@ -43,16 +43,6 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/delete-user/{id}")
-    public String deleteUser(@PathVariable Long id) {
-
-        userService.deleteUser(id);
-
-        return "redirect:/admin/panel";
-
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add")
     public String getAddUserForm() {
 
@@ -84,6 +74,14 @@ public class UserController {
     public User saveUpdatedUser(@RequestBody UserDto userDto) {
 
         return userService.editUser(userDto);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public Long deleteUser(@RequestParam Long id) {
+
+        return userService.deleteUser(id);
     }
 
 }

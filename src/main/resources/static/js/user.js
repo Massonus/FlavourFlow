@@ -98,3 +98,25 @@ function editUser(event, redactor, userId) {
             console.log(error);
         })
 }
+
+function deleteUser(userId, csrf) {
+
+    if (!confirm("Do you really want to delete this user?")) {
+        return;
+    }
+
+    const url = `/user/delete?id=${userId}`;
+
+    fetch(url, {
+        method: "DELETE",
+        headers: {
+            'X-CSRF-TOKEN': csrf,
+        },
+    })
+        .then(res => res.json())
+        .then((data) => {
+            document.getElementById(`user-table-${data}`).remove();
+        })
+        .catch(error =>
+            console.error(error));
+}
