@@ -78,7 +78,8 @@
                                     </div>
                                 </td>
                                 <td class="p-3 align-middle border-light">
-                                    <p id="object-sum-${product.getId()}" class="mb-0 small">${product.getSum() + '$'}</p>
+                                    <p id="object-sum-${product.getId()}"
+                                       class="mb-0 small">${product.getSum() + '$'}</p>
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-stretch">
@@ -111,7 +112,8 @@
                                     <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
                                        onclick="checkOrder()">Checkout</a></li>
                                 <li>
-                                    <button onclick="clearBasket('${_csrf.token}')" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                    <button onclick="clearBasket('${_csrf.token}')"
+                                            class="btn btn-outline-danger w-100 mt-2">Clear the
                                         basket
                                     </button>
                                 </li>

@@ -25,7 +25,8 @@
                         </td>
                         <td class="p-3 align-middle">
 
-                            <a role="button" class="btn btn-outline-danger" onclick="deleteUser(${user.getId()}, '${_csrf.token}')">
+                            <a role="button" class="btn btn-outline-danger"
+                               onclick="deleteUser(${user.getId()}, '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                             </#if>

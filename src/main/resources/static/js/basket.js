@@ -28,7 +28,7 @@ function saveBasketItem(productId, csrf, iconElement) {
 function deleteBasketItem(productId, csrf, iconElement) {
 
     const body = JSON.stringify({
-       productId: productId
+        productId: productId
     });
 
     fetch("/basket/delete-item", {

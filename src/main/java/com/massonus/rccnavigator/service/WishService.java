@@ -1,7 +1,10 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.ItemDto;
-import com.massonus.rccnavigator.entity.*;
+import com.massonus.rccnavigator.entity.Product;
+import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.entity.Wish;
+import com.massonus.rccnavigator.entity.WishObject;
 import com.massonus.rccnavigator.repo.UserRepo;
 import com.massonus.rccnavigator.repo.WishRepo;
 import org.springframework.beans.factory.annotation.Autowired;
