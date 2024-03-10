@@ -91,11 +91,13 @@
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
                                    href="/basket">Go to basket</a></li>
 
-                            <li>
-                                <button onclick="clearWishes()" class="btn btn-outline-danger w-100 mt-2">Clear the
-                                    wishes
-                                </button>
-                            </li>
+                            <#if products?has_content>
+                                <li>
+                                    <button onclick="clearWishes()" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                        wishes
+                                    </button>
+                                </li>
+                            </#if>
                         </ul>
                     </div>
                 </div>

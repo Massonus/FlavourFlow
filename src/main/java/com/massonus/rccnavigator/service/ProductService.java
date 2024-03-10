@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Comparator;
 import java.util.List;
@@ -22,13 +21,11 @@ public class ProductService {
 
     private final ProductRepo productRepo;
     private final CompanyRepo companyRepo;
-    private final ImageService imageService;
 
     @Autowired
-    public ProductService(ProductRepo productRepo, CompanyRepo companyRepo, ImageService imageService) {
+    public ProductService(ProductRepo productRepo, CompanyRepo companyRepo) {
         this.productRepo = productRepo;
         this.companyRepo = companyRepo;
-        this.imageService = imageService;
     }
 
     public Product saveProduct(final ProductDto productDto) {

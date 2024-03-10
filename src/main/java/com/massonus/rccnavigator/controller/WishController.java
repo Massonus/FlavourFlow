@@ -42,7 +42,7 @@ public class WishController {
 
         Long companyId = wishService.addProductToWishes(id, user.getId());
 
-        return "redirect:/product/all-products?id=" + companyId;
+        return "redirect:/product/all-products?companyId=" + companyId;
     }
 
     @GetMapping("/move-wish-to-basket")

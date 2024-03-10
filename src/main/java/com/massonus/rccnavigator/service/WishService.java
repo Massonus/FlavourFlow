@@ -16,17 +16,16 @@ import java.util.Objects;
 public class WishService {
 
     private final ProductService productService;
-
     private final WishRepo wishRepo;
     private final UserRepo userRepo;
-    private final WishObjectService wishObjectService;
+    private final WishObjectService objectService;
 
     @Autowired
-    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo, WishObjectService wishObjectService) {
+    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo, WishObjectService objectService) {
         this.productService = productService;
         this.wishRepo = wishRepo;
         this.userRepo = userRepo;
-        this.wishObjectService = wishObjectService;
+        this.objectService = objectService;
     }
 
     public Long addProductToWishes(Long id, Long userId) {
@@ -46,7 +45,7 @@ public class WishService {
         wishObject.setUser(userById);
         wishObject.setCompany(productById.getCompany());
 
-        wishObjectService.saveWishObject(wishObject);
+        objectService.saveWishObject(wishObject);
 
         wishObjects.add(wishObject);
 
@@ -80,9 +79,9 @@ public class WishService {
     }
 
     public void deleteWishItem(Long id, User user) {
-        WishObject wishObjectById = wishObjectService.getWishObjectByProductIdAndUserId(id, user.getId());
+        WishObject wishObjectById = objectService.getWishObjectByProductIdAndUserId(id, user.getId());
         getWishByUserId(user.getId()).getWishObjects().remove(wishObjectById);
-        wishObjectService.deleteWishObject(wishObjectById);
+        objectService.deleteWishObject(wishObjectById);
     }
 
     public void clearWishes(final User user) {

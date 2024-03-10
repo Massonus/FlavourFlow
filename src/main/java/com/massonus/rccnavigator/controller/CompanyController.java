@@ -23,17 +23,17 @@ public class CompanyController {
 
     private final CompanyService companyService;
     private final ImageService imageService;
-    private final KitchenCategoryService kitchenCategoryService;
-    private final CompanyCountryService companyCountryService;
+    private final KitchenCategoryService categoryService;
+    private final CompanyCountryService countryService;
     private final RatingService ratingService;
     private final MessageService messageService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyCountryService companyCountryService, RatingService ratingService, MessageService messageService) {
+    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService categoryService, CompanyCountryService countryService, RatingService ratingService, MessageService messageService) {
         this.companyService = companyService;
         this.imageService = imageService;
-        this.kitchenCategoryService = kitchenCategoryService;
-        this.companyCountryService = companyCountryService;
+        this.categoryService = categoryService;
+        this.countryService = countryService;
         this.ratingService = ratingService;
         this.messageService = messageService;
     }
@@ -55,8 +55,8 @@ public class CompanyController {
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<Company> companyPage = companyService.getCompaniesInPage(companyFilterDto, pageable, sort, search);
 
-        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("countries", companyCountryService.getAllCountries());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("countries", countryService.getAllCountries());
         model.addAttribute("companies", companyPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", companyPage.getTotalPages());
@@ -82,8 +82,8 @@ public class CompanyController {
     @GetMapping("/add-company")
     public String getAddCompanyForm(Model model) {
 
-        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCountryService.getAllCountries());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("types", countryService.getAllCountries());
 
         return "company/addCompany";
 
@@ -98,7 +98,7 @@ public class CompanyController {
 
         Image uploadImage = imageService.upload(multipartFile);
 
-        companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId), companyCountryService.getTypeById(typeId));
+        companyService.saveCompany(company, uploadImage, categoryService.getCategoryById(categoryId), countryService.getTypeById(typeId));
 
         return "redirect:/admin/panel";
     }
@@ -107,8 +107,8 @@ public class CompanyController {
     @GetMapping("/edit/{id}")
     public String updateCompany(@PathVariable("id") Long id, Model model) {
         Company company = companyService.getCompanyById(id);
-        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCountryService.getAllCountries());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("types", countryService.getAllCountries());
         model.addAttribute("company", company);
         return "company/companyEdit";
     }
@@ -122,7 +122,7 @@ public class CompanyController {
                                      @RequestParam String imageLink,
                                      Company company) {
 
-        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId), companyCountryService.getTypeById(typeId), multipartFile, imageLink);
+        companyService.editCompany(id, company, categoryService.getCategoryById(categoryId), countryService.getTypeById(typeId), multipartFile, imageLink);
 
         return "redirect:/admin/panel";
     }

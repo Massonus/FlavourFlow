@@ -11,29 +11,29 @@ import java.util.Set;
 @Service
 public class KitchenCategoryService {
 
-    private final KitchenCategoryRepo kitchenCategoryRepo;
+    private final KitchenCategoryRepo categoryRepo;
 
     @Autowired
-    public KitchenCategoryService(KitchenCategoryRepo kitchenCategoryRepo) {
-        this.kitchenCategoryRepo = kitchenCategoryRepo;
+    public KitchenCategoryService(KitchenCategoryRepo categoryRepo) {
+        this.categoryRepo = categoryRepo;
     }
 
     public KitchenCategory saveKitchenCategory(final KitchenCategory kitchenCategory) {
 
-        return kitchenCategoryRepo.save(kitchenCategory);
+        return categoryRepo.save(kitchenCategory);
     }
 
     public Set<KitchenCategory> getAllCategories() {
 
-        return new HashSet<>(kitchenCategoryRepo.findAll());
+        return new HashSet<>(categoryRepo.findAll());
     }
 
     public KitchenCategory getCategoryById(Long id) {
-        return kitchenCategoryRepo.findKitchenCategoryById(id);
+        return categoryRepo.findKitchenCategoryById(id);
     }
 
     public KitchenCategory getCategoryByTitle(String title) {
-        return kitchenCategoryRepo.findKitchenCategoryByTitleContainingIgnoreCase(title);
+        return categoryRepo.findKitchenCategoryByTitleContainingIgnoreCase(title);
     }
 
     public KitchenCategory editCategory(Long id, KitchenCategory category) {
@@ -47,7 +47,7 @@ public class KitchenCategoryService {
 
     public void deleteCategory(Long id) {
 
-        kitchenCategoryRepo.delete(getCategoryById(id));
+        categoryRepo.delete(getCategoryById(id));
     }
 
 }
