@@ -107,9 +107,8 @@ function deleteProduct(productId, csrf) {
             'X-CSRF-TOKEN': csrf,
         },
     })
-        .then(res => res.json())
-        .then((data) => {
-            window.location.href = `/product/admin/all-products?companyId=${data}`;
+        .then(res => {
+            document.getElementById(`product-table-${productId}`).remove();
         })
         .catch(error =>
             console.error(error));

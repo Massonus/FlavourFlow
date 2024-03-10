@@ -122,7 +122,7 @@
                 </thead>
                 <tbody>
                 <#list companies as company>
-                    <tr>
+                    <tr id="company-table-${company.getId()}">
                         <th class="p-3" scope="row">${company.getId()}</th>
                         <td class="p-3">${company.getTitle()}</td>
                         <td class="p-3">${company.getPriceCategory()}</td>
@@ -134,11 +134,12 @@
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/product/admin/all-products?companyId=${company.getId()}">Edit products</a>
+                                           href="/product/admin/all-products?companyId=${company.getId()}">Edit
+                                products</a>
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/company/delete/${company.getId()}"><i
+                                           onclick="deleteCompany(${company.getId()}, '${_csrf.token}')"><i
                                         class="bi bi-trash text-danger"></i></a>
                         </td>
                     </tr>

@@ -100,3 +100,20 @@ function editCompany(event, companyId) {
             console.log(error);
         })
 }
+
+function deleteCompany(companyId, csrf) {
+
+    const url = `/company/delete?companyId=${companyId}`;
+
+    fetch(url, {
+        method: "DELETE",
+        headers: {
+            'X-CSRF-TOKEN': csrf,
+        },
+    })
+        .then(res => {
+            document.getElementById(`company-table-${companyId}`).remove();
+        })
+        .catch(error =>
+            console.error(error));
+}

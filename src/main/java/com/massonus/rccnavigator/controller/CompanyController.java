@@ -14,7 +14,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/company")
@@ -88,11 +87,9 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
-    public String newCompany(@RequestBody CompanyDto companyDto) {
+    public void newCompany(@RequestBody CompanyDto companyDto) {
 
         companyService.saveCompany(companyDto);
-
-        return "redirect:/admin/panel";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -107,19 +104,16 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/edit")
-    public String saveUpdatedCompany(@RequestBody CompanyDto companyDto) {
+    public void saveUpdatedCompany(@RequestBody CompanyDto companyDto) {
 
         companyService.editCompany(companyDto);
-
-        return "redirect:/admin/panel";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/delete/{id}")
-    public String deleteCompany(@PathVariable Long id) {
-        Company companyById = companyService.getCompanyById(id);
+    @DeleteMapping("/delete")
+    public void deleteCompany(@RequestParam Long companyId) {
+        Company companyById = companyService.getCompanyById(companyId);
         companyService.deleteCompany(companyById);
-        return "redirect:/admin/panel";
     }
 
     @PostMapping("/rate-company/{id}")

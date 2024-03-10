@@ -49,7 +49,7 @@ public class ProductService {
         productRepo.save(validProduct);
     }
 
-    public Long editProduct(final ProductDto productDto) {
+    public void editProduct(final ProductDto productDto) {
         Product savedProduct = getProductById(productDto.getProductId());
 
         if (!productDto.getImageLink().isEmpty()) {
@@ -63,7 +63,6 @@ public class ProductService {
 
         productRepo.save(savedProduct);
 
-        return savedProduct.getCompany().getId();
     }
 
     public Page<Product> getProductsInPage(Long companyId, Pageable pageable, String sort) {

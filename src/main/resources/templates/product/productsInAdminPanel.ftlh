@@ -14,7 +14,7 @@
                 </thead>
                 <tbody>
                 <#list products as product>
-                    <tr>
+                    <tr id="product-table-${product.getId()}">
                         <th class="p-3" scope="row">${product.getId()}</th>
                         <td class="p-3">${product.getTitle()}</td>
                         <td class="p-3">${product.getPrice()}</td>

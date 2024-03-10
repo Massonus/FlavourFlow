@@ -96,7 +96,7 @@ public class ProductController {
     @PutMapping("/edit")
     public void saveUpdatedProduct(@RequestBody ProductDto productDto) {
 
-        Long companyId = productService.editProduct(productDto);
+        productService.editProduct(productDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
