@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.BasketObjectDto;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.BasketRepo;
 import com.massonus.rccnavigator.repo.UserRepo;
@@ -67,9 +68,9 @@ public class BasketService {
         return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
     }
 
-    public void changeAmount(Long productId, Integer amount) {
-        BasketObject basketObject = basketObjectService.getBasketObjectById(productId);
-        basketObject.setAmount(amount);
+    public void changeAmount(final BasketObjectDto basketObjectDto) {
+        BasketObject basketObject = basketObjectService.getBasketObjectById(basketObjectDto.getProductId());
+        basketObject.setAmount(basketObjectDto.getAmount());
     }
 
     private Basket getBasketByUserId(Long id) {

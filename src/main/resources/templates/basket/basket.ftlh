@@ -67,6 +67,7 @@
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-center justify-content-between px-3">
+                                        <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                                         <span id="amount-input"
                                               class="small text-uppercase text-gray headings-font-family"><input
                                                     class="form-control"

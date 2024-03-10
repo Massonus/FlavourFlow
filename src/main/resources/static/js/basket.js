@@ -12,8 +12,7 @@ function saveBasketItem(productId, csrf, iconElement) {
     fetch(`/basket/add-item?productId=${productId}`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrf,
+            'X-CSRF-TOKEN': csrf
         },
     })
         .then(response => {
@@ -30,8 +29,7 @@ function deleteBasketItem(productId, csrf, iconElement) {
     fetch(`/basket/delete-item?productId=${productId}`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrf,
+            'X-CSRF-TOKEN': csrf
         },
     })
         .then(response => {
@@ -49,17 +47,27 @@ function deleteBasketItem(productId, csrf, iconElement) {
         .catch(error => console.log(error));
 }
 
-function changeAmount(productId) {
+function changeAmount(productId, csrf) {
 
     let amount = document.getElementById(`newAmount-${productId}`).value;
 
-    const url = `/basket/change-amount?amount=${amount}&productId=${productId}`;
+    const url = `/basket/change-amount`;
+
+    const body = JSON.stringify({
+        productId: productId,
+        amount: amount
+    });
 
     fetch(url, {
-        method: 'GET',
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': csrf
+        },
+        body: body,
     })
         .then(response => {
-            window.location.href = response.url;
+            window.location.href = "/basket";
         })
         .catch(error => console.error(error));
 }

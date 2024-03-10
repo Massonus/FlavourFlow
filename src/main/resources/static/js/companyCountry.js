@@ -27,10 +27,9 @@ function createCountry(event) {
         })
 }
 
-function editCountry(event, countryId) {
+function editCountry(event, countryId, csrf) {
     event.preventDefault();
 
-    let csrf = document.getElementById("csrf").value;
     let title = document.getElementById("countryTitle").value.toUpperCase();
 
     const body = JSON.stringify({
@@ -42,10 +41,9 @@ function editCountry(event, countryId) {
 
     fetch(url, {
         method: "PUT",
-        redirect: 'follow',
         headers: {
             "Content-Type": "application/json",
-            "X-CSRF-TOKEN": csrf,
+            "X-CSRF-TOKEN": csrf
         },
         body: body,
     })

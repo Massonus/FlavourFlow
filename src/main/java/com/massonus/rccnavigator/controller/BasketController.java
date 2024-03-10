@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.dto.BasketCheckDto;
+import com.massonus.rccnavigator.dto.BasketObjectDto;
 import com.massonus.rccnavigator.entity.Basket;
 import com.massonus.rccnavigator.entity.BasketObject;
 import com.massonus.rccnavigator.entity.User;
@@ -74,13 +75,11 @@ public class BasketController {
 
     }
 
-    @GetMapping("/change-amount")
-    public String changeProductAmount(@RequestParam Integer amount,
-                                      @RequestParam Long productId) {
+    @PutMapping("/change-amount")
+    public void changeProductAmount(@RequestBody BasketObjectDto basketObjectDto) {
 
-        basketService.changeAmount(productId, amount);
+        basketService.changeAmount(basketObjectDto);
 
-        return "redirect:/basket";
     }
 
     @GetMapping("/clear")
