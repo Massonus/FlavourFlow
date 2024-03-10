@@ -39,9 +39,9 @@ function createProduct(event, companyId) {
 
             if (imageLink.trim() === "") {
                 uploadFile(file, companyId, title);
-                window.location.href = `/product/admin/all-products?id=${companyId}`;
+                window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else {
-                window.location.href = `/product/admin/all-products?id=${companyId}`;
+                window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             }
 
         })
@@ -86,9 +86,9 @@ function editProduct(event, productId, companyId) {
 
             if (!(file === undefined)) {
                 uploadFile(file, companyId, title);
-                window.location.href = `/product/admin/all-products?id=${companyId}`;
+                window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else {
-                window.location.href = `/product/admin/all-products?id=${companyId}`;
+                window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             }
 
         })
