@@ -55,19 +55,20 @@ public class BasketController {
         return "basket/basket";
     }
 
-    @GetMapping("/new-basket-item/{id}")
+    @PostMapping("/add-item")
     @ResponseBody
-    public String addProductToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    public String addProductToBasket(@RequestParam Long productId, @AuthenticationPrincipal User user) {
 
-        Long companyId = basketService.addProductToBasket(id, user.getId());
+        Long companyId = basketService.addProductToBasket(productId, user.getId());
 
         return "redirect:/product/all-products/" + companyId;
     }
 
-    @GetMapping("/delete-from-basket/{id}")
-    public String deleteProductFromBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    @DeleteMapping("/delete-item")
+    @ResponseBody
+    public String deleteProductFromBasket(@RequestParam Long productId, @AuthenticationPrincipal User user) {
 
-        basketService.deleteBasketItem(id, user);
+        basketService.deleteBasketItem(productId, user);
 
         return "redirect:/basket";
 

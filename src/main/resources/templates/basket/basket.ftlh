@@ -32,7 +32,7 @@
                         </thead>
                         <#list products as product>
                             <tbody class="border-0">
-                            <tr>
+                            <tr id="basket-item-${product.getId()}">
                                 <th class="ps-0 py-3 border-light" scope="row">
                                     <div class="d-flex align-items-center">
                                         <a class="d-block">
@@ -83,7 +83,7 @@
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-stretch">
                                         <a role="button" class="btn black-btn-outline"
-                                           href="basket/delete-from-basket/${product.getProductId()}">
+                                           onclick="deleteBasketItem(${product.getProductId()}, '${_csrf.token}', undefined)">
                                             <i class="bi bi-trash text-danger"></i>
                                         </a>
                                     </div>

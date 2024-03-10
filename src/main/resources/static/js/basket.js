@@ -9,8 +9,8 @@ function saveOrDeleteBasketItem(productId, csrf) {
 }
 
 function saveBasketItem(productId, csrf, iconElement) {
-    fetch(`/basket/new-basket-item/${productId}`, {
-        method: 'GET',
+    fetch(`/basket/add-item?productId=${productId}`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrf,
@@ -27,16 +27,21 @@ function saveBasketItem(productId, csrf, iconElement) {
 }
 
 function deleteBasketItem(productId, csrf, iconElement) {
-    fetch(`/basket/delete-from-basket/${productId}`, {
-        method: 'GET',
+    fetch(`/basket/delete-item?productId=${productId}`, {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrf,
         },
     })
         .then(response => {
-            if (response.ok) {
+
+            if (iconElement === undefined) {
+                document.getElementById(`basket-item-${productId}`).remove();
+
+            } else if (response.ok) {
                 iconElement.className = "bi bi-cart";
+
             } else {
                 alert("Error! Reload the page and try again");
             }
