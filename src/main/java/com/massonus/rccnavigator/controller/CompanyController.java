@@ -1,11 +1,10 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.CompanyDto;
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
 import com.massonus.rccnavigator.entity.Company;
-import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,20 +17,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("/companies")
+@RequestMapping("/company")
 public class CompanyController {
 
     private final CompanyService companyService;
-    private final ImageService imageService;
     private final KitchenCategoryService categoryService;
     private final CompanyCountryService countryService;
     private final RatingService ratingService;
     private final MessageService messageService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService categoryService, CompanyCountryService countryService, RatingService ratingService, MessageService messageService) {
+    public CompanyController(CompanyService companyService, KitchenCategoryService categoryService, CompanyCountryService countryService, RatingService ratingService, MessageService messageService) {
         this.companyService = companyService;
-        this.imageService = imageService;
         this.categoryService = categoryService;
         this.countryService = countryService;
         this.ratingService = ratingService;
@@ -79,26 +76,21 @@ public class CompanyController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/add-company")
+    @GetMapping("/add")
     public String getAddCompanyForm(Model model) {
 
         model.addAttribute("categories", categoryService.getAllCategories());
-        model.addAttribute("types", countryService.getAllCountries());
+        model.addAttribute("countries", countryService.getAllCountries());
 
         return "company/addCompany";
 
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/new-company")
-    public String newCompany(@Valid Company company,
-                             @RequestParam Long categoryId,
-                             @RequestParam Long typeId,
-                             @RequestParam("file") MultipartFile multipartFile) {
+    @PostMapping("/add")
+    public String newCompany(@RequestBody CompanyDto companyDto) {
 
-        Image uploadImage = imageService.upload(multipartFile);
-
-        companyService.saveCompany(company, uploadImage, categoryService.getCategoryById(categoryId), countryService.getTypeById(typeId));
+        companyService.saveCompany(companyDto);
 
         return "redirect:/admin/panel";
     }
@@ -122,7 +114,7 @@ public class CompanyController {
                                      @RequestParam String imageLink,
                                      Company company) {
 
-        companyService.editCompany(id, company, categoryService.getCategoryById(categoryId), countryService.getTypeById(typeId), multipartFile, imageLink);
+        companyService.editCompany(id, company, categoryService.getCategoryById(categoryId), countryService.getCountryById(typeId), multipartFile, imageLink);
 
         return "redirect:/admin/panel";
     }
@@ -141,7 +133,7 @@ public class CompanyController {
 
         ratingService.rateCompany(author, companyById, rate);
 
-        return "redirect:/companies/info/" + id;
+        return "redirect:/company/info/" + id;
     }
 
 }

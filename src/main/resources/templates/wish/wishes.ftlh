@@ -86,7 +86,7 @@
                         <ul class="list-unstyled mb-0">
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                                   href="/companies">Continue shopping</a></li>
+                                   href="/company">Continue shopping</a></li>
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
                                    href="/basket">Go to basket</a></li>

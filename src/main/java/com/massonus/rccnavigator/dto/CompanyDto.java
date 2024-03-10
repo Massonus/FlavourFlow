@@ -8,4 +8,13 @@ import lombok.Setter;
 public class CompanyDto {
 
 
+    private String title;
+
+    private String priceCategory;
+
+    private Long countryId;
+
+    private Long categoryId;
+
+    private String imageLink;
 }

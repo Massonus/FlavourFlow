@@ -4,7 +4,15 @@ function uploadFile(file, companyId, title) {
     let formData = new FormData();
     formData.append("file", file);
 
-    let response = fetch(`/upload?companyId=${companyId}&title=${title}`, {
+    let url;
+
+    if (companyId === undefined) {
+        url = `/upload-company?title=${title}`;
+    } else {
+        url = `/upload-product?companyId=${companyId}&title=${title}`;
+    }
+
+    let response = fetch(url, {
         headers: {
             "X-CSRF-TOKEN": csrf
         },

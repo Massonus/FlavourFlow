@@ -31,11 +31,6 @@ public class ProductService {
     public Product saveProduct(final ProductDto productDto) {
         Product product = new Product();
 
-        /*if (!multipartFile.isEmpty()) {
-            Image uploadImage = imageService.upload(multipartFile);
-            product.setImage(uploadImage);
-        }*/
-
         if (!productDto.getImageLink().isEmpty()) {
             product.setImageLink(productDto.getImageLink());
             product.setImage(null);

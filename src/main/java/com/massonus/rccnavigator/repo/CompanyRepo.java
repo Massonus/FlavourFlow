@@ -12,7 +12,7 @@ public interface CompanyRepo extends JpaRepository<Company, Long> {
 
     Company findCompanyById(Long id);
 
-    Company findCompanyByTitle(String value);
+    Company findCompanyByTitle(String title);
 
     List<Company> findCompaniesByTitleContainingIgnoreCase(String title);
 

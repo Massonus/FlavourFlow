@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.entity.Image;
+import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.ImageService;
 import com.massonus.rccnavigator.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,13 @@ public class ImageController {
 
     private final ImageService imageService;
     private final ProductService productService;
+    private final CompanyService companyService;
 
     @Autowired
-    public ImageController(ImageService imageService, ProductService productService) {
+    public ImageController(ImageService imageService, ProductService productService, CompanyService companyService) {
         this.imageService = imageService;
         this.productService = productService;
+        this.companyService = companyService;
     }
 
     @RequestMapping(value = "/images/{id}.jpg")
@@ -39,13 +42,23 @@ public class ImageController {
                 .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file,
+    @PostMapping("/upload-product")
+    public ResponseEntity<?> uploadProductImage(@RequestParam("file") MultipartFile file,
                                               @RequestParam(required = false) Long companyId,
                                               @RequestParam String title) {
 
         Image upload = imageService.upload(file);
         productService.setProductImage(title, companyId, upload);
+
+        return ResponseEntity.ok("upload success");
+    }
+
+    @PostMapping("/upload-company")
+    public ResponseEntity<?> uploadCompanyImage(@RequestParam("file") MultipartFile file,
+                                                @RequestParam String title) {
+
+        Image upload = imageService.upload(file);
+        companyService.setCompanyImage(title, upload);
 
         return ResponseEntity.ok("upload success");
     }

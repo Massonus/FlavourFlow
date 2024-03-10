@@ -42,7 +42,7 @@ public class CompanyCountryController {
     @GetMapping("/edit-country/{id}")
     public String getTypeEditForm(@PathVariable Long id, Model model) {
 
-        model.addAttribute("country", countryService.getTypeById(id));
+        model.addAttribute("country", countryService.getCountryById(id));
 
         return "country/editCountry";
 

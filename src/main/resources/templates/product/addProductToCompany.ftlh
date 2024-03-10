@@ -20,7 +20,7 @@
                 </select>
             </div>
 
-            <span id="imageError" class="error"></span>
+            <span id="productImageError" class="error"></span>
             <h5>Choose a file or enter link</h5>
             <label for="productFileUpload">File:</label>
             <input type="file" id="productFileUpload" name="productFileUpload" onchange="checkFile('productFileUpload')">

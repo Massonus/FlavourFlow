@@ -130,7 +130,7 @@
                         <td class="p-3">${company.getCompanyCountry().getTitle()}</td>
                         <td class="p-3">${company.getKitchenCategory().getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/companies/edit/${company.getId()}">Edit title</a>
+                                           href="/company/edit/${company.getId()}">Edit title</a>
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
@@ -138,7 +138,7 @@
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/companies/delete/${company.getId()}"><i
+                                           href="/company/delete/${company.getId()}"><i
                                         class="bi bi-trash text-danger"></i></a>
                         </td>
                     </tr>
@@ -146,7 +146,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/companies/add-company">Add new company</a>
+                <a role="button" class="btn black-btn-outline mt-3" href="/company/add">Add new company</a>
             </div>
         </div>
     </section>

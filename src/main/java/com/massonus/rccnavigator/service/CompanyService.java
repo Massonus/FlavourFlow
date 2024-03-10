@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.CompanyDto;
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.CompanyRepo;
@@ -32,14 +33,17 @@ public class CompanyService {
         this.productRepo = productRepo;
     }
 
-    public void saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyCountry type) {
+    public void saveCompany(final CompanyDto companyDto) {
         Company company = new Company();
-        company.setTitle(validCompany.getTitle());
-        company.setImage(image);
-        company.setCompanyCountry(type);
-        company.setPriceCategory(validCompany.getPriceCategory());
-        company.setProducts(validCompany.getProducts());
-        company.setKitchenCategory(category);
+        company.setTitle(companyDto.getTitle());
+        company.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
+        company.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
+        company.setPriceCategory(PriceCategory.valueOf(companyDto.getPriceCategory()));
+
+        if (!companyDto.getImageLink().isEmpty()) {
+            company.setImageLink(companyDto.getImageLink());
+            company.setImage(null);
+        }
 
         companyRepo.save(company);
 
@@ -124,6 +128,9 @@ public class CompanyService {
 
     }
 
+    public void setCompanyImage(String title, Image image) {
+        getCompanyByTitle(title).setImage(image);
+    }
     public void saveCompany(Company company) {
         companyRepo.save(company);
     }

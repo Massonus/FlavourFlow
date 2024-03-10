@@ -29,7 +29,7 @@ public class CompanyCountryService {
         return new HashSet<>(countryRepo.findAll());
     }
 
-    public CompanyCountry getTypeById(Long id) {
+    public CompanyCountry getCountryById(Long id) {
         return countryRepo.findCompanyTypeById(id);
     }
 
@@ -39,11 +39,11 @@ public class CompanyCountryService {
 
     public void editType(Long id, String title) {
 
-        getTypeById(id).setTitle(title);
+        getCountryById(id).setTitle(title);
     }
 
     public void deleteType(Long id) {
 
-        countryRepo.delete(getTypeById(id));
+        countryRepo.delete(getCountryById(id));
     }
 }

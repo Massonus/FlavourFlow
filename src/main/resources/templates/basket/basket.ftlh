@@ -104,7 +104,7 @@
                                 <span>${basket.getTotal() + '$'}</span></li>
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                                   href="/companies">Continue shopping</a></li>
+                                   href="/company">Continue shopping</a></li>
 
                             <#if products?has_content>
                                 <li>
