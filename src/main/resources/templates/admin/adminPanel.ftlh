@@ -1,4 +1,5 @@
 <#import "../parts/common.ftlh" as c>
+<#include "../parts/security.ftlh">
 
 <@c.page>
 
@@ -14,13 +15,13 @@
                 </thead>
                 <tbody>
                 <#list users as user>
-                    <tr>
+                    <tr id="user-table-${user.getId()}">
                         <th class="p-3" scope="row">${user.getUsername()}</th>
                         <td class="p-3">${user.getStringRole()}</td>
                         <td class="p-3">${user.getEmail()}</td>
-                        <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getId() || user.getUsername() == "admin")>
+                        <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getId() || user.getId() == currentUserId)>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/user/edit-user/${user.getId()}">Edit</a>
+                                           href="/user/edit/${user.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
 

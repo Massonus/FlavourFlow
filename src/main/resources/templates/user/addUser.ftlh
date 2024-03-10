@@ -4,13 +4,14 @@
 <@c.page>
 
     <form onsubmit="createUser(event, ${currentUserId})">
+
         <div>
-            <label for="username">Username</label>
+            <label for="username">Username:</label>
             <input type="text" id="username" name="username">
         </div>
         <br>
         <div>
-            <label for="email">Email</label>
+            <label for="email">Email:</label>
             <input type="email" id="email" name="email">
         </div>
         <br>
@@ -21,16 +22,17 @@
                 <option value="ADMIN">ADMIN</option>
             </select>
         </div>
+
         <br>
 
         <span id="passwordError" class="error"></span>
         <div>
-            <label for="password">Password</label>
+            <label for="password">Password:</label>
             <input id="password" type="password" name="password">
         </div>
         <br>
         <div>
-            <label for="confirmPassword">Password confirmation</label>
+            <label for="confirmPassword">Password confirmation:</label>
             <input id="confirmPassword" type="password" name="confirmPassword">
         </div>
         <br>

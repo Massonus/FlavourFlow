@@ -56,18 +56,19 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void editUser(User redactor, Long id, String username, String email, String password, Role role) {
+    public User editUser(final UserDto userDto) {
 
-        User savedUser = getUserById(id);
-        savedUser.setUsername(username);
+        User savedUser = getUserById(userDto.getUserId());
+        savedUser.setUsername(userDto.getUsername());
 
-        if (!password.isEmpty()) {
-            savedUser.setPassword(passwordEncoder.encode(password));
+        if (!userDto.getPassword().isEmpty()) {
+            savedUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
-        savedUser.setEmail(email);
-        savedUser.setRoles(Collections.singleton(role));
-        savedUser.setRedactor(redactor.getId());
+        savedUser.setEmail(userDto.getEmail());
+        savedUser.setRoles(Collections.singleton(Role.valueOf(userDto.getRole())));
+        savedUser.setRedactor(userDto.getRedactor());
 
+        return savedUser;
     }
 
     public void updateUser(Long id, String password, String username, String email) {
