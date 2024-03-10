@@ -30,6 +30,7 @@
         <script src="../../static/js/filterSearch.js"></script>
         <script src="../../static/js/order.js"></script>
         <script src="../../static/js/uploadFile.js"></script>
+        <script src="../../static/js/product.js"></script>
 
         <script>
             if (localStorage.getItem('theme') === "/css/dark-theme.css") {

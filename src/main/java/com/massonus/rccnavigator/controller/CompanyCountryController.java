@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/type")
+@RequestMapping("/country")
 public class CompanyCountryController {
 
     private final CompanyCountryService countryService;
@@ -21,15 +21,15 @@ public class CompanyCountryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/add-new-type")
+    @GetMapping("/add-new-country")
     public String getAddTypeForm() {
 
-        return "type/addType";
+        return "country/addCountry";
 
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/add-new-type")
+    @PostMapping("/add-new-country")
     public String addTypePost(@Valid CompanyCountry type) {
 
         countryService.saveCompanyType(type);
@@ -39,17 +39,17 @@ public class CompanyCountryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/edit-type/{id}")
+    @GetMapping("/edit-country/{id}")
     public String getTypeEditForm(@PathVariable Long id, Model model) {
 
-        model.addAttribute("type", countryService.getTypeById(id));
+        model.addAttribute("country", countryService.getTypeById(id));
 
-        return "type/editType";
+        return "country/editCountry";
 
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit-type/{id}")
+    @PostMapping("/edit-country/{id}")
     public String editTypePost(@PathVariable Long id,
                                @RequestParam String title) {
 
@@ -59,7 +59,7 @@ public class CompanyCountryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/delete-type/{id}")
+    @GetMapping("/delete-country/{id}")
     public String deleteType(@PathVariable Long id) {
 
         countryService.deleteType(id);

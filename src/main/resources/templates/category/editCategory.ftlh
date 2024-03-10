@@ -10,7 +10,7 @@
         <br>
         <div>
             <a role="button" class="btn btn-outline-secondary mt-3" href="/admin/panel">Cancel</a>
-            <input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}"/>
+            <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
             <button type="submit" class="btn black-btn-outline mt-3 ms-2">Save</button>
         </div>
     </form>

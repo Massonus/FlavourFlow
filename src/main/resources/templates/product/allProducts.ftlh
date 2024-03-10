@@ -10,7 +10,7 @@
                     <div class="mb-3">
 
                         <label for="sort" class="form-label">Sort:</label>
-                        <select onchange="filterProduct(event, ${id})" name="sort" class="form-select" id="sort">
+                        <select onchange="filterProduct(event, ${companyId})" name="sort" class="form-select" id="sort">
                             <option <#if sort == "Default">selected</#if> value="Default">Default</option>
                             <option <#if sort == "priceDesc">selected</#if> class="filterOption" value="priceDesc"> Sort
                                 by price: descending
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="companyCountry" class="form-label">Company type:</label>
+                        <label for="companyCountry" class="form-label">Company country:</label>
                         <select onchange="filterCompany(event)" name="countryId" class="form-select" id="companyCountry">
                             <option value="">Default</option>
                             <#list countries as country>
@@ -108,17 +108,17 @@
         <ul class="pagination justify-content-center fixed-bottom">
             <#if currentPage?number gt 0>
                 <li class="page-item">
-                    <a class="page-link" href="/product/all-products?id=${id}&page=${currentPage - 1}&sort=${sort!''}">Previous</a>
+                    <a class="page-link" href="/product/all-products?companyId=${companyId}&page=${currentPage - 1}&sort=${sort!''}">Previous</a>
                 </li>
             </#if>
             <#list 1..totalPages as i>
                 <li class="page-item<#if i == currentPage + 1> active</#if>">
-                    <a class="page-link" href="/product/all-products?id=${id}&page=${i-1}&sort=${sort!''}">${i}</a>
+                    <a class="page-link" href="/product/all-products?companyId=${companyId}&page=${i-1}&sort=${sort!''}">${i}</a>
                 </li>
             </#list>
             <#if currentPage < totalPages - 1>
                 <li class="page-item">
-                    <a class="page-link" href="/product/all-products?id=${id}&page=${currentPage + 1}&sort=${sort!''}">Next</a>
+                    <a class="page-link" href="/product/all-products?companyId=${companyId}&page=${currentPage + 1}&sort=${sort!''}">Next</a>
                 </li>
             </#if>
         </ul>

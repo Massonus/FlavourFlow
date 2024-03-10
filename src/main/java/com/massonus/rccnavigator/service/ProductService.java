@@ -1,7 +1,9 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.ProductDto;
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.Product;
+import com.massonus.rccnavigator.entity.ProductCategory;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,25 +31,25 @@ public class ProductService {
         this.imageService = imageService;
     }
 
-    public void saveProduct(final Product validProduct, final MultipartFile multipartFile, final String imageLink, final Long companyId) {
+    public Product saveProduct(final ProductDto productDto) {
         Product product = new Product();
 
-        if (!multipartFile.isEmpty()) {
+        /*if (!multipartFile.isEmpty()) {
             Image uploadImage = imageService.upload(multipartFile);
             product.setImage(uploadImage);
-        }
+        }*/
 
-        if (!imageLink.isEmpty()) {
-            product.setImageLink(imageLink);
+        if (!productDto.getImageLink().isEmpty()) {
+            product.setImageLink(productDto.getImageLink());
             product.setImage(null);
         }
 
-        product.setProductCategory(validProduct.getProductCategory());
-        product.setTitle(validProduct.getTitle());
-        product.setPrice(validProduct.getPrice());
-        product.setCompany(companyRepo.findCompanyById(companyId));
+        product.setProductCategory(ProductCategory.valueOf(productDto.getProductCategory()));
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
 
-        productRepo.save(product);
+        return productRepo.save(product);
     }
 
     public void saveProduct(final Product validProduct) {
@@ -55,24 +57,18 @@ public class ProductService {
         productRepo.save(validProduct);
     }
 
-    public Long editProduct(final Long id, final Product product, final MultipartFile multipartFile, String imageLink) {
-        Product savedProduct = productRepo.findProductById(id);
+    public Long editProduct(final ProductDto productDto) {
+        Product savedProduct = getProductById(productDto.getProductId());
 
-        if (!multipartFile.isEmpty()) {
-            Image uploadImage = imageService.upload(multipartFile);
-            savedProduct.setImage(uploadImage);
-        }
-
-        if (!imageLink.isEmpty()) {
-            savedProduct.setImageLink(imageLink);
+        if (!productDto.getImageLink().isEmpty()) {
+            savedProduct.setImageLink(productDto.getImageLink());
             savedProduct.setImage(null);
         }
 
-        savedProduct.setProductCategory(product.getProductCategory());
-        savedProduct.setTitle(product.getTitle());
-        savedProduct.setPrice(product.getPrice());
+        savedProduct.setProductCategory(ProductCategory.valueOf(productDto.getProductCategory()));
+        savedProduct.setTitle(productDto.getTitle());
+        savedProduct.setPrice(productDto.getPrice());
 
-        productRepo.save(savedProduct);
         return savedProduct.getCompany().getId();
     }
 
@@ -133,12 +129,20 @@ public class ProductService {
 
     }
 
+    public void setProductImage(String title, Long companyId, Image image) {
+        getProductByTitleAndCompanyId(title, companyId).setImage(image);
+    }
+
     public void deleteProduct(final Product product) {
         productRepo.delete(product);
     }
 
     public Product getProductById(final Long id) {
         return productRepo.findProductById(id);
+    }
+
+    public Product getProductByTitleAndCompanyId(String title, Long companyId) {
+        return productRepo.findProductByTitleAndCompanyId(title, companyId);
     }
 
     public List<Product> getAllProducts() {

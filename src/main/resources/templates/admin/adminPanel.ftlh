@@ -56,7 +56,7 @@
                                            href="/category/edit-category/${country.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
-                            <input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}"/>
+                            <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                             <button class="btn btn-outline-danger"
                                     onclick="deleteKitchenCategory(event, ${country.getId()})">
                                 <i class="bi bi-trash text-danger"></i>
@@ -78,21 +78,21 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">Type id</th>
+                    <th scope="col">Country id</th>
                     <th scope="col">Title</th>
                 </tr>
                 </thead>
                 <tbody>
-                <#list types as type>
+                <#list countries as country>
                     <tr>
-                        <th class="p-3" scope="row">${type.getId()}</th>
-                        <td class="p-3">${type.getTitle()}</td>
+                        <th class="p-3" scope="row">${country.getId()}</th>
+                        <td class="p-3">${country.getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/type/edit-type/${type.getId()}">Edit</a>
+                                           href="/country/edit-country/${country.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               href="/type/delete-type/${type.getId()}">
+                               href="/country/delete-country/${country.getId()}">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
@@ -101,7 +101,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/type/add-new-type">Add new type</a>
+                <a role="button" class="btn black-btn-outline mt-3" href="/country/add-new-country">Add new country</a>
             </div>
         </div>
     </section>
@@ -115,7 +115,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Price category</th>
                     <th scope="col">Products count</th>
-                    <th scope="col">Company type</th>
+                    <th scope="col">Company country</th>
                     <th scope="col">Category</th>
 
                 </tr>
@@ -134,7 +134,7 @@
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/product/admin/all-products?id=${company.getId()}">Edit products</a>
+                                           href="/product/admin/all-products?companyId=${company.getId()}">Edit products</a>
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"

@@ -37,7 +37,7 @@ public class AdminController {
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("companyCountry", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCountryService.getAllCountries());
+        model.addAttribute("countries", companyCountryService.getAllCountries());
         model.addAttribute("companies", companyService.getAllCompanies());
 
         return "admin/adminPanel";
