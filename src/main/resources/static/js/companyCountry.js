@@ -1,14 +1,14 @@
-function createKitchenCategory(event) {
+function createCountry(event) {
     event.preventDefault();
 
     let csrf = document.getElementById("csrf").value;
-    let title = document.getElementById("categoryTitle").value.toUpperCase();
+    let title = document.getElementById("countryTitle").value.toUpperCase();
 
     const body = JSON.stringify({
         title: title
     });
 
-    const url = "/category/add";
+    const url = "/country/add";
 
     fetch(url, {
         method: "POST",
@@ -19,9 +19,7 @@ function createKitchenCategory(event) {
         },
         body: body,
     })
-        .then(res => res.json())
-        .then((data) => {
-            console.log(data.title)
+        .then(res => {
             window.location.href = "/admin/panel";
         })
         .catch(error => {
@@ -29,25 +27,23 @@ function createKitchenCategory(event) {
         })
 }
 
-function editKitchenCategory(event, categoryId) {
+function editCountry(event, countryId, csrf) {
     event.preventDefault();
 
-    let csrf = document.getElementById("csrf").value;
-    let title = document.getElementById("categoryTitle").value.toUpperCase();
+    let title = document.getElementById("countryTitle").value.toUpperCase();
 
     const body = JSON.stringify({
-        categoryId: categoryId,
+        countryId: countryId,
         title: title
     });
 
-    const url = `/category/edit`;
+    const url = `/country/edit`;
 
     fetch(url, {
         method: "PUT",
-        redirect: 'follow',
         headers: {
             "Content-Type": "application/json",
-            "X-CSRF-TOKEN": csrf,
+            "X-CSRF-TOKEN": csrf
         },
         body: body,
     })
@@ -59,9 +55,9 @@ function editKitchenCategory(event, categoryId) {
         })
 }
 
-function deleteKitchenCategory(categoryId, csrf) {
+function deleteCountry(countryId, csrf) {
 
-    const url = `/category/delete?id=${categoryId}`;
+    const url = `/country/delete?id=${countryId}`;
 
     fetch(url, {
         method: "DELETE",
@@ -70,7 +66,7 @@ function deleteKitchenCategory(categoryId, csrf) {
         },
     })
         .then(res => {
-            document.getElementById(`category-table-${categoryId}`).remove();
+            document.getElementById(`country-table-${countryId}`).remove();
         })
         .catch(error =>
             console.error(error));

@@ -16,7 +16,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="/companies">CATALOG</a>
+                    <a class="nav-item nav-link" href="/company">CATALOG</a>
                 </li>
 
                 <#if known>

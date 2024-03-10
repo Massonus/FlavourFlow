@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Comparator;
 import java.util.List;
@@ -22,22 +21,15 @@ public class ProductService {
 
     private final ProductRepo productRepo;
     private final CompanyRepo companyRepo;
-    private final ImageService imageService;
 
     @Autowired
-    public ProductService(ProductRepo productRepo, CompanyRepo companyRepo, ImageService imageService) {
+    public ProductService(ProductRepo productRepo, CompanyRepo companyRepo) {
         this.productRepo = productRepo;
         this.companyRepo = companyRepo;
-        this.imageService = imageService;
     }
 
-    public Product saveProduct(final ProductDto productDto) {
+    public void saveProduct(final ProductDto productDto) {
         Product product = new Product();
-
-        /*if (!multipartFile.isEmpty()) {
-            Image uploadImage = imageService.upload(multipartFile);
-            product.setImage(uploadImage);
-        }*/
 
         if (!productDto.getImageLink().isEmpty()) {
             product.setImageLink(productDto.getImageLink());
@@ -49,7 +41,7 @@ public class ProductService {
         product.setPrice(productDto.getPrice());
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
 
-        return productRepo.save(product);
+        productRepo.save(product);
     }
 
     public void saveProduct(final Product validProduct) {
@@ -57,7 +49,7 @@ public class ProductService {
         productRepo.save(validProduct);
     }
 
-    public Long editProduct(final ProductDto productDto) {
+    public void editProduct(final ProductDto productDto) {
         Product savedProduct = getProductById(productDto.getProductId());
 
         if (!productDto.getImageLink().isEmpty()) {
@@ -69,7 +61,8 @@ public class ProductService {
         savedProduct.setTitle(productDto.getTitle());
         savedProduct.setPrice(productDto.getPrice());
 
-        return savedProduct.getCompany().getId();
+        productRepo.save(savedProduct);
+
     }
 
     public Page<Product> getProductsInPage(Long companyId, Pageable pageable, String sort) {
@@ -129,8 +122,12 @@ public class ProductService {
 
     }
 
-    public void setProductImage(String title, Long companyId, Image image) {
+    public void setProductImage(final String title, final Long companyId, final Image image) {
         getProductByTitleAndCompanyId(title, companyId).setImage(image);
+    }
+
+    public void setProductImage(final Long productId, final Image image) {
+        getProductById(productId).setImage(image);
     }
 
     public void deleteProduct(final Product product) {
@@ -145,17 +142,8 @@ public class ProductService {
         return productRepo.findProductByTitleAndCompanyId(title, companyId);
     }
 
-    public List<Product> getAllProducts() {
-
-        return productRepo.findAll();
-    }
-
     public List<Product> getAllProductsByCompanyId(final Long companyId) {
         return productRepo.findProductsByCompanyId(companyId);
-    }
-
-    public List<Product> getAllProductsByTitleContainingIgnoreCase(String title) {
-        return productRepo.findProductsByTitleContainingIgnoreCase(title);
     }
 
 }

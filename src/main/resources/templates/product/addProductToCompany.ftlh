@@ -20,7 +20,7 @@
                 </select>
             </div>
 
-            <span id="imageError" class="error"></span>
+            <span id="productImageError" class="error"></span>
             <h5>Choose a file or enter link</h5>
             <label for="productFileUpload">File:</label>
             <input type="file" id="productFileUpload" name="productFileUpload" onchange="checkFile('productFileUpload')">
@@ -32,6 +32,8 @@
             <br><br>
 
             <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
+            <a role="button" class="btn btn-outline-secondary mt-3"
+               href="/product/admin/all-products?companyId=${companyId}">Cancel</a>
             <input type="submit" value="Send">
         </form>
     </#if>

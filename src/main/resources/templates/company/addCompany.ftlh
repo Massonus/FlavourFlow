@@ -3,39 +3,51 @@
 <@c.page>
 
     <h2>Add Company</h2>
-    <form enctype="multipart/form-data" method="post" action="/companies/new-company">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required><br><br>
+    <form onsubmit="createCompany(event)">
+        <label for="companyTitle">Title:</label>
+        <input type="text" id="companyTitle" name="companyTitle" required><br><br>
 
         <div class="mb-3 row">
-            <label>Price Category:
-                <input type="radio" name="priceCategory" value="LOW" checked>LOW
-                <input type="radio" name="priceCategory" value="MEDIUM">MEDIUM
-                <input type="radio" name="priceCategory" value="HIGH">HIGH
-                <input type="radio" name="priceCategory" value="PREMIUM">PREMIUM
-            </label><br><br>
+            <label for="priceCategory">Price Category:</label>
+            <select class="form-select" id="priceCategory" required>
+                <option value="LOW">LOW</option>
+                <option value="MEDIUM">MEDIUM</option>
+                <option value="HIGH">HIGH</option>
+                <option value="PREMIUM">PREMIUM</option>
+            </select>
         </div>
 
-        <div class="choose-type">
-            <label>Type:
-                <#list types as type>
-                <input type="radio" name="typeId" checked value=${type.getId()}> ${type.getTitle()}
-            </label>
-            </#list>
+        <div class="mb-3 row">
+            <label for="companyCountry">Company Country:</label>
+            <select class="form-select" id="companyCountry" required>
+                <#list countries as country>
+                    <option value=${country.getId()}>${country.getTitle()}</option>
+                </#list>
+            </select>
         </div>
 
         <br><br>
 
-        <div class="choose-category">
-            <label>Category:
+        <div class="mb-3 row">
+            <label for="kitchenCategory">Kitchen Category:</label>
+            <select class="form-select" id="kitchenCategory" required>
                 <#list categories as category>
-                <input type="radio" name="categoryId" checked value=${category.getId()}> ${category.getTitle()}
-            </label>
-            </#list>
+                    <option value=${category.getId()}>${category.getTitle()}</option>
+                </#list>
+            </select>
         </div>
 
-        <label for="file">File:</label>
-        <input type="file" name="file">
+        <span id="companyImageError" class="error"></span>
+        <h5>Choose a file or enter link</h5>
+        <label for="companyFileUpload">File:</label>
+        <input type="file" id="companyFileUpload" name="companyFileUpload" onchange="checkFile('companyFileUpload')">
+
+        <br><br>
+
+        <label for="companyImageLink"></label>
+        <input placeholder="image link" type="text"
+               name="companyImageLink" id="companyImageLink">
+        <br><br>
 
         <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
         <input type="submit" value="Send">

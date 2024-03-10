@@ -24,6 +24,7 @@
 
         <script src="../../static/js/registration-validation.js"></script>
         <script src="../../static/js/kitchenCategory.js"></script>
+        <script src="../../static/js/companyCountry.js"></script>
         <script src="../../static/js/changeStyle.js"></script>
         <script src="../../static/js/basket.js"></script>
         <script src="../../static/js/wishes.js"></script>
@@ -31,6 +32,8 @@
         <script src="../../static/js/order.js"></script>
         <script src="../../static/js/uploadFile.js"></script>
         <script src="../../static/js/product.js"></script>
+        <script src="../../static/js/company.js"></script>
+        <script src="../../static/js/user.js"></script>
 
         <script>
             if (localStorage.getItem('theme') === "/css/dark-theme.css") {

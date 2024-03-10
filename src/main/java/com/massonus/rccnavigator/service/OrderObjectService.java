@@ -10,18 +10,18 @@ import java.util.List;
 @Service
 public class OrderObjectService {
 
-    private final OrderObjectRepo orderObjectRepo;
+    private final OrderObjectRepo objectRepo;
 
     @Autowired
-    public OrderObjectService(OrderObjectRepo orderObjectRepo) {
-        this.orderObjectRepo = orderObjectRepo;
+    public OrderObjectService(OrderObjectRepo objectRepo) {
+        this.objectRepo = objectRepo;
     }
 
     public void saveOrderObject(OrderObject orderObject) {
-        orderObjectRepo.save(orderObject);
+        objectRepo.save(orderObject);
     }
 
     public List<OrderObject> getOrderObjectsByUserId(Long userId) {
-        return orderObjectRepo.findOrderObjectsByUserId(userId);
+        return objectRepo.findOrderObjectsByUserId(userId);
     }
 }

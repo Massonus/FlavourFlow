@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
     private final UserService userService;
-    private final KitchenCategoryService kitchenCategoryService;
+    private final KitchenCategoryService categoryService;
     private final CompanyService companyService;
-    private final CompanyCountryService companyCountryService;
+    private final CompanyCountryService countryService;
 
     @Autowired
-    public AdminController(UserService userService, KitchenCategoryService kitchenCategoryService, CompanyService companyService, CompanyCountryService companyCountryService) {
+    public AdminController(UserService userService, KitchenCategoryService categoryService, CompanyService companyService, CompanyCountryService countryService) {
         this.userService = userService;
-        this.kitchenCategoryService = kitchenCategoryService;
+        this.categoryService = categoryService;
         this.companyService = companyService;
-        this.companyCountryService = companyCountryService;
+        this.countryService = countryService;
     }
 
     @GetMapping("/panel")
@@ -36,8 +36,8 @@ public class AdminController {
 
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("companyCountry", kitchenCategoryService.getAllCategories());
-        model.addAttribute("countries", companyCountryService.getAllCountries());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("countries", countryService.getAllCountries());
         model.addAttribute("companies", companyService.getAllCompanies());
 
         return "admin/adminPanel";

@@ -1,13 +1,12 @@
 package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -45,8 +44,10 @@ public class BasketObject {
     @ManyToMany(mappedBy = "basketObjects", fetch = FetchType.LAZY)
     private List<Basket> basket = new ArrayList<>();
 
+    @Positive
     private Integer amount;
 
+    @Positive
     private Double sum;
 
     public BasketObject() {

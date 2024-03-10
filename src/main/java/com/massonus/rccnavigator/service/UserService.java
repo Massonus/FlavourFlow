@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.UserDto;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.repo.UserRepo;
@@ -37,38 +38,37 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean saveUser(final User user, final boolean isAdmin) {
-        User userFromDb = userRepo.findByUsername(user.getUsername());
+    public User createUser(final UserDto userDto) {
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setRoles(Collections.singleton(Role.valueOf(userDto.getRole())));
+        user.setPassword(userDto.getPassword());
+        user.setRedactor(userDto.getRedactor());
 
-        if (userFromDb != null) {
-            return false;
-        }
+        saveUser(user);
 
-        if (isAdmin) {
-            user.setRoles(Collections.singleton(Role.ADMIN));
-        } else {
-            user.setRoles(Collections.singleton(Role.USER));
-        }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        userRepo.save(user);
-
-        return true;
+        return user;
     }
 
-    public void editUser(User redactor, Long id, String username, String email, String password, Role role) {
+    public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepo.save(user);
+    }
 
-        User savedUser = getUserById(id);
-        savedUser.setUsername(username);
+    public User editUser(final UserDto userDto) {
 
-        if (!password.isEmpty()) {
-            savedUser.setPassword(passwordEncoder.encode(password));
+        User savedUser = getUserById(userDto.getUserId());
+        savedUser.setUsername(userDto.getUsername());
+
+        if (!userDto.getPassword().isEmpty()) {
+            savedUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
-        savedUser.setEmail(email);
-        savedUser.setRoles(Collections.singleton(role));
-        savedUser.setRedactor(redactor.getId());
+        savedUser.setEmail(userDto.getEmail());
+        savedUser.setRoles(Collections.singleton(Role.valueOf(userDto.getRole())));
+        savedUser.setRedactor(userDto.getRedactor());
 
+        return savedUser;
     }
 
     public void updateUser(Long id, String password, String username, String email) {
@@ -89,8 +89,9 @@ public class UserService implements UserDetailsService {
         return new HashSet<>(userRepo.findAll());
     }
 
-    public void deleteUser(Long id) {
+    public Long deleteUser(Long id) {
         userRepo.delete(getUserById(id));
+        return id;
     }
 
 

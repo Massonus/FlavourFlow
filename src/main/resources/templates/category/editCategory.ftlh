@@ -4,8 +4,8 @@
 
     <form id="editCategory" onsubmit="editKitchenCategory(event, #{category.getId()})">
         <div>
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" value="${category.getTitle()}">
+            <label for="categoryTitle">Title</label>
+            <input type="text" id="categoryTitle" name="categoryTitle" value="${category.getTitle()}">
         </div>
         <br>
         <div>

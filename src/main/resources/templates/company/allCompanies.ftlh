@@ -70,7 +70,7 @@
                                             <p>${company.getPriceCategory()}</p>
                                         </div>
                                         <div class="product-links">
-                                            <a href="/companies/info/${company.getId()}">Comments</a>
+                                            <a href="/company/info/${company.getId()}">Comments</a>
                                         </div>
                                     </div>
                                 </div>
@@ -87,19 +87,19 @@
             <#if currentPage?number gt 0>
                 <li class="page-item">
                     <a class="page-link"
-                       href="/companies?page=${currentPage - 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">Previous</a>
+                       href="/company?page=${currentPage - 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">Previous</a>
                 </li>
             </#if>
             <#list 1..totalPages as i>
                 <li class="page-item<#if i == currentPage + 1> active</#if>">
                     <a class="page-link"
-                       href="companies?page=${i-1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">${i}</a>
+                       href="company?page=${i-1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">${i}</a>
                 </li>
             </#list>
             <#if currentPage < totalPages - 1>
                 <li class="page-item">
                     <a class="page-link"
-                       href="/companies?page=${currentPage + 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">Next</a>
+                       href="/company?page=${currentPage + 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">Next</a>
                 </li>
             </#if>
         </ul>

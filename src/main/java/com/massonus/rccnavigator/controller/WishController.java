@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.ItemDto;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.service.BasketObjectService;
 import com.massonus.rccnavigator.service.BasketService;
@@ -37,40 +38,41 @@ public class WishController {
         return "wish/wishes";
     }
 
-    @GetMapping("/new-wish-item/{id}")
-    public String addProductToWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    @PostMapping("/add-item")
+    @ResponseBody
+    public Long addWishItem(@RequestParam Long id, @AuthenticationPrincipal User user) {
 
-        Long companyId = wishService.addProductToWishes(id, user.getId());
-
-        return "redirect:/product/all-products?id=" + companyId;
+        return wishService.addProductToWishes(id, user.getId());
     }
 
-    @GetMapping("/move-wish-to-basket")
+    @DeleteMapping("/delete")
     @ResponseBody
-    public Boolean moveToBasket(@RequestParam Long id, @AuthenticationPrincipal User user) {
+    public ItemDto deleteProductFromWishes(@RequestBody ItemDto itemDto, @AuthenticationPrincipal User user) {
+
+        return wishService.deleteWishItem(itemDto, user);
+
+    }
+
+    @DeleteMapping("/move")
+    @ResponseBody
+    public ItemDto moveToBasket(@RequestBody ItemDto itemDto, @AuthenticationPrincipal User user) {
 
         Basket userBasket = basketService.getUserBasket(user.getId());
         List<BasketObject> basketObjects = userBasket.getBasketObjects();
 
-        if (basketObjects.contains(basketObjectService.getBasketObjectByProductId(id))) {
-            return true;
+        if (basketObjects.contains(basketObjectService.getBasketObjectByProductId(itemDto.getProductId()))) {
+            itemDto.setIsInBasket(true);
         } else {
-            basketService.addProductToBasket(id, user.getId());
-            wishService.deleteWishItem(id, user);
-            return false;
+            basketService.addProductToBasket(itemDto.getProductId(), user.getId());
+            itemDto.setItemId(wishService.deleteWishItem(itemDto, user).getItemId());
+            itemDto.setIsInBasket(false);
         }
+
+        return itemDto;
     }
 
-    @GetMapping("/delete-from-wishes/{id}")
-    public String deleteProductFromWishes(@PathVariable Long id, @AuthenticationPrincipal User user) {
-
-        wishService.deleteWishItem(id, user);
-
-        return "redirect:/wishes";
-
-    }
-
-    @GetMapping("/clear")
+    @DeleteMapping("/clear")
+    @ResponseBody
     public String clearWishes(@AuthenticationPrincipal User user) {
 
         wishService.clearWishes(user);

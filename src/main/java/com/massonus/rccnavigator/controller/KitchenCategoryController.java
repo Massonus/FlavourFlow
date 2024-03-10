@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.KitchenCategoryDto;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.service.KitchenCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class KitchenCategoryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/add-new-category")
+    @GetMapping("/add")
     public String getAddCategoryForm() {
 
         return "category/addCategory";
@@ -28,7 +29,7 @@ public class KitchenCategoryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/add-new-category")
+    @PostMapping("/add")
     @ResponseBody
     public KitchenCategory addCategoryPost(@RequestBody KitchenCategory category) {
 
@@ -37,7 +38,7 @@ public class KitchenCategoryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/edit-category/{id}")
+    @GetMapping("/edit/{id}")
     public String getCategoryEditForm(@PathVariable Long id, Model model) {
 
         model.addAttribute("category", categoryService.getCategoryById(id));
@@ -47,17 +48,15 @@ public class KitchenCategoryController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PutMapping("/edit-category/{id}")
-    @ResponseBody
-    public KitchenCategory categoryPutEdit(@PathVariable Long id, @RequestBody KitchenCategory category) {
+    @PutMapping("/edit")
+    public void categoryPutEdit(@RequestBody KitchenCategoryDto categoryDto) {
 
-        return categoryService.editCategory(id, category);
+        categoryService.editCategory(categoryDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @DeleteMapping("/delete-category/{id}")
-    @ResponseBody
-    public void deleteCategory(@PathVariable Long id) {
+    @DeleteMapping("/delete")
+    public void deleteCategory(@RequestParam Long id) {
 
         categoryService.deleteCategory(id);
 

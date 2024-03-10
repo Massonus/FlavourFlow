@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.ItemDto;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.entity.Wish;
@@ -16,17 +17,16 @@ import java.util.Objects;
 public class WishService {
 
     private final ProductService productService;
-
     private final WishRepo wishRepo;
     private final UserRepo userRepo;
-    private final WishObjectService wishObjectService;
+    private final WishObjectService objectService;
 
     @Autowired
-    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo, WishObjectService wishObjectService) {
+    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo, WishObjectService objectService) {
         this.productService = productService;
         this.wishRepo = wishRepo;
         this.userRepo = userRepo;
-        this.wishObjectService = wishObjectService;
+        this.objectService = objectService;
     }
 
     public Long addProductToWishes(Long id, Long userId) {
@@ -46,7 +46,7 @@ public class WishService {
         wishObject.setUser(userById);
         wishObject.setCompany(productById.getCompany());
 
-        wishObjectService.saveWishObject(wishObject);
+        objectService.saveWishObject(wishObject);
 
         wishObjects.add(wishObject);
 
@@ -79,10 +79,12 @@ public class WishService {
         return getUserWish(Long.valueOf(userId)).getWishObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
     }
 
-    public void deleteWishItem(Long id, User user) {
-        WishObject wishObjectById = wishObjectService.getWishObjectByProductIdAndUserId(id, user.getId());
+    public ItemDto deleteWishItem(ItemDto itemDto, User user) {
+        WishObject wishObjectById = objectService.getWishObjectByProductIdAndUserId(itemDto.getProductId(), user.getId());
         getWishByUserId(user.getId()).getWishObjects().remove(wishObjectById);
-        wishObjectService.deleteWishObject(wishObjectById);
+        objectService.deleteWishObject(wishObjectById);
+        itemDto.setItemId(wishObjectById.getId());
+        return itemDto;
     }
 
     public void clearWishes(final User user) {

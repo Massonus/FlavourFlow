@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.dto.BasketCheckDto;
+import com.massonus.rccnavigator.dto.ItemDto;
 import com.massonus.rccnavigator.entity.Basket;
 import com.massonus.rccnavigator.entity.BasketObject;
 import com.massonus.rccnavigator.entity.User;
@@ -55,34 +56,32 @@ public class BasketController {
         return "basket/basket";
     }
 
-    @GetMapping("/new-basket-item/{id}")
+    @PostMapping("/add-item")
     @ResponseBody
-    public String addProductToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    public Long addProductToBasket(@RequestParam Long productId, @AuthenticationPrincipal User user) {
 
-        Long companyId = basketService.addProductToBasket(id, user.getId());
-
-        return "redirect:/product/all-products/" + companyId;
+        return basketService.addProductToBasket(productId, user.getId());
     }
 
-    @GetMapping("/delete-from-basket/{id}")
-    public String deleteProductFromBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    @DeleteMapping("/delete-item")
+    @ResponseBody
+    public ItemDto deleteProductFromBasket(@RequestBody ItemDto itemDto, @AuthenticationPrincipal User user) {
 
-        basketService.deleteBasketItem(id, user);
+        return basketService.deleteBasketItem(itemDto, user);
+    }
 
-        return "redirect:/basket";
+    @PutMapping("/change-amount")
+    @ResponseBody
+    public ItemDto changeProductAmount(@RequestBody ItemDto itemDto, @AuthenticationPrincipal User user) {
+
+        itemDto.setUserId(user.getId());
+
+        return basketService.changeAmount(itemDto);
 
     }
 
-    @GetMapping("/change-amount")
-    public String changeProductAmount(@RequestParam Integer amount,
-                                      @RequestParam Long productId) {
-
-        basketService.changeAmount(productId, amount);
-
-        return "redirect:/basket";
-    }
-
-    @GetMapping("/clear")
+    @DeleteMapping("/clear")
+    @ResponseBody
     public String clearBasket(@AuthenticationPrincipal User user) {
 
         basketService.clearBasket(user);

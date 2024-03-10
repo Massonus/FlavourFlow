@@ -14,7 +14,7 @@
                 </thead>
                 <tbody>
                 <#list products as product>
-                    <tr>
+                    <tr id="product-table-${product.getId()}">
                         <th class="p-3" scope="row">${product.getId()}</th>
                         <td class="p-3">${product.getTitle()}</td>
                         <td class="p-3">${product.getPrice()}</td>
@@ -23,7 +23,7 @@
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               href="/product/delete/${product.getId()}">
+                               onclick="deleteProduct('${product.getId()}', '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
@@ -32,7 +32,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline" href="/product/add-product/${companyId}">Add product</a>
+                <a role="button" class="btn black-btn-outline" href="/product/add/${companyId}">Add product</a>
             </div>
         </div>
     </section>

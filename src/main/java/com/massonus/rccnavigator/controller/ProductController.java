@@ -68,7 +68,7 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/add-product/{companyId}")
+    @GetMapping("/add/{companyId}")
     public String addProduct(@PathVariable Long companyId, Model model) {
 
         model.addAttribute("companyId", companyId);
@@ -96,15 +96,16 @@ public class ProductController {
     @PutMapping("/edit")
     public void saveUpdatedProduct(@RequestBody ProductDto productDto) {
 
-        Long companyId = productService.editProduct(productDto);
+        productService.editProduct(productDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable Long id) {
-        Product productById = productService.getProductById(id);
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public Long deleteProduct(@RequestParam Long productId) {
+        Product productById = productService.getProductById(productId);
         productService.deleteProduct(productById);
-        return "redirect:/product/admin/all-products?id=" + productById.getCompany().getId();
+        return productById.getCompany().getId();
     }
 
 

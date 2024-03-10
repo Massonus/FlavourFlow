@@ -1,10 +1,41 @@
-function uploadFile(file, companyId, title) {
+function uploadProductFile(file, companyId, productTitle, productId) {
     let csrf = document.getElementById("csrf").value;
 
     let formData = new FormData();
     formData.append("file", file);
 
-    let response = fetch(`/upload?companyId=${companyId}&title=${title}`, {
+    let url;
+
+    if (productId === undefined) {
+        url = `/upload-product?companyId=${companyId}&title=${productTitle}`;
+    } else {
+        url = `/upload-product?companyId=${companyId}&title=${productTitle}&productId=${productId}`;
+    }
+
+    let response = fetch(url, {
+        headers: {
+            "X-CSRF-TOKEN": csrf
+        },
+        method: "POST",
+        body: formData
+    });
+}
+
+function uploadCompanyFile(file, companyTitle, companyId) {
+    let csrf = document.getElementById("csrf").value;
+
+    let formData = new FormData();
+    formData.append("file", file);
+
+    let url;
+
+    if (companyId === undefined) {
+        url = `/upload-company?title=${companyTitle}`;
+    } else {
+        url = `/upload-company?companyId=${companyId}`;
+    }
+
+    let response = fetch(url, {
         headers: {
             "X-CSRF-TOKEN": csrf
         },

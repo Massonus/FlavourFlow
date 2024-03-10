@@ -4,13 +4,13 @@ function saveOrDeleteWishItem(productId, csrf) {
     if (element.className === "far fa-heart") {
         saveItem(productId, csrf, element);
     } else {
-        deleteItem(productId, csrf, element);
+        deleteWishItem(productId, csrf, element);
     }
 }
 
 function saveItem(productId, csrf, iconElement) {
-    fetch(`/wishes/new-wish-item/${productId}`, {
-        method: 'GET',
+    fetch(`/wishes/add-item?id=${productId}`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrf,
@@ -26,65 +26,87 @@ function saveItem(productId, csrf, iconElement) {
         .catch(error => console.log(error));
 }
 
-function deleteItem(productId, csrf, iconElement) {
-    fetch(`/wishes/delete-from-wishes/${productId}`, {
-        method: 'GET',
+function deleteWishItem(productId, csrf, iconElement) {
+
+    const body = JSON.stringify({
+        productId: productId
+    });
+
+    fetch("/wishes/delete", {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrf,
         },
-    })
-        .then(response => {
-            if (response.ok) {
-                iconElement.className = "far fa-heart";
-            } else {
-                alert("Error! Reload the page and try again");
-            }
-        })
-        .catch(error => console.log(error));
-}
-
-function clearWishes() {
-
-    let url;
-
-    if (confirm("Do you really want to clear the wishes?")) {
-        url = `/wishes/clear`;
-    } else {
-        url = `/wishes`;
-    }
-
-    fetch(url, {
-        method: 'GET',
-    })
-        .then(response => {
-            window.location.href = response.url;
-        })
-        .catch(error => console.error(error));
-}
-
-function moveWishToBasket(productId, csrf) {
-
-    fetch(`/wishes/move-wish-to-basket?id=${productId}`, {
-
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrf,
-        },
+        body: body
     })
         .then(res => res.json())
         .then((data) => {
 
-            if (data) {
-                openAlertWindow();
+            if (iconElement !== undefined) {
+                iconElement.className = "far fa-heart";
+
+            } else if (data !== undefined) {
+                console.log(data.itemId);
+                document.getElementById(`wish-item-${data.itemId}`).remove();
             } else {
-                window.location.href = "/wishes";
+                alert("Error! Reload the page and try again");
             }
 
         })
         .catch(error => console.log(error));
 
+
+}
+
+function moveWishToBasket(productId, csrf) {
+
+    const body = JSON.stringify({
+        productId: productId
+    });
+
+    fetch("/wishes/move", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrf,
+        },
+        body: body
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.isInBasket) {
+                openAlertWindow();
+            } else {
+                document.getElementById(`wish-item-${data.itemId}`).remove();
+            }
+
+        })
+        .catch(error => console.log(error));
+
+}
+
+function clearWishes(csrf) {
+
+    if (!confirm("Do you really want to clear your wishes?")) {
+        window.location.href = "/wishes";
+    }
+
+    let url = `/wishes/clear`;
+
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrf
+        },
+    })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "/wishes";
+            }
+        })
+        .catch(error => console.error(error));
 }
 
 function openAlertWindow() {

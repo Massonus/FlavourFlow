@@ -1,11 +1,10 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.CompanyDto;
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
 import com.massonus.rccnavigator.entity.Company;
-import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,25 +14,22 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("/companies")
+@RequestMapping("/company")
 public class CompanyController {
 
     private final CompanyService companyService;
-    private final ImageService imageService;
-    private final KitchenCategoryService kitchenCategoryService;
-    private final CompanyCountryService companyCountryService;
+    private final KitchenCategoryService categoryService;
+    private final CompanyCountryService countryService;
     private final RatingService ratingService;
     private final MessageService messageService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, ImageService imageService, KitchenCategoryService kitchenCategoryService, CompanyCountryService companyCountryService, RatingService ratingService, MessageService messageService) {
+    public CompanyController(CompanyService companyService, KitchenCategoryService categoryService, CompanyCountryService countryService, RatingService ratingService, MessageService messageService) {
         this.companyService = companyService;
-        this.imageService = imageService;
-        this.kitchenCategoryService = kitchenCategoryService;
-        this.companyCountryService = companyCountryService;
+        this.categoryService = categoryService;
+        this.countryService = countryService;
         this.ratingService = ratingService;
         this.messageService = messageService;
     }
@@ -55,8 +51,8 @@ public class CompanyController {
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<Company> companyPage = companyService.getCompaniesInPage(companyFilterDto, pageable, sort, search);
 
-        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("countries", companyCountryService.getAllCountries());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("countries", countryService.getAllCountries());
         model.addAttribute("companies", companyPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", companyPage.getTotalPages());
@@ -79,60 +75,45 @@ public class CompanyController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/add-company")
+    @GetMapping("/add")
     public String getAddCompanyForm(Model model) {
 
-        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCountryService.getAllCountries());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("countries", countryService.getAllCountries());
 
         return "company/addCompany";
 
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/new-company")
-    public String newCompany(@Valid Company company,
-                             @RequestParam Long categoryId,
-                             @RequestParam Long typeId,
-                             @RequestParam("file") MultipartFile multipartFile) {
+    @PostMapping("/add")
+    public void newCompany(@RequestBody CompanyDto companyDto) {
 
-        Image uploadImage = imageService.upload(multipartFile);
-
-        companyService.saveCompany(company, uploadImage, kitchenCategoryService.getCategoryById(categoryId), companyCountryService.getTypeById(typeId));
-
-        return "redirect:/admin/panel";
+        companyService.saveCompany(companyDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/edit/{id}")
     public String updateCompany(@PathVariable("id") Long id, Model model) {
         Company company = companyService.getCompanyById(id);
-        model.addAttribute("categories", kitchenCategoryService.getAllCategories());
-        model.addAttribute("types", companyCountryService.getAllCountries());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("countries", countryService.getAllCountries());
         model.addAttribute("company", company);
         return "company/companyEdit";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit/{id}")
-    public String saveUpdatedCompany(@PathVariable Long id,
-                                     @RequestParam Long categoryId,
-                                     @RequestParam Long typeId,
-                                     @RequestParam("file") MultipartFile multipartFile,
-                                     @RequestParam String imageLink,
-                                     Company company) {
+    @PutMapping("/edit")
+    public void saveUpdatedCompany(@RequestBody CompanyDto companyDto) {
 
-        companyService.editCompany(id, company, kitchenCategoryService.getCategoryById(categoryId), companyCountryService.getTypeById(typeId), multipartFile, imageLink);
-
-        return "redirect:/admin/panel";
+        companyService.editCompany(companyDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/delete/{id}")
-    public String deleteCompany(@PathVariable Long id) {
-        Company companyById = companyService.getCompanyById(id);
+    @DeleteMapping("/delete")
+    public void deleteCompany(@RequestParam Long companyId) {
+        Company companyById = companyService.getCompanyById(companyId);
         companyService.deleteCompany(companyById);
-        return "redirect:/admin/panel";
     }
 
     @PostMapping("/rate-company/{id}")
@@ -141,7 +122,7 @@ public class CompanyController {
 
         ratingService.rateCompany(author, companyById, rate);
 
-        return "redirect:/companies/info/" + id;
+        return "redirect:/company/info/" + id;
     }
 
 }

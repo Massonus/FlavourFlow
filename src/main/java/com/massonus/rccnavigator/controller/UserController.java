@@ -1,6 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
-import com.massonus.rccnavigator.entity.Role;
+import com.massonus.rccnavigator.dto.UserDto;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
 
 @Controller
 @RequestMapping("/user")
@@ -37,26 +35,14 @@ public class UserController {
                                     @RequestParam String email,
                                     @RequestParam String password) {
 
-
         userService.updateUser(user.getId(), password, username, email);
-
 
         return "redirect:/user/profile";
 
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/delete-user/{id}")
-    public String deleteUser(@PathVariable Long id) {
-
-        userService.deleteUser(id);
-
-        return "redirect:/admin/panel";
-
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/add-new-user")
+    @GetMapping("/add")
     public String getAddUserForm() {
 
         return "user/addUser";
@@ -64,61 +50,37 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/add-new-user")
-    public String registrationPost(@AuthenticationPrincipal User redactor,
-                                   @RequestParam String username,
-                                   @RequestParam String password,
-                                   @RequestParam String confirmPassword,
-                                   @RequestParam String email,
-                                   @RequestParam String role) {
+    @PostMapping("/add")
+    @ResponseBody
+    public User addUser(@RequestBody UserDto userDto) {
 
-        final User user = new User();
-        user.setRedactor(redactor.getId());
-        user.setUsername(username);
-
-        if (password.equals(confirmPassword)) {
-            user.setPassword(password);
-        } else {
-            return "redirect:/admin/panel";
-        }
-
-        user.setEmail(email);
-
-        if (role.equals("ADMIN")) {
-            user.setRoles(Collections.singleton(Role.ADMIN));
-            userService.saveUser(user, true);
-        } else {
-            user.setRoles(Collections.singleton(Role.USER));
-            userService.saveUser(user, false);
-        }
-
-        return "redirect:/admin/panel";
+        return userService.createUser(userDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/edit-user/{id}")
+    @GetMapping("/edit/{id}")
     public String getEditUserForm(@PathVariable Long id, Model model) {
 
-        User userById = userService.getUserById(id);
-
-        model.addAttribute("user", userById);
+        model.addAttribute("editUser", userService.getUserById(id));
 
         return "user/editUser";
 
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/edit-user/{id}")
-    public String saveUpdatedUser(@AuthenticationPrincipal User redactor,
-                                  @PathVariable Long id,
-                                  @RequestParam String username,
-                                  @RequestParam String email,
-                                  @RequestParam String password,
-                                  @RequestParam String role) {
+    @PutMapping("/edit")
+    @ResponseBody
+    public User saveUpdatedUser(@RequestBody UserDto userDto) {
 
-        userService.editUser(redactor, id, username, email, password, Role.valueOf(role));
+        return userService.editUser(userDto);
+    }
 
-        return "redirect:/admin/panel";
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public Long deleteUser(@RequestParam Long id) {
+
+        return userService.deleteUser(id);
     }
 
 }

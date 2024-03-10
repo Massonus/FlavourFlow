@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.CompanyDto;
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.CompanyRepo;
@@ -9,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Comparator;
 import java.util.List;
@@ -18,50 +18,47 @@ import java.util.Objects;
 @Service
 public class CompanyService {
     private final CompanyRepo companyRepo;
-    private final ImageService imageService;
     private final CompanyCountryService countryService;
     private final KitchenCategoryService categoryService;
     private final ProductRepo productRepo;
 
     @Autowired
-    public CompanyService(CompanyRepo companyRepo, ImageService imageService, CompanyCountryService countryService, KitchenCategoryService categoryService, ProductRepo productRepo) {
+    public CompanyService(CompanyRepo companyRepo, CompanyCountryService countryService, KitchenCategoryService categoryService, ProductRepo productRepo) {
         this.companyRepo = companyRepo;
-        this.imageService = imageService;
         this.countryService = countryService;
         this.categoryService = categoryService;
         this.productRepo = productRepo;
     }
 
-    public void saveCompany(final Company validCompany, final Image image, final KitchenCategory category, CompanyCountry type) {
+    public void saveCompany(final CompanyDto companyDto) {
         Company company = new Company();
-        company.setTitle(validCompany.getTitle());
-        company.setImage(image);
-        company.setCompanyCountry(type);
-        company.setPriceCategory(validCompany.getPriceCategory());
-        company.setProducts(validCompany.getProducts());
-        company.setKitchenCategory(category);
+        company.setTitle(companyDto.getTitle());
+        company.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
+        company.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
+        company.setPriceCategory(PriceCategory.valueOf(companyDto.getPriceCategory()));
+
+        if (!companyDto.getImageLink().isEmpty()) {
+            company.setImageLink(companyDto.getImageLink());
+            company.setImage(null);
+        }
 
         companyRepo.save(company);
 
     }
 
-    public void editCompany(final Long id, final Company company, KitchenCategory category, CompanyCountry type, MultipartFile multipartFile, String imageLink) {
-        Company savedCompany = companyRepo.findCompanyById(id);
+    public void editCompany(final CompanyDto companyDto) {
+        Company savedCompany = getCompanyById(companyDto.getCompanyId());
 
-        if (!multipartFile.isEmpty()) {
-            Image uploadImage = imageService.upload(multipartFile);
-            savedCompany.setImage(uploadImage);
-        }
-
-        if (!imageLink.isEmpty()) {
-            savedCompany.setImageLink(imageLink);
+        if (!companyDto.getImageLink().isEmpty()) {
+            savedCompany.setImageLink(companyDto.getImageLink());
             savedCompany.setImage(null);
         }
 
-        savedCompany.setTitle(company.getTitle());
-        savedCompany.setPriceCategory(company.getPriceCategory());
-        savedCompany.setCompanyCountry(type);
-        savedCompany.setKitchenCategory(category);
+        savedCompany.setTitle(companyDto.getTitle());
+        savedCompany.setPriceCategory(PriceCategory.valueOf(companyDto.getPriceCategory()));
+        savedCompany.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
+        savedCompany.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
+
     }
 
     public Page<Company> getCompaniesInPage(CompanyFilterDto companyFilterDto, Pageable pageable, String sort, String search) {
@@ -124,26 +121,6 @@ public class CompanyService {
 
     }
 
-    public void saveCompany(Company company) {
-        companyRepo.save(company);
-    }
-
-    public void deleteCompany(final Company company) {
-        companyRepo.delete(company);
-    }
-
-    public Company getCompanyById(final Long id) {
-        return companyRepo.findCompanyById(id);
-    }
-
-    public Company getCompanyByTitle(final String title) {
-        return companyRepo.findCompanyByTitle(title);
-    }
-
-    public List<Company> getAllCompanies() {
-        return companyRepo.findAll();
-    }
-
     public List<Company> getSearchCompanies(final String title) {
 
         KitchenCategory category = categoryService.getCategoryByTitle(title);
@@ -164,4 +141,33 @@ public class CompanyService {
             return companies;
         }
     }
+
+    public void setCompanyImage(String title, Image image) {
+        getCompanyByTitle(title).setImage(image);
+    }
+
+    public void setCompanyImage(Long companyId, Image image) {
+        getCompanyById(companyId).setImage(image);
+    }
+
+    public void saveCompany(Company company) {
+        companyRepo.save(company);
+    }
+
+    public void deleteCompany(final Company company) {
+        companyRepo.delete(company);
+    }
+
+    public Company getCompanyById(final Long id) {
+        return companyRepo.findCompanyById(id);
+    }
+
+    public Company getCompanyByTitle(final String title) {
+        return companyRepo.findCompanyByTitle(title);
+    }
+
+    public List<Company> getAllCompanies() {
+        return companyRepo.findAll();
+    }
+
 }

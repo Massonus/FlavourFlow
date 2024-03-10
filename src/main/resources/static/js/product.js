@@ -4,14 +4,14 @@ function createProduct(event, companyId) {
     let csrf = document.getElementById("csrf").value;
 
     let title = document.getElementById("productTitle").value;
-    let price = document.getElementById("productPrice").value;
+    let price = parseFloat(document.getElementById("productPrice").value.replace(/,/, '.'));
     let productCategory = document.getElementById("productCategory").value;
     let imageLink = document.getElementById("productImageLink").value;
 
     let file = productFileUpload.files[0];
 
     if (file === undefined && imageLink.trim() === "") {
-        document.getElementById("imageError").textContent = "Please input image link or upload your file";
+        document.getElementById("productImageError").textContent = "Please input image link or upload your file";
         return;
     }
 
@@ -38,7 +38,7 @@ function createProduct(event, companyId) {
         .then(res => {
 
             if (imageLink.trim() === "") {
-                uploadFile(file, companyId, title);
+                uploadProductFile(file, companyId, title, undefined);
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
@@ -56,7 +56,7 @@ function editProduct(event, productId, companyId) {
     let csrf = document.getElementById("csrf").value;
 
     let title = document.getElementById("productTitle").value;
-    let price = document.getElementById("productPrice").value;
+    let price = parseFloat(document.getElementById("productPrice").value.replace(/,/, '.'));
     let productCategory = document.getElementById("productCategory").value;
     let imageLink = document.getElementById("productImageLink").value;
 
@@ -85,7 +85,7 @@ function editProduct(event, productId, companyId) {
         .then(res => {
 
             if (!(file === undefined)) {
-                uploadFile(file, companyId, title);
+                uploadProductFile(file, companyId, title, productId);
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
@@ -95,4 +95,21 @@ function editProduct(event, productId, companyId) {
         .catch(error => {
             console.log(error);
         })
+}
+
+function deleteProduct(productId, csrf) {
+
+    const url = `/product/delete?productId=${productId}`;
+
+    fetch(url, {
+        method: "DELETE",
+        headers: {
+            'X-CSRF-TOKEN': csrf,
+        },
+    })
+        .then(res => {
+            document.getElementById(`product-table-${productId}`).remove();
+        })
+        .catch(error =>
+            console.error(error));
 }

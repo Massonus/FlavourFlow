@@ -1,4 +1,5 @@
 <#import "../parts/common.ftlh" as c>
+<#include "../parts/security.ftlh">
 
 <@c.page>
 
@@ -14,18 +15,18 @@
                 </thead>
                 <tbody>
                 <#list users as user>
-                    <tr>
+                    <tr id="user-table-${user.getId()}">
                         <th class="p-3" scope="row">${user.getUsername()}</th>
                         <td class="p-3">${user.getStringRole()}</td>
                         <td class="p-3">${user.getEmail()}</td>
-                        <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getId() || user.getUsername() == "admin")>
+                        <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getId() || user.getId() == currentUserId)>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/user/edit-user/${user.getId()}">Edit</a>
+                                           href="/user/edit/${user.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
 
                             <a role="button" class="btn btn-outline-danger"
-                               href="/user/delete-user/${user.getId()}">
+                               onclick="deleteUser(${user.getId()}, '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                             </#if>
@@ -34,7 +35,7 @@
                 </#list>
                 </tbody>
             </table>
-            <a role="button" class="btn black-btn-outline mt-3" href="/user/add-new-user">Add new</a>
+            <a role="button" class="btn black-btn-outline mt-3" href="/user/add">Add new user</a>
         </div>
     </section>
 
@@ -48,17 +49,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <#list companyCountry as country>
-                    <tr>
-                        <th class="p-3" scope="row">${country.getId()}</th>
-                        <td class="p-3">${country.getTitle()}</td>
+                <#list categories as category>
+                    <tr id="category-table-${category.getId()}">
+                        <th class="p-3" scope="row">${category.getId()}</th>
+                        <td class="p-3">${category.getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/category/edit-category/${country.getId()}">Edit</a>
+                                           href="/category/edit/${category.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
-                            <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                             <button class="btn btn-outline-danger"
-                                    onclick="deleteKitchenCategory(event, ${country.getId()})">
+                                    onclick="deleteKitchenCategory(${category.getId()}, '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </button>
                         </td>
@@ -67,7 +67,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/category/add-new-category">Add new
+                <a role="button" class="btn black-btn-outline mt-3" href="/category/add">Add new
                     category</a>
             </div>
         </div>
@@ -84,15 +84,15 @@
                 </thead>
                 <tbody>
                 <#list countries as country>
-                    <tr>
+                    <tr id="country-table-${country.getId()}">
                         <th class="p-3" scope="row">${country.getId()}</th>
                         <td class="p-3">${country.getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn btn-outline-danger"
-                                           href="/country/edit-country/${country.getId()}">Edit</a>
+                                           href="/country/edit/${country.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               href="/country/delete-country/${country.getId()}">
+                               onclick="deleteCountry(${country.getId()}, '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
@@ -101,7 +101,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/country/add-new-country">Add new country</a>
+                <a role="button" class="btn black-btn-outline mt-3" href="/country/add">Add new country</a>
             </div>
         </div>
     </section>
@@ -122,7 +122,7 @@
                 </thead>
                 <tbody>
                 <#list companies as company>
-                    <tr>
+                    <tr id="company-table-${company.getId()}">
                         <th class="p-3" scope="row">${company.getId()}</th>
                         <td class="p-3">${company.getTitle()}</td>
                         <td class="p-3">${company.getPriceCategory()}</td>
@@ -130,15 +130,16 @@
                         <td class="p-3">${company.getCompanyCountry().getTitle()}</td>
                         <td class="p-3">${company.getKitchenCategory().getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/companies/edit/${company.getId()}">Edit title</a>
+                                           href="/company/edit/${company.getId()}">Edit title</a>
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/product/admin/all-products?companyId=${company.getId()}">Edit products</a>
+                                           href="/product/admin/all-products?companyId=${company.getId()}">Edit
+                                products</a>
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/companies/delete/${company.getId()}"><i
+                                           onclick="deleteCompany(${company.getId()}, '${_csrf.token}')"><i
                                         class="bi bi-trash text-danger"></i></a>
                         </td>
                     </tr>
@@ -146,7 +147,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/companies/add-company">Add new company</a>
+                <a role="button" class="btn black-btn-outline mt-3" href="/company/add">Add new company</a>
             </div>
         </div>
     </section>

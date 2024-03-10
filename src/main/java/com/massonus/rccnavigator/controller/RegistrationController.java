@@ -44,7 +44,7 @@ public class RegistrationController {
         user.setUsername(username);
         user.setEmail(email);
         user.setRoles(Collections.singleton(Role.USER));
-        userService.saveUser(user, false);
+        userService.saveUser(user);
         return "redirect:/login";
     }
 

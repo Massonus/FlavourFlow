@@ -3,20 +3,19 @@ package com.massonus.rccnavigator.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class ProductDto {
-
-    private Long productId;
+@Setter
+public class CompanyDto {
 
     private Long companyId;
 
     private String title;
 
-    private Double price;
+    private String priceCategory;
 
-    private String productCategory;
+    private Long countryId;
+
+    private Long categoryId;
 
     private String imageLink;
-
 }

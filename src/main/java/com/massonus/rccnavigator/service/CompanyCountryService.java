@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.CountryDto;
 import com.massonus.rccnavigator.entity.CompanyCountry;
 import com.massonus.rccnavigator.repo.CompanyCountryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,39 +12,41 @@ import java.util.Set;
 @Service
 public class CompanyCountryService {
 
-    private final CompanyCountryRepo companyCountryRepo;
+    private final CompanyCountryRepo countryRepo;
 
     @Autowired
-    public CompanyCountryService(CompanyCountryRepo companyCountryRepo) {
-        this.companyCountryRepo = companyCountryRepo;
+    public CompanyCountryService(CompanyCountryRepo countryRepo) {
+        this.countryRepo = countryRepo;
     }
 
-    public void saveCompanyType(final CompanyCountry companyCountry) {
+    public void saveCompanyCountry(final CountryDto countryDto) {
+        CompanyCountry companyCountry = new CompanyCountry();
+        companyCountry.setTitle(countryDto.getTitle());
 
-        companyCountryRepo.save(companyCountry);
+        countryRepo.save(companyCountry);
     }
 
 
     public Set<CompanyCountry> getAllCountries() {
 
-        return new HashSet<>(companyCountryRepo.findAll());
+        return new HashSet<>(countryRepo.findAll());
     }
 
-    public CompanyCountry getTypeById(Long id) {
-        return companyCountryRepo.findCompanyTypeById(id);
+    public CompanyCountry getCountryById(Long id) {
+        return countryRepo.findCompanyTypeById(id);
     }
 
     public CompanyCountry getCountryByTitle(String title) {
-        return companyCountryRepo.findCompanyTypeByTitleContainingIgnoreCase(title);
+        return countryRepo.findCompanyTypeByTitleContainingIgnoreCase(title);
     }
 
-    public void editType(Long id, String title) {
+    public void editCountry(final CountryDto countryDto) {
 
-        getTypeById(id).setTitle(title);
+        getCountryById(countryDto.getCountryId()).setTitle(countryDto.getTitle());
     }
 
-    public void deleteType(Long id) {
+    public void deleteCountry(Long id) {
 
-        companyCountryRepo.delete(getTypeById(id));
+        countryRepo.delete(getCountryById(id));
     }
 }

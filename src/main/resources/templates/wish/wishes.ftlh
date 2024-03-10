@@ -27,7 +27,7 @@
                         </thead>
                         <#list products as product>
                             <tbody class="border-0">
-                            <tr>
+                            <tr id="wish-item-${product.getId()}">
                                 <th class="ps-0 py-3 border-light" scope="row">
                                     <div class="d-flex align-items-center">
                                         <a class="d-block">
@@ -68,7 +68,7 @@
                                             Basket</a>
 
                                         <a role="button" class="btn black-btn-outline"
-                                           href="wishes/delete-from-wishes/${product.getProductId()}">
+                                           onclick="deleteWishItem(${product.getProductId()}, '${_csrf.token}', undefined)">
                                             <i class="bi bi-trash text-danger"></i>
                                         </a>
                                     </div>
@@ -86,16 +86,18 @@
                         <ul class="list-unstyled mb-0">
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                                   href="/companies">Continue shopping</a></li>
+                                   href="/company">Continue shopping</a></li>
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
                                    href="/basket">Go to basket</a></li>
 
-                            <li>
-                                <button onclick="clearWishes()" class="btn btn-outline-danger w-100 mt-2">Clear the
-                                    wishes
-                                </button>
-                            </li>
+                            <#if products?has_content>
+                                <li>
+                                    <button onclick="clearWishes('${_csrf.token}')" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                        wishes
+                                    </button>
+                                </li>
+                            </#if>
                         </ul>
                     </div>
                 </div>
