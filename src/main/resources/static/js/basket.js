@@ -26,11 +26,18 @@ function saveBasketItem(productId, csrf, iconElement) {
 }
 
 function deleteBasketItem(productId, csrf, iconElement) {
-    fetch(`/basket/delete-item?productId=${productId}`, {
+
+    const body = JSON.stringify({
+       productId: productId
+    });
+
+    fetch("/basket/delete-item", {
         method: 'DELETE',
         headers: {
+            "Content-Type": "application/json",
             'X-CSRF-TOKEN': csrf
         },
+        body: body
     })
         .then(res => res.json())
         .then((data) => {
@@ -39,8 +46,9 @@ function deleteBasketItem(productId, csrf, iconElement) {
                 iconElement.className = "bi bi-cart";
 
             } else if (data !== undefined) {
-                document.getElementById(`basket-item-${productId}`).remove();
-                document.getElementById("basket-total").innerHTML = `${data.toFixed(2) + '$'}`;
+                console.log(data.objectId);
+                document.getElementById(`basket-item-${data.objectId}`).remove();
+                document.getElementById("basket-total").innerHTML = `${data.total.toFixed(2) + '$'}`;
             } else {
                 alert("Error! Reload the page and try again");
             }

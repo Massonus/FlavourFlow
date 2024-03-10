@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 public class BasketObjectDto {
 
+    private Long objectId;
+
     private Long basketId;
 
     private Long productId;

@@ -67,12 +67,9 @@ public class BasketController {
 
     @DeleteMapping("/delete-item")
     @ResponseBody
-    public Double deleteProductFromBasket(@RequestParam Long productId, @AuthenticationPrincipal User user) {
+    public BasketObjectDto deleteProductFromBasket(@RequestBody BasketObjectDto basketObjectDto, @AuthenticationPrincipal User user) {
 
-        basketService.deleteBasketItem(productId, user);
-
-        return basketService.getBasketTotal(user.getId());
-
+        return basketService.deleteBasketItem(basketObjectDto, user);
     }
 
     @PutMapping("/change-amount")

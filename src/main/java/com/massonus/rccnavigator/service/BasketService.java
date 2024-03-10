@@ -98,10 +98,13 @@ public class BasketService {
                 .toList();
     }
 
-    public void deleteBasketItem(Long id, User user) {
-        BasketObject basketObject = basketObjectService.getBasketObjectByProductIdAndUserId(id, user.getId());
+    public BasketObjectDto deleteBasketItem(final BasketObjectDto basketObjectDto, User user) {
+        BasketObject basketObject = basketObjectService.getBasketObjectByProductIdAndUserId(basketObjectDto.getProductId(), user.getId());
         getBasketByUserId(user.getId()).getBasketObjects().remove(basketObject);
         basketObjectService.deleteBasketObject(basketObject);
+        basketObjectDto.setTotal(getBasketTotal(user.getId()));
+        basketObjectDto.setObjectId(basketObject.getId());
+        return basketObjectDto;
     }
 
     public void deleteBasketItemsByCompanyId(Long id, User user) {
