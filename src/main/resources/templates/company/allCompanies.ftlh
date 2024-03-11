@@ -88,6 +88,8 @@
                                             <object id="star-empty"></object>
                                         </#list>
                                     </#if>
+                                    <span>(${company.getCountOfRates()})</span>
+
                                     <h5>${company.getCompanyCountry().getTitle()}</h5>
                                     <h5>${company.getKitchenCategory().getTitle()}</h5>
                                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
@@ -97,7 +99,7 @@
                                             <p>${company.getPriceCategory()}</p>
                                         </div>
                                         <div class="product-links">
-                                            <a href="/company/info/${company.getId()}">Comments</a>
+                                            <a href="/company/info/${company.getId()}">Comments (${company.getCountOfMessages()})</a>
                                         </div>
                                     </div>
                                 </div>

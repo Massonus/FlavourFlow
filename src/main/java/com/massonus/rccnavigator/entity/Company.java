@@ -60,6 +60,14 @@ public class Company {
         return products.size();
     }
 
+    public Integer getCountOfRates() {
+        return rates.size();
+    }
+
+    public Integer getCountOfMessages() {
+        return messages.size();
+    }
+
     public Integer getCurrentRating() {
         double currentRate = rates.stream()
                 .mapToDouble(Rating::getRate)

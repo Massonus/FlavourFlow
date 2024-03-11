@@ -16,10 +16,12 @@ import java.util.Set;
 public class MessageService {
 
     private final MessageRepo messageRepo;
+    private final CompanyService companyService;
 
     @Autowired
-    public MessageService(MessageRepo messageRepo) {
+    public MessageService(MessageRepo messageRepo, CompanyService companyService) {
         this.messageRepo = messageRepo;
+        this.companyService = companyService;
     }
 
     public MessageDto saveMessage(final MessageDto messageDto, User user) {
@@ -30,6 +32,8 @@ public class MessageService {
         message.setMessageItemType(messageDto.getItemType());
 
         messageRepo.save(message);
+
+        companyService.getCompanyById(messageDto.getItemId()).getMessages().add(message);
 
         return messageDto;
     }
