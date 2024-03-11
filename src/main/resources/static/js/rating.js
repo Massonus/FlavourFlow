@@ -1,14 +1,14 @@
-function rate(event, itemId, itemType, csrf) {
-    event.preventDefault();
-    let text = document.getElementById("comment").value;
+function rate(itemId, rating) {
+
+    let csrf = document.getElementById("csrf").value;
+
 
     const body = JSON.stringify({
-        text: text,
         itemId: itemId,
-        itemType: itemType.toUpperCase()
+        rating: rating
     });
 
-    const url = "/message/add";
+    const url = `/company/rate`;
 
     fetch(url, {
         method: 'POST',
@@ -17,17 +17,12 @@ function rate(event, itemId, itemType, csrf) {
             "Content-Type": "application/json",
             "X-CSRF-TOKEN": csrf,
         },
-        body: body,
-
+        body: body
     })
         .then(res => res.json())
         .then((data) => {
 
-            if (data.itemType === "COMPANY") {
-                window.location.href = `/company/info/${data.itemId}`;
-            } else {
-                window.location.href = `/product/${data.itemId}`;
-            }
+            console.log(data.rating);
 
         })
         .catch(error => {

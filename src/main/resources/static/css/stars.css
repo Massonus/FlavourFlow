@@ -76,8 +76,11 @@
     width: 10em;
 }
 
-/*
-display: block;
-    margin-left: auto;
-    margin-right: auto;
-background-image: url(../img/off.svg);*/
+/*#star {
+    background-image: url(../img/on.svg);
+    background-repeat: no-repeat;
+    width: 3%;
+    height: 3%;
+
+    <object id="star"></object>
+}*/

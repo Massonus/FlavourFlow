@@ -6,11 +6,12 @@
     <fieldset class="rating">
         <legend class="rating__caption">Rating</legend>
         <div class="rating__group">
-            <input class="rating__star" type="radio" name="health" value="1" aria-label="Terrible" checked>
-            <input class="rating__star" type="radio" name="health" value="2" aria-label="Tolerable">
-            <input class="rating__star" type="radio" name="health" value="3" aria-label="Normal">
-            <input class="rating__star" type="radio" name="health" value="4" aria-label="Fine">
-            <input class="rating__star" type="radio" name="health" value="5" aria-label="Great">
+            <input class="rating__star" type="radio" name="health" value="1" onclick="rate(${company.getId()}, this.value)" aria-label="Terrible">
+            <input class="rating__star" type="radio" name="health" value="2" onclick="rate(${company.getId()}, this.value)" aria-label="Tolerable">
+            <input class="rating__star" type="radio" name="health" value="3" onclick="rate(${company.getId()}, this.value)" aria-label="Normal">
+            <input class="rating__star" type="radio" name="health" value="4" onclick="rate(${company.getId()}, this.value)" aria-label="Fine">
+            <input class="rating__star" type="radio" name="health" value="5" onclick="rate(${company.getId()}, this.value)" aria-label="Great">
+            <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
         </div>
     </fieldset>
     <br><br>
@@ -64,4 +65,7 @@
         </div>
     </#if>
 
+
+
 </@c.page>
+
