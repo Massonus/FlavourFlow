@@ -57,8 +57,8 @@ public class MessageService {
 
     }
 
-    public void likeMessage(Long id, User user) {
-        Message messageById = getMessageById(id);
+    public MessageDto likeMessage(MessageDto messageDto, User user) {
+        Message messageById = getMessageById(messageDto.getMessageId());
 
         Set<User> likes = messageById.getLikes();
 
@@ -75,6 +75,9 @@ public class MessageService {
         } else {
             likes.add(user);
         }
+        messageDto.setLikes(messageById.getLikesCount());
+        messageDto.setIsLiked(messageById.getIsUnliked());
+        return messageDto;
     }
 
 }

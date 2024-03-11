@@ -43,14 +43,14 @@
                     <div class="card-footer text-muted container">
                         <div class="row">
                             <p>${message.getAuthor().getUsername()}:</p>
-                            <a class="col align-self-center"
+                            <a id="likes" class="col align-self-center"
                                onclick="likeMessage(${message.getId()}, '${message.getMessageItemType()}', ${company.getId()}, '${_csrf.token}')">
                                 <#if message.getIsUnliked()>
                                     <i class="bi bi-heart"></i>
                                 <#else>
                                     <i class="bi bi-heart-fill"></i>
                                 </#if>
-                                ${message.getLikesCount()}
+                                <span>${message.getLikesCount()}</span>
                             </a>
                             <#if message.getAuthor().getId() == currentUserId || isAdmin>
                                 <a role="button" class="btn black-btn-outline"

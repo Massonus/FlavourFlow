@@ -15,4 +15,8 @@ public class MessageDto {
     private String text;
 
     private MessageItemType itemType;
+
+    private Integer likes;
+
+    private Boolean isLiked;
 }

@@ -56,7 +56,6 @@ public class MessageController {
     @ResponseBody
     public MessageDto like(@RequestBody MessageDto messageDto, @AuthenticationPrincipal User user) {
 
-        messageService.likeMessage(messageDto.getMessageId(), user);
-        return messageDto;
+        return messageService.likeMessage(messageDto, user);
     }
 }

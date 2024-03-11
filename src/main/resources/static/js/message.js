@@ -130,11 +130,12 @@ function likeMessage(messageId, itemType, itemId, csrf) {
     })
         .then(res => res.json())
         .then((data) => {
+            document.querySelector(`#likes span`).innerHTML = `${data.likes}`;
 
-            if (data.itemType === "COMPANY") {
-                window.location.href = `/company/info/${itemId}`;
+            if (data.isLiked) {
+                document.querySelector(`#likes i`).className = "bi bi-heart";
             } else {
-                window.location.href = `/product/${itemId}`;
+                document.querySelector(`#likes i`).className = "bi bi-heart-fill";
             }
 
         })
