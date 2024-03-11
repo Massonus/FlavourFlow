@@ -1,0 +1,83 @@
+/* Caption */
+
+.rating__caption {
+    text-align: center;
+    margin-bottom: 0.5em;
+    padding: 0;
+}
+
+/* Group */
+
+.rating__group {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 10em;
+    height: 2em;
+    background-image: url(../img/off.svg);
+    background-size: 2em auto;
+    background-repeat: repeat-x;
+}
+
+/* Star */
+
+.rating__star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    height: 2em;
+    font-size: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-size: 2em auto;
+    background-repeat: repeat-x;
+}
+
+.rating__star:focus {
+    outline: none;
+}
+
+.rating__star:hover,
+.rating__star:checked {
+    background-image: url(../img/on.svg);
+}
+
+.rating__star:hover ~ .rating__star {
+    background-image: url(../img/off.svg);
+}
+
+/* Options */
+
+.rating__star:nth-of-type(1) {
+    z-index: 5;
+    width: 2em;
+}
+
+.rating__star:nth-of-type(2) {
+    z-index: 4;
+    width: 4em;
+}
+
+.rating__star:nth-of-type(3) {
+    z-index: 3;
+    width: 6em;
+}
+
+.rating__star:nth-of-type(4) {
+    z-index: 2;
+    width: 8em;
+}
+
+.rating__star:nth-of-type(5) {
+    z-index: 1;
+    width: 10em;
+}
+
+/*
+display: block;
+    margin-left: auto;
+    margin-right: auto;
+background-image: url(../img/off.svg);*/

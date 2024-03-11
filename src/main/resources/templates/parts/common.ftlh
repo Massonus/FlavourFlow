@@ -35,6 +35,7 @@
         <script src="../../static/js/company.js"></script>
         <script src="../../static/js/user.js"></script>
         <script src="../../static/js/message.js"></script>
+        <script src="../../static/js/rating.js"></script>
 
         <script>
             if (localStorage.getItem('theme') === "/css/dark-theme.css") {
@@ -44,6 +45,7 @@
             }
         </script>
         <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/stars.css">
 
     </head>
     <body onload="setTheme(); openOrderAlertForm()">
