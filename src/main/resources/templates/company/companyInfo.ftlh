@@ -44,7 +44,7 @@
                         <div class="row">
                             <p>${message.getAuthor().getUsername()}:</p>
                             <a class="col align-self-center"
-                               href="/message/like/${message.getId()}/${company.getClass().getSimpleName()}/${company.getId()}">
+                               onclick="likeMessage(${message.getId()}, '${message.getMessageItemType()}', ${company.getId()}, '${_csrf.token}')">
                                 <#if message.getIsUnliked()>
                                     <i class="bi bi-heart"></i>
                                 <#else>

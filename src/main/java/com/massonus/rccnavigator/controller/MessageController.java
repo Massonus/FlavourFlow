@@ -52,16 +52,11 @@ public class MessageController {
 
     }
 
-    @GetMapping("/like/{id}/{item}/{itemId}")
-    public String like(@AuthenticationPrincipal User user, @PathVariable Long id, @PathVariable String item, @PathVariable Long itemId) {
+    @PutMapping("/like")
+    @ResponseBody
+    public MessageDto like(@RequestBody MessageDto messageDto, @AuthenticationPrincipal User user) {
 
-        messageService.likeMessage(id, user);
-
-        if (item.equals("Company")) {
-            return "redirect:/companies/info/" + itemId;
-        } else {
-            return "redirect:/product/" + itemId;
-        }
-
+        messageService.likeMessage(messageDto.getMessageId(), user);
+        return messageDto;
     }
 }

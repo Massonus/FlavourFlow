@@ -24,6 +24,11 @@ section {
 
 a {
     color: #111;
+    text-decoration: none;
+}
+
+a i{
+    cursor: pointer;
 }
 
 a:hover {
