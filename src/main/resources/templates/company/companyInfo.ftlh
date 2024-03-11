@@ -3,17 +3,48 @@
 
 <@c.page>
 
-    <fieldset class="rating">
-        <legend class="rating__caption">Rating</legend>
-        <div class="rating__group">
-            <input class="rating__star" type="radio" name="health" value="1" onclick="rate(${company.getId()}, this.value)" aria-label="Terrible">
-            <input class="rating__star" type="radio" name="health" value="2" onclick="rate(${company.getId()}, this.value)" aria-label="Tolerable">
-            <input class="rating__star" type="radio" name="health" value="3" onclick="rate(${company.getId()}, this.value)" aria-label="Normal">
-            <input class="rating__star" type="radio" name="health" value="4" onclick="rate(${company.getId()}, this.value)" aria-label="Fine">
-            <input class="rating__star" type="radio" name="health" value="5" onclick="rate(${company.getId()}, this.value)" aria-label="Great">
-            <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
+    <legend class="rating__caption">Rating</legend>
+    <#if company.getCurrentRating()?has_content && known>
+        <fieldset class="rating">
+            <div class="rating__group">
+                <input class="rating__star" type="radio" name="health" value="1"
+                       onclick="rate(event, ${company.getId()}, '${company.getClass().getSimpleName()}'.toUpperCase(), this.value)"
+                       aria-label="Terrible" <#if company.getCurrentRating() == 1>checked</#if>>
+
+                <input class="rating__star" type="radio" name="health" value="2"
+                       onclick="rate(event, ${company.getId()}, '${company.getClass().getSimpleName()}'.toUpperCase(), this.value)"
+                       aria-label="Tolerable" <#if company.getCurrentRating() == 2>checked</#if>>
+
+                <input class="rating__star" type="radio" name="health" value="3"
+                       onclick="rate(event, ${company.getId()}, '${company.getClass().getSimpleName()}'.toUpperCase(), this.value)"
+                       aria-label="Normal" <#if company.getCurrentRating() == 3>checked</#if>>
+
+                <input class="rating__star" type="radio" name="health" value="4"
+                       onclick="rate(event, ${company.getId()}, '${company.getClass().getSimpleName()}'.toUpperCase(), this.value)"
+                       aria-label="Fine" <#if company.getCurrentRating() == 4>checked</#if>>
+
+                <input class="rating__star" type="radio" name="health" value="5"
+                       onclick="rate(event, ${company.getId()}, '${company.getClass().getSimpleName()}'.toUpperCase(), this.value)"
+                       aria-label="Great" <#if company.getCurrentRating() == 5>checked</#if>>
+
+                <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
+            </div>
+        </fieldset>
+
+    <#elseif company.getRating()?has_content>
+        <div class="object-stars">
+            <#assign rating = (company.getCurrentRating()?number)?int />
+            <#list 1..5 as i>
+                <#if i <= rating>
+                    <object id="star-fill"></object>
+                <#else>
+                    <object id="star-empty"></object>
+                </#if>
+            </#list>
         </div>
-    </fieldset>
+    <#else>
+        <h5 style="text-align: center">Not rated</h5>
+    </#if>
     <br><br>
     <div class="card-columns" id="message-list">
         <#if messages?has_content>
@@ -52,6 +83,7 @@
 
     <br>
 
+
     <#if known>
         <div class="d-flex justify-content-center" style="width: 100%; display: flex; justify-content: center;">
             <form onsubmit="createMessage(event, ${company.getId()}, '${company.getClass().getSimpleName()}', '${_csrf.token}')"
@@ -64,8 +96,5 @@
             </form>
         </div>
     </#if>
-
-
-
 </@c.page>
 

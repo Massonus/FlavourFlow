@@ -113,8 +113,7 @@ public class CompanyService {
                     .sorted(Comparator.comparing(Company::getTitle).reversed())
                     .toList();
 
-            default -> companies.stream().sorted(Comparator.comparing(Company::getId))
-                    .toList();
+            default -> companies;
         };
 
         return companies;
@@ -167,7 +166,8 @@ public class CompanyService {
     }
 
     public List<Company> getAllCompanies() {
-        return companyRepo.findAll();
+        return companyRepo.findAll().stream().sorted(Comparator.comparing(Company::getId))
+                .toList();
     }
 
 }

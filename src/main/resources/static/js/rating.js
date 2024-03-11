@@ -1,5 +1,5 @@
-function rate(itemId, rating) {
-
+function rate(event, itemId, itemType, rating) {
+    event.preventDefault();
     let csrf = document.getElementById("csrf").value;
 
 
@@ -19,11 +19,12 @@ function rate(itemId, rating) {
         },
         body: body
     })
-        .then(res => res.json())
-        .then((data) => {
-
-            console.log(data.rating);
-
+        .then(response => {
+            if (itemType === "COMPANY" && response.ok) {
+                window.location.href = `/company/info/${itemId}`;
+            } else {
+                window.location.href = `/product/${itemId}`;
+            }
         })
         .catch(error => {
             console.log(error);

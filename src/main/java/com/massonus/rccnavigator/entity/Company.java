@@ -60,7 +60,7 @@ public class Company {
         return products.size();
     }
 
-    public Integer currentRating() {
+    public Integer getCurrentRating() {
         double currentRate = rates.stream()
                 .mapToDouble(Rating::getRate)
                 .average()
