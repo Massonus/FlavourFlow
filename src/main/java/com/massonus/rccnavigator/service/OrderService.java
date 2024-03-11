@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -66,6 +67,7 @@ public class OrderService {
         order.setOrderObjects(orderObjects);
         order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
 
+
         double total = orderObjects.stream()
                 .mapToDouble(OrderObject::getSum)
                 .sum();
@@ -74,11 +76,15 @@ public class OrderService {
 
         orderRepo.save(order);
 
+        orderDto.getUser().setOrders(Collections.singleton(order));
+
         List<OrderObject> objects = orderObjectService.getOrderObjectsByUserId(orderDto.getUser().getId());
 
         for (OrderObject object : objects) {
             object.setOrder(order);
         }
+
+        orderDto.getUser().setOrderObjects(objects);
 
     }
 
