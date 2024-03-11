@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.dto;
 
+import com.massonus.rccnavigator.entity.PriceCategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ public class CompanyDto {
 
     private String title;
 
-    private String priceCategory;
+    private PriceCategory priceCategory;
 
     private Long countryId;
 

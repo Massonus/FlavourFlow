@@ -1,7 +1,6 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.UserDto;
-import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class UserService implements UserDetailsService {
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
-        user.setRoles(Collections.singleton(Role.valueOf(userDto.getRole())));
+        user.setRoles(Collections.singleton(userDto.getRole()));
         user.setPassword(userDto.getPassword());
         user.setRedactor(userDto.getRedactor());
 
@@ -65,7 +64,7 @@ public class UserService implements UserDetailsService {
             savedUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
         savedUser.setEmail(userDto.getEmail());
-        savedUser.setRoles(Collections.singleton(Role.valueOf(userDto.getRole())));
+        savedUser.setRoles(Collections.singleton(userDto.getRole()));
         savedUser.setRedactor(userDto.getRedactor());
 
         return savedUser;
