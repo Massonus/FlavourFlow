@@ -48,7 +48,7 @@ public class Company {
     @JoinColumn(name = "country_id")
     private CompanyCountry companyCountry;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)

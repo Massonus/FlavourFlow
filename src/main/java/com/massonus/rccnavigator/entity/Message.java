@@ -31,12 +31,9 @@ public class Message {
 
     private LocalDateTime commentTime;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Company company;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(columnDefinition = "text", name = "item_type")
+    @Enumerated(EnumType.STRING)
+    private MessageItemType messageItemType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

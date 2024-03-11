@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.dto;
 
+import com.massonus.rccnavigator.entity.MessageItemType;
 import lombok.Getter;
 import lombok.Setter;
 

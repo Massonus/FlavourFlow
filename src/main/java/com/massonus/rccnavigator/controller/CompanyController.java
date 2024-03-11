@@ -3,6 +3,7 @@ package com.massonus.rccnavigator.controller;
 import com.massonus.rccnavigator.dto.CompanyDto;
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
 import com.massonus.rccnavigator.entity.Company;
+import com.massonus.rccnavigator.entity.MessageItemType;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,7 @@ public class CompanyController {
 
         model.addAttribute("user", user);
         model.addAttribute("company", company);
-        model.addAttribute("messages", messageService.getMessagesByCompanyId(id));
+        model.addAttribute("messages", messageService.getMessagesItemType(MessageItemType.COMPANY));
         return "company/companyInfo";
     }
 
