@@ -56,7 +56,7 @@
                                 <a role="button" class="btn black-btn-outline"
                                    href="/message/delete/${message.getId()}/${company.getClass().getSimpleName()}/${company.getId()}">Delete</a>
                                 <a class="col btn btn-primary"
-                                   href="/message/editing/${message.getId()}/${company.getClass().getSimpleName()}/${company.getId()}">Edit</a>
+                                   href="/message/edit?messageId=${message.getId()}&itemId=${company.getId()}">Edit</a>
                             </#if>
                         </div>
                     </div>
@@ -77,7 +77,6 @@
                 <input type="text" class="form-control me-2 flex-grow-1" placeholder="Write your comment" name="comment"
                        id="comment" style="height: 68px; margin-right: 10px;">
 
-                <input type="hidden" id="csrf" name="_csrf" value=""/>
                 <button type="submit" class="btn btn-outline-success">Post comment</button>
             </form>
         </div>

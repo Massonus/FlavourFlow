@@ -47,11 +47,13 @@ public class MessageService {
         messageRepo.delete(messageById);
     }
 
-    public void editMessage(Long id, String text) {
-        Message messageById = getMessageById(id);
+    public MessageDto editMessage(final MessageDto messageDto) {
+        Message messageById = getMessageById(messageDto.getMessageId());
 
-        messageById.setText(text);
+        messageById.setText(messageDto.getText());
         messageRepo.save(messageById);
+
+        return messageDto;
 
     }
 
