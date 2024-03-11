@@ -48,7 +48,7 @@ public class Company {
     @JoinColumn(name = "country_id")
     private CompanyCountry companyCountry;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
@@ -60,7 +60,15 @@ public class Company {
         return products.size();
     }
 
-    public Integer currentRating() {
+    public Integer getCountOfRates() {
+        return rates.size();
+    }
+
+    public Integer getCountOfMessages() {
+        return messages.size();
+    }
+
+    public Integer getCurrentRating() {
         double currentRate = rates.stream()
                 .mapToDouble(Rating::getRate)
                 .average()

@@ -31,12 +31,9 @@ public class Message {
 
     private LocalDateTime commentTime;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Company company;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(columnDefinition = "text", name = "item_type")
+    @Enumerated(EnumType.STRING)
+    private MessageItemType messageItemType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -54,18 +51,5 @@ public class Message {
 
     public Boolean getIsUnliked() {
         return likes.isEmpty();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Message message = (Message) o;
-        return Objects.equals(id, message.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

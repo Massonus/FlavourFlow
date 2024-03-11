@@ -3,7 +3,6 @@ package com.massonus.rccnavigator.service;
 import com.massonus.rccnavigator.dto.ProductDto;
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.Product;
-import com.massonus.rccnavigator.entity.ProductCategory;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class ProductService {
             product.setImage(null);
         }
 
-        product.setProductCategory(ProductCategory.valueOf(productDto.getProductCategory()));
+        product.setProductCategory(productDto.getProductCategory());
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
@@ -57,7 +56,7 @@ public class ProductService {
             savedProduct.setImage(null);
         }
 
-        savedProduct.setProductCategory(ProductCategory.valueOf(productDto.getProductCategory()));
+        savedProduct.setProductCategory(productDto.getProductCategory());
         savedProduct.setTitle(productDto.getTitle());
         savedProduct.setPrice(productDto.getPrice());
 

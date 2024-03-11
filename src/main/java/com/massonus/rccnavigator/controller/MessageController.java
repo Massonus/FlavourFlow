@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.MessageDto;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,65 +20,42 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @PostMapping("/new-product-message/{id}")
-    public String addNewProductMessage(@PathVariable Long id, @AuthenticationPrincipal User user, @RequestParam String comment) {
-        messageService.saveProductMessage(user, id, comment);
-        return "redirect:/product/" + id;
+    @PostMapping("/add")
+    @ResponseBody
+    public MessageDto addNewProductMessage(@RequestBody MessageDto messageDto, @AuthenticationPrincipal User user) {
+
+        return messageService.saveMessage(messageDto, user);
     }
 
-    @PostMapping("/new-company-message/{id}")
-    public String addNewCompanyMessage(@PathVariable Long id, @AuthenticationPrincipal User user, @RequestParam String comment) {
-        messageService.saveCompanyMessage(user, id, comment);
-        return "redirect:/companies/info/" + id;
-    }
+    @GetMapping("/edit")
+    public String getMessageEditForm(Model model, @RequestParam Long messageId, @RequestParam Long itemId) {
 
-    @GetMapping("/delete/{messageId}/{item}/{itemId}")
-    public String deleteMessage(@PathVariable Long messageId, @PathVariable String item, @PathVariable Long itemId) {
-
-        messageService.deleteMessage(messageId);
-
-        if (item.equals("Company")) {
-            return "redirect:/companies/info/" + itemId;
-        } else {
-            return "redirect:/product/" + itemId;
-        }
-    }
-
-    @GetMapping("/like/{id}/{item}/{itemId}")
-    public String like(@AuthenticationPrincipal User user, @PathVariable Long id, @PathVariable String item, @PathVariable Long itemId) {
-
-        messageService.likeMessage(id, user);
-
-        if (item.equals("Company")) {
-            return "redirect:/companies/info/" + itemId;
-        } else {
-            return "redirect:/product/" + itemId;
-        }
-
-    }
-
-    @GetMapping("/editing/{id}/{item}/{itemId}")
-    public String editMessage(@PathVariable Long id, Model model, @PathVariable String item, @PathVariable Long itemId) {
-
-        model.addAttribute("message", messageService.getMessageById(id));
+        model.addAttribute("message", messageService.getMessageById(messageId));
         model.addAttribute("itemId", itemId);
-        model.addAttribute("item", item);
 
-        return "message/messageEdit";
+        return "message/editMessage";
+    }
+    @PutMapping("/edit")
+    @ResponseBody
+    public MessageDto editTheMessage(@RequestBody MessageDto messageDto) {
+
+        return messageService.editMessage(messageDto);
     }
 
-    @PostMapping("/edit/{id}/{item}/{itemId}")
-    public String editMessage(@PathVariable Long id,
-                              @RequestParam String text, @PathVariable Long itemId, @PathVariable String item) {
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public MessageDto deleteMessage(@RequestBody MessageDto messageDto) {
 
-        messageService.editMessage(id, text);
+        messageService.deleteMessage(messageDto.getMessageId());
 
-        if (item.equals("Company")) {
-            return "redirect:/companies/info/" + itemId;
-        } else {
-            return "redirect:/product/" + itemId;
-        }
+        return messageDto;
+
     }
 
+    @PutMapping("/like")
+    @ResponseBody
+    public MessageDto like(@RequestBody MessageDto messageDto, @AuthenticationPrincipal User user) {
 
+        return messageService.likeMessage(messageDto, user);
+    }
 }

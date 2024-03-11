@@ -26,6 +26,6 @@ public class RatingService {
         rating.setRate(rate);
         ratingRepo.save(rating);
 
-        company.setRating(company.currentRating());
+        company.setRating(company.getCurrentRating());
     }
 }

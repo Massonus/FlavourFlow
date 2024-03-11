@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.dto;
 
+import com.massonus.rccnavigator.entity.ProductCategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ public class ProductDto {
 
     private Double price;
 
-    private String productCategory;
+    private ProductCategory productCategory;
 
     private String imageLink;
 

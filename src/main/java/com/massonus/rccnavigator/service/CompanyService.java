@@ -35,7 +35,7 @@ public class CompanyService {
         company.setTitle(companyDto.getTitle());
         company.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         company.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
-        company.setPriceCategory(PriceCategory.valueOf(companyDto.getPriceCategory()));
+        company.setPriceCategory(companyDto.getPriceCategory());
 
         if (!companyDto.getImageLink().isEmpty()) {
             company.setImageLink(companyDto.getImageLink());
@@ -55,7 +55,7 @@ public class CompanyService {
         }
 
         savedCompany.setTitle(companyDto.getTitle());
-        savedCompany.setPriceCategory(PriceCategory.valueOf(companyDto.getPriceCategory()));
+        savedCompany.setPriceCategory(companyDto.getPriceCategory());
         savedCompany.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         savedCompany.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
 
@@ -113,8 +113,7 @@ public class CompanyService {
                     .sorted(Comparator.comparing(Company::getTitle).reversed())
                     .toList();
 
-            default -> companies.stream().sorted(Comparator.comparing(Company::getId))
-                    .toList();
+            default -> companies;
         };
 
         return companies;
@@ -167,7 +166,8 @@ public class CompanyService {
     }
 
     public List<Company> getAllCompanies() {
-        return companyRepo.findAll();
+        return companyRepo.findAll().stream().sorted(Comparator.comparing(Company::getId))
+                .toList();
     }
 
 }

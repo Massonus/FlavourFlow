@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.dto.ProductDto;
+import com.massonus.rccnavigator.entity.MessageItemType;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
@@ -115,7 +116,7 @@ public class ProductController {
 
         model.addAttribute("user", user);
         model.addAttribute("product", productById);
-        model.addAttribute("messages", messageService.getMessagesByProductId(id));
+        model.addAttribute("messages", messageService.getMessagesItemType(MessageItemType.PRODUCT));
         return "product/productInfo";
     }
 

@@ -2,7 +2,9 @@ package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.dto.CompanyDto;
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
+import com.massonus.rccnavigator.dto.RatingDto;
 import com.massonus.rccnavigator.entity.Company;
+import com.massonus.rccnavigator.entity.MessageItemType;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +72,7 @@ public class CompanyController {
 
         model.addAttribute("user", user);
         model.addAttribute("company", company);
-        model.addAttribute("messages", messageService.getMessagesByCompanyId(id));
+        model.addAttribute("messages", messageService.getMessagesItemType(MessageItemType.COMPANY));
         return "company/companyInfo";
     }
 
@@ -116,13 +118,15 @@ public class CompanyController {
         companyService.deleteCompany(companyById);
     }
 
-    @PostMapping("/rate-company/{id}")
-    public String rateCompany(@PathVariable Long id, @AuthenticationPrincipal User author, @RequestParam Integer rate) {
-        Company companyById = companyService.getCompanyById(id);
+    @PostMapping("/rate")
+    @ResponseBody
+    public RatingDto rateCompany(@RequestBody RatingDto ratingDto, @AuthenticationPrincipal User author) {
 
-        ratingService.rateCompany(author, companyById, rate);
+        final Company companyById = companyService.getCompanyById(ratingDto.getItemId());
 
-        return "redirect:/company/info/" + id;
+        ratingService.rateCompany(author, companyById, ratingDto.getRating());
+
+        return ratingDto;
     }
 
 }

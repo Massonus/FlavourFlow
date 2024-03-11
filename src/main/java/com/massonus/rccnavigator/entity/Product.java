@@ -37,7 +37,7 @@ public class Product {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Message> messages = new ArrayList<>();
 
 }

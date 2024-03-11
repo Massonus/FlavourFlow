@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.dto;
 
+import com.massonus.rccnavigator.entity.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,7 @@ public class UserDto {
 
     private String email;
 
-    private String role;
+    private Role role;
 
     private String password;
 
