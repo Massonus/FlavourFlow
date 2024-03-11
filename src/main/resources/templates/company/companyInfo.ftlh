@@ -54,7 +54,7 @@
                             </a>
                             <#if message.getAuthor().getId() == currentUserId || isAdmin>
                                 <a role="button" class="btn black-btn-outline"
-                                   href="/message/delete/${message.getId()}/${company.getClass().getSimpleName()}/${company.getId()}">Delete</a>
+                                   onclick="deleteMessage(${message.getId()}, '${message.getMessageItemType()}', ${company.getId()}, '${_csrf.token}')">Delete</a>
                                 <a class="col btn btn-primary"
                                    href="/message/edit?messageId=${message.getId()}&itemId=${company.getId()}">Edit</a>
                             </#if>

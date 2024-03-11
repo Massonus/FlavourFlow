@@ -42,16 +42,14 @@ public class MessageController {
         return messageService.editMessage(messageDto);
     }
 
-    @GetMapping("/delete/{messageId}/{item}/{itemId}")
-    public String deleteMessage(@PathVariable Long messageId, @PathVariable String item, @PathVariable Long itemId) {
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public MessageDto deleteMessage(@RequestBody MessageDto messageDto) {
 
-        messageService.deleteMessage(messageId);
+        messageService.deleteMessage(messageDto.getMessageId());
 
-        if (item.equals("Company")) {
-            return "redirect:/companies/info/" + itemId;
-        } else {
-            return "redirect:/product/" + itemId;
-        }
+        return messageDto;
+
     }
 
     @GetMapping("/like/{id}/{item}/{itemId}")
