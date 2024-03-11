@@ -1,5 +1,7 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.MessageDto;
+import com.massonus.rccnavigator.dto.MessageItemType;
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Message;
 import com.massonus.rccnavigator.entity.Product;
@@ -26,16 +28,21 @@ public class MessageService {
         this.companyService = companyService;
     }
 
-    public void saveProductMessage(User user, Long id, String commentText) {
-        Product product = productService.getProductById(id);
-
+    public MessageDto saveMessage(final MessageDto messageDto, User user) {
         Message message = new Message();
         message.setAuthor(user);
-        message.setProduct(product);
-        message.setText(commentText);
+        message.setText(messageDto.getText());
         message.setLikes(new HashSet<>());
 
+        if (messageDto.getItemType().equals(MessageItemType.COMPANY)) {
+            message.setCompany(companyService.getCompanyById(messageDto.getItemId()));
+        } else {
+            message.setProduct(productService.getProductById(messageDto.getItemId()));
+        }
+
         messageRepo.save(message);
+
+        return messageDto;
     }
 
     public void saveCompanyMessage(User user, Long id, String commentText) {

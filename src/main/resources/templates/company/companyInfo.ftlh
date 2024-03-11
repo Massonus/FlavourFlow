@@ -68,14 +68,16 @@
     </div>
 
     <br>
+
     <#if known>
         <div class="d-flex justify-content-center" style="width: 100%; display: flex; justify-content: center;">
-            <form method="post" action="/message/new-company-message/${company.getId()}"
+            <form onsubmit="createMessage(event, ${company.getId()}, '${company.getClass().getSimpleName()}', '${_csrf.token}')"
                   style="display: flex; flex-direction: row; align-items: center; justify-content: center; width: 70%;">
                 <label for="comment" class="col-sm-4 col-form-label">Comment</label>
                 <input type="text" class="form-control me-2 flex-grow-1" placeholder="Write your comment" name="comment"
                        id="comment" style="height: 68px; margin-right: 10px;">
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+
+                <input type="hidden" id="csrf" name="_csrf" value=""/>
                 <button type="submit" class="btn btn-outline-success">Post comment</button>
             </form>
         </div>

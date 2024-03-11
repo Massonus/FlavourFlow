@@ -1,5 +1,7 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.MessageDto;
+import com.massonus.rccnavigator.entity.Message;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +21,17 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @PostMapping("/new-product-message/{id}")
-    public String addNewProductMessage(@PathVariable Long id, @AuthenticationPrincipal User user, @RequestParam String comment) {
-        messageService.saveProductMessage(user, id, comment);
-        return "redirect:/product/" + id;
+    @PostMapping("/add")
+    @ResponseBody
+    public MessageDto addNewProductMessage(@RequestBody MessageDto messageDto, @AuthenticationPrincipal User user) {
+
+        return messageService.saveMessage(messageDto, user);
     }
 
     @PostMapping("/new-company-message/{id}")
     public String addNewCompanyMessage(@PathVariable Long id, @AuthenticationPrincipal User user, @RequestParam String comment) {
         messageService.saveCompanyMessage(user, id, comment);
-        return "redirect:/companies/info/" + id;
+        return "redirect:/company/info/" + id;
     }
 
     @GetMapping("/delete/{messageId}/{item}/{itemId}")

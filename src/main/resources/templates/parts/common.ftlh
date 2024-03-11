@@ -34,6 +34,7 @@
         <script src="../../static/js/product.js"></script>
         <script src="../../static/js/company.js"></script>
         <script src="../../static/js/user.js"></script>
+        <script src="../../static/js/message.js"></script>
 
         <script>
             if (localStorage.getItem('theme') === "/css/dark-theme.css") {
