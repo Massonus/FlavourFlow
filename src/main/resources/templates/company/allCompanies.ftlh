@@ -10,10 +10,18 @@
                     <label for="sort" class="form-label">Sort:</label>
                     <select onchange="filterCompany(event)" name="sort" class="form-select" id="sort">
                         <option <#if sort == "Default">selected</#if> value="Default">Default</option>
-                        <option <#if sort == "priceDesc">selected</#if> class="filterOption" value="priceDesc"> Sort by price: descending</option>
-                        <option <#if sort == "priceAsc">selected</#if> class="filterOption" value="priceAsc"> Sort by price: ascending</option>
-                        <option <#if sort == "nameA">selected</#if> class="filterOption" value="nameA"> Sort by name: A-Z</option>
-                        <option <#if sort == "nameZ">selected</#if> class="filterOption" value="nameZ"> Sort by name: Z-A</option>
+                        <option <#if sort == "priceDesc">selected</#if> class="filterOption" value="priceDesc"> Sort by
+                            price: descending
+                        </option>
+                        <option <#if sort == "priceAsc">selected</#if> class="filterOption" value="priceAsc"> Sort by
+                            price: ascending
+                        </option>
+                        <option <#if sort == "nameA">selected</#if> class="filterOption" value="nameA"> Sort by name:
+                            A-Z
+                        </option>
+                        <option <#if sort == "nameZ">selected</#if> class="filterOption" value="nameZ"> Sort by name:
+                            Z-A
+                        </option>
                     </select>
                 </div>
 
@@ -22,7 +30,8 @@
                     <select onchange="filterCompany(event)" name="categoryId" class="form-select" id="kitchenCategory">
                         <option selected value="">Default</option>
                         <#list categories as category>
-                            <option <#if category.getId() = (categoryId)!-1>selected</#if> class="filterOption" value="${category.getId()}">${category.getTitle()}</option>
+                            <option <#if category.getId() = (categoryId)!-1>selected</#if> class="filterOption"
+                                    value="${category.getId()}">${category.getTitle()}</option>
                         </#list>
                     </select>
                 </div>
@@ -32,7 +41,8 @@
                     <select onchange="filterCompany(event)" name="countryId" class="form-select" id="companyCountry">
                         <option value="">Default</option>
                         <#list countries as country>
-                            <option <#if country.getId() = (countryId)!-1>selected</#if> class="filterOption" value="${country.getId()}">${country.getTitle()}</option>
+                            <option <#if country.getId() = (countryId)!-1>selected</#if> class="filterOption"
+                                    value="${country.getId()}">${country.getTitle()}</option>
                         </#list>
                     </select>
                 </div>
@@ -46,21 +56,38 @@
                                 <div class="product-thumb">
                                     <#if (company.getImage()??)>
                                         <div class="filters__img">
-                                            <a href="/product/all-products?companyId=${company.getId()}"><img alt="product image"
-                                                                                                    src="/images/${company.getImage().getId()}.jpg"
-                                                                                                    class="card-img-top"/></a>
+                                            <a href="/product/all-products?companyId=${company.getId()}"><img
+                                                        alt="product image"
+                                                        src="/images/${company.getImage().getId()}.jpg"
+                                                        class="card-img-top"/></a>
                                         </div>
                                     <#else>
                                         <div class="filters__img">
-                                            <a href="/product/all-products?companyId=${company.getId()}"><img alt="product image"
-                                                                                                    src="${company.getImageLink()}"
-                                                                                                    class="card-img-top"></a>
+                                            <a href="/product/all-products?companyId=${company.getId()}"><img
+                                                        alt="product image"
+                                                        src="${company.getImageLink()}"
+                                                        class="card-img-top"></a>
                                         </div>
                                     </#if>
                                 </div>
                                 <div class="product-details">
-                                    <h4><a href="/product/all-products?companyId=${company.getId()}">${company.getTitle()}</a>
+                                    <h4>
+                                        <a href="/product/all-products?companyId=${company.getId()}">${company.getTitle()}</a>
                                     </h4>
+                                    <#if company.getRating()?has_content>
+                                        <#assign rating = (company.getCurrentRating()?number)?int />
+                                        <#list 1..5 as i>
+                                            <#if i <= rating>
+                                                <object id="star-fill"></object>
+                                            <#else>
+                                                <object id="star-empty"></object>
+                                            </#if>
+                                        </#list>
+                                    <#else>
+                                        <#list 1..5 as i>
+                                            <object id="star-empty"></object>
+                                        </#list>
+                                    </#if>
                                     <h5>${company.getCompanyCountry().getTitle()}</h5>
                                     <h5>${company.getKitchenCategory().getTitle()}</h5>
                                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,

@@ -79,15 +79,17 @@
 #star-fill {
     background-image: url(../img/on.svg);
     background-repeat: no-repeat;
-    width: 3%;
-    height: 3%;
+    background-size: 15px;
+    width: 5%;
+    height: 15px;
 }
 
 #star-empty {
     background-image: url(../img/off.svg);
     background-repeat: no-repeat;
-    width: 3%;
-    height: 3%;
+    background-size: 15px;
+    width: 5%;
+    height: 15px;
 }
 
 .object-stars {

@@ -80,7 +80,7 @@ a:hover {
 
 .filters__img {
     width: 400px;
-    height: 250px;
+    height: 220px;
     overflow: hidden;
     margin: 10px;
 }
@@ -99,7 +99,7 @@ a:hover {
 .product-details h4 a {
     font-weight: 500;
     display: block;
-    height: 60px;
+    height: 25px;
     overflow: hidden;
     text-decoration: none;
 }
