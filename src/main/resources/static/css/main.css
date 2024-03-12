@@ -65,6 +65,10 @@ a:hover {
     max-width: 100px;
 }
 
+.order h1, h2{
+    text-align: center;
+}
+
 /* Header */
 
 /* Product card */
