@@ -152,29 +152,30 @@
         </div>
     </section>
 
-    <div class="${alertModal!''}" id="alert-companies-modal">
-        <div class="modal__box">
+    <#if alertCompanies?has_content>
+        <div class="${alertModal}" id="alert-companies-modal">
+            <div class="modal__box">
 
-            <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+                <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
 
-            <h3>This item contains <#--${size!''}--> companies, choose the option</h3>
+                <h3>This item contains ${size} companies, choose the option</h3>
 
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Company id</th>
-                        <th>Title</th>
-                        <th>Price category</th>
-                        <th>Products count</th>
-                        <th>Company country</th>
-                        <th>Category</th>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Company id</th>
+                            <th>Title</th>
+                            <th>Price category</th>
+                            <th>Products count</th>
+                            <th>Company country</th>
+                            <th>Category</th>
 
-                    </tr>
-                    </thead>
-                    <#if alertCompanies?has_content>
+                        </tr>
+                        </thead>
+
                         <tbody>
                         <#list alertCompanies as company>
                             <tr>
@@ -187,38 +188,45 @@
                             </tr>
                         </#list>
                         </tbody>
-                    </#if>
-                </table>
+
+                    </table>
+                </div>
+
+                <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                   onclick="afterAlertWindow('${itemType}', ${checkId})">Move to the another item</a>
+
+                <#if itemType == 'COMPANYCOUNTRY'>
+                    <button onclick="deleteCountry(${checkId}, '${_csrf.token}')"
+                            class="btn btn-outline-danger w-100 mt-2">Delete companies and products
+                    </button>
+
+                <#else>
+                    <button onclick="deleteCategory(${checkId}, '${_csrf.token}')"
+                            class="btn btn-outline-danger w-100 mt-2">Delete companies and products
+                    </button>
+                </#if>
             </div>
+        </div>
+    </#if>
 
-            <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-               onclick="afterAlertWindow('${itemType!''}', ${checkId!''})">Move to the another item</a>
+    <div class="${chooseModal!''}" id="order-alert">
+        <div class="modal__box">
 
-            <button onclick="deleteCountry(${checkId!''}, '${_csrf.token}')"
-                    class="btn btn-outline-danger w-100 mt-2">Delete companies and products
+            <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
+                <i class="fa-solid fa-xmark"></i>
             </button>
 
+            <#if existItems?has_content>
+                <h3>Choose the another item</h3>
+                <div class="container-buttons">
+                    <#list existItems as item>
+                        <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                           onclick="moveCompanies(${checkId}, ${item.getId()}, '${item.getClass().getSimpleName()}'.toUpperCase(), '${_csrf.token}')">${item.getTitle()}</a>
+                    </#list>
+                </div>
+            </#if>
         </div>
     </div>
-
-<div class="${chooseModal!''}" id="order-alert">
-    <div class="modal__box">
-
-        <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <#if existItems?has_content>
-            <h3>Choose the another item</h3>
-            <div class="container-buttons">
-                <#list existItems as item>
-                    <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                       onclick="moveCompanies(${checkId}, ${item.getId()}, '${item.getClass().getSimpleName()}'.toUpperCase(), '${_csrf.token}')">${item.getTitle()}</a>
-                </#list>
-            </div>
-        </#if>
-    </div>
-</div>
 </@c.page>
 
 

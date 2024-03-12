@@ -103,6 +103,10 @@ function editCompany(event, companyId) {
 
 function deleteCompany(companyId, csrf) {
 
+    if (!confirm("If you'll delete this company, all products will be deleted too")) {
+        return;
+    }
+
     const url = `/company/delete?companyId=${companyId}`;
 
     fetch(url, {
@@ -126,11 +130,11 @@ function checkCompany(itemId, itemType, csrf) {
         .then(res => res.json())
         .then((data) => {
 
-            console.log(data.isSuccess);
-            if (data.isSuccess) {
+            if (data.isSuccess && (itemType === 'COMPANYCOUNTRY')) {
                 deleteCountry(itemId, csrf);
+            } else if (data.isSuccess && (itemType === 'KITCHENCATEGORY')) {
+                deleteCategory(itemId, csrf);
             } else {
-                console.log(itemType);
                 window.location.href = `/admin/panel?checkId=${itemId}&itemType=${itemType}`;
             }
         })
@@ -138,7 +142,6 @@ function checkCompany(itemId, itemType, csrf) {
 }
 
 function afterAlertWindow(itemType, checkId) {
-
     window.location.href = `/admin/panel?itemType=${itemType}&checkId=${checkId}&isAfterAlert=${true}`;
 }
 

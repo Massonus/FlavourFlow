@@ -63,7 +63,7 @@ public class AdminController {
 
         if (Objects.nonNull(itemType) && itemType.equals(ItemType.COMPANYCOUNTRY)) {
             model.addAttribute("alertCompanies", companyService.getCompaniesByCountryId(checkId));
-            model.addAttribute("size", companyService.getCompaniesByCountryId(checkId));
+            model.addAttribute("size", companyService.getCompaniesByCountryId(checkId).size());
             model.addAttribute("existItems", countryService.getAllCountriesExceptOne(checkId));
         }
 
