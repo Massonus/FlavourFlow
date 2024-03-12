@@ -79,15 +79,15 @@ a:hover {
 }
 
 .filters__img {
-    width: 400px;
-    height: 220px;
+    width: 95%;
+    height: 90%;
     overflow: hidden;
     margin: 10px;
 }
 
 .filters__product-img {
-    width: 290px;
-    height: 200px;
+    width: 93%;
+    height: 60%;
     overflow: hidden;
     margin: 10px;
 }
@@ -122,6 +122,10 @@ a:hover {
     font-size: 18px;
     color: #ee6e73;
     font-weight: 600;
+}
+
+.product-price p{
+    color: gold;
 }
 
 .product-price small {
