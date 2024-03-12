@@ -55,16 +55,16 @@ public class AdminController {
             model.addAttribute("itemType", itemType);
         }
 
-        if (Objects.nonNull(itemType) && itemType.equals(ItemType.KITHCENCATEGORY)) {
+        if (Objects.nonNull(itemType) && itemType.equals(ItemType.KITCHENCATEGORY)) {
             model.addAttribute("alertCompanies", companyService.getCompaniesByCategoryId(checkId));
             model.addAttribute("size", companyService.getCompaniesByCategoryId(checkId).size());
-            model.addAttribute("existCountries", categoryService.getAllCategoriesExceptOne(checkId));
+            model.addAttribute("existItems", categoryService.getAllCategoriesExceptOne(checkId));
         }
 
         if (Objects.nonNull(itemType) && itemType.equals(ItemType.COMPANYCOUNTRY)) {
             model.addAttribute("alertCompanies", companyService.getCompaniesByCountryId(checkId));
             model.addAttribute("size", companyService.getCompaniesByCountryId(checkId));
-            model.addAttribute("existCountries", countryService.getAllCountriesExceptOne(checkId));
+            model.addAttribute("existItems", countryService.getAllCountriesExceptOne(checkId));
         }
 
         if (Objects.nonNull(isAfterAlert)) {

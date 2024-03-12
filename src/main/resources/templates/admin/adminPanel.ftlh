@@ -58,7 +58,7 @@
                         </td>
                         <td class="p-3 align-middle">
                             <button class="btn btn-outline-danger"
-                                    onclick="deleteKitchenCategory(${category.getId()}, '${_csrf.token}')">
+                                    onclick="checkCompany(${category.getId()}, '${category.getClass().getSimpleName()}'.toUpperCase(), '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </button>
                         </td>
@@ -92,7 +92,7 @@
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               onclick="checkCompany(${country.getId()}, '${country.getClass().getSimpleName()}'.toUpperCase(),'${_csrf.token}')">
+                               onclick="checkCompany(${country.getId()}, '${country.getClass().getSimpleName()}'.toUpperCase(), '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
@@ -208,12 +208,12 @@
             <i class="fa-solid fa-xmark"></i>
         </button>
 
-        <#if existCountries?has_content>
+        <#if existItems?has_content>
             <h3>Choose the another item</h3>
             <div class="container-buttons">
-                <#list existCountries as country>
+                <#list existItems as item>
                     <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                       onclick="moveCompanies(${checkId}, ${country.getId()}, '${_csrf.token}')">${country.getTitle()}</a>
+                       onclick="moveCompanies(${checkId}, ${item.getId()}, '${item.getClass().getSimpleName()}'.toUpperCase(), '${_csrf.token}')">${item.getTitle()}</a>
                 </#list>
             </div>
         </#if>

@@ -4,5 +4,5 @@ public enum ItemType {
 
     COMPANYCOUNTRY,
 
-    KITHCENCATEGORY
+    KITCHENCATEGORY
 }

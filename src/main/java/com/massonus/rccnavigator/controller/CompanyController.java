@@ -150,9 +150,12 @@ public class CompanyController {
     @ResponseBody
     public CheckDto moveCompanies(@RequestBody CheckDto checkDto) {
 
-        companyService.moveCompaniesToAnotherCountry(checkDto);
+        if (checkDto.getItemType().equals(ItemType.COMPANYCOUNTRY)) {
 
-        return checkDto;
+            return companyService.moveCompaniesToAnotherCountry(checkDto);
+        } else {
+            return companyService.moveCompaniesToAnotherCategory(checkDto);
+        }
     }
 
 }

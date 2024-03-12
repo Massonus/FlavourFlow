@@ -59,7 +59,7 @@ function editKitchenCategory(event, categoryId) {
         })
 }
 
-function deleteKitchenCategory(categoryId, csrf) {
+function deleteCategory(categoryId, csrf) {
 
     const url = `/category/delete?id=${categoryId}`;
 
@@ -70,7 +70,9 @@ function deleteKitchenCategory(categoryId, csrf) {
         },
     })
         .then(res => {
-            document.getElementById(`category-table-${categoryId}`).remove();
+            if (res.ok) {
+                window.location.href = "/admin/panel";
+            }
         })
         .catch(error =>
             console.error(error));

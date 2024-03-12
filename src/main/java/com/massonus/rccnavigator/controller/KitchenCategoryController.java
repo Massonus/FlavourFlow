@@ -56,9 +56,9 @@ public class KitchenCategoryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete")
-    public void deleteCategory(@RequestParam Long id) {
+    @ResponseBody
+    public Long deleteCategory(@RequestParam Long id) {
 
-        categoryService.deleteCategory(id);
-
+        return categoryService.deleteCategory(id);
     }
 }

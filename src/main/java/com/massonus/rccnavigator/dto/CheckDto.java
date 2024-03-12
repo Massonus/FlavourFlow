@@ -14,4 +14,6 @@ public class CheckDto {
     private Integer size;
 
     private Boolean isSuccess;
+
+    private ItemType itemType;
 }

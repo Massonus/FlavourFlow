@@ -3,6 +3,7 @@ package com.massonus.rccnavigator.service;
 import com.massonus.rccnavigator.dto.CheckDto;
 import com.massonus.rccnavigator.dto.CompanyDto;
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
+import com.massonus.rccnavigator.dto.ItemType;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.ProductRepo;
@@ -142,11 +143,22 @@ public class CompanyService {
         }
     }
 
-    public void moveCompaniesToAnotherCountry(final CheckDto checkDto) {
+    public CheckDto moveCompaniesToAnotherCountry(final CheckDto checkDto) {
         List<Company> companiesByCountryId = getCompaniesByCountryId(checkDto.getCheckId());
         for (Company company : companiesByCountryId) {
             company.setCompanyCountry(countryService.getCountryById(checkDto.getNewId()));
         }
+        checkDto.setItemType(ItemType.COMPANYCOUNTRY);
+        return checkDto;
+    }
+
+    public CheckDto moveCompaniesToAnotherCategory(final CheckDto checkDto) {
+        List<Company> companiesByCategoryId = getCompaniesByCategoryId(checkDto.getCheckId());
+        for (Company company : companiesByCategoryId) {
+            company.setKitchenCategory(categoryService.getCategoryById(checkDto.getNewId()));
+        }
+        checkDto.setItemType(ItemType.KITCHENCATEGORY);
+        return checkDto;
     }
 
     public void setCompanyImage(String title, Image image) {

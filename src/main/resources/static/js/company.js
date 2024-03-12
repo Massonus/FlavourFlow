@@ -142,13 +142,14 @@ function afterAlertWindow(itemType, checkId) {
     window.location.href = `/admin/panel?itemType=${itemType}&checkId=${checkId}&isAfterAlert=${true}`;
 }
 
-function moveCompanies(oldId, newId, csrf) {
+function moveCompanies(oldId, newId, itemType, csrf) {
 
     const url = `/company/move`;
 
     const body = JSON.stringify({
         checkId: oldId,
-        newId: newId
+        newId: newId,
+        itemType: itemType
     });
 
     fetch(url, {
@@ -161,8 +162,13 @@ function moveCompanies(oldId, newId, csrf) {
     })
         .then(res => res.json())
         .then((data) => {
-            console.log(data.newId);
-            deleteCountry(oldId, csrf);
+
+            if (data.itemType === 'COMPANYCOUNTRY') {
+                deleteCountry(oldId, csrf);
+            } else {
+                deleteCategory(oldId, csrf);
+            }
+
         })
         .catch(error =>
             console.error(error));
