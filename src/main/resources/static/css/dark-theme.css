@@ -14,7 +14,6 @@ body {
     height: 34px;
     border-radius: 50px;
 }
-
 .search:hover .search-button {
     background-color: #E6E6E6;
 }
