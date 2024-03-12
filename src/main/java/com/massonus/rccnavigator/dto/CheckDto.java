@@ -9,6 +9,8 @@ public class CheckDto {
 
     private Long checkId;
 
+    private Long newId;
+
     private Integer size;
 
     private Boolean isSuccess;

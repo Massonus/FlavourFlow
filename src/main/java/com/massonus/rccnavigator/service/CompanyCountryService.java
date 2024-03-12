@@ -33,11 +33,16 @@ public class CompanyCountryService {
     }
 
     public CompanyCountry getCountryById(Long id) {
-        return countryRepo.findCompanyTypeById(id);
+        return countryRepo.findCompanyCountryById(id);
     }
 
     public CompanyCountry getCountryByTitle(String title) {
-        return countryRepo.findCompanyTypeByTitleContainingIgnoreCase(title);
+        return countryRepo.findCompanyCountryByTitleContainingIgnoreCase(title);
+    }
+
+    public List<CompanyCountry> getAllCountriesExceptOne(final Long countryId) {
+        return countryRepo.findAll().stream()
+                .filter(a -> !a.getId().equals(countryId)).toList();
     }
 
     public void editCountry(final CountryDto countryDto) {

@@ -108,7 +108,7 @@ function deleteCompany(companyId, csrf) {
     fetch(url, {
         method: "DELETE",
         headers: {
-            'X-CSRF-TOKEN': csrf,
+            'X-CSRF-TOKEN': csrf
         },
     })
         .then(res => {
@@ -118,18 +118,27 @@ function deleteCompany(companyId, csrf) {
             console.error(error));
 }
 
-function moveCompanies(companyId, csrf) {
+function moveCompanies(oldId, newId, csrf) {
 
-    const url = `/company/delete?companyId=${companyId}`;
+    const url = `/company/move`;
+
+    const body = JSON.stringify({
+        checkId: oldId,
+        newId: newId
+    });
 
     fetch(url, {
         method: "PUT",
         headers: {
-            'X-CSRF-TOKEN': csrf,
+            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': csrf
         },
+        body: body
     })
-        .then(res => {
-            document.getElementById(`company-table-${companyId}`).remove();
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data.newId);
+            deleteCountry(oldId, csrf);
         })
         .catch(error =>
             console.error(error));

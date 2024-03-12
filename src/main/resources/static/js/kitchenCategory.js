@@ -21,7 +21,7 @@ function createKitchenCategory(event) {
     })
         .then(res => res.json())
         .then((data) => {
-            console.log(data.title)
+            console.log(data.title);
             window.location.href = "/admin/panel";
         })
         .catch(error => {

@@ -192,7 +192,7 @@
             </div>
 
             <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-               onclick="checkOrder()">Move to the another item</a>
+               onclick="afterAlertWindow('COUNTRY', ${checkId!''})">Move to the another item</a>
 
             <button onclick="deleteCountry(${checkId!''}, '${_csrf.token}')"
                     class="btn btn-outline-danger w-100 mt-2">Delete companies and products
@@ -201,23 +201,24 @@
         </div>
     </div>
 
-<#--<div class="${modal}" id="order-alert">
+<div class="${chooseModal!''}" id="order-alert">
     <div class="modal__box">
 
-        <button onclick="closeOrderAlertForm()" class="modal__close-btn" id="close-my-modal-btn">
+        <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
             <i class="fa-solid fa-xmark"></i>
         </button>
 
-        <#if companies?has_content>
-            <p>You have ${size!''} different companies in your basket, please choose only one for checkout</p>
+        <#if existCountries?has_content>
+            <h3>Choose the another item</h3>
             <div class="container-buttons">
-                <#list companies as company>
-                    <button type="submit" onclick="afterAlert(${company.getId()})">${company.getTitle()}</button>
+                <#list existCountries as country>
+                    <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                       onclick="moveCompanies(${checkId}, ${country.getId()}, '${_csrf.token}')">${country.getTitle()}</a>
                 </#list>
             </div>
         </#if>
     </div>
-</div>-->
+</div>
 </@c.page>
 
 

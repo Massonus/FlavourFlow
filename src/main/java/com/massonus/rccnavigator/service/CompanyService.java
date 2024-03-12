@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.CheckDto;
 import com.massonus.rccnavigator.dto.CompanyDto;
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
 import com.massonus.rccnavigator.entity.*;
@@ -138,6 +139,13 @@ public class CompanyService {
                     .toList();
         } else {
             return companies;
+        }
+    }
+
+    public void moveCompaniesToAnotherCountry(final CheckDto checkDto) {
+        List<Company> companiesByCountryId = getCompaniesByCountryId(checkDto.getCheckId());
+        for (Company company : companiesByCountryId) {
+            company.setCompanyCountry(countryService.getCountryById(checkDto.getNewId()));
         }
     }
 

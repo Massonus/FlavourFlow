@@ -143,4 +143,13 @@ public class CompanyController {
         return checkDto;
     }
 
+    @PutMapping("/move")
+    @ResponseBody
+    public CheckDto moveCompanies(@RequestBody CheckDto checkDto) {
+
+        companyService.moveCompaniesToAnotherCountry(checkDto);
+
+        return checkDto;
+    }
+
 }

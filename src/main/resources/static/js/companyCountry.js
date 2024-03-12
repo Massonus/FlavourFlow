@@ -93,6 +93,11 @@ function checkCountry(countryId, csrf) {
         .catch(error => console.log(error));
 }
 
+function afterAlertWindow(itemType, checkId) {
+
+    window.location.href = `/admin/panel?itemType=${itemType}&checkId=${checkId}`;
+}
+
 
 
 

@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.CompanyCountryService;
 import com.massonus.rccnavigator.service.CompanyService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 @Controller
@@ -37,18 +39,25 @@ public class AdminController {
     @GetMapping("/panel")
     public String getAdminPanel(Model model, @AuthenticationPrincipal User admin,
                                 @RequestParam(required = false) Integer size,
-                                @RequestParam(required = false) Long checkId) {
+                                @RequestParam(required = false) Long checkId,
+                                @RequestParam(required = false) String itemType) {
 
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("countries", countryService.getAllCountries());
-        model.addAttribute("companies", companyService.getAllCompanies());
+        model.addAttribute("companies", companyService.getAllCompanies().stream().sorted(Comparator.comparing(Company::getId)).toList());
 
         if (Objects.nonNull(size)) {
             model.addAttribute("alertModal", "modal open");
             model.addAttribute("size", size);
             model.addAttribute("alertCompanies", companyService.getCompaniesByCountryId(checkId));
+            model.addAttribute("checkId", checkId);
+        }
+
+        if (Objects.nonNull(itemType) && itemType.equals("COUNTRY")) {
+            model.addAttribute("chooseModal", "modal open");
+            model.addAttribute("existCountries", countryService.getAllCountriesExceptOne(checkId));
             model.addAttribute("checkId", checkId);
         }
 
