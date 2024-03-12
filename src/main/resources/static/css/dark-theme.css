@@ -35,11 +35,15 @@ body {
     color: #DA77EB;
 }
 
-th, tr, td {
+.container a {
     color: #DA77EB;
 }
 
-#comment {
+#staticUsername,  #staticEmail, #inputPassword, #inputPasswordConfirmation, #comment {
+    color: #DA77EB;
+}
+
+th, tr, td {
     color: #DA77EB;
 }
 

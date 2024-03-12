@@ -20,7 +20,7 @@
                         <td class="p-3">${user.getStringRole()}</td>
                         <td class="p-3">${user.getEmail()}</td>
                         <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getId() || user.getId() == currentUserId)>
-                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
+                        <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/user/edit/${user.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
@@ -35,7 +35,7 @@
                 </#list>
                 </tbody>
             </table>
-            <a role="button" class="btn black-btn-outline mt-3" href="/user/add">Add new user</a>
+            <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/user/add">Add new user</a>
         </div>
     </section>
 
@@ -53,7 +53,7 @@
                     <tr id="category-table-${category.getId()}">
                         <th class="p-3" scope="row">${category.getId()}</th>
                         <td class="p-3">${category.getTitle()}</td>
-                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
+                        <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/category/edit/${category.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
@@ -67,7 +67,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/category/add">Add new
+                <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/category/add">Add new
                     category</a>
             </div>
         </div>
@@ -87,7 +87,7 @@
                     <tr id="country-table-${country.getId()}">
                         <th class="p-3" scope="row">${country.getId()}</th>
                         <td class="p-3">${country.getTitle()}</td>
-                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
+                        <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/country/edit/${country.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
@@ -101,7 +101,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/country/add">Add new country</a>
+                <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/country/add">Add new country</a>
             </div>
         </div>
     </section>
@@ -138,7 +138,7 @@
                                 products</a>
                         </td>
 
-                        <td class="p-3"><a role="button" class="btn black-btn-outline"
+                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
                                            onclick="deleteCompany(${company.getId()}, '${_csrf.token}')"><i
                                         class="bi bi-trash text-danger"></i></a>
                         </td>
@@ -147,7 +147,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/company/add">Add new company</a>
+                <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/company/add">Add new company</a>
             </div>
         </div>
     </section>
