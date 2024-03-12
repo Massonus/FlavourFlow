@@ -55,9 +55,9 @@ public class CompanyCountryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete")
-    public void deleteCountry(@RequestParam Long id) {
+    @ResponseBody
+    public Long deleteCountry(@RequestParam Long id) {
 
-        countryService.deleteCountry(id);
-
+        return countryService.deleteCountry(id);
     }
 }

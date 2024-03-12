@@ -190,6 +190,14 @@
                     </#if>
                 </table>
             </div>
+
+            <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+               onclick="checkOrder()">Move to the another item</a>
+
+            <button onclick="deleteCountry(${checkId!''}, '${_csrf.token}')"
+                    class="btn btn-outline-danger w-100 mt-2">Delete companies and products
+            </button>
+
         </div>
     </div>
 

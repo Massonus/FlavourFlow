@@ -49,6 +49,7 @@ public class AdminController {
             model.addAttribute("alertModal", "modal open");
             model.addAttribute("size", size);
             model.addAttribute("alertCompanies", companyService.getCompaniesByCountryId(checkId));
+            model.addAttribute("checkId", checkId);
         }
 
         return "admin/adminPanel";

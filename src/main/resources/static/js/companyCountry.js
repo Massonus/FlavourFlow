@@ -66,7 +66,9 @@ function deleteCountry(countryId, csrf) {
         },
     })
         .then(res => {
-            document.getElementById(`country-table-${countryId}`).remove();
+            if (res.ok) {
+                window.location.href = "/admin/panel";
+            }
         })
         .catch(error =>
             console.error(error));

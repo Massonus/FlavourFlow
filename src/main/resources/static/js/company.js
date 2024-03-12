@@ -117,3 +117,20 @@ function deleteCompany(companyId, csrf) {
         .catch(error =>
             console.error(error));
 }
+
+function moveCompanies(companyId, csrf) {
+
+    const url = `/company/delete?companyId=${companyId}`;
+
+    fetch(url, {
+        method: "PUT",
+        headers: {
+            'X-CSRF-TOKEN': csrf,
+        },
+    })
+        .then(res => {
+            document.getElementById(`company-table-${companyId}`).remove();
+        })
+        .catch(error =>
+            console.error(error));
+}

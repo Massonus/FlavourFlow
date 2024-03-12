@@ -103,8 +103,8 @@ function addEventListeners() {
         });
     }
 
-    let elements = document.getElementsByClassName("modal open");
-    for (const element of elements) {
+    let modals = document.getElementsByClassName("modal open");
+    for (const element of modals) {
         element.addEventListener('click', event => {
             if (event._isClickWithInModal) return;
             event.currentTarget.classList.remove('open');
