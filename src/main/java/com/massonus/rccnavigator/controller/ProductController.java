@@ -116,7 +116,7 @@ public class ProductController {
 
         model.addAttribute("user", user);
         model.addAttribute("product", productById);
-        model.addAttribute("messages", messageService.getMessagesItemType(MessageItemType.PRODUCT));
+        model.addAttribute("messages", messageService.getMessagesByItemTypeAndItemId(MessageItemType.PRODUCT, id));
         return "product/productInfo";
     }
 

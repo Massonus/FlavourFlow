@@ -72,7 +72,7 @@ public class CompanyController {
 
         model.addAttribute("user", user);
         model.addAttribute("company", company);
-        model.addAttribute("messages", messageService.getMessagesItemType(MessageItemType.COMPANY));
+        model.addAttribute("messages", messageService.getMessagesByItemTypeAndItemId(MessageItemType.COMPANY, id));
         return "company/companyInfo";
     }
 

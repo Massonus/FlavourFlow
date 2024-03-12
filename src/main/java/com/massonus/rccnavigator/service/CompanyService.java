@@ -166,7 +166,8 @@ public class CompanyService {
     }
 
     public List<Company> getAllCompanies() {
-        return companyRepo.findAll().stream().sorted(Comparator.comparing(Company::getId))
+        return companyRepo.findAll().stream()
+                .sorted(Comparator.comparing(Company::getCurrentRating).thenComparing(Company::getCountOfMessages).reversed())
                 .toList();
     }
 

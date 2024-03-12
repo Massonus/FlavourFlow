@@ -30,6 +30,7 @@ public class MessageService {
         message.setText(messageDto.getText());
         message.setLikes(new HashSet<>());
         message.setMessageItemType(messageDto.getItemType());
+        message.setItemId(messageDto.getItemId());
 
         messageRepo.save(message);
 
@@ -42,12 +43,15 @@ public class MessageService {
         return messageRepo.findMessageById(id);
     }
 
-    public Set<Message> getMessagesItemType(final MessageItemType itemType) {
-        return messageRepo.findMessagesByMessageItemType(itemType);
+    public Set<Message> getMessagesByItemTypeAndItemId(final MessageItemType itemType, final Long itemId) {
+        return messageRepo.findMessagesByMessageItemTypeAndItemId(itemType, itemId);
     }
 
     public void deleteMessage(Long messageId) {
         Message messageById = getMessageById(messageId);
+        if (messageById.getMessageItemType().equals(MessageItemType.COMPANY)) {
+            companyService.getCompanyById(messageById.getItemId()).getMessages().remove(messageById);
+        }
         messageRepo.delete(messageById);
     }
 
