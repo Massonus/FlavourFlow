@@ -10,7 +10,7 @@
                 <!--BASKET OBJECTS TABLE-->
                 <div class="table-responsive mb-4">
                     <table class="table text-nowrap">
-                        <thead class="bg-light">
+                        <thead class="thead bg-light">
                         <tr>
                             <th class="border-0 p-3" scope="col"><strong
                                         class="text-sm text-uppercase">Product</strong>
@@ -31,7 +31,7 @@
                         </tr>
                         </thead>
                         <#list products as product>
-                            <tbody class="border-0">
+                            <tbody class="tbody border-0">
                             <tr id="basket-item-${product.getId()}">
                                 <th class="ps-0 py-3 border-light" scope="row">
                                     <div class="d-flex align-items-center">
@@ -69,7 +69,7 @@
                                     <div class="d-flex align-items-center justify-content-between px-3">
                                         <span id="amount-input"
                                               class="small text-uppercase text-gray headings-font-family"><input
-                                                    class="form-control"
+                                                    class="form-control bg-light"
                                                     id="newAmount-${product.getId()}"
                                                     type="number"
                                                     onchange="changeAmount(${product.getId()}, '${_csrf.token}')"

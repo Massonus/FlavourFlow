@@ -5,7 +5,7 @@
 
     <section>
         <div class="container">
-            <table class="table table-striped table-hover">
+            <table id="user-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Username</th>
@@ -41,7 +41,7 @@
 
     <section>
         <div class="container py-5">
-            <table class="table table-striped table-hover">
+            <table id="category-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Category id</th>
@@ -75,7 +75,7 @@
 
     <section>
         <div class="container py-5">
-            <table class="table table-striped table-hover">
+            <table id="country-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Country id</th>
@@ -108,7 +108,7 @@
 
     <section>
         <div class="container py-5">
-            <table class="table table-striped table-hover">
+            <table id="company-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Company id</th>

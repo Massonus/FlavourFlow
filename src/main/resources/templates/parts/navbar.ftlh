@@ -35,7 +35,7 @@
                 <li class="nav-item">
                     <div id="search" class="search">
                         <form class="d-flex" onsubmit="search(event)">
-                            <input id="search-input" placeholder="Type to search"
+                            <input id="search-input" type="text" placeholder="Type to search"
                                    class="search-input">
 
                             <button id="search-button" class="search-button">
