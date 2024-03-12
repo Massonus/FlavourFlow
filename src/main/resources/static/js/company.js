@@ -103,16 +103,75 @@ function editCompany(event, companyId) {
 
 function deleteCompany(companyId, csrf) {
 
+    if (!confirm("If you'll delete this company, all products will be deleted too")) {
+        return;
+    }
+
     const url = `/company/delete?companyId=${companyId}`;
 
     fetch(url, {
         method: "DELETE",
         headers: {
-            'X-CSRF-TOKEN': csrf,
+            'X-CSRF-TOKEN': csrf
         },
     })
         .then(res => {
             document.getElementById(`company-table-${companyId}`).remove();
+        })
+        .catch(error =>
+            console.error(error));
+}
+
+function checkCompany(itemId, itemType, csrf) {
+
+    fetch(`/company/check?itemId=${itemId}&itemType=${itemType}`, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.isSuccess && (itemType === 'COMPANYCOUNTRY')) {
+                deleteCountry(itemId, csrf);
+            } else if (data.isSuccess && (itemType === 'KITCHENCATEGORY')) {
+                deleteCategory(itemId, csrf);
+            } else {
+                window.location.href = `/admin/panel?checkId=${itemId}&itemType=${itemType}`;
+            }
+        })
+        .catch(error => console.log(error));
+}
+
+function afterAlertWindow(itemType, checkId) {
+    window.location.href = `/admin/panel?itemType=${itemType}&checkId=${checkId}&isAfterAlert=${true}`;
+}
+
+function moveCompanies(oldId, newId, itemType, csrf) {
+
+    const url = `/company/move`;
+
+    const body = JSON.stringify({
+        checkId: oldId,
+        newId: newId,
+        itemType: itemType
+    });
+
+    fetch(url, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': csrf
+        },
+        body: body
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.itemType === 'COMPANYCOUNTRY') {
+                deleteCountry(oldId, csrf);
+            } else {
+                deleteCategory(oldId, csrf);
+            }
+
         })
         .catch(error =>
             console.error(error));

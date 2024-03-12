@@ -65,6 +65,10 @@ a:hover {
     max-width: 100px;
 }
 
+.order h1, h2{
+    text-align: center;
+}
+
 /* Header */
 
 /* Product card */
@@ -79,15 +83,15 @@ a:hover {
 }
 
 .filters__img {
-    width: 400px;
-    height: 220px;
+    width: 95%;
+    height: 90%;
     overflow: hidden;
     margin: 10px;
 }
 
 .filters__product-img {
-    width: 290px;
-    height: 200px;
+    width: 93%;
+    height: 60%;
     overflow: hidden;
     margin: 10px;
 }
@@ -122,6 +126,10 @@ a:hover {
     font-size: 18px;
     color: #ee6e73;
     font-weight: 600;
+}
+
+.product-price p{
+    color: gold;
 }
 
 .product-price small {
@@ -260,7 +268,7 @@ input:checked + label:before {
     height: 100vh;
     z-index: 99998;
     background-color: rgba(0, 0, 0, .3);
-    display: grid;
+    display: flex;
     align-items: center;
     justify-content: center;
     overflow-y: auto;
@@ -287,7 +295,7 @@ input:checked + label:before {
 
 .modal__box {
     position: relative;
-    max-width: 500px;
+    max-width: 700px;
     padding: 45px;
     z-index: 1;
     margin: 30px 15px;
@@ -365,12 +373,3 @@ input:checked + label:before {
 #wish-card:hover {
     transform: scale(1.06);
 }
-
-/*.pagination {
-    --bs-pagination-border-color: red;
-    --bs-pagination-color: red;
-    --bs-pagination-hover-color: red;
-    --bs-pagination-hover-border-color: red;
-    --bs-pagination-active-bg: red;
-    --bs-pagination-active-border-color: red;
-}*/

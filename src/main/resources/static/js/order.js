@@ -68,40 +68,4 @@ function createOrder(event, companyId) {
 
 function openOrderForm() {
     document.getElementById("order-form-modal").classList.add("open");
-
-    window.addEventListener('keydown', (e) => {
-        if (e.key === "Escape") {
-            document.getElementById("order-form-modal").classList.remove("open")
-        }
-    });
-    document.querySelector("#order-form-modal .modal__box").addEventListener('click', event => {
-        event._isClickWithInModal = true;
-    });
-    document.getElementById("order-form-modal").addEventListener('click', event => {
-        if (event._isClickWithInModal) return;
-        event.currentTarget.classList.remove('open');
-    });
-}
-
-function openOrderAlertForm() {
-    window.addEventListener('keydown', (e) => {
-        if (e.key === "Escape") {
-            document.getElementById("order-alert").classList.remove("open")
-        }
-    });
-    document.querySelector("#order-alert .modal__box").addEventListener('click', event => {
-        event._isClickWithInModal = true;
-    });
-    document.getElementById("order-alert").addEventListener('click', event => {
-        if (event._isClickWithInModal) return;
-        event.currentTarget.classList.remove('open');
-    });
-}
-
-function closeOrderForm() {
-    document.getElementById("order-form-modal").classList.remove("open");
-}
-
-function closeOrderAlertForm() {
-    document.getElementById("order-alert").classList.remove("open");
 }

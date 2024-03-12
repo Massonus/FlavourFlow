@@ -1,13 +1,14 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.KitchenCategoryDto;
+import com.massonus.rccnavigator.entity.CompanyCountry;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.repo.KitchenCategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class KitchenCategoryService {
@@ -24,9 +25,14 @@ public class KitchenCategoryService {
         return categoryRepo.save(kitchenCategory);
     }
 
-    public Set<KitchenCategory> getAllCategories() {
+    public List<KitchenCategory> getAllCategories() {
 
-        return new HashSet<>(categoryRepo.findAll());
+        return categoryRepo.findAll().stream().sorted(Comparator.comparing(KitchenCategory::getId)).toList();
+    }
+
+    public List<KitchenCategory> getAllCategoriesExceptOne(final Long categoryId) {
+        return categoryRepo.findAll().stream()
+                .filter(a -> !a.getId().equals(categoryId)).toList();
     }
 
     public KitchenCategory getCategoryById(Long id) {
@@ -43,9 +49,10 @@ public class KitchenCategoryService {
 
     }
 
-    public void deleteCategory(Long id) {
+    public Long deleteCategory(Long id) {
 
         categoryRepo.delete(getCategoryById(id));
+        return id;
     }
 
 }

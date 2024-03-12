@@ -99,7 +99,8 @@
                                             <p>${company.getPriceCategory()}</p>
                                         </div>
                                         <div class="product-links">
-                                            <a href="/company/info/${company.getId()}">Comments (${company.getCountOfMessages()})</a>
+                                            <a href="/company/info/${company.getId()}">Comments
+                                                (${company.getCountOfMessages()})</a>
                                         </div>
                                     </div>
                                 </div>

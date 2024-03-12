@@ -57,6 +57,10 @@ function editCountry(event, countryId, csrf) {
 
 function deleteCountry(countryId, csrf) {
 
+    if (!confirm("Do you really want to delete this country?")) {
+        window.location.href = "/admin/panel";
+    }
+
     const url = `/country/delete?id=${countryId}`;
 
     fetch(url, {
@@ -66,9 +70,14 @@ function deleteCountry(countryId, csrf) {
         },
     })
         .then(res => {
-            document.getElementById(`country-table-${countryId}`).remove();
+            if (res.ok) {
+                window.location.href = "/admin/panel";
+            }
         })
         .catch(error =>
             console.error(error));
 }
+
+
+
 

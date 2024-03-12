@@ -14,6 +14,6 @@ public interface MessageRepo extends JpaRepository<Message, Long> {
 
     Message findMessageByAuthorId(Long id);
 
-    Set<Message> findMessagesByMessageItemType(MessageItemType messageItemType);
+    Set<Message> findMessagesByMessageItemTypeAndItemId(MessageItemType messageItemType, Long itemId);
 
 }

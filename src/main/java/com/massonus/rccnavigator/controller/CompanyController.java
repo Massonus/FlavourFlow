@@ -1,8 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
-import com.massonus.rccnavigator.dto.CompanyDto;
-import com.massonus.rccnavigator.dto.CompanyFilterDto;
-import com.massonus.rccnavigator.dto.RatingDto;
+import com.massonus.rccnavigator.dto.*;
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.MessageItemType;
 import com.massonus.rccnavigator.entity.User;
@@ -72,7 +70,7 @@ public class CompanyController {
 
         model.addAttribute("user", user);
         model.addAttribute("company", company);
-        model.addAttribute("messages", messageService.getMessagesItemType(MessageItemType.COMPANY));
+        model.addAttribute("messages", messageService.getMessagesByItemTypeAndItemId(MessageItemType.COMPANY, id));
         return "company/companyInfo";
     }
 
@@ -127,6 +125,37 @@ public class CompanyController {
         ratingService.rateCompany(author, companyById, ratingDto.getRating());
 
         return ratingDto;
+    }
+
+    @GetMapping("/check")
+    @ResponseBody
+    public CheckDto checkCompaniesInCountry(@RequestParam Long itemId, @RequestParam ItemType itemType) {
+
+        int amountCompanies;
+
+        if (itemType.equals(ItemType.COMPANYCOUNTRY)) {
+            amountCompanies = companyService.getCompaniesByCountryId(itemId).size();
+        } else {
+            amountCompanies = companyService.getCompaniesByCategoryId(itemId).size();
+        }
+
+        CheckDto checkDto = new CheckDto();
+        checkDto.setSize(amountCompanies);
+        checkDto.setIsSuccess(amountCompanies < 1);
+
+        return checkDto;
+    }
+
+    @PutMapping("/move")
+    @ResponseBody
+    public CheckDto moveCompanies(@RequestBody CheckDto checkDto) {
+
+        if (checkDto.getItemType().equals(ItemType.COMPANYCOUNTRY)) {
+
+            return companyService.moveCompaniesToAnotherCountry(checkDto);
+        } else {
+            return companyService.moveCompaniesToAnotherCategory(checkDto);
+        }
     }
 
 }

@@ -1,7 +1,9 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.CheckDto;
 import com.massonus.rccnavigator.dto.CompanyDto;
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
+import com.massonus.rccnavigator.dto.ItemType;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.ProductRepo;
@@ -124,13 +126,13 @@ public class CompanyService {
 
         KitchenCategory category = categoryService.getCategoryByTitle(title);
         CompanyCountry country = countryService.getCountryByTitle(title);
-        List<Company> companies = companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
+        List<Company> companies = getCompaniesByTitleContainingIgnoreCase(title);
 
         if (Objects.nonNull(category)) {
-            return companyRepo.findCompaniesByKitchenCategoryId(category.getId());
+            return getCompaniesByCategoryId(category.getId());
 
         } else if (Objects.nonNull(country)) {
-            return companyRepo.findCompaniesByCompanyCountryId(country.getId());
+            return getCompaniesByCountryId(country.getId());
 
         } else if (companies.isEmpty()) {
             return productRepo.findProductsByTitleContainingIgnoreCase(title).stream()
@@ -139,6 +141,24 @@ public class CompanyService {
         } else {
             return companies;
         }
+    }
+
+    public CheckDto moveCompaniesToAnotherCountry(final CheckDto checkDto) {
+        List<Company> companiesByCountryId = getCompaniesByCountryId(checkDto.getCheckId());
+        for (Company company : companiesByCountryId) {
+            company.setCompanyCountry(countryService.getCountryById(checkDto.getNewId()));
+        }
+        checkDto.setItemType(ItemType.COMPANYCOUNTRY);
+        return checkDto;
+    }
+
+    public CheckDto moveCompaniesToAnotherCategory(final CheckDto checkDto) {
+        List<Company> companiesByCategoryId = getCompaniesByCategoryId(checkDto.getCheckId());
+        for (Company company : companiesByCategoryId) {
+            company.setKitchenCategory(categoryService.getCategoryById(checkDto.getNewId()));
+        }
+        checkDto.setItemType(ItemType.KITCHENCATEGORY);
+        return checkDto;
     }
 
     public void setCompanyImage(String title, Image image) {
@@ -153,6 +173,14 @@ public class CompanyService {
         companyRepo.save(company);
     }
 
+    public List<Company> getCompaniesByCountryId(Long countryId) {
+        return companyRepo.findCompaniesByCompanyCountryId(countryId);
+    }
+
+    public List<Company> getCompaniesByCategoryId(Long categoryId) {
+        return companyRepo.findCompaniesByKitchenCategoryId(categoryId);
+    }
+
     public void deleteCompany(final Company company) {
         companyRepo.delete(company);
     }
@@ -165,8 +193,13 @@ public class CompanyService {
         return companyRepo.findCompanyByTitle(title);
     }
 
+    public List<Company> getCompaniesByTitleContainingIgnoreCase(String title) {
+        return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
+    }
+
     public List<Company> getAllCompanies() {
-        return companyRepo.findAll().stream().sorted(Comparator.comparing(Company::getId))
+        return companyRepo.findAll().stream()
+                .sorted(Comparator.comparing(Company::getCurrentRating).thenComparing(Company::getCountOfMessages).reversed())
                 .toList();
     }
 

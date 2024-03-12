@@ -1,5 +1,7 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.ItemType;
+import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.CompanyCountryService;
 import com.massonus.rccnavigator.service.CompanyService;
@@ -12,6 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Comparator;
+import java.util.Objects;
 
 @Controller
 @PreAuthorize("hasAuthority('ADMIN')")
@@ -32,13 +38,39 @@ public class AdminController {
     }
 
     @GetMapping("/panel")
-    public String getUserList(@AuthenticationPrincipal User admin, Model model) {
+    public String getAdminPanel(Model model, @AuthenticationPrincipal User admin,
+                                @RequestParam(required = false) Long checkId,
+                                @RequestParam(required = false) ItemType itemType,
+                                @RequestParam(required = false) Boolean isAfterAlert) {
 
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("countries", countryService.getAllCountries());
-        model.addAttribute("companies", companyService.getAllCompanies());
+        model.addAttribute("companies", companyService.getAllCompanies().stream().sorted(Comparator.comparing(Company::getId)).toList());
+
+        if (Objects.nonNull(checkId)) {
+            model.addAttribute("alertModal", "modal open");
+            model.addAttribute("checkId", checkId);
+            model.addAttribute("itemType", itemType);
+        }
+
+        if (Objects.nonNull(itemType) && itemType.equals(ItemType.KITCHENCATEGORY)) {
+            model.addAttribute("alertCompanies", companyService.getCompaniesByCategoryId(checkId));
+            model.addAttribute("size", companyService.getCompaniesByCategoryId(checkId).size());
+            model.addAttribute("existItems", categoryService.getAllCategoriesExceptOne(checkId));
+        }
+
+        if (Objects.nonNull(itemType) && itemType.equals(ItemType.COMPANYCOUNTRY)) {
+            model.addAttribute("alertCompanies", companyService.getCompaniesByCountryId(checkId));
+            model.addAttribute("size", companyService.getCompaniesByCountryId(checkId).size());
+            model.addAttribute("existItems", countryService.getAllCountriesExceptOne(checkId));
+        }
+
+        if (Objects.nonNull(isAfterAlert)) {
+            model.addAttribute("alertModal", "modal");
+            model.addAttribute("chooseModal", "modal open");
+        }
 
         return "admin/adminPanel";
     }

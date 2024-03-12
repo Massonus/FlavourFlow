@@ -48,7 +48,7 @@
         <link rel="stylesheet" type="text/css" href="/css/stars.css">
 
     </head>
-    <body onload="setTheme(); openOrderAlertForm()">
+    <body onload="setTheme(); addEventListeners()">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -31,6 +31,8 @@ public class Message {
 
     private LocalDateTime commentTime;
 
+    private Long itemId;
+
     @Column(columnDefinition = "text", name = "item_type")
     @Enumerated(EnumType.STRING)
     private MessageItemType messageItemType;

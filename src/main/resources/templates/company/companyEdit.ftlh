@@ -33,7 +33,8 @@
                             <label for="companyCountry">Company Country:</label>
                             <select class="form-select" id="companyCountry" required>
                                 <#list countries as country>
-                                    <option <#if company.getCompanyCountry().getId() == country.getId()>selected</#if>value=${country.getId()}>${country.getTitle()}</option>
+                                    <option <#if company.getCompanyCountry().getId() == country.getId()>selected</#if>
+                                            value=${country.getId()}>${country.getTitle()}</option>
                                 </#list>
                             </select>
                         </div>

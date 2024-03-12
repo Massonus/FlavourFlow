@@ -5,7 +5,7 @@
 
     <section>
         <div class="container">
-            <table class="table table-striped table-hover">
+            <table id="user-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Username</th>
@@ -20,7 +20,7 @@
                         <td class="p-3">${user.getStringRole()}</td>
                         <td class="p-3">${user.getEmail()}</td>
                         <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getId() || user.getId() == currentUserId)>
-                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
+                        <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/user/edit/${user.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
@@ -35,13 +35,13 @@
                 </#list>
                 </tbody>
             </table>
-            <a role="button" class="btn black-btn-outline mt-3" href="/user/add">Add new user</a>
+            <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/user/add">Add new user</a>
         </div>
     </section>
 
     <section>
         <div class="container py-5">
-            <table class="table table-striped table-hover">
+            <table id="category-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Category id</th>
@@ -53,12 +53,12 @@
                     <tr id="category-table-${category.getId()}">
                         <th class="p-3" scope="row">${category.getId()}</th>
                         <td class="p-3">${category.getTitle()}</td>
-                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
+                        <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/category/edit/${category.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
                             <button class="btn btn-outline-danger"
-                                    onclick="deleteKitchenCategory(${category.getId()}, '${_csrf.token}')">
+                                    onclick="checkCompany(${category.getId()}, '${category.getClass().getSimpleName()}'.toUpperCase(), '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </button>
                         </td>
@@ -67,7 +67,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/category/add">Add new
+                <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/category/add">Add new
                     category</a>
             </div>
         </div>
@@ -75,7 +75,7 @@
 
     <section>
         <div class="container py-5">
-            <table class="table table-striped table-hover">
+            <table id="country-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Country id</th>
@@ -87,12 +87,12 @@
                     <tr id="country-table-${country.getId()}">
                         <th class="p-3" scope="row">${country.getId()}</th>
                         <td class="p-3">${country.getTitle()}</td>
-                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
+                        <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/country/edit/${country.getId()}">Edit</a>
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               onclick="deleteCountry(${country.getId()}, '${_csrf.token}')">
+                               onclick="checkCompany(${country.getId()}, '${country.getClass().getSimpleName()}'.toUpperCase(), '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
@@ -101,14 +101,14 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/country/add">Add new country</a>
+                <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/country/add">Add new country</a>
             </div>
         </div>
     </section>
 
     <section>
         <div class="container py-5">
-            <table class="table table-striped table-hover">
+            <table id="company-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Company id</th>
@@ -138,7 +138,7 @@
                                 products</a>
                         </td>
 
-                        <td class="p-3"><a role="button" class="btn black-btn-outline"
+                        <td class="p-3"><a role="button" class="btn btn-outline-danger"
                                            onclick="deleteCompany(${company.getId()}, '${_csrf.token}')"><i
                                         class="bi bi-trash text-danger"></i></a>
                         </td>
@@ -147,12 +147,86 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline mt-3" href="/company/add">Add new company</a>
+                <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/company/add">Add new company</a>
             </div>
         </div>
     </section>
 
+    <#if alertCompanies?has_content>
+        <div class="${alertModal}" id="alert-companies-modal">
+            <div class="modal__box">
 
+                <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <h3>This item contains ${size} companies, choose the option</h3>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Company id</th>
+                            <th>Title</th>
+                            <th>Price category</th>
+                            <th>Products count</th>
+                            <th>Company country</th>
+                            <th>Category</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <#list alertCompanies as company>
+                            <tr>
+                                <th>${company.getId()}</th>
+                                <td>${company.getTitle()}</td>
+                                <td>${company.getPriceCategory()}</td>
+                                <td>${company.getCountOfProducts()}</td>
+                                <td>${company.getCompanyCountry().getTitle()}</td>
+                                <td>${company.getKitchenCategory().getTitle()}</td>
+                            </tr>
+                        </#list>
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                   onclick="afterAlertWindow('${itemType}', ${checkId})">Move to the another item</a>
+
+                <#if itemType == 'COMPANYCOUNTRY'>
+                    <button onclick="deleteCountry(${checkId}, '${_csrf.token}')"
+                            class="btn btn-outline-danger w-100 mt-2">Delete companies and products
+                    </button>
+
+                <#else>
+                    <button onclick="deleteCategory(${checkId}, '${_csrf.token}')"
+                            class="btn btn-outline-danger w-100 mt-2">Delete companies and products
+                    </button>
+                </#if>
+            </div>
+        </div>
+    </#if>
+
+    <div class="${chooseModal!''}" id="order-alert">
+        <div class="modal__box">
+
+            <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <#if existItems?has_content>
+                <h3>Choose the another item</h3>
+                <div class="container-buttons">
+                    <#list existItems as item>
+                        <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
+                           onclick="moveCompanies(${checkId}, ${item.getId()}, '${item.getClass().getSimpleName()}'.toUpperCase(), '${_csrf.token}')">${item.getTitle()}</a>
+                    </#list>
+                </div>
+            </#if>
+        </div>
+    </div>
 </@c.page>
 
 

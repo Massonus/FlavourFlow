@@ -6,8 +6,8 @@ import com.massonus.rccnavigator.repo.CompanyCountryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class CompanyCountryService {
@@ -27,17 +27,22 @@ public class CompanyCountryService {
     }
 
 
-    public Set<CompanyCountry> getAllCountries() {
+    public List<CompanyCountry> getAllCountries() {
 
-        return new HashSet<>(countryRepo.findAll());
+        return countryRepo.findAll().stream().sorted(Comparator.comparing(CompanyCountry::getId)).toList();
     }
 
     public CompanyCountry getCountryById(Long id) {
-        return countryRepo.findCompanyTypeById(id);
+        return countryRepo.findCompanyCountryById(id);
     }
 
     public CompanyCountry getCountryByTitle(String title) {
-        return countryRepo.findCompanyTypeByTitleContainingIgnoreCase(title);
+        return countryRepo.findCompanyCountryByTitleContainingIgnoreCase(title);
+    }
+
+    public List<CompanyCountry> getAllCountriesExceptOne(final Long countryId) {
+        return countryRepo.findAll().stream()
+                .filter(a -> !a.getId().equals(countryId)).toList();
     }
 
     public void editCountry(final CountryDto countryDto) {
@@ -45,8 +50,9 @@ public class CompanyCountryService {
         getCountryById(countryDto.getCountryId()).setTitle(countryDto.getTitle());
     }
 
-    public void deleteCountry(Long id) {
+    public Long deleteCountry(Long id) {
 
         countryRepo.delete(getCountryById(id));
+        return id;
     }
 }

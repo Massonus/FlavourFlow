@@ -1,6 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
-import com.massonus.rccnavigator.dto.BasketCheckDto;
+import com.massonus.rccnavigator.dto.CheckDto;
 import com.massonus.rccnavigator.dto.ItemDto;
 import com.massonus.rccnavigator.entity.Basket;
 import com.massonus.rccnavigator.entity.BasketObject;
@@ -91,17 +91,14 @@ public class BasketController {
 
     @GetMapping("/check")
     @ResponseBody
-    public BasketCheckDto checkOrder(@AuthenticationPrincipal User user) {
+    public CheckDto checkOrder(@AuthenticationPrincipal User user) {
 
         int amountCompanies = basketService.getAllCompaniesInUserBasket(user).size();
 
-        BasketCheckDto basketCheckDto = new BasketCheckDto();
-        basketCheckDto.setSize(amountCompanies);
-        basketCheckDto.setIsSuccess(amountCompanies <= 1);
+        CheckDto checkDto = new CheckDto();
+        checkDto.setSize(amountCompanies);
+        checkDto.setIsSuccess(amountCompanies <= 1);
 
-        return basketCheckDto;
-
+        return checkDto;
     }
-
-
 }
