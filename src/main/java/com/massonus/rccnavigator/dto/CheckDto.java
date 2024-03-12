@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class CheckDto {
 
+    private Long checkId;
+
     private Integer size;
 
     private Boolean isSuccess;

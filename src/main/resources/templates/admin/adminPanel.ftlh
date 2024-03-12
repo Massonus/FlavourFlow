@@ -152,36 +152,64 @@
         </div>
     </section>
 
-    <div class="${alertModal!''}" id="order-form-modal">
+    <div class="${alertModal!''}" id="alert-companies-modal">
         <div class="modal__box">
 
-            <button onclick="closeOrderForm()" class="modal__close-btn" id="close-my-modal-btn">
+            <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <p>This category contains ${size!''} companies!</p>
+            <h3>This item contains ${size!''} companies, choose the option</h3>
 
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Company id</th>
+                        <th>Title</th>
+                        <th>Price category</th>
+                        <th>Products count</th>
+                        <th>Company country</th>
+                        <th>Category</th>
 
+                    </tr>
+                    </thead>
+                    <#if alertCompanies?has_content>
+                        <tbody>
+                        <#list alertCompanies as company>
+                            <tr>
+                                <th>${company.getId()}</th>
+                                <td>${company.getTitle()}</td>
+                                <td>${company.getPriceCategory()}</td>
+                                <td>${company.getCountOfProducts()}</td>
+                                <td>${company.getCompanyCountry().getTitle()}</td>
+                                <td>${company.getKitchenCategory().getTitle()}</td>
+                            </tr>
+                        </#list>
+                        </tbody>
+                    </#if>
+                </table>
+            </div>
         </div>
     </div>
 
-    <#--<div class="${modal}" id="order-alert">
-        <div class="modal__box">
+<#--<div class="${modal}" id="order-alert">
+    <div class="modal__box">
 
-            <button onclick="closeOrderAlertForm()" class="modal__close-btn" id="close-my-modal-btn">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+        <button onclick="closeOrderAlertForm()" class="modal__close-btn" id="close-my-modal-btn">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
 
-            <#if companies?has_content>
-                <p>You have ${size!''} different companies in your basket, please choose only one for checkout</p>
-                <div class="container-buttons">
-                    <#list companies as company>
-                        <button type="submit" onclick="afterAlert(${company.getId()})">${company.getTitle()}</button>
-                    </#list>
-                </div>
-            </#if>
-        </div>
-    </div>-->
+        <#if companies?has_content>
+            <p>You have ${size!''} different companies in your basket, please choose only one for checkout</p>
+            <div class="container-buttons">
+                <#list companies as company>
+                    <button type="submit" onclick="afterAlert(${company.getId()})">${company.getTitle()}</button>
+                </#list>
+            </div>
+        </#if>
+    </div>
+</div>-->
 </@c.page>
 
 

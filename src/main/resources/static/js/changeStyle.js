@@ -84,3 +84,37 @@ function setTheme() {
 $(document).ready(function () {
     $('#preloader').fadeOut();
 })
+
+function addEventListeners() {
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") {
+            let modals = document.getElementsByClassName("modal open");
+            for (const element of modals) {
+                element.classList.remove("open");
+            }
+        }
+    });
+
+    let modalBoxes = document.getElementsByClassName("modal__box");
+    for (const element of modalBoxes) {
+        element.addEventListener('click', event => {
+            event._isClickWithInModal = true;
+        });
+    }
+
+    let elements = document.getElementsByClassName("modal open");
+    for (const element of elements) {
+        element.addEventListener('click', event => {
+            if (event._isClickWithInModal) return;
+            event.currentTarget.classList.remove('open');
+        });
+    }
+}
+
+function closeModal() {
+    let modalOpen = document.getElementsByClassName("modal open");
+    for (const element of modalOpen) {
+        element.classList.remove("open");
+    }
+}

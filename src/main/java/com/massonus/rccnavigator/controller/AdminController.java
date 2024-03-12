@@ -36,7 +36,8 @@ public class AdminController {
 
     @GetMapping("/panel")
     public String getAdminPanel(Model model, @AuthenticationPrincipal User admin,
-                              @RequestParam(required = false) Integer size) {
+                                @RequestParam(required = false) Integer size,
+                                @RequestParam(required = false) Long checkId) {
 
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
@@ -47,6 +48,7 @@ public class AdminController {
         if (Objects.nonNull(size)) {
             model.addAttribute("alertModal", "modal open");
             model.addAttribute("size", size);
+            model.addAttribute("alertCompanies", companyService.getCompaniesByCountryId(checkId));
         }
 
         return "admin/adminPanel";

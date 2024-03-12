@@ -268,7 +268,7 @@ input:checked + label:before {
     height: 100vh;
     z-index: 99998;
     background-color: rgba(0, 0, 0, .3);
-    display: grid;
+    display: flex;
     align-items: center;
     justify-content: center;
     overflow-y: auto;
@@ -295,7 +295,7 @@ input:checked + label:before {
 
 .modal__box {
     position: relative;
-    max-width: 500px;
+    max-width: 700px;
     padding: 45px;
     z-index: 1;
     margin: 30px 15px;

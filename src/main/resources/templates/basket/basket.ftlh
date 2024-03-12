@@ -128,10 +128,9 @@
     <div class="${orderModal}" id="order-form-modal">
         <div class="modal__box">
 
-            <button onclick="closeOrderForm()" class="modal__close-btn" id="close-my-modal-btn">
+            <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-
 
             <form id="order-checkout" onsubmit="createOrder(event, ${companyId!''})">
                 <input id="orderName" name="name" type="text" placeholder="Your name">
@@ -149,7 +148,7 @@
     <div class="${modal}" id="order-alert">
         <div class="modal__box">
 
-            <button onclick="closeOrderAlertForm()" class="modal__close-btn" id="close-my-modal-btn">
+            <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 

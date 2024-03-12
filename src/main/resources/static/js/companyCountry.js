@@ -77,9 +77,6 @@ function checkCountry(countryId, csrf) {
 
     fetch(`/company/check-country?countryId=${countryId}`, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
     })
         .then(res => res.json())
         .then((data) => {
@@ -88,10 +85,12 @@ function checkCountry(countryId, csrf) {
             if (data.isSuccess) {
                 deleteCountry(countryId, csrf);
             } else {
-                window.location.href = `/admin/panel?size=${data.size}`;
+                window.location.href = `/admin/panel?size=${data.size}&checkId=${countryId}`;
             }
         })
         .catch(error => console.log(error));
 }
+
+
 
 
