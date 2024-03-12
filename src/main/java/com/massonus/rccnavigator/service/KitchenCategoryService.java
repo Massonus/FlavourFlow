@@ -6,8 +6,8 @@ import com.massonus.rccnavigator.repo.KitchenCategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class KitchenCategoryService {
@@ -24,9 +24,9 @@ public class KitchenCategoryService {
         return categoryRepo.save(kitchenCategory);
     }
 
-    public Set<KitchenCategory> getAllCategories() {
+    public List<KitchenCategory> getAllCategories() {
 
-        return new HashSet<>(categoryRepo.findAll());
+        return categoryRepo.findAll().stream().sorted(Comparator.comparing(KitchenCategory::getId)).toList();
     }
 
     public KitchenCategory getCategoryById(Long id) {

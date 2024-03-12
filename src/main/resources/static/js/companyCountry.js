@@ -72,3 +72,26 @@ function deleteCountry(countryId, csrf) {
             console.error(error));
 }
 
+
+function checkCountry(countryId, csrf) {
+
+    fetch(`/company/check-country?countryId=${countryId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            console.log(data.isSuccess);
+            if (data.isSuccess) {
+                deleteCountry(countryId, csrf);
+            } else {
+                window.location.href = `/admin/panel?size=${data.size}`;
+            }
+        })
+        .catch(error => console.log(error));
+}
+
+

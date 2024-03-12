@@ -6,8 +6,8 @@ import com.massonus.rccnavigator.repo.CompanyCountryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class CompanyCountryService {
@@ -27,9 +27,9 @@ public class CompanyCountryService {
     }
 
 
-    public Set<CompanyCountry> getAllCountries() {
+    public List<CompanyCountry> getAllCountries() {
 
-        return new HashSet<>(countryRepo.findAll());
+        return countryRepo.findAll().stream().sorted(Comparator.comparing(CompanyCountry::getId)).toList();
     }
 
     public CompanyCountry getCountryById(Long id) {

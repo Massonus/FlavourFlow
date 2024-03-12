@@ -92,7 +92,7 @@
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               onclick="deleteCountry(${country.getId()}, '${_csrf.token}')">
+                               onclick="checkCountry(${country.getId()}, '${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
@@ -152,7 +152,36 @@
         </div>
     </section>
 
+    <div class="${alertModal!''}" id="order-form-modal">
+        <div class="modal__box">
 
+            <button onclick="closeOrderForm()" class="modal__close-btn" id="close-my-modal-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <p>This category contains ${size!''} companies!</p>
+
+
+        </div>
+    </div>
+
+    <#--<div class="${modal}" id="order-alert">
+        <div class="modal__box">
+
+            <button onclick="closeOrderAlertForm()" class="modal__close-btn" id="close-my-modal-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <#if companies?has_content>
+                <p>You have ${size!''} different companies in your basket, please choose only one for checkout</p>
+                <div class="container-buttons">
+                    <#list companies as company>
+                        <button type="submit" onclick="afterAlert(${company.getId()})">${company.getTitle()}</button>
+                    </#list>
+                </div>
+            </#if>
+        </div>
+    </div>-->
 </@c.page>
 
 

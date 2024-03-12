@@ -124,13 +124,13 @@ public class CompanyService {
 
         KitchenCategory category = categoryService.getCategoryByTitle(title);
         CompanyCountry country = countryService.getCountryByTitle(title);
-        List<Company> companies = companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
+        List<Company> companies = getCompaniesByTitleContainingIgnoreCase(title);
 
         if (Objects.nonNull(category)) {
-            return companyRepo.findCompaniesByKitchenCategoryId(category.getId());
+            return getCompaniesByCategoryId(category.getId());
 
         } else if (Objects.nonNull(country)) {
-            return companyRepo.findCompaniesByCompanyCountryId(country.getId());
+            return getCompaniesByCountryId(country.getId());
 
         } else if (companies.isEmpty()) {
             return productRepo.findProductsByTitleContainingIgnoreCase(title).stream()
@@ -153,6 +153,14 @@ public class CompanyService {
         companyRepo.save(company);
     }
 
+    public List<Company> getCompaniesByCountryId(Long countryId) {
+        return companyRepo.findCompaniesByCompanyCountryId(countryId);
+    }
+
+    public List<Company> getCompaniesByCategoryId(Long categoryId) {
+        return companyRepo.findCompaniesByKitchenCategoryId(categoryId);
+    }
+
     public void deleteCompany(final Company company) {
         companyRepo.delete(company);
     }
@@ -163,6 +171,10 @@ public class CompanyService {
 
     public Company getCompanyByTitle(final String title) {
         return companyRepo.findCompanyByTitle(title);
+    }
+
+    public List<Company> getCompaniesByTitleContainingIgnoreCase(String title) {
+        return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
     }
 
     public List<Company> getAllCompanies() {

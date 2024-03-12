@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BasketCheckDto {
+public class CheckDto {
 
     private Integer size;
 

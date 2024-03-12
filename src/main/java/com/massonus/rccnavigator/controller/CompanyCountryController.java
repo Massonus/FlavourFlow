@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.CheckDto;
 import com.massonus.rccnavigator.dto.CountryDto;
 import com.massonus.rccnavigator.service.CompanyCountryService;
 import org.springframework.beans.factory.annotation.Autowired;

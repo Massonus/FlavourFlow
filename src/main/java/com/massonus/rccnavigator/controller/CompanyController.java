@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.CheckDto;
 import com.massonus.rccnavigator.dto.CompanyDto;
 import com.massonus.rccnavigator.dto.CompanyFilterDto;
 import com.massonus.rccnavigator.dto.RatingDto;
@@ -127,6 +128,19 @@ public class CompanyController {
         ratingService.rateCompany(author, companyById, ratingDto.getRating());
 
         return ratingDto;
+    }
+
+    @GetMapping("/check-country")
+    @ResponseBody
+    public CheckDto checkCompaniesInCountry(@RequestParam Long countryId) {
+
+        int amountCompanies = companyService.getCompaniesByCountryId(countryId).size();
+
+        CheckDto checkDto = new CheckDto();
+        checkDto.setSize(amountCompanies);
+        checkDto.setIsSuccess(amountCompanies < 1);
+
+        return checkDto;
     }
 
 }

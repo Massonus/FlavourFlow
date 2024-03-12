@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Objects;
 
 @Controller
 @PreAuthorize("hasAuthority('ADMIN')")
@@ -32,13 +35,19 @@ public class AdminController {
     }
 
     @GetMapping("/panel")
-    public String getUserList(@AuthenticationPrincipal User admin, Model model) {
+    public String getAdminPanel(Model model, @AuthenticationPrincipal User admin,
+                              @RequestParam(required = false) Integer size) {
 
         model.addAttribute("admin", admin);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("countries", countryService.getAllCountries());
         model.addAttribute("companies", companyService.getAllCompanies());
+
+        if (Objects.nonNull(size)) {
+            model.addAttribute("alertModal", "modal open");
+            model.addAttribute("size", size);
+        }
 
         return "admin/adminPanel";
     }
