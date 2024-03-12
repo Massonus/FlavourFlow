@@ -1,9 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
-import com.massonus.rccnavigator.dto.CheckDto;
-import com.massonus.rccnavigator.dto.CompanyDto;
-import com.massonus.rccnavigator.dto.CompanyFilterDto;
-import com.massonus.rccnavigator.dto.RatingDto;
+import com.massonus.rccnavigator.dto.*;
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.MessageItemType;
 import com.massonus.rccnavigator.entity.User;
@@ -130,11 +127,17 @@ public class CompanyController {
         return ratingDto;
     }
 
-    @GetMapping("/check-country")
+    @GetMapping("/check")
     @ResponseBody
-    public CheckDto checkCompaniesInCountry(@RequestParam Long countryId) {
+    public CheckDto checkCompaniesInCountry(@RequestParam Long itemId, @RequestParam ItemType itemType) {
 
-        int amountCompanies = companyService.getCompaniesByCountryId(countryId).size();
+        int amountCompanies;
+
+        if (itemType.equals(ItemType.COMPANYCOUNTRY)) {
+            amountCompanies = companyService.getCompaniesByCountryId(itemId).size();
+        } else {
+            amountCompanies = companyService.getCompaniesByCategoryId(itemId).size();
+        }
 
         CheckDto checkDto = new CheckDto();
         checkDto.setSize(amountCompanies);

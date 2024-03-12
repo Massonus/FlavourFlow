@@ -92,7 +92,7 @@
                         </td>
                         <td class="p-3 align-middle">
                             <a role="button" class="btn btn-outline-danger"
-                               onclick="checkCountry(${country.getId()}, '${_csrf.token}')">
+                               onclick="checkCompany(${country.getId()}, '${country.getClass().getSimpleName()}'.toUpperCase(),'${_csrf.token}')">
                                 <i class="bi bi-trash text-danger"></i>
                             </a>
                         </td>
@@ -159,7 +159,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <h3>This item contains ${size!''} companies, choose the option</h3>
+            <h3>This item contains <#--${size!''}--> companies, choose the option</h3>
 
             <div class="table-responsive">
                 <table class="table">
@@ -192,7 +192,7 @@
             </div>
 
             <a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-               onclick="afterAlertWindow('COUNTRY', ${checkId!''})">Move to the another item</a>
+               onclick="afterAlertWindow('${itemType!''}', ${checkId!''})">Move to the another item</a>
 
             <button onclick="deleteCountry(${checkId!''}, '${_csrf.token}')"
                     class="btn btn-outline-danger w-100 mt-2">Delete companies and products

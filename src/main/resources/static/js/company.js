@@ -118,6 +118,30 @@ function deleteCompany(companyId, csrf) {
             console.error(error));
 }
 
+function checkCompany(itemId, itemType, csrf) {
+
+    fetch(`/company/check?itemId=${itemId}&itemType=${itemType}`, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            console.log(data.isSuccess);
+            if (data.isSuccess) {
+                deleteCountry(itemId, csrf);
+            } else {
+                console.log(itemType);
+                window.location.href = `/admin/panel?checkId=${itemId}&itemType=${itemType}`;
+            }
+        })
+        .catch(error => console.log(error));
+}
+
+function afterAlertWindow(itemType, checkId) {
+
+    window.location.href = `/admin/panel?itemType=${itemType}&checkId=${checkId}&isAfterAlert=${true}`;
+}
+
 function moveCompanies(oldId, newId, csrf) {
 
     const url = `/company/move`;

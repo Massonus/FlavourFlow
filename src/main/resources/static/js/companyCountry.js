@@ -75,29 +75,5 @@ function deleteCountry(countryId, csrf) {
 }
 
 
-function checkCountry(countryId, csrf) {
-
-    fetch(`/company/check-country?countryId=${countryId}`, {
-        method: 'GET',
-    })
-        .then(res => res.json())
-        .then((data) => {
-
-            console.log(data.isSuccess);
-            if (data.isSuccess) {
-                deleteCountry(countryId, csrf);
-            } else {
-                window.location.href = `/admin/panel?size=${data.size}&checkId=${countryId}`;
-            }
-        })
-        .catch(error => console.log(error));
-}
-
-function afterAlertWindow(itemType, checkId) {
-
-    window.location.href = `/admin/panel?itemType=${itemType}&checkId=${checkId}`;
-}
-
-
 
 

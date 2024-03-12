@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.KitchenCategoryDto;
+import com.massonus.rccnavigator.entity.CompanyCountry;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.repo.KitchenCategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class KitchenCategoryService {
     public List<KitchenCategory> getAllCategories() {
 
         return categoryRepo.findAll().stream().sorted(Comparator.comparing(KitchenCategory::getId)).toList();
+    }
+
+    public List<KitchenCategory> getAllCategoriesExceptOne(final Long categoryId) {
+        return categoryRepo.findAll().stream()
+                .filter(a -> !a.getId().equals(categoryId)).toList();
     }
 
     public KitchenCategory getCategoryById(Long id) {
