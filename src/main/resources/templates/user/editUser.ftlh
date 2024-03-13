@@ -31,14 +31,14 @@
                         <div class="mb-3 row">
                             <label for="password" class="col-sm-4 col-form-label">Password:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="password" name="password">
+                                <input type="text" class="form-control" id="password" name="password" placeholder="password">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="confirmPassword" class="col-sm-4 col-form-label">Password confirmation:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="confirmPassword" name="confirmPassword">
+                                <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="confirm password">
                             </div>
                         </div>
 
