@@ -47,7 +47,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i
                                 class="far fa-user"></i></a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
                         <#if known>
                             <li><a class="dropdown-item" href="/user/profile">${name}</a></li>
                             <li><a class="dropdown-item" href="/logout">Logout</a></li>

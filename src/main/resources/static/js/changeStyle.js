@@ -10,6 +10,7 @@ var userTable = document.getElementById("user-table");
 var categoryTable = document.getElementById("category-table");
 var companyTable = document.getElementById("company-table");
 var countryTable = document.getElementById("country-table");
+var dropMenu = document.getElementsByClassName("dropdown-menu");
 
 function changeStyle() {
 
@@ -43,6 +44,13 @@ function changeStyle() {
 
         if (!(tableHeads === null)) {
             for (const element of tableHeads) {
+                element.classList.remove("bg-light");
+                element.classList.add("bg-dark");
+            }
+        }
+
+        if (!(dropMenu === null)) {
+            for (const element of dropMenu) {
                 element.classList.remove("bg-light");
                 element.classList.add("bg-dark");
             }
@@ -98,6 +106,13 @@ function changeStyle() {
 
         if (!(formControls === null)) {
             for (const element of formControls) {
+                element.classList.remove("bg-dark");
+                element.classList.add("bg-light");
+            }
+        }
+
+        if (!(dropMenu === null)) {
+            for (const element of dropMenu) {
                 element.classList.remove("bg-dark");
                 element.classList.add("bg-light");
             }
@@ -171,6 +186,13 @@ function setTheme() {
 
     if (!(formControls === null)) {
         for (const element of formControls) {
+            element.classList.remove(localStorage.getItem("old-card"));
+            element.classList.add(localStorage.getItem("new-card"));
+        }
+    }
+
+    if (!(dropMenu === null)) {
+        for (const element of dropMenu) {
             element.classList.remove(localStorage.getItem("old-card"));
             element.classList.add(localStorage.getItem("new-card"));
         }
