@@ -87,3 +87,10 @@ function regUser(event, username, email, password, csrf) {
             console.log(error);
         })
 }
+
+function closeAlertWindow() {
+    let alerts = document.getElementsByClassName("alert-danger");
+    for (const alert of alerts) {
+        alert.classList.add("d-none");
+    }
+}

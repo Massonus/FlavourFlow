@@ -10,7 +10,7 @@
 
             <form onsubmit="return validateForm(event)">
                 <div class="input-group">
-                    <input id="username" type="text" class="form-control" placeholder="Username">
+                    <input id="username" type="text" class="form-control" placeholder="Username" oninput="closeAlertWindow()">
                     <span class="input-group-addon">
               <span id="login-user" class="fa fa-user fa-2x"></span>
             </span>
@@ -18,11 +18,10 @@
 
                 <div id="usernameAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="usernameError"></strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
                 <div class="input-group">
-                    <input id="email" type="email" class="form-control" placeholder="Email">
+                    <input id="email" type="email" class="form-control" placeholder="Email" oninput="closeAlertWindow()">
 
                     <span class="input-group-addon">
               <span class="fa-solid fa-envelope fa-2x"></span>
@@ -31,11 +30,10 @@
 
                 <div id="emailAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="emailError"></strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
                 <div class="input-group">
-                    <input id="password" type="password" class="form-control" placeholder="Password">
+                    <input id="password" type="password" class="form-control" placeholder="Password" oninput="closeAlertWindow()">
 
                     <span class="input-group-addon">
               <span class="fa fa-lock fa-2x"></span>
@@ -44,11 +42,10 @@
 
                 <div id="passwordAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="passwordError"></strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
                 <div class="input-group">
-                    <input id="confirmPassword" type="password" class="form-control" placeholder="Confirm password">
+                    <input id="confirmPassword" type="password" class="form-control" placeholder="Confirm password" oninput="closeAlertWindow()">
 
                     <span class="input-group-addon">
               <span class="fa fa-lock fa-2x"></span>
@@ -57,7 +54,6 @@
 
                 <div id="confirmPasswordAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="confirmPasswordError"></strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
                 <div class="row">
