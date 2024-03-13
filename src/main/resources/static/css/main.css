@@ -69,6 +69,23 @@ a:hover {
     text-align: center;
 }
 
+.text-index {
+    color: #800000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20%;
+    top: 0;
+}
+
+.text-index h1{
+    color: #800000;
+}
+
 /* Header */
 
 /* Product card */
