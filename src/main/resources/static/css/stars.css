@@ -92,6 +92,22 @@
     height: 15px;
 }
 
+#star-fill-big {
+    background-image: url(../img/on.svg);
+    background-repeat: no-repeat;
+    background-size: 30px;
+    width: 5%;
+    height: 50px;
+}
+
+#star-empty-big {
+    background-image: url(../img/off.svg);
+    background-repeat: no-repeat;
+    background-size: 30px;
+    width: 5%;
+    height: 50px;
+}
+
 .object-stars {
     text-align: center;
 }

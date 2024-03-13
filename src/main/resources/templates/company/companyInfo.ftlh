@@ -36,9 +36,9 @@
             <#assign rating = (company.getCurrentRating()?number)?int />
             <#list 1..5 as i>
                 <#if i <= rating>
-                    <object id="star-fill"></object>
+                    <object id="star-fill-big"></object>
                 <#else>
-                    <object id="star-empty"></object>
+                    <object id="star-empty-big"></object>
                 </#if>
             </#list>
         </div>
@@ -58,7 +58,7 @@
                         <div class="row">
                             <p>${message.getAuthor().getUsername()}:</p>
                             <a id="likes" class="col align-self-center"
-                               onclick="likeMessage(${message.getId()}, '${message.getMessageItemType()}', ${company.getId()}, '${_csrf.token}')">
+                               <#if known> onclick="likeMessage(${message.getId()}, '${message.getMessageItemType()}', ${company.getId()}, '${_csrf.token}')"</#if>>
                                 <#if message.getIsUnliked()>
                                     <i class="bi bi-heart"></i>
                                 <#else>
