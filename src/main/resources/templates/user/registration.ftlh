@@ -2,31 +2,50 @@
 
 <@c.page>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <form name="myForm" onsubmit="return validateForm()" method="post" action="/registration"
-                  class="form-inline">
+    <div id="container-form" class="container">
+        <div class="form-login">
+            <div class="first-row">
+                <h2 class="first-login">REGISTRATION</h2>
+            </div>
 
-                <label for="login">Login:</label>
-                <input type="text" id="login" name="username"><br>
-                <label for="login" class="small-font">(login must start with a letter and contain only letters, numbers,
-                    and
-                    underscores)</label><br>
-                <span id="loginError" class="error"></span><br><br>
+            <form action="/registration" method="post">
+                <div class="input-group">
+                    <input id="username" name="username" type="text" class="form-control" placeholder="Username">
+                    <span class="input-group-addon">
+              <span id="login-user" class="fa fa-user fa-2x"></span>
+            </span>
+                </div>
+                <div class="input-group">
+                    <input id="email" name="email" type="email" class="form-control" placeholder="email">
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password"><br>
-                <label for="password" class="small-font">(password must be 4-15 characters long and contain at least one
-                    letter, one
-                    digit, and one special character)</label><br>
-                <span id="passwordError" class="error"></span><br><br>
+                    <span class="input-group-addon">
+              <span class="fa-solid fa-envelope fa-2x"></span>
+            </span>
+                </div>
+                <div class="input-group">
+                    <input id="password" name="password" type="password" class="form-control" placeholder="password">
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email"><br>
-                <span id="emailError" class="error"></span><br><br>
+                    <span class="input-group-addon">
+              <span class="fa fa-lock fa-2x"></span>
+            </span>
+                </div>
+                <div class="input-group">
+                    <input id="password" name="password" type="password" class="form-control" placeholder="confirm password">
+
+                    <span class="input-group-addon">
+              <span class="fa fa-lock fa-2x"></span>
+            </span>
+                </div>
+                <div class="row">
+                    <div class="remember-me col-sm-6 col-xs-6">
+                    </div>
+                    <div class="register col-sm-6 col-xs-6">
+                        <a href="/login">Login</a>
+                    </div>
+                </div>
 
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input type="submit" value="Send">
+                <button type="submit" class="btn btn-primary btn-lg login-btn">REGISTRATION</button>
             </form>
         </div>
     </div>

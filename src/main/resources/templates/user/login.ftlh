@@ -28,7 +28,7 @@
                     <div class="remember-me col-sm-6 col-xs-6">
                     </div>
                     <div class="register col-sm-6 col-xs-6">
-                        <a href="#">Register</a>
+                        <a href="registration">Register</a>
                     </div>
                 </div>
 
