@@ -8,6 +8,7 @@ var userTable = document.getElementById("user-table");
 var categoryTable = document.getElementById("category-table");
 var companyTable = document.getElementById("company-table");
 var countryTable = document.getElementById("country-table");
+var productTable = document.getElementById("product-table");
 var dropMenu = document.getElementsByClassName("dropdown-menu");
 
 function changeStyle() {
@@ -74,6 +75,10 @@ function changeStyle() {
             companyTable.className = "table bg-dark";
         }
 
+        if (!(productTable === null)) {
+            productTable.className = "table bg-dark";
+        }
+
         localStorage.setItem('table', 'table bg-dark');
         localStorage.setItem('old-card', 'bg-light');
         localStorage.setItem('new-card', 'bg-dark');
@@ -128,6 +133,10 @@ function changeStyle() {
             categoryTable.className = "table table-striped table-hover";
             countryTable.className = "table table-striped table-hover";
             companyTable.className = "table table-striped table-hover";
+        }
+
+        if (!(productTable === null)) {
+            productTable.className = "table table-striped table-hover";
         }
 
         localStorage.setItem('table', 'table table-striped table-hover');
@@ -194,6 +203,10 @@ function setTheme() {
         categoryTable.className = localStorage.getItem('table') || 'table table-striped table-hover';
         countryTable.className = localStorage.getItem('table') || 'table table-striped table-hover';
         companyTable.className = localStorage.getItem('table') || 'table table-striped table-hover';
+    }
+
+    if (!(productTable === null)) {
+        productTable.className = localStorage.getItem('table') || 'table table-striped table-hover';
     }
 }
 

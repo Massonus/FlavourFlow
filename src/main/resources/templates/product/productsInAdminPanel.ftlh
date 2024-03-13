@@ -4,7 +4,7 @@
 
     <section>
         <div class="container py-5">
-            <table class="table table-striped table-hover">
+            <table id="product-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Product id</th>
