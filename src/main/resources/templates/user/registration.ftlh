@@ -16,7 +16,7 @@
             </span>
                 </div>
 
-                <div id="usernameAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                <div id="usernameAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="usernameError"></strong>
                 </div>
 
@@ -28,7 +28,7 @@
             </span>
                 </div>
 
-                <div id="emailAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                <div id="emailAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="emailError"></strong>
                 </div>
 
@@ -40,7 +40,7 @@
             </span>
                 </div>
 
-                <div id="passwordAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                <div id="passwordAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="passwordError"></strong>
                 </div>
 
@@ -52,7 +52,7 @@
             </span>
                 </div>
 
-                <div id="confirmPasswordAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                <div id="confirmPasswordAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="confirmPasswordError"></strong>
                 </div>
 

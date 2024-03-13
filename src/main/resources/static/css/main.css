@@ -360,3 +360,13 @@ input:checked + label:before {
 #wish-card:hover {
     transform: scale(1.06);
 }
+
+.alert-admin {
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 550px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin: auto;
+    text-align: left;
+}

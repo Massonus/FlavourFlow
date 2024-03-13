@@ -13,14 +13,14 @@
                         <div class="mb-3 row">
                             <label for="username" class="col-sm-4 col-form-label">Username:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="username" placeholder="input username">
+                                <input id="username" type="text" class="form-control" placeholder="input username" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="email" class="col-sm-4 col-form-label">Email:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="email" placeholder="input email">
+                                <input id="email" type="text" class="form-control" placeholder="input email" required>
                             </div>
                         </div>
 
@@ -28,23 +28,23 @@
                         <div class="mb-3 row">
                             <label for="password" class="col-sm-4 col-form-label">Password:</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="password"
-                                       placeholder="password">
+                                <input id="password" type="password" class="form-control"
+                                       placeholder="password" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="confirmPassword" class="col-sm-4 col-form-label">Password confirmation:</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="confirmPassword"
-                                       placeholder="confirm password">
+                                <input id="confirmPassword" type="password" class="form-control"
+                                       placeholder="confirm password" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="role" class="col-sm-4 col-form-label">Role:</label>
                             <div class="col-sm-8">
-                                <select class="form-select" id="role">
+                                <select class="form-select" id="role" required>
                                     <option selected value="USER">USER</option>
                                     <option value="ADMIN">ADMIN</option>
                                 </select>

@@ -11,6 +11,7 @@ function createProduct(event, companyId) {
     let file = productFileUpload.files[0];
 
     if (file === undefined && imageLink.trim() === "") {
+        document.getElementById("productImageAlert").classList.remove('d-none');
         document.getElementById("productImageError").textContent = "Please input image link or upload your file";
         return;
     }
