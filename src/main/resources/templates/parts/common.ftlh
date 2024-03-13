@@ -26,7 +26,7 @@
         <script src="https://kit.fontawesome.com/9deb3ecfc7.js" crossorigin="anonymous"></script>
 
 
-        <script src="../../static/js/registrationValidation.js"></script>
+        <script src="../../static/js/loginRegistration.js"></script>
         <script src="../../static/js/kitchenCategory.js"></script>
         <script src="../../static/js/companyCountry.js"></script>
         <script src="../../static/js/changeStyle.js"></script>
@@ -40,6 +40,7 @@
         <script src="../../static/js/user.js"></script>
         <script src="../../static/js/message.js"></script>
         <script src="../../static/js/rating.js"></script>
+        <script defer src="../../static/js/changeStyle.js"></script>
 
         <script>
             if (localStorage.getItem('theme') === "/css/dark-theme.css") {
@@ -89,7 +90,7 @@
     </div>
 
     </body>
-    <script src="../../static/js/changeStyle.js"></script>
 
+    <#include "footer.ftlh">
     </html>
 </#macro>
