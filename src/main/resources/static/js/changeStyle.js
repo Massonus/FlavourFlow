@@ -1,9 +1,5 @@
 var theme = document.getElementById("theme");
 var nav = document.getElementById('navbar');
-var sort = document.getElementById("sort");
-var kitchenCategory = document.getElementById("kitchenCategory");
-var companyCountry = document.getElementById("companyCountry");
-var productCategory = document.getElementById("productType");
 var cards = document.getElementsByClassName("card");
 var tableHeads = document.getElementsByClassName("thead");
 var formControls = document.getElementsByClassName("form-control");
@@ -58,6 +54,19 @@ function changeStyle() {
             }
         }
 
+        if (!(dropMenu === null)) {
+            for (const element of dropMenu) {
+                element.classList.remove("bg-light");
+                element.classList.add("bg-dark");
+            }
+        }
+
+        if (!(formSelects === null)) {
+            for (const element of formSelects) {
+                element.classList.add("bg-dark");
+            }
+        }
+
         if (!(userTable === null)) {
             userTable.className = "table bg-dark";
             categoryTable.className = "table bg-dark";
@@ -65,24 +74,11 @@ function changeStyle() {
             companyTable.className = "table bg-dark";
         }
 
-        if (!(sort === null)) {
-            sort.className = "form-select bg-dark";
-            productCategory.className = "form-select bg-dark";
-        }
-
-        if (!(kitchenCategory === null)) {
-            kitchenCategory.className = "form-select bg-dark";
-        }
-
-        if (!(companyCountry === null)) {
-            companyCountry.className = "form-select bg-dark";
-        }
-
         localStorage.setItem('table', 'table bg-dark');
         localStorage.setItem('old-card', 'bg-light');
         localStorage.setItem('new-card', 'bg-dark');
-        localStorage.setItem('sort', 'form-select bg-dark');
-        localStorage.setItem('form-select', 'form-select bg-dark');
+        localStorage.setItem('form-select-add', 'bg-dark');
+        localStorage.setItem('form-select-remove', 'select');
         localStorage.setItem('theme', '/css/dark-theme.css');
         localStorage.setItem('class', 'navbar fixed-top navbar-expand-lg navbar-dark bg-dark');
         localStorage.setItem('checker', 'true');
@@ -121,6 +117,12 @@ function changeStyle() {
             }
         }
 
+        if (!(formSelects === null)) {
+            for (const element of formSelects) {
+                element.classList.remove("bg-dark");
+            }
+        }
+
         if (!(userTable === null)) {
             userTable.className = "table table-striped table-hover";
             categoryTable.className = "table table-striped table-hover";
@@ -128,24 +130,11 @@ function changeStyle() {
             companyTable.className = "table table-striped table-hover";
         }
 
-        if (!(sort === null)) {
-            sort.className = "form-select";
-            productCategory.className = "form-select";
-        }
-
-        if (!(kitchenCategory === null)) {
-            kitchenCategory.className = "form-select";
-        }
-
-        if (!(companyCountry === null)) {
-            companyCountry.className = "form-select";
-        }
-
         localStorage.setItem('table', 'table table-striped table-hover');
         localStorage.setItem('old-card', 'bg-dark');
         localStorage.setItem('new-card', 'bg-light');
-        localStorage.setItem('form-select', 'form-select');
-        localStorage.setItem('sort', 'form-select');
+        localStorage.setItem('form-select-add', 'select ');
+        localStorage.setItem('form-select-remove', 'bg-dark');
         localStorage.setItem('theme', '/css/light-theme.css');
         localStorage.setItem('class', 'navbar fixed-top navbar-expand-lg navbar-light bg-light');
         localStorage.setItem('checker', 'false');
@@ -154,16 +143,6 @@ function changeStyle() {
 
 function setTheme() {
     nav.className = localStorage.getItem('class') || 'navbar fixed-top navbar-expand-lg navbar-light bg-light';
-
-    if (!(sort === null)) {
-        sort.className = localStorage.getItem('sort') || 'form-select';
-        productCategory = localStorage.getItem('sort') || 'form-select';
-    }
-
-    if (!(companyCountry === null)) {
-        companyCountry.className = localStorage.getItem('form-select') || 'form-select';
-        kitchenCategory.className = localStorage.getItem('form-select') || 'form-select';
-    }
 
     let checker = document.getElementById("checker");
     let getItem = localStorage.getItem('checker') || false;
@@ -200,6 +179,13 @@ function setTheme() {
         for (const element of dropMenu) {
             element.classList.remove(localStorage.getItem("old-card"));
             element.classList.add(localStorage.getItem("new-card"));
+        }
+    }
+
+    if (!(formSelects === null)) {
+        for (const element of formSelects) {
+            element.classList.add(localStorage.getItem("form-select-add"));
+            element.classList.remove(localStorage.getItem("form-select-remove"));
         }
     }
 
