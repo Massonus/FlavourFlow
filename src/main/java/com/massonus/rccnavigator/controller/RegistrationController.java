@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.controller;
 
 
+import com.massonus.rccnavigator.dto.UserDto;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
@@ -36,13 +38,11 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registrationPost(@RequestParam String username,
-                                   @RequestParam String password,
-                                   @RequestParam String email) {
+    public String registrationPost(@RequestBody UserDto userDto) {
         final User user = new User();
-        user.setPassword(password);
-        user.setUsername(username);
-        user.setEmail(email);
+        user.setPassword(userDto.getPassword());
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
         user.setRoles(Collections.singleton(Role.USER));
         userService.saveUser(user);
         return "redirect:/login";

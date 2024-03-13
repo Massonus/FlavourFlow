@@ -8,34 +8,58 @@
                 <h2 class="first-login">REGISTRATION</h2>
             </div>
 
-            <form action="/registration" method="post">
+            <form onsubmit="validateForm(event)">
                 <div class="input-group">
-                    <input id="username" name="username" type="text" class="form-control" placeholder="Username">
+                    <input id="username" type="text" class="form-control" placeholder="Username">
                     <span class="input-group-addon">
               <span id="login-user" class="fa fa-user fa-2x"></span>
             </span>
                 </div>
+
+                <div id="usernameAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="usernameError"></strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
                 <div class="input-group">
-                    <input id="email" name="email" type="email" class="form-control" placeholder="email">
+                    <input id="email" type="email" class="form-control" placeholder="Email">
 
                     <span class="input-group-addon">
               <span class="fa-solid fa-envelope fa-2x"></span>
             </span>
                 </div>
+
+                <div id="emailAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="emailError"></strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
                 <div class="input-group">
-                    <input id="password" name="password" type="password" class="form-control" placeholder="password">
+                    <input id="password" type="password" class="form-control" placeholder="Password">
 
                     <span class="input-group-addon">
               <span class="fa fa-lock fa-2x"></span>
             </span>
                 </div>
+
+                <div id="passwordAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="passwordError"></strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
                 <div class="input-group">
-                    <input id="password" name="password" type="password" class="form-control" placeholder="confirm password">
+                    <input id="confirmPassword" type="password" class="form-control" placeholder="Confirm password">
 
                     <span class="input-group-addon">
               <span class="fa fa-lock fa-2x"></span>
             </span>
                 </div>
+
+                <div id="confirmPasswordAlert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="confirmPasswordError"></strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
                 <div class="row">
                     <div class="remember-me col-sm-6 col-xs-6">
                     </div>
@@ -44,7 +68,7 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-primary btn-lg login-btn">REGISTRATION</button>
             </form>
         </div>

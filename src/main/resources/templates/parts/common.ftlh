@@ -26,7 +26,7 @@
         <script src="https://kit.fontawesome.com/9deb3ecfc7.js" crossorigin="anonymous"></script>
 
 
-        <script src="../../static/js/registration-validation.js"></script>
+        <script src="../../static/js/registrationValidation.js"></script>
         <script src="../../static/js/kitchenCategory.js"></script>
         <script src="../../static/js/companyCountry.js"></script>
         <script src="../../static/js/changeStyle.js"></script>
