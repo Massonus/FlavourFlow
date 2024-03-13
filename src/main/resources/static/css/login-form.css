@@ -86,6 +86,21 @@
     text-decoration: none;
 }
 
+.alert {
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 520px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin: auto;
+    text-align: left;
+}
+
+.btn-close {
+    display: flex;
+    height: 0;
+}
+
 .slider {
     position: absolute;
     cursor: pointer;

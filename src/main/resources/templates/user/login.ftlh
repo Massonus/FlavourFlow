@@ -17,6 +17,12 @@
               <span id="login-user" class="fa fa-user fa-2x"></span>
             </span>
                 </div>
+
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    test
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
                 <div class="input-group">
                     <input id="password" name="password" type="password" class="form-control" placeholder="password">
 
