@@ -27,6 +27,7 @@
             </div>
         <#else>
             <h2>Empty yet</h2>
+            <div class="empty"></div>
         </#if>
     </div>
 

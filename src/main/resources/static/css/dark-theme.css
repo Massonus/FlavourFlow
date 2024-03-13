@@ -1,6 +1,7 @@
 #staticUsername,  #staticEmail, #inputPassword, #inputPasswordConfirmation, #comment,
 .tbody td p, th, tr, td, .fw-medium, #amount-input input, .card a, .thead strong,
-.dropdown-menu a, .filterOption, .form-select, .product-details a, .container a {
+.dropdown-menu a, .filterOption, .form-select, .product-details a, .container a, #password,
+#username, #email, #confirmPassword, .btn, .form-control, #productTitle, #productPrice, #productCategory, #productImageLink {
     color: #DA77EB;
 }
 
@@ -57,4 +58,8 @@ body {
     --bs-pagination-bg: #212529;
     --bs-pagination-focus-bg: #2F3233;
     --bs-pagination-focus-box-shadow: #212529;
+}
+
+.modal__box {
+    background-color: #212529;
 }

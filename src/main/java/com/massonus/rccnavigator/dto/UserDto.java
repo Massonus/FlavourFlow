@@ -19,4 +19,8 @@ public class UserDto {
     private String password;
 
     private Long redactor;
+
+    private Boolean isSameUsername;
+
+    private Boolean isSameEmail;
 }

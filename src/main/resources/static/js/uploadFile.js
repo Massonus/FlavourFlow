@@ -51,11 +51,16 @@ function checkFile(fileId) {
     if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type)) {
         alert("Only images");
         document.getElementById(fileId).value = '';
+        document.querySelector('.input__file-button-text').innerText = 'Choose your file';
         return;
     }
 
     if (file.size > 1024 * 1024) {
         alert("File must be less then 1 MB");
         document.getElementById(fileId).value = '';
+        document.querySelector('.input__file-button-text').innerText = 'Choose your file';
+        return;
     }
+
+    document.querySelector('.input__file-button-text').innerText = 'Selected';
 }

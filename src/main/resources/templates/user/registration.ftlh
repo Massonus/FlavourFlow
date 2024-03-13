@@ -2,31 +2,70 @@
 
 <@c.page>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <form name="myForm" onsubmit="return validateForm()" method="post" action="/registration"
-                  class="form-inline">
+    <div id="container-form" class="container">
+        <div class="form-login">
+            <div class="first-row">
+                <h2 class="first-login">REGISTRATION</h2>
+            </div>
 
-                <label for="login">Login:</label>
-                <input type="text" id="login" name="username"><br>
-                <label for="login" class="small-font">(login must start with a letter and contain only letters, numbers,
-                    and
-                    underscores)</label><br>
-                <span id="loginError" class="error"></span><br><br>
+            <form onsubmit="return validateForm(event)">
+                <div class="input-group">
+                    <input id="username" type="text" class="form-control" placeholder="Username" oninput="closeAlertWindow()">
+                    <span class="input-group-addon">
+              <span id="login-user" class="fa fa-user fa-2x"></span>
+            </span>
+                </div>
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password"><br>
-                <label for="password" class="small-font">(password must be 4-15 characters long and contain at least one
-                    letter, one
-                    digit, and one special character)</label><br>
-                <span id="passwordError" class="error"></span><br><br>
+                <div id="usernameAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="usernameError"></strong>
+                </div>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email"><br>
-                <span id="emailError" class="error"></span><br><br>
+                <div class="input-group">
+                    <input id="email" type="email" class="form-control" placeholder="Email" oninput="closeAlertWindow()">
 
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input type="submit" value="Send">
+                    <span class="input-group-addon">
+              <span class="fa-solid fa-envelope fa-2x"></span>
+            </span>
+                </div>
+
+                <div id="emailAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="emailError"></strong>
+                </div>
+
+                <div class="input-group">
+                    <input id="password" type="password" class="form-control" placeholder="Password" oninput="closeAlertWindow()">
+
+                    <span class="input-group-addon">
+              <span class="fa fa-lock fa-2x"></span>
+            </span>
+                </div>
+
+                <div id="passwordAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="passwordError"></strong>
+                </div>
+
+                <div class="input-group">
+                    <input id="confirmPassword" type="password" class="form-control" placeholder="Confirm password" oninput="closeAlertWindow()">
+
+                    <span class="input-group-addon">
+              <span class="fa fa-lock fa-2x"></span>
+            </span>
+                </div>
+
+                <div id="confirmPasswordAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="confirmPasswordError"></strong>
+                </div>
+
+                <div class="row">
+                    <div class="remember-me col-sm-6 col-xs-6">
+                    </div>
+                    <div class="register col-sm-6 col-xs-6">
+                        <a href="/login">Login</a>
+                    </div>
+                </div>
+
+                <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-primary btn-lg login-btn">REGISTRATION</button>
             </form>
         </div>
     </div>

@@ -48,91 +48,97 @@
                 </div>
             </div>
 
-            <#list companies as company>
-                <div class="col-lg-4 col-sm-6 mb-3">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="product-card">
-                                <div class="product-thumb">
-                                    <#if (company.getImage()??)>
-                                        <div class="filters__img">
-                                            <a href="/product/all-products?companyId=${company.getId()}"><img
-                                                        alt="product image"
-                                                        src="/images/${company.getImage().getId()}.jpg"
-                                                        class="card-img-top"/></a>
-                                        </div>
-                                    <#else>
-                                        <div class="filters__img">
-                                            <a href="/product/all-products?companyId=${company.getId()}"><img
-                                                        alt="product image"
-                                                        src="${company.getImageLink()}"
-                                                        class="card-img-top"></a>
-                                        </div>
-                                    </#if>
-                                </div>
-                                <div class="product-details">
-                                    <h4>
-                                        <a href="/product/all-products?companyId=${company.getId()}">${company.getTitle()}</a>
-                                    </h4>
-                                    <#if company.getRating()?has_content>
-                                        <#assign rating = (company.getCurrentRating()?number)?int />
-                                        <#list 1..5 as i>
-                                            <#if i <= rating>
-                                                <object id="star-fill"></object>
-                                            <#else>
+            <#if companies?has_content>
+                <#list companies as company>
+                    <div class="col-lg-4 col-sm-6 mb-3">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="product-card">
+                                    <div class="product-thumb">
+                                        <#if (company.getImage()??)>
+                                            <div class="filters__img">
+                                                <a href="/product/all-products?companyId=${company.getId()}"><img
+                                                            alt="product image"
+                                                            src="/images/${company.getImage().getId()}.jpg"
+                                                            class="card-img-top"/></a>
+                                            </div>
+                                        <#else>
+                                            <div class="filters__img">
+                                                <a href="/product/all-products?companyId=${company.getId()}"><img
+                                                            alt="product image"
+                                                            src="${company.getImageLink()}"
+                                                            class="card-img-top"></a>
+                                            </div>
+                                        </#if>
+                                    </div>
+                                    <div class="product-details">
+                                        <h4>
+                                            <a href="/product/all-products?companyId=${company.getId()}">${company.getTitle()}</a>
+                                        </h4>
+                                        <#if company.getRating()?has_content>
+                                            <#assign rating = (company.getCurrentRating()?number)?int />
+                                            <#list 1..5 as i>
+                                                <#if i <= rating>
+                                                    <object id="star-fill"></object>
+                                                <#else>
+                                                    <object id="star-empty"></object>
+                                                </#if>
+                                            </#list>
+                                        <#else>
+                                            <#list 1..5 as i>
                                                 <object id="star-empty"></object>
-                                            </#if>
-                                        </#list>
-                                    <#else>
-                                        <#list 1..5 as i>
-                                            <object id="star-empty"></object>
-                                        </#list>
-                                    </#if>
-                                    <span>(${company.getCountOfRates()})</span>
+                                            </#list>
+                                        </#if>
+                                        <span>(${company.getCountOfRates()})</span>
 
-                                    <h5>${company.getCompanyCountry().getTitle()}</h5>
-                                    <h5>${company.getKitchenCategory().getTitle()}</h5>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
-                                        repudiandae?</p>
-                                    <div class="product-bottom-details d-flex justify-content-between">
-                                        <div class="product-price">
-                                            <p>${company.getPriceCategory()}</p>
-                                        </div>
-                                        <div class="product-links">
-                                            <a href="/company/info/${company.getId()}">Comments
-                                                (${company.getCountOfMessages()})</a>
+                                        <h5>${company.getCompanyCountry().getTitle()}</h5>
+                                        <h5>${company.getKitchenCategory().getTitle()}</h5>
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
+                                            repudiandae?</p>
+                                        <div class="product-bottom-details d-flex justify-content-between">
+                                            <div class="product-price">
+                                                <p>${company.getPriceCategory()}</p>
+                                            </div>
+                                            <div class="product-links">
+                                                <a href="/company/info/${company.getId()}">Comments
+                                                    (${company.getCountOfMessages()})</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </#list>
+                </#list>
+            <#else>
+                <h2>No such companies</h2>
+            </#if>
         </div>
     </div>
-
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center fixed-bottom">
-            <#if currentPage?number gt 0>
-                <li class="page-item">
-                    <a class="page-link"
-                       href="/company?page=${currentPage - 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">Previous</a>
-                </li>
-            </#if>
-            <#list 1..totalPages as i>
-                <li class="page-item<#if i == currentPage + 1> active</#if>">
-                    <a class="page-link"
-                       href="company?page=${i-1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">${i}</a>
-                </li>
-            </#list>
-            <#if currentPage < totalPages - 1>
-                <li class="page-item">
-                    <a class="page-link"
-                       href="/company?page=${currentPage + 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">Next</a>
-                </li>
-            </#if>
-        </ul>
-    </nav>
+<br><br>
+    <#if companies?has_content>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center fixed-bottom py-4">
+                <#if currentPage?number gt 0>
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="/company?page=${currentPage - 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">Previous</a>
+                    </li>
+                </#if>
+                <#list 1..totalPages as i>
+                    <li class="page-item<#if i == currentPage + 1> active</#if>">
+                        <a class="page-link"
+                           href="company?page=${i-1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">${i}</a>
+                    </li>
+                </#list>
+                <#if currentPage < totalPages - 1>
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="/company?page=${currentPage + 1}&categoryId=${categoryId!''}&countryId=${countryId!''}&sort=${sort!''}&search=${search!''}">Next</a>
+                    </li>
+                </#if>
+            </ul>
+        </nav>
+    </#if>
 
 </@c.page>

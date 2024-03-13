@@ -3,6 +3,7 @@ package com.massonus.rccnavigator.controller;
 import com.massonus.rccnavigator.dto.ProductDto;
 import com.massonus.rccnavigator.entity.MessageItemType;
 import com.massonus.rccnavigator.entity.Product;
+import com.massonus.rccnavigator.entity.ProductCategory;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,13 @@ public class ProductController {
     @GetMapping("/all-products")
     public String getProductsOfCompany(@RequestParam Long companyId, Model model,
                                        @RequestParam(value = "page", defaultValue = "0") Integer page,
-                                       @RequestParam(required = false) String sort) {
+                                       @RequestParam(required = false) String sort,
+                                       @RequestParam(required = false) ProductCategory productCategory) {
 
         int pageSize = 4;
 
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Product> productPage = productService.getProductsInPage(companyId, pageable, sort);
+        Page<Product> productPage = productService.getProductsInPage(companyId, pageable, sort, productCategory);
 
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("objects", basketObjectService.getAllBasketObjects());
@@ -54,6 +56,7 @@ public class ProductController {
         model.addAttribute("currentPage", page);
         model.addAttribute("companyId", companyId);
         model.addAttribute("sort", sort == null ? "Default" : sort);
+        model.addAttribute("productCategory", productCategory == null ? "Default" : productCategory);
 
         return "product/allProducts";
     }

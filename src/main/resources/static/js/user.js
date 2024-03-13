@@ -13,11 +13,6 @@ function createUser(event, redactor) {
         return;
     }
 
-    if (role === undefined && redactor === undefined) {
-        role = "USER";
-        redactor = 1337;
-    }
-
     const body = JSON.stringify({
         username: username,
         email: email,

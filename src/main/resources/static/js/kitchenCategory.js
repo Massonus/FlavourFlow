@@ -62,7 +62,7 @@ function editKitchenCategory(event, categoryId) {
 function deleteCategory(categoryId, csrf) {
 
     if (!confirm("Do you really want to delete this category?")) {
-        window.location.href = "/admin/panel";
+        return;
     }
 
     const url = `/category/delete?id=${categoryId}`;

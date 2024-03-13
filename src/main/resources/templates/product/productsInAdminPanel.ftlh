@@ -4,7 +4,7 @@
 
     <section>
         <div class="container py-5">
-            <table class="table table-striped table-hover">
+            <table id="product-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Product id</th>
@@ -32,7 +32,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn-outline" href="/product/add/${companyId}">Add product</a>
+                <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/product/add/${companyId}">Add product</a>
             </div>
         </div>
     </section>

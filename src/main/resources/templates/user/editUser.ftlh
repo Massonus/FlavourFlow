@@ -3,7 +3,6 @@
 
 <@c.page>
 
-    <body>
     <section>
         <div class="container py-5">
             <section class="py-5">
@@ -14,16 +13,16 @@
                         <div class="mb-3 row">
                             <label for="username" class="col-sm-4 col-form-label">Username:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="username" name="username"
-                                       value="${editUser.getUsername()}">
+                                <input type="text" class="form-control" id="username"
+                                       value="${editUser.getUsername()}" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="email" class="col-sm-4 col-form-label">Email:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="email" name="email"
-                                       value="${editUser.getEmail()}">
+                                <input type="text" class="form-control" id="email"
+                                       value="${editUser.getEmail()}" required>
                             </div>
                         </div>
 
@@ -31,23 +30,27 @@
                         <div class="mb-3 row">
                             <label for="password" class="col-sm-4 col-form-label">Password:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="password" name="password">
+                                <input type="text" class="form-control" id="password"
+                                       placeholder="password">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="confirmPassword" class="col-sm-4 col-form-label">Password confirmation:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="confirmPassword" name="confirmPassword">
+                                <input type="text" class="form-control" id="confirmPassword"
+                                       placeholder="confirm password">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="role">Role:</label>
-                            <select class="form-select" id="role">
-                                <option value="USER">USER</option>
-                                <option <#if editUser.isAdmin()>selected</#if> value="ADMIN">ADMIN</option>
-                            </select>
+                            <label for="role" class="col-sm-4 col-form-label">Role:</label>
+                            <div class="col-sm-8">
+                                <select class="form-select" id="role" required>
+                                    <option value="USER">USER</option>
+                                    <option <#if editUser.isAdmin()>selected</#if> value="ADMIN">ADMIN</option>
+                                </select>
+                            </div>
                         </div>
 
                         <a role="button" class="btn btn-outline-secondary mt-3"
@@ -59,6 +62,5 @@
             </section>
         </div>
     </section>
-    </body>
 
 </@c.page>

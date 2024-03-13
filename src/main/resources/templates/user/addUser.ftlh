@@ -3,44 +3,62 @@
 
 <@c.page>
 
-    <form onsubmit="createUser(event, ${currentUserId})">
+    <section>
+        <div class="container py-5">
+            <section class="py-5">
+                <h2 class="h5 text-uppercase mb-4">User create</h2>
+                <div style="max-width: 600px" class="w-100">
+                    <form onsubmit="createUser(event, ${currentUserId})" class="text-start py-4">
 
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
-        </div>
-        <br>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
-        </div>
-        <br>
-        <div class="mb-3 row">
-            <label for="role">Role:</label>
-            <select class="form-select" id="role">
-                <option selected value="USER">USER</option>
-                <option value="ADMIN">ADMIN</option>
-            </select>
-        </div>
+                        <div class="mb-3 row">
+                            <label for="username" class="col-sm-4 col-form-label">Username:</label>
+                            <div class="col-sm-8">
+                                <input id="username" type="text" class="form-control" placeholder="input username" required>
+                            </div>
+                        </div>
 
-        <br>
+                        <div class="mb-3 row">
+                            <label for="email" class="col-sm-4 col-form-label">Email:</label>
+                            <div class="col-sm-8">
+                                <input id="email" type="text" class="form-control" placeholder="input email" required>
+                            </div>
+                        </div>
 
-        <span id="passwordError" class="error"></span>
-        <div>
-            <label for="password">Password:</label>
-            <input id="password" type="password" name="password">
+                        <span id="passwordError" class="error"></span>
+                        <div class="mb-3 row">
+                            <label for="password" class="col-sm-4 col-form-label">Password:</label>
+                            <div class="col-sm-8">
+                                <input id="password" type="password" class="form-control"
+                                       placeholder="password" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="confirmPassword" class="col-sm-4 col-form-label">Password confirmation:</label>
+                            <div class="col-sm-8">
+                                <input id="confirmPassword" type="password" class="form-control"
+                                       placeholder="confirm password" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="role" class="col-sm-4 col-form-label">Role:</label>
+                            <div class="col-sm-8">
+                                <select class="form-select" id="role" required>
+                                    <option selected value="USER">USER</option>
+                                    <option value="ADMIN">ADMIN</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <a role="button" class="btn btn-outline-secondary mt-3"
+                           href="/admin/panel">Cancel</a>
+                        <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
+                        <button type="submit" class="btn black-btn-outline mt-3">Save</button>
+                    </form>
+                </div>
+            </section>
         </div>
-        <br>
-        <div>
-            <label for="confirmPassword">Password confirmation:</label>
-            <input id="confirmPassword" type="password" name="confirmPassword">
-        </div>
-        <br>
-        <div>
-            <a role="button" class="btn btn-outline-secondary mt-3" href="/admin/panel">Cancel</a>
-            <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
-            <button type="submit" class="btn black-btn-outline mt-3 ms-2">Save</button>
-        </div>
-    </form>
+    </section>
 
 </@c.page>

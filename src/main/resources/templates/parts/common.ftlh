@@ -14,6 +14,10 @@
               integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
               crossorigin="anonymous">
 
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -22,7 +26,7 @@
         <script src="https://kit.fontawesome.com/9deb3ecfc7.js" crossorigin="anonymous"></script>
 
 
-        <script src="../../static/js/registration-validation.js"></script>
+        <script src="../../static/js/loginRegistration.js"></script>
         <script src="../../static/js/kitchenCategory.js"></script>
         <script src="../../static/js/companyCountry.js"></script>
         <script src="../../static/js/changeStyle.js"></script>
@@ -36,6 +40,7 @@
         <script src="../../static/js/user.js"></script>
         <script src="../../static/js/message.js"></script>
         <script src="../../static/js/rating.js"></script>
+        <script defer src="../../static/js/changeStyle.js"></script>
 
         <script>
             if (localStorage.getItem('theme') === "/css/dark-theme.css") {
@@ -45,7 +50,9 @@
             }
         </script>
         <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/login-form.css">
         <link rel="stylesheet" type="text/css" href="/css/stars.css">
+        <link rel="stylesheet" type="text/css" href="/css/file.css">
 
     </head>
     <body onload="setTheme(); addEventListeners()">
@@ -84,7 +91,7 @@
     </div>
 
     </body>
-    <script src="../../static/js/changeStyle.js"></script>
 
+    <#include "footer.ftlh">
     </html>
 </#macro>
