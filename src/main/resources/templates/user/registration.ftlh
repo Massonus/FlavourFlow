@@ -8,7 +8,7 @@
                 <h2 class="first-login">REGISTRATION</h2>
             </div>
 
-            <form onsubmit="validateForm(event)">
+            <form onsubmit="return validateForm(event)">
                 <div class="input-group">
                     <input id="username" type="text" class="form-control" placeholder="Username">
                     <span class="input-group-addon">
