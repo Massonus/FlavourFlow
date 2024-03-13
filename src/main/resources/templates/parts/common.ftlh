@@ -52,6 +52,7 @@
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         <link rel="stylesheet" type="text/css" href="/css/login-form.css">
         <link rel="stylesheet" type="text/css" href="/css/stars.css">
+        <link rel="stylesheet" type="text/css" href="/css/file.css">
 
     </head>
     <body onload="setTheme(); addEventListeners()">
