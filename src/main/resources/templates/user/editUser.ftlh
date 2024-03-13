@@ -3,7 +3,6 @@
 
 <@c.page>
 
-    <body>
     <section>
         <div class="container py-5">
             <section class="py-5">
@@ -63,6 +62,5 @@
             </section>
         </div>
     </section>
-    </body>
 
 </@c.page>
