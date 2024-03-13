@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 
@@ -38,14 +35,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registrationPost(@RequestBody UserDto userDto) {
-        final User user = new User();
-        user.setPassword(userDto.getPassword());
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
-        user.setRoles(Collections.singleton(Role.USER));
-        userService.saveUser(user);
-        return "redirect:/login";
+    @ResponseBody
+    public UserDto registrationPost(@RequestBody UserDto userDto) {
+        return userService.registrationUser(userDto);
     }
 
     @GetMapping("/logout")

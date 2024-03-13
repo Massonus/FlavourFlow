@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.UserDto;
+import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,43 @@ public class UserService implements UserDetailsService {
         savedUser.setEmail(email);
     }
 
+    public UserDto registrationUser(final UserDto userDto) {
+
+        final UserDto checkedNewUser = checkNewUser(userDto);
+
+        if (checkedNewUser.getIsSameEmail() != null || checkedNewUser.getIsSameUsername() != null) {
+            return checkedNewUser;
+        }
+
+        final User user = new User();
+        user.setPassword(userDto.getPassword());
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setRoles(Collections.singleton(Role.USER));
+        saveUser(user);
+
+        return userDto;
+    }
+
+    private UserDto checkNewUser(final UserDto userDto) {
+        Set<User> allUsers = getAllUsers();
+
+        boolean isSameUsername = allUsers.stream()
+                .anyMatch(u -> u.getUsername().equals(userDto.getUsername()));
+
+        boolean isSameEmail = allUsers.stream()
+                .anyMatch(u -> u.getEmail().equals(userDto.getEmail()));
+
+        if (isSameUsername) {
+            userDto.setIsSameUsername(true);
+
+        } else if (isSameEmail) {
+
+            userDto.setIsSameEmail(true);
+        }
+
+        return userDto;
+    }
     public User getUserById(Long id) {
         return userRepo.findUserById(id);
     }

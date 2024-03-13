@@ -66,12 +66,21 @@ function regUser(event, username, email, password, csrf) {
             "Content-Type": "application/json",
             "X-CSRF-TOKEN": csrf
         },
-        body: body,
+        body: body
 
     })
-        .then(res => {
-            if (res.ok) {
-                window.location.href = `/login`;
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.isSameUsername) {
+                document.getElementById("usernameError").textContent = "User with the same username is already exist";
+                document.getElementById("usernameAlert").classList.remove('d-none');
+
+            } else if (data.isSameEmail) {
+                document.getElementById("emailError").textContent = "User with the same email is already exist";
+                document.getElementById("emailAlert").classList.remove('d-none');
+            } else {
+                window.location.href = "/login";
             }
         })
         .catch(error => {
