@@ -3,6 +3,7 @@ package com.massonus.rccnavigator.service;
 import com.massonus.rccnavigator.dto.ProductDto;
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.Product;
+import com.massonus.rccnavigator.entity.ProductCategory;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,23 +65,16 @@ public class ProductService {
 
     }
 
-    public Page<Product> getProductsInPage(Long companyId, Pageable pageable, String sort) {
+    public Page<Product> getProductsInPage(final Long companyId, final Pageable pageable, final String sort, final ProductCategory productCategory) {
 
         List<Product> products = getAllProductsByCompanyId(companyId);
 
-        /*if (Objects.nonNull(companyFilterDto.getCountryId())) {
+        if (Objects.nonNull(productCategory)) {
 
             products = products.stream()
-                    .filter(company -> company.getCompanyCountry().getId().equals(companyFilterDto.getCountryId()))
+                    .filter(p -> p.getProductCategory().equals(productCategory))
                     .toList();
         }
-
-        if (Objects.nonNull(companyFilterDto.getCategoryId())) {
-
-            products = products.stream()
-                    .filter(company -> company.getKitchenCategory().getId().equals(companyFilterDto.getCategoryId()))
-                    .toList();
-        }*/
 
         if (Objects.nonNull(sort)) {
             products = getSortedProducts(sort, products);

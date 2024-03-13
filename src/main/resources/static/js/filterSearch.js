@@ -19,8 +19,9 @@ function filterProduct(event, companyId) {
     event.preventDefault();
 
     let sort = document.getElementById("sort").value;
+    let productCategory = document.getElementById("productCategory").value;
 
-    const url = `/product/all-products?companyId=${companyId}&sort=${sort}`;
+    const url = `/product/all-products?companyId=${companyId}&sort=${sort}&productCategory=${productCategory}`;
 
     fetch(url, {
         method: 'GET',

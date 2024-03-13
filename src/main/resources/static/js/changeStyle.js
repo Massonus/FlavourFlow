@@ -3,9 +3,11 @@ var nav = document.getElementById('navbar');
 var sort = document.getElementById("sort");
 var kitchenCategory = document.getElementById("kitchenCategory");
 var companyCountry = document.getElementById("companyCountry");
+var productCategory = document.getElementById("productType");
 var cards = document.getElementsByClassName("card");
 var tableHeads = document.getElementsByClassName("thead");
 var formControls = document.getElementsByClassName("form-control");
+var formSelects = document.getElementsByClassName("form-select");
 var userTable = document.getElementById("user-table");
 var categoryTable = document.getElementById("category-table");
 var companyTable = document.getElementById("company-table");
@@ -65,6 +67,7 @@ function changeStyle() {
 
         if (!(sort === null)) {
             sort.className = "form-select bg-dark";
+            productCategory.className = "form-select bg-dark";
         }
 
         if (!(kitchenCategory === null)) {
@@ -127,6 +130,7 @@ function changeStyle() {
 
         if (!(sort === null)) {
             sort.className = "form-select";
+            productCategory.className = "form-select";
         }
 
         if (!(kitchenCategory === null)) {
@@ -153,6 +157,7 @@ function setTheme() {
 
     if (!(sort === null)) {
         sort.className = localStorage.getItem('sort') || 'form-select';
+        productCategory = localStorage.getItem('sort') || 'form-select';
     }
 
     if (!(companyCountry === null)) {

@@ -28,6 +28,19 @@
                     </div>
                 </div>
 
+                <div class="mb-3">
+                    <label for="productType" class="form-label">Product category:</label>
+                    <select onchange="filterProduct(event, ${companyId})" class="form-select" id="productType">
+
+                        <option selected value="">Default</option>
+
+                        <option <#if productCategory == "DRINK">selected</#if> class="filterOption" value="DRINK">DRINK</option>
+
+                        <option <#if productCategory == "MEAL">selected</#if> class="filterOption" value="MEAL">MEAL</option>
+
+                    </select>
+                </div>
+
                 <#list products as product>
                     <div class="col-lg-3 col-sm-6 mb-3">
                         <div class="row">
