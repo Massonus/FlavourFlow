@@ -1,6 +1,6 @@
 #staticUsername,  #staticEmail, #inputPassword, #inputPasswordConfirmation, #comment,
 .tbody td p, th, tr, td, .fw-medium, #amount-input input, .card a, .thead strong,
-.dropdown-menu a, .filterOption, .form-select, .product-details a, .container a, #password, #username, #email, #confirmPassword {
+.dropdown-menu a, .filterOption, .form-select, .product-details a, .container a, #password, #username, #email, #confirmPassword, .btn {
     color: #DA77EB;
 }
 

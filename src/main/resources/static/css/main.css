@@ -288,6 +288,10 @@ input:checked + label:before {
     transition: transform .8s;
 }
 
+.h5 {
+    text-align: left;
+}
+
 .container-buttons{
     display: flex;
     flex-wrap: wrap;
