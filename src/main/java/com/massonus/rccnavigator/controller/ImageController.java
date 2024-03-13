@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,7 @@ public class ImageController {
                 .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload-product")
     public ResponseEntity<?> uploadProductImage(@RequestParam("file") MultipartFile file,
                                                 @RequestParam(required = false) Long companyId,
@@ -60,6 +62,7 @@ public class ImageController {
         return ResponseEntity.ok("upload success");
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload-company")
     public ResponseEntity<?> uploadCompanyImage(@RequestParam("file") MultipartFile file,
                                                 @RequestParam(required = false) String title,

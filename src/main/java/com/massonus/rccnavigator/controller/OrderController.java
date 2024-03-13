@@ -39,7 +39,6 @@ public class OrderController {
         List<Order> userOrders = orderService.getUserOrders(user.getId());
 
         model.addAttribute("orders", userOrders);
-        /*model.addAttribute("orderObjects", )*/
 
         return "order/ordersInfo";
 

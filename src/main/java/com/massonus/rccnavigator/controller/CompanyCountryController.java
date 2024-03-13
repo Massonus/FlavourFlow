@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/country")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class CompanyCountryController {
 
     private final CompanyCountryService countryService;
@@ -20,7 +21,6 @@ public class CompanyCountryController {
         this.countryService = countryService;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add")
     public String getAddCountryForm() {
 
@@ -28,7 +28,6 @@ public class CompanyCountryController {
 
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     public void addCountry(@RequestBody CountryDto countryDto) {
 
@@ -36,7 +35,6 @@ public class CompanyCountryController {
 
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/edit/{id}")
     public String getCountryEditForm(@PathVariable Long id, Model model) {
 
@@ -46,14 +44,12 @@ public class CompanyCountryController {
 
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/edit")
     public void editCountry(@RequestBody CountryDto countryDto) {
 
         countryService.editCountry(countryDto);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete")
     @ResponseBody
     public Long deleteCountry(@RequestParam Long id) {

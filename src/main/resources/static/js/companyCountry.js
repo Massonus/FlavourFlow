@@ -58,7 +58,7 @@ function editCountry(event, countryId, csrf) {
 function deleteCountry(countryId, csrf) {
 
     if (!confirm("Do you really want to delete this country?")) {
-        window.location.href = "/admin/panel";
+        return;
     }
 
     const url = `/country/delete?id=${countryId}`;

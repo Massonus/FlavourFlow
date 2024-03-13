@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/category")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class KitchenCategoryController {
 
     private final KitchenCategoryService categoryService;
@@ -20,7 +21,6 @@ public class KitchenCategoryController {
         this.categoryService = categoryService;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/add")
     public String getAddCategoryForm() {
 
@@ -28,7 +28,6 @@ public class KitchenCategoryController {
 
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     @ResponseBody
     public KitchenCategory addCategoryPost(@RequestBody KitchenCategory category) {
@@ -37,7 +36,6 @@ public class KitchenCategoryController {
 
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/edit/{id}")
     public String getCategoryEditForm(@PathVariable Long id, Model model) {
 
@@ -47,14 +45,12 @@ public class KitchenCategoryController {
 
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/edit")
     public void categoryPutEdit(@RequestBody KitchenCategoryDto categoryDto) {
 
         categoryService.editCategory(categoryDto);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete")
     @ResponseBody
     public Long deleteCategory(@RequestParam Long id) {
