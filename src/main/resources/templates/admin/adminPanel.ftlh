@@ -130,7 +130,7 @@
                         <td class="p-3">${company.getCompanyCountry().getTitle()}</td>
                         <td class="p-3">${company.getKitchenCategory().getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/company/edit/${company.getId()}">Edit title</a>
+                                           href="/company/edit/${company.getId()}">Edit</a>
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
