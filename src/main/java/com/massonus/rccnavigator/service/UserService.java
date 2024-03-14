@@ -70,10 +70,22 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDto updateUser(final UserDto userDto, final User user) {
-        User savedUser = getUserById(user.getId());
+        final User savedUser = getUserById(user.getId());
+        final Boolean isSameEmail = checkIsSameEmail(userDto);
+        final Boolean isSameUsername = checkIsSameUsername(userDto);
 
         if (!passwordEncoder.matches(userDto.getOldPassword(), savedUser.getPassword())) {
             userDto.setIsIncorrectOldPassword(true);
+            return userDto;
+        }
+
+        if (!userDto.getUsername().equals(user.getUsername()) && isSameUsername) {
+            userDto.setIsSameUsername(isSameUsername);
+            return userDto;
+        }
+
+        if (!userDto.getEmail().equals(user.getEmail()) && isSameEmail) {
+            userDto.setIsSameEmail(isSameEmail);
             return userDto;
         }
 
@@ -83,15 +95,18 @@ public class UserService implements UserDetailsService {
         savedUser.setUsername(userDto.getUsername());
         savedUser.setEmail(userDto.getEmail());
 
+        userDto.setIsSuccess(true);
         return userDto;
     }
 
     public UserDto registrationUser(final UserDto userDto) {
 
-        final UserDto checkedNewUser = checkNewUser(userDto);
+        userDto.setIsSameEmail(checkIsSameEmail(userDto));
+        userDto.setIsSameUsername(checkIsSameUsername(userDto));
 
-        if (checkedNewUser.getIsSameEmail() != null || checkedNewUser.getIsSameUsername() != null) {
-            return checkedNewUser;
+        if (userDto.getIsSameEmail() || userDto.getIsSameUsername()) {
+            userDto.setIsSuccess(false);
+            return userDto;
         }
 
         final User user = new User();
@@ -102,29 +117,20 @@ public class UserService implements UserDetailsService {
         user.setRedactor("registration");
         saveUser(user);
 
-        userDto.setIsSuccessRegistration(true);
+        userDto.setIsSuccess(true);
         return userDto;
     }
 
-    private UserDto checkNewUser(final UserDto userDto) {
-        List<User> allUsers = getAllUsers();
-
-        boolean isSameUsername = allUsers.stream()
+    private Boolean checkIsSameUsername(final UserDto userDto) {
+        return getAllUsers().stream()
                 .anyMatch(u -> u.getUsername().equals(userDto.getUsername()));
-
-        boolean isSameEmail = allUsers.stream()
-                .anyMatch(u -> u.getEmail().equals(userDto.getEmail()));
-
-        if (isSameUsername) {
-            userDto.setIsSameUsername(true);
-
-        } else if (isSameEmail) {
-
-            userDto.setIsSameEmail(true);
-        }
-
-        return userDto;
     }
+
+    private Boolean checkIsSameEmail(final UserDto userDto) {
+        return getAllUsers().stream()
+                .anyMatch(u -> u.getEmail().equals(userDto.getEmail()));
+    }
+
     public User getUserById(Long id) {
         return userRepo.findUserById(id);
     }

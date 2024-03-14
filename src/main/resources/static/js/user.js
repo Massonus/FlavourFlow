@@ -142,7 +142,9 @@ function changeProfile(event, csrf) {
         username: username,
         email: email,
         oldPassword: oldPassword,
-        password: password
+        password: password,
+        isSameUsername: false,
+        isSameEmail: false
     });
 
     const url = "/user/change-profile";
@@ -159,6 +161,12 @@ function changeProfile(event, csrf) {
         .then(res => res.json())
         .then((data) => {
 
+            if (data.isSuccess) {
+                alert("Your profile successfully updated. Please re-login");
+                window.location.href = "/logout";
+                return;
+            }
+
             if (data.isSameUsername) {
                 document.getElementById("usernameError").textContent = "User with the same username is already exist";
                 document.getElementById("usernameAlert").classList.remove('d-none');
@@ -170,9 +178,6 @@ function changeProfile(event, csrf) {
             } else if (data.isIncorrectOldPassword) {
                 document.getElementById("oldPasswordError").textContent = "Old password is incorrect";
                 document.getElementById("oldPasswordAlert").classList.remove('d-none');
-            }
-            else {
-                window.location.href = "/logout";
             }
 
         })

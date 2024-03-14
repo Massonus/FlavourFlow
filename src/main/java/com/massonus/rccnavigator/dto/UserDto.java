@@ -22,7 +22,7 @@ public class UserDto {
 
     private String redactor;
 
-    private Boolean isSuccessRegistration;
+    private Boolean isSuccess;
 
     private Boolean isIncorrectOldPassword;
 

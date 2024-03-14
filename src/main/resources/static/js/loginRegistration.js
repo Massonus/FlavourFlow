@@ -62,7 +62,7 @@ function regUser(event, username, email, password, csrf) {
 
             }
 
-            if (data.isSuccessRegistration) {
+            if (data.isSuccess) {
                 window.location.href = "/login";
             }
         })
