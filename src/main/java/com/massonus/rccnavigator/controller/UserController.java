@@ -29,16 +29,11 @@ public class UserController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/change-profile")
-    public String updateUserProfile(@AuthenticationPrincipal User user,
-                                    @RequestParam String username,
-                                    @RequestParam String email,
-                                    @RequestParam String password) {
+    @PutMapping("/change-profile")
+    @ResponseBody
+    public UserDto updateUserProfile(@RequestBody UserDto userDto, @AuthenticationPrincipal User user) {
 
-        userService.updateUser(user.getId(), password, username, email);
-
-        return "redirect:/user/profile";
-
+        return userService.updateUser(userDto, user);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

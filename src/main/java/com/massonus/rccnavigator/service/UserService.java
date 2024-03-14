@@ -71,14 +71,21 @@ public class UserService implements UserDetailsService {
         return savedUser;
     }
 
-    public void updateUser(Long id, String password, String username, String email) {
-        User savedUser = getUserById(id);
+    public UserDto updateUser(final UserDto userDto, final User user) {
+        User savedUser = getUserById(user.getId());
 
-        if (!password.isEmpty()) {
-            savedUser.setPassword(passwordEncoder.encode(password));
+        if (!passwordEncoder.matches(userDto.getOldPassword(), savedUser.getPassword())) {
+            userDto.setIsIncorrectOldPassword(true);
+            return userDto;
         }
-        savedUser.setUsername(username);
-        savedUser.setEmail(email);
+
+        if (!userDto.getPassword().isEmpty()) {
+            savedUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        }
+        savedUser.setUsername(user.getUsername());
+        savedUser.setEmail(user.getEmail());
+
+        return userDto;
     }
 
     public UserDto registrationUser(final UserDto userDto) {

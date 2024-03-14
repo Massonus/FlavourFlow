@@ -16,9 +16,13 @@ public class UserDto {
 
     private Role role;
 
+    private String oldPassword;
+
     private String password;
 
     private Long redactor;
+
+    private Boolean isIncorrectOldPassword;
 
     private Boolean isSameUsername;
 

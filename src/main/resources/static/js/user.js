@@ -58,11 +58,6 @@ function editUser(event, redactor, userId) {
         return;
     }
 
-    if (role === undefined && redactor === undefined) {
-        role = "USER";
-        redactor = 1337;
-    }
-
     const body = JSON.stringify({
         userId: userId,
         username: username,
@@ -114,4 +109,62 @@ function deleteUser(userId, csrf) {
         })
         .catch(error =>
             console.error(error));
+}
+
+function changeProfile(event, csrf) {
+    event.preventDefault();
+
+    let username = document.getElementById("staticUsername").value;
+    let email = document.getElementById("staticEmail").value;
+    let oldPassword = document.getElementById("oldPassword").value;
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+        document.getElementById("passwordError").textContent = "Passwords are different";
+        document.getElementById("passwordAlert").classList.remove('d-none');
+        return;
+    }
+
+    const body = JSON.stringify({
+        username: username,
+        email: email,
+        oldPassword: oldPassword,
+        password: password
+    });
+
+    const url = "/user/change-profile";
+
+    fetch(url, {
+        method: 'PUT',
+        redirect: 'follow',
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": csrf
+        },
+        body: body
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.isSameUsername) {
+                document.getElementById("usernameError").textContent = "User with the same username is already exist";
+                document.getElementById("usernameAlert").classList.remove('d-none');
+
+            } else if (data.isSameEmail) {
+                document.getElementById("emailError").textContent = "User with the same email is already exist";
+                document.getElementById("emailAlert").classList.remove('d-none');
+
+            } else if (data.isIncorrectOldPassword) {
+                document.getElementById("oldPasswordError").textContent = "Old password is incorrect";
+                document.getElementById("oldPasswordAlert").classList.remove('d-none');
+            }
+            else {
+                window.location.href = "/logout";
+            }
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }
