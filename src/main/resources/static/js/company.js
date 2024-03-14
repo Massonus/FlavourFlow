@@ -12,6 +12,7 @@ function createCompany(event) {
     let file = companyFileUpload.files[0];
 
     if (file === undefined && imageLink.trim() === "") {
+        document.getElementById("companyImageAlert").classList.remove('d-none');
         document.getElementById("companyImageError").textContent = "Please input image link or upload your file";
         return;
     }
