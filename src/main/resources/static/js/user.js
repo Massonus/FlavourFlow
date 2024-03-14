@@ -126,6 +126,18 @@ function changeProfile(event, csrf) {
         return;
     }
 
+    if (!(validateUsername(username))) {
+        return false;
+    }
+
+    if (!(validatePassword(password, confirmPassword))) {
+        return false;
+    }
+
+    if (!(validateEmail(email))) {
+        return false;
+    }
+
     const body = JSON.stringify({
         username: username,
         email: email,

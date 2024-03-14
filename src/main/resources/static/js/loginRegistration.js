@@ -6,6 +6,13 @@ function validateForm(event) {
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirmPassword").value;
 
+    if (password === "") {
+        document.getElementById("passwordError").textContent = "Please input password";
+        document.getElementById("passwordAlert").classList.remove('d-none');
+        return false;
+
+    }
+
     if (!(validateUsername(username))) {
         return false;
     }
@@ -87,12 +94,7 @@ function validateUsername(username) {
 
 function validatePassword(password, confirmPassword) {
 
-    if (password === "") {
-        document.getElementById("passwordError").textContent = "Please input password";
-        document.getElementById("passwordAlert").classList.remove('d-none');
-        return false;
-
-    } else if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{4,15}$/.test(password)) {
+     if (!(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{4,15}$/.test(password)) && !(password === "")) {
         document.getElementById("passwordError").textContent = "Password must be 4-15 characters long and contain at least one letter, one digit, and one special character";
         document.getElementById("passwordAlert").classList.remove('d-none');
         return false;

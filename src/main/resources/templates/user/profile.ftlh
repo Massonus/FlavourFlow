@@ -18,6 +18,10 @@
                                     <input type="text" value="${username}" class="form-control"
                                            id="staticUsername">
 
+                                    <div id="usernameAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                                        <strong id="usernameError"></strong>
+                                    </div>
+
                                 <#else>
                                     <input type="text" value="${username}" readonly class="form-control"
                                            id="staticUsername">
@@ -31,6 +35,10 @@
                                 <#if isAdmin>
                                     <input type="email" value="${email}" class="form-control"
                                            id="staticEmail">
+
+                                    <div id="emailAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                                        <strong id="emailError"></strong>
+                                    </div>
                                 <#else>
                                     <input type="email" value="${email}" readonly class="form-control"
                                            id="staticEmail">
@@ -42,6 +50,7 @@
                         <div class="mb-3 row">
                             <label for="oldPassword" class="col-sm-4 col-form-label">Old password</label>
                             <div class="col-sm-8">
+
                                 <input type="password" class="form-control" id="oldPassword"
                                        placeholder="old password" oninput="closeAlertWindow()">
 
@@ -49,6 +58,7 @@
                                      class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
                                     <strong id="oldPasswordError"></strong>
                                 </div>
+
                             </div>
                         </div>
 
@@ -57,6 +67,9 @@
                             <div class="col-sm-8">
                                 <input type="password" class="form-control" id="password"
                                        placeholder="password">
+                                <div id="passwordAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                                    <strong id="passwordError"></strong>
+                                </div>
                             </div>
                         </div>
 

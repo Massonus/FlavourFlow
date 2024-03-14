@@ -82,8 +82,8 @@ public class UserService implements UserDetailsService {
         if (!userDto.getPassword().isEmpty()) {
             savedUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
-        savedUser.setUsername(user.getUsername());
-        savedUser.setEmail(user.getEmail());
+        savedUser.setUsername(userDto.getUsername());
+        savedUser.setEmail(userDto.getEmail());
 
         return userDto;
     }
