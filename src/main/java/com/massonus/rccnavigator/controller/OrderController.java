@@ -5,6 +5,7 @@ import com.massonus.rccnavigator.entity.Order;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/order")
+@PreAuthorize("isAuthenticated()")
 public class OrderController {
 
     private final OrderService orderService;
