@@ -32,7 +32,6 @@ public class OrderController {
         orderDto.setUser(user);
 
         return orderService.checkout(orderDto);
-
     }
 
     @GetMapping()

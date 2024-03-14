@@ -53,6 +53,7 @@ public class OrderService {
         }
 
         createOrder(orderObjects, orderDto);
+
         basketService.deleteBasketItemsByCompanyId(orderDto.getCompanyId(), orderDto.getUser());
 
         orderDto.setIsSuccess(true);
@@ -65,8 +66,9 @@ public class OrderService {
         order.setUser(orderDto.getUser());
         order.setDate(orderDto.getDate());
         order.setOrderObjects(orderObjects);
+        order.setTime(orderDto.getTime());
+        order.setCountGuests(orderDto.getCountGuests());
         order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
-
 
         double total = orderObjects.stream()
                 .mapToDouble(OrderObject::getSum)

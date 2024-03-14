@@ -29,9 +29,9 @@ function createOrder(event, companyId) {
 
     let csrf = document.getElementById("csrf").value;
 
-    let name = document.getElementById("orderName").value;
-    let phone = document.getElementById("orderPhone").value;
-    let date = document.getElementById("date").valueAsDate;
+    let time = document.getElementById("orderTime").value;
+    let countGuests = document.getElementById("countGuests").value;
+    let date = document.getElementById("orderDate").valueAsDate;
 
     if (date <= new Date()) {
         console.log("error");
@@ -39,9 +39,9 @@ function createOrder(event, companyId) {
     }
 
     const body = JSON.stringify({
-        name: name,
-        phone: phone,
         date: date,
+        time: time,
+        countGuests: countGuests,
         isSuccess: true,
         companyId: companyId
     });

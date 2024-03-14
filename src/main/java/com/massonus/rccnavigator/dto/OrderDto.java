@@ -7,18 +7,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class OrderDto {
 
-    private String name;
-
-    private String phone;
-
     @Future
     private Date date;
+
+    private LocalTime time;
+
+    private Integer countGuests;
 
     private Boolean isSuccess;
 

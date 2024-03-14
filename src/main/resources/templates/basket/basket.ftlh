@@ -133,9 +133,10 @@
             </button>
 
             <form id="order-checkout" onsubmit="createOrder(event, ${companyId!''})">
-                <input type="date" id="date" class="form-control">
-                <input id="orderPhone" type="time" class="form-control">
-                <input id="countGuest" type="number" min="1" placeholder="Count of guests" class="form-control">
+
+                <input id="orderDate" type="date" class="form-control">
+                <input id="orderTime" type="time" class="form-control">
+                <input id="countGuests" type="number" min="1" placeholder="Count of guests" class="form-control">
 
                 <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                 <input type="submit" value="Submit">
