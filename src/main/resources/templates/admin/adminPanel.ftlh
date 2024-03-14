@@ -160,7 +160,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
 
-                <h3>This item contains ${size} companies, choose the option</h3>
+                <h3>This item contains ${size} <#if size == 1>company<#else>companies</#if>, choose the option</h3>
 
                 <div class="table-responsive">
                     <table class="table">
