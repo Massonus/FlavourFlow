@@ -28,8 +28,4 @@ public class RatingService {
 
         company.setRating(company.getCurrentRating());
     }
-
-    public Rating getRatingByUSerId(Long id) {
-        return ratingRepo.findRatingByAuthorId(id);
-    }
 }

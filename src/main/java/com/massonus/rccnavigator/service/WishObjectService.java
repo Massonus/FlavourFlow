@@ -24,14 +24,6 @@ public class WishObjectService {
         objectRepo.delete(wishObject);
     }
 
-    public WishObject getWishObjectById(Long id) {
-        return objectRepo.findWishObjectById(id);
-    }
-
-    public WishObject getWishObjectByProductId(Long productId) {
-        return objectRepo.findWishObjectByProductId(productId);
-    }
-
     public WishObject getWishObjectByProductIdAndUserId(Long productId, Long userId) {
 
         return objectRepo.findWishObjectByProductIdAndUserId(productId, userId);

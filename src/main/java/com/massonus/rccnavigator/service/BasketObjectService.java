@@ -38,10 +38,6 @@ public class BasketObjectService {
         return basketObjectRepo.findBasketObjectById(id);
     }
 
-    public BasketObject getBasketObjectByProductId(Long productId) {
-        return basketObjectRepo.findBasketObjectByProductId(productId);
-    }
-
     public BasketObject getBasketObjectByProductIdAndUserId(Long productId, Long userId) {
 
         return basketObjectRepo.findBasketObjectByProductIdAndUserId(productId, userId);

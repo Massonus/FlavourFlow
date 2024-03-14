@@ -75,10 +75,6 @@ public class WishService {
         return wishRepo.findWishByUserId(id);
     }
 
-    public Wish getWishById(Long id) {
-        return wishRepo.findWishById(id);
-    }
-
     public Boolean isInWishes(String productId, String userId) {
 
         return getUserWish(Long.valueOf(userId)).getWishObjects().stream().anyMatch(o -> o.getProduct().getId().equals(Long.valueOf(productId)));

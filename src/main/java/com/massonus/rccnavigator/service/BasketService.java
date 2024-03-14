@@ -85,10 +85,6 @@ public class BasketService {
         return basketRepo.findBasketByUserId(id);
     }
 
-    public Basket getBasketById(Long id) {
-        return basketRepo.findBasketById(id);
-    }
-
     public List<Company> getAllCompaniesInUserBasket(User user) {
 
         List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(user.getId());
