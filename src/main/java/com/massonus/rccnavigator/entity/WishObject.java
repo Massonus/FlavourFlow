@@ -23,9 +23,6 @@ public class WishObject {
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
-    @Positive
-    private Long productId;
-
     @NotBlank(message = "Title cannot be empty")
     private String title;
 
@@ -50,4 +47,8 @@ public class WishObject {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "wish_id")
     private Wish wish;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

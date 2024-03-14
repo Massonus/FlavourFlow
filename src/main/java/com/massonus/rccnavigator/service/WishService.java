@@ -40,7 +40,7 @@ public class WishService {
         List<WishObject> wishObjects = currentWish.getWishObjects();
 
         WishObject wishObject = new WishObject();
-        wishObject.setProductId(productById.getId());
+        wishObject.setProduct(productById);
         wishObject.setTitle(productById.getTitle());
         wishObject.setImage(productById.getImage());
         wishObject.setImageLink(productById.getImageLink());
@@ -81,7 +81,7 @@ public class WishService {
 
     public Boolean isInWishes(String productId, String userId) {
 
-        return getUserWish(Long.valueOf(userId)).getWishObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
+        return getUserWish(Long.valueOf(userId)).getWishObjects().stream().anyMatch(o -> o.getProduct().getId().equals(Long.valueOf(productId)));
     }
 
     public ItemDto deleteWishItem(ItemDto itemDto, User user) {

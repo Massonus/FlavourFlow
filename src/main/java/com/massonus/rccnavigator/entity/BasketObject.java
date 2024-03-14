@@ -22,9 +22,6 @@ public class BasketObject {
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
-    @Positive
-    private Long productId;
-
     @NotBlank(message = "Title cannot be empty")
     private String title;
 
@@ -48,6 +45,10 @@ public class BasketObject {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "basket_id")
     private Basket basket;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Positive
     private Integer amount;

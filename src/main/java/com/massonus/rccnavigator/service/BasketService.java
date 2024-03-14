@@ -35,7 +35,7 @@ public class BasketService {
         List<BasketObject> basketObjects = currentBasket.getBasketObjects();
 
         BasketObject basketObject = new BasketObject();
-        basketObject.setProductId(productById.getId());
+        basketObject.setProduct(productById);
         basketObject.setTitle(productById.getTitle());
         basketObject.setImage(productById.getImage());
         basketObject.setImageLink(productById.getImageLink());
@@ -66,7 +66,7 @@ public class BasketService {
 
     public Boolean isInBasket(String productId, String userId) {
 
-        return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
+        return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream().anyMatch(o -> o.getProduct().getId().equals(Long.valueOf(productId)));
     }
 
     public ItemDto changeAmount(final ItemDto itemDto) {
