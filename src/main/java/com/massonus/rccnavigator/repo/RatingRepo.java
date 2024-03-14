@@ -13,5 +13,7 @@ public interface RatingRepo extends JpaRepository<Rating, Long> {
 
     Optional<Rating> findRatingByAuthorAndCompany(User user, Company company);
 
+    Rating findRatingByAuthorId(Long id);
+
 
 }

@@ -3,7 +3,7 @@ package com.massonus.rccnavigator.service;
 import com.massonus.rccnavigator.dto.UserDto;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.repo.UserRepo;
+import com.massonus.rccnavigator.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
