@@ -1,17 +1,14 @@
 package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.dto.ProductDto;
-import com.massonus.rccnavigator.entity.MessageItemType;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.ProductCategory;
-import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,18 +20,18 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
-    private final MessageService messageService;
     private final BasketObjectService basketObjectService;
     private final BasketService basketService;
     private final WishService wishService;
+    private final CompanyService companyService;
 
     @Autowired
-    public ProductController(ProductService productService, MessageService messageService, BasketObjectService basketObjectService, BasketService basketService, WishService wishService) {
+    public ProductController(ProductService productService, BasketObjectService basketObjectService, BasketService basketService, WishService wishService, CompanyService companyService) {
         this.productService = productService;
-        this.messageService = messageService;
         this.basketObjectService = basketObjectService;
         this.basketService = basketService;
         this.wishService = wishService;
+        this.companyService = companyService;
     }
 
     @GetMapping("/all-products")
@@ -66,7 +63,7 @@ public class ProductController {
     public String getProductsOfCompanyForAdmin(@RequestParam Long companyId, Model model) {
         List<Product> products = productService.getAllProductsByCompanyId(companyId);
         model.addAttribute("products", products);
-        model.addAttribute("companyId", companyId);
+        model.addAttribute("company", companyService.getCompanyById(companyId));
 
         return "product/productsInAdminPanel";
     }
@@ -77,7 +74,7 @@ public class ProductController {
 
         model.addAttribute("companyId", companyId);
 
-        return "product/addProductToCompany";
+        return "product/addProduct";
 
     }
 
@@ -111,16 +108,4 @@ public class ProductController {
         productService.deleteProduct(productById);
         return productById.getCompany().getId();
     }
-
-
-    @GetMapping("/{id}")
-    public String getProduct(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
-        Product productById = productService.getProductById(id);
-
-        model.addAttribute("user", user);
-        model.addAttribute("product", productById);
-        model.addAttribute("messages", messageService.getMessagesByItemTypeAndItemId(MessageItemType.PRODUCT, id));
-        return "product/productInfo";
-    }
-
 }

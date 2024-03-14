@@ -20,13 +20,15 @@ public class WishService {
     private final WishRepo wishRepo;
     private final UserRepo userRepo;
     private final WishObjectService objectService;
+    private final CompanyService companyService;
 
     @Autowired
-    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo, WishObjectService objectService) {
+    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo, WishObjectService objectService, CompanyService companyService) {
         this.productService = productService;
         this.wishRepo = wishRepo;
         this.userRepo = userRepo;
         this.objectService = objectService;
+        this.companyService = companyService;
     }
 
     public Long addProductToWishes(Long id, Long userId) {
@@ -38,13 +40,14 @@ public class WishService {
         List<WishObject> wishObjects = currentWish.getWishObjects();
 
         WishObject wishObject = new WishObject();
-        wishObject.setProductId(productById.getId());
+        wishObject.setProduct(productById);
         wishObject.setTitle(productById.getTitle());
         wishObject.setImage(productById.getImage());
         wishObject.setImageLink(productById.getImageLink());
         wishObject.setPrice(productById.getPrice());
         wishObject.setUser(userById);
         wishObject.setCompany(productById.getCompany());
+        wishObject.setWish(currentWish);
 
         objectService.saveWishObject(wishObject);
 
@@ -52,6 +55,8 @@ public class WishService {
 
         wishRepo.save(currentWish);
         userById.setWish(currentWish);
+
+        companyService.getCompanyById(productById.getCompany().getId()).getWishObjects().add(wishObject);
 
         return productById.getCompany().getId();
     }
@@ -76,7 +81,7 @@ public class WishService {
 
     public Boolean isInWishes(String productId, String userId) {
 
-        return getUserWish(Long.valueOf(userId)).getWishObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
+        return getUserWish(Long.valueOf(userId)).getWishObjects().stream().anyMatch(o -> o.getProduct().getId().equals(Long.valueOf(productId)));
     }
 
     public ItemDto deleteWishItem(ItemDto itemDto, User user) {

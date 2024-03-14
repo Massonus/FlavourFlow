@@ -2,17 +2,28 @@
 
 <@c.page>
 
-    <form onsubmit="editCountry(event, ${country.getId()}, '${_csrf.token}')">
-        <div>
-            <label for="countryTitle">Title</label>
-            <input type="text" id="countryTitle" name="countryTitle" value="${country.getTitle()}">
-        </div>
-        <br>
-        <div>
-            <a role="button" class="btn btn-outline-secondary mt-3" href="/admin/panel">Cancel</a>
+    <section>
+        <div class="container py-5">
+            <section class="py-5">
+                <h2 class="h5 text-uppercase mb-4">Add Country</h2>
+                <div style="max-width: 600px" class="w-100">
+                    <form onsubmit="editCountry(event, ${country.getId()}, '${_csrf.token}')" class="text-start py-4">
 
-            <button type="submit" class="btn black-btn-outline mt-3 ms-2">Save</button>
+                        <div class="mb-3 row">
+                            <label for="countryTitle" class="col-sm-4 col-form-label">Title:</label>
+                            <div class="col-sm-8">
+                                <input id="countryTitle" type="text" class="form-control" placeholder="country title" value="${country.getTitle()}" required>
+                            </div>
+                        </div>
+
+                        <a role="button" class="btn btn-outline-secondary mt-3"
+                           href="/admin/panel">Cancel</a>
+
+                        <button type="submit" class="btn black-btn-outline mt-3">Save</button>
+                    </form>
+                </div>
+            </section>
         </div>
-    </form>
+    </section>
 
 </@c.page>

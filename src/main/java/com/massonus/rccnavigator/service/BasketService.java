@@ -35,13 +35,14 @@ public class BasketService {
         List<BasketObject> basketObjects = currentBasket.getBasketObjects();
 
         BasketObject basketObject = new BasketObject();
-        basketObject.setProductId(productById.getId());
+        basketObject.setProduct(productById);
         basketObject.setTitle(productById.getTitle());
         basketObject.setImage(productById.getImage());
         basketObject.setImageLink(productById.getImageLink());
         basketObject.setPrice(productById.getPrice());
         basketObject.setUser(userById);
         basketObject.setCompany(productById.getCompany());
+        basketObject.setBasket(currentBasket);
 
         basketObjectService.saveBasketObject(basketObject);
 
@@ -65,7 +66,7 @@ public class BasketService {
 
     public Boolean isInBasket(String productId, String userId) {
 
-        return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream().anyMatch(o -> o.getProductId().equals(Long.valueOf(productId)));
+        return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream().anyMatch(o -> o.getProduct().getId().equals(Long.valueOf(productId)));
     }
 
     public ItemDto changeAmount(final ItemDto itemDto) {
@@ -107,9 +108,9 @@ public class BasketService {
         return itemDto;
     }
 
-    public void deleteBasketItemsByCompanyId(Long id, User user) {
-        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByCompanyIdAndUserId(id, user.getId());
-        getBasketByUserId(user.getId()).getBasketObjects().removeAll(basketObjects);
+    public void deleteBasketItemsByCompanyId(Long id, Long userId) {
+        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByCompanyIdAndUserId(id, userId);
+        getBasketByUserId(userId).getBasketObjects().removeAll(basketObjects);
         basketObjectService.deleteBasketObjectsByList(basketObjects);
     }
 

@@ -2,6 +2,8 @@ package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +33,7 @@ public class Message {
 
     private LocalDateTime commentTime;
 
+    @Positive
     private Long itemId;
 
     @Column(columnDefinition = "text", name = "item_type")

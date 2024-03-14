@@ -2,11 +2,13 @@ package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,13 @@ public class Order {
 
     @Future
     private Date date;
+
+    @Positive
+    @Column(name = "count_guests")
+    private Integer countGuests;
+
+    @NotNull
+    private LocalTime time;
 
     @Positive
     private Double total;

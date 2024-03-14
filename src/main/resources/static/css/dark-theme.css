@@ -1,8 +1,21 @@
 #staticUsername,  #staticEmail, #inputPassword, #inputPasswordConfirmation, #comment,
 .tbody td p, th, tr, td, .fw-medium, #amount-input input, .card a, .thead strong,
 .dropdown-menu a, .filterOption, .form-select, .product-details a, .container a, #password,
-#username, #email, #confirmPassword, .btn, .form-control, #productTitle, #productPrice, #productCategory, #productImageLink {
+#username, #email, #confirmPassword, .btn, .form-control, #productTitle, #productPrice, #productCategory, #productImageLink,
+#companyTitle, #companyImageLink, #categoryTitle, #countryTitle, #oldPassword, #countGuests, #orderTime, #orderDate {
     color: #DA77EB;
+}
+
+.btn-outline-danger, #message-delete {
+    color: #DC3545;
+}
+
+#message-text {
+    color: #7fd03e;
+}
+
+#login-btn, #registration-btn {
+    color: #1C1C1C;
 }
 
 body {

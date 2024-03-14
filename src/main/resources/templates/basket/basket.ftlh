@@ -30,61 +30,61 @@
                             </th>
                         </tr>
                         </thead>
-                        <#list products as product>
+                        <#list products as object>
                             <tbody class="tbody border-0">
-                            <tr id="basket-item-${product.getId()}">
+                            <tr id="basket-item-${object.getId()}">
                                 <th class="ps-0 py-3 border-light" scope="row">
                                     <div class="d-flex align-items-center">
                                         <a class="d-block">
-                                            <#if (product.getImage()??)>
+                                            <#if (object.getImage()??)>
 
-                                                <a href="/product/${product.getId()}"><img
+                                                <a href="/product/${object.getId()}"><img
                                                             style="object-fit: cover; height: 80px; width: 80px;"
                                                             alt="product image"
-                                                            src="/images/${product.getImage().getId()}.jpg"
+                                                            src="/images/${object.getImage().getId()}.jpg"
                                                             class="card-img-top"/></a>
 
                                             <#else>
 
-                                                <a href="/product/${product.getId()}"><img
+                                                <a href="/product/${object.getId()}"><img
                                                             style="object-fit: cover; height: 80px; width: 80px;"
                                                             alt="product image"
-                                                            src="${product.getImageLink()}"
+                                                            src="${object.getImageLink()}"
                                                             class="card-img-top"></a>
 
                                             </#if>
                                         </a>
                                         <div class="ms-3">
-                                            <span class="fw-medium">${product.getTitle()}</span>
+                                            <span class="fw-medium">${object.getTitle()}</span>
                                         </div>
                                     </div>
                                 </th>
                                 <td class="p-3 align-middle border-light">
-                                    <p class="mb-0 small">${product.getCompany().getTitle()}</p>
+                                    <p class="mb-0 small">${object.getCompany().getTitle()}</p>
                                 </td>
                                 <td class="p-3 align-middle border-light">
-                                    <p class="mb-0 small">${product.getPrice() + '$'}</p>
+                                    <p class="mb-0 small">${object.getPrice() + '$'}</p>
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-center justify-content-between px-3">
                                         <span id="amount-input"
                                               class="small text-uppercase text-gray headings-font-family"><input
                                                     class="form-control bg-light"
-                                                    id="newAmount-${product.getId()}"
+                                                    id="newAmount-${object.getId()}"
                                                     type="number"
-                                                    onchange="changeAmount(${product.getId()}, '${_csrf.token}')"
-                                                    value="${product.getAmount()}" min="1" required></span>
+                                                    onchange="changeAmount(${object.getId()}, '${_csrf.token}')"
+                                                    value="${object.getAmount()}" min="1" required></span>
 
                                     </div>
                                 </td>
                                 <td class="p-3 align-middle border-light">
-                                    <p id="object-sum-${product.getId()}"
-                                       class="mb-0 small">${product.getSum() + '$'}</p>
+                                    <p id="object-sum-${object.getId()}"
+                                       class="mb-0 small">${object.getSum() + '$'}</p>
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-stretch">
                                         <a role="button" class="btn black-btn-outline"
-                                           onclick="deleteBasketItem(${product.getProductId()}, '${_csrf.token}', undefined)">
+                                           onclick="deleteBasketItem(${object.getProduct().getId()}, '${_csrf.token}', undefined)">
                                             <i class="bi bi-trash text-danger"></i>
                                         </a>
                                     </div>
@@ -126,19 +126,34 @@
     </div>
 
     <div class="${orderModal}" id="order-form-modal">
-        <div class="modal__box">
+        <div id="order-modal-box" class="modal__box">
 
             <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <form id="order-checkout" onsubmit="createOrder(event, ${companyId!''})">
-                <input id="orderName" name="name" type="text" placeholder="Your name">
-                <input id="orderPhone" name="phone" type="text" placeholder="Mobile phone">
-                <input type="date" name="date" id="date">
+
+                <input id="orderDate" type="date" class="form-control" onchange="closeAlertWindow()">
+
+                <div id="dateAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="dateError"></strong>
+                </div>
+
+                <input id="orderTime" type="time" class="form-control" onchange="closeAlertWindow()">
+
+                <div id="timeAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="timeError"></strong>
+                </div>
+
+                <input id="countGuests" type="number" min="1" value="1" placeholder="Count of guests" class="form-control" onchange="closeAlertWindow()">
+
+                <div id="guestsAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="guestsError"></strong>
+                </div>
 
                 <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
-                <input type="submit" value="Отправить">
+                <input type="submit" value="Submit">
             </form>
 
         </div>
@@ -152,7 +167,7 @@
             </button>
 
             <#if companies?has_content>
-                <p>You have ${size!''} different companies in your basket, please choose only one for checkout</p>
+                <h4>You have ${size!''} different companies in your basket, please choose only one for checkout</h4>
                 <div class="container-buttons">
                     <#list companies as company>
                         <button type="submit" onclick="afterAlert(${company.getId()})">${company.getTitle()}</button>

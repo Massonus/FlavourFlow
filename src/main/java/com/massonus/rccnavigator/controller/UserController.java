@@ -21,6 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/profile")
     public String getProfile(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("username", user.getUsername());
@@ -29,16 +30,11 @@ public class UserController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/change-profile")
-    public String updateUserProfile(@AuthenticationPrincipal User user,
-                                    @RequestParam String username,
-                                    @RequestParam String email,
-                                    @RequestParam String password) {
+    @PutMapping("/change-profile")
+    @ResponseBody
+    public UserDto updateUserProfile(@RequestBody UserDto userDto, @AuthenticationPrincipal User user) {
 
-        userService.updateUser(user.getId(), password, username, email);
-
-        return "redirect:/user/profile";
-
+        return userService.updateUser(userDto, user);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -52,7 +48,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     @ResponseBody
-    public User addUser(@RequestBody UserDto userDto) {
+    public UserDto addUser(@RequestBody UserDto userDto) {
 
         return userService.createUser(userDto);
     }
@@ -70,9 +66,9 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/edit")
     @ResponseBody
-    public User saveUpdatedUser(@RequestBody UserDto userDto) {
+    public UserDto saveUpdatedUser(@RequestBody UserDto userDto, @AuthenticationPrincipal User user) {
 
-        return userService.editUser(userDto);
+        return userService.editUser(userDto, user);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

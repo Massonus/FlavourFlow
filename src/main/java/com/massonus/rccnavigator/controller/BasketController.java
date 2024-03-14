@@ -57,6 +57,7 @@ public class BasketController {
         return "basket/basket";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/add-item")
     @ResponseBody
     public Long addProductToBasket(@RequestParam Long productId, @AuthenticationPrincipal User user) {
@@ -64,6 +65,7 @@ public class BasketController {
         return basketService.addProductToBasket(productId, user.getId());
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/delete-item")
     @ResponseBody
     public ItemDto deleteProductFromBasket(@RequestBody ItemDto itemDto, @AuthenticationPrincipal User user) {
@@ -71,6 +73,7 @@ public class BasketController {
         return basketService.deleteBasketItem(itemDto, user);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/change-amount")
     @ResponseBody
     public ItemDto changeProductAmount(@RequestBody ItemDto itemDto, @AuthenticationPrincipal User user) {
@@ -81,6 +84,7 @@ public class BasketController {
 
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/clear")
     @ResponseBody
     public String clearBasket(@AuthenticationPrincipal User user) {
@@ -90,6 +94,7 @@ public class BasketController {
         return "redirect:/basket";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/check")
     @ResponseBody
     public CheckDto checkOrder(@AuthenticationPrincipal User user) {

@@ -5,15 +5,18 @@ import com.massonus.rccnavigator.entity.Order;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Controller
 @RequestMapping("/order")
+@PreAuthorize("isAuthenticated()")
 public class OrderController {
 
     private final OrderService orderService;
@@ -27,10 +30,8 @@ public class OrderController {
     @ResponseBody
     public OrderDto checkout(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user) {
 
-        orderDto.setUser(user);
-
+        orderDto.setUserId(user.getId());
         return orderService.checkout(orderDto);
-
     }
 
     @GetMapping()

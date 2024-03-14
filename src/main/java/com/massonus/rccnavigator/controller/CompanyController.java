@@ -116,6 +116,7 @@ public class CompanyController {
         companyService.deleteCompany(companyById);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/rate")
     @ResponseBody
     public RatingDto rateCompany(@RequestBody RatingDto ratingDto, @AuthenticationPrincipal User author) {
@@ -127,6 +128,7 @@ public class CompanyController {
         return ratingDto;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/check")
     @ResponseBody
     public CheckDto checkCompaniesInCountry(@RequestParam Long itemId, @RequestParam ItemType itemType) {
@@ -146,6 +148,7 @@ public class CompanyController {
         return checkDto;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/move")
     @ResponseBody
     public CheckDto moveCompanies(@RequestBody CheckDto checkDto) {

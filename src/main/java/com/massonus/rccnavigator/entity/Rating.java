@@ -1,6 +1,8 @@
 package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +26,7 @@ public class Rating {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @Positive
     private Integer rate;
 
 }

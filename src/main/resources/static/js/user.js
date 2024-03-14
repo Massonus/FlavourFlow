@@ -8,8 +8,15 @@ function createUser(event, redactor) {
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (password !== confirmPassword) {
-        document.getElementById("passwordError").textContent = "Passwords are different";
+    if (!(validateUsername(username))) {
+        return;
+    }
+
+    if (!(validatePassword(password, confirmPassword))) {
+        return;
+    }
+
+    if (!(validateEmail(email))) {
         return;
     }
 
@@ -33,9 +40,19 @@ function createUser(event, redactor) {
         body: body,
 
     })
-        .then(res => {
-            if (res.ok) {
-                window.location.href = `/admin/panel`;
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.isSameUsername) {
+                document.getElementById("usernameError").textContent = "User with the same username is already exist";
+                document.getElementById("usernameAlert").classList.remove('d-none');
+
+            } else if (data.isSameEmail) {
+                document.getElementById("emailError").textContent = "User with the same email is already exist";
+                document.getElementById("emailAlert").classList.remove('d-none');
+
+            } else {
+                window.location.href = "/admin/panel";
             }
         })
         .catch(error => {
@@ -53,14 +70,16 @@ function editUser(event, redactor, userId) {
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (password !== confirmPassword) {
-        document.getElementById("passwordError").textContent = "Passwords are different";
+    if (!(validateUsername(username))) {
         return;
     }
 
-    if (role === undefined && redactor === undefined) {
-        role = "USER";
-        redactor = 1337;
+    if (!(validatePassword(password, confirmPassword))) {
+        return;
+    }
+
+    if (!(validateEmail(email))) {
+        return;
     }
 
     const body = JSON.stringify({
@@ -83,10 +102,19 @@ function editUser(event, redactor, userId) {
         },
         body: body,
 
-    })
-        .then(res => {
-            if (res.ok) {
-                window.location.href = `/admin/panel`;
+    }).then(res => res.json())
+        .then((data) => {
+
+            if (data.isSameUsername) {
+                document.getElementById("usernameError").textContent = "User with the same username is already exist";
+                document.getElementById("usernameAlert").classList.remove('d-none');
+
+            } else if (data.isSameEmail) {
+                document.getElementById("emailError").textContent = "User with the same email is already exist";
+                document.getElementById("emailAlert").classList.remove('d-none');
+
+            } else {
+                window.location.href = "/admin/panel";
             }
         })
         .catch(error => {
@@ -114,4 +142,70 @@ function deleteUser(userId, csrf) {
         })
         .catch(error =>
             console.error(error));
+}
+
+function changeProfile(event, csrf) {
+    event.preventDefault();
+
+    let username = document.getElementById("staticUsername").value;
+    let email = document.getElementById("staticEmail").value;
+    let oldPassword = document.getElementById("oldPassword").value;
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (!(validateUsername(username))) {
+        return false;
+    }
+
+    if (!(validatePassword(password, confirmPassword))) {
+        return false;
+    }
+
+    if (!(validateEmail(email))) {
+        return false;
+    }
+
+    const body = JSON.stringify({
+        username: username,
+        email: email,
+        oldPassword: oldPassword,
+        password: password
+    });
+
+    const url = "/user/change-profile";
+
+    fetch(url, {
+        method: 'PUT',
+        redirect: 'follow',
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": csrf
+        },
+        body: body
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.isSuccess) {
+                alert("Your profile successfully updated. Please re-login");
+                window.location.href = "/logout";
+            }
+
+            if (data.isSameUsername) {
+                document.getElementById("usernameError").textContent = "User with the same username is already exist";
+                document.getElementById("usernameAlert").classList.remove('d-none');
+
+            } else if (data.isSameEmail) {
+                document.getElementById("emailError").textContent = "User with the same email is already exist";
+                document.getElementById("emailAlert").classList.remove('d-none');
+
+            } else if (data.isIncorrectOldPassword) {
+                document.getElementById("oldPasswordError").textContent = "Old password is incorrect";
+                document.getElementById("oldPasswordAlert").classList.remove('d-none');
+            }
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }

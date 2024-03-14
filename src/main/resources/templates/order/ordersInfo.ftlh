@@ -11,6 +11,7 @@
                     <div class="card w-50 mb-3">
                         <div class="card-body">
                             <h5 class="card-title">${order.getDate()}</h5>
+                            <h5 class="card-title">${order.getTime()}</h5>
                             <h5 class="card-title">${order.getCompany().getTitle()}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Products:</h6>
                             <ul>
@@ -18,6 +19,7 @@
                                     <li>${product.getTitle()} ${product.getAmount()} (${product.getSum() + '$'})</li>
                                 </#list>
                             </ul>
+                            <h6>Guests: ${order.getCountGuests()}</h6>
                             <h6>
                                 Total Price: ${order.getTotal() + '$'}&nbsp;
                             </h6>

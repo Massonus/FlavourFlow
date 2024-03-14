@@ -53,7 +53,7 @@
                             <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         <#else>
                             <li><a class="dropdown-item" href="/login">Login</a></li>
-                            <li><a class="dropdown-item" href="/registration">Registration</a></li>
+                            <li><a class="dropdown-item" href="/reg">Registration</a></li>
                         </#if>
                     </ul>
                 </li>

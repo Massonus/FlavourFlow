@@ -27,7 +27,7 @@ a {
     text-decoration: none;
 }
 
-a i{
+a i {
     cursor: pointer;
 }
 
@@ -65,7 +65,7 @@ a:hover {
     max-width: 100px;
 }
 
-.order h1, h2{
+.order h1, h2 {
     text-align: center;
 }
 
@@ -82,7 +82,7 @@ a:hover {
     top: 0;
 }
 
-.text-index h1{
+.text-index h1 {
     color: #800000;
 }
 
@@ -97,6 +97,10 @@ a:hover {
     justify-content: center;
     height: 200px;
     padding: 20px;
+}
+
+.cursor-default {
+    cursor: default;
 }
 
 .filters__img {
@@ -120,7 +124,7 @@ a:hover {
 .product-details h4 a {
     font-weight: 500;
     display: block;
-    height: 25px;
+    height: 30px;
     overflow: hidden;
     text-decoration: none;
 }
@@ -145,7 +149,7 @@ a:hover {
     font-weight: 600;
 }
 
-.product-price p{
+.product-price p {
     color: gold;
 }
 
@@ -261,7 +265,7 @@ input:checked + label:before {
     transition: opacity .4s, visibility .4s;
 }
 
-.modal input{
+.modal input {
     width: 100%;
     margin-bottom: 20px;
     outline: none;
@@ -272,9 +276,14 @@ input:checked + label:before {
     font-weight: 400;
 }
 
-.modal input[type="submit"]{
+.modal input[type="submit"] {
     background-color: #ffc222;
     border: none;
+    border-radius: 20px;
+}
+
+.modal input[type="submit"]:hover {
+    transform: scale(1.06);
 }
 
 .modal__box {
@@ -292,16 +301,24 @@ input:checked + label:before {
     text-align: left;
 }
 
-.container-buttons{
+.container-buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    margin: 20px;
+    padding: 10px;
 }
 
 .container-buttons button {
     margin: 7px;
     background-color: #ffc222;
     border: none;
+    border-radius: 15px;
+    height: 35px;
+}
+
+.container-buttons button:hover {
+    transform: scale(1.06);
 }
 
 .modal__close-btn {
@@ -370,3 +387,18 @@ input:checked + label:before {
     margin: auto;
     text-align: left;
 }
+
+#container-message {
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+#message-card {
+    width: 100%;
+}
+
+#order-modal-box {
+    width: 20%;
+}
+

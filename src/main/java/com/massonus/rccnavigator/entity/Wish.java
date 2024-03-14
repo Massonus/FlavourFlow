@@ -26,9 +26,8 @@ public class Wish {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "wish_product",
-            joinColumns = @JoinColumn(name = "wish_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @OneToMany(mappedBy = "wish",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<WishObject> wishObjects = new ArrayList<>();
 }

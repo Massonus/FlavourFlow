@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,10 +22,10 @@ public class BasketObject {
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
-    private Long productId;
-
+    @NotBlank(message = "Title cannot be empty")
     private String title;
 
+    @Positive
     private Double price;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -41,8 +42,13 @@ public class BasketObject {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(mappedBy = "basketObjects", fetch = FetchType.LAZY)
-    private List<Basket> basket = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Positive
     private Integer amount;

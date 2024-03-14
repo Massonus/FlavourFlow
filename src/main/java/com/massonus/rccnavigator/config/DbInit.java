@@ -26,7 +26,7 @@ public class DbInit {
         user.setEmail("user@gmail.com");
         user.setUsername("cat");
         user.setPassword("cat");
-        user.setRedactor(1337L);
+        user.setRedactor("system");
         user.setRoles(Collections.singleton(Role.USER));
 
         userService.saveUser(user);
@@ -35,7 +35,7 @@ public class DbInit {
         admin.setEmail("admin@gmail.com");
         admin.setUsername("admin");
         admin.setPassword("admin");
-        admin.setRedactor(1337L);
+        admin.setRedactor("system");
         admin.setRoles(Collections.singleton(Role.ADMIN));
 
         userService.saveUser(admin);

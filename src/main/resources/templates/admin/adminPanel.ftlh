@@ -5,21 +5,27 @@
 
     <section>
         <div class="container">
+            <h2>Users</h2>
+            <br>
             <table id="user-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
+                    <th scope="col">Id</th>
                     <th scope="col">Username</th>
                     <th scope="col">Role</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Redactor id</th>
                 </tr>
                 </thead>
                 <tbody>
                 <#list users as user>
                     <tr id="user-table-${user.getId()}">
+                        <th class="p-3" scope="row">${user.getId()}</th>
                         <th class="p-3" scope="row">${user.getUsername()}</th>
                         <td class="p-3">${user.getStringRole()}</td>
                         <td class="p-3">${user.getEmail()}</td>
-                        <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getId() || user.getId() == currentUserId)>
+                        <td class="p-3">${user.getRedactor()}</td>
+                        <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getStringId() || user.getId() == currentUserId || user.getRedactor() == "system")>
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/user/edit/${user.getId()}">Edit</a>
                         </td>
@@ -41,6 +47,8 @@
 
     <section>
         <div class="container py-5">
+            <h2>Kitchen categories</h2>
+            <br>
             <table id="category-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -75,6 +83,8 @@
 
     <section>
         <div class="container py-5">
+            <h2>Countries</h2>
+            <br>
             <table id="country-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -108,6 +118,8 @@
 
     <section>
         <div class="container py-5">
+            <h2>Companies</h2>
+            <br>
             <table id="company-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -130,7 +142,7 @@
                         <td class="p-3">${company.getCompanyCountry().getTitle()}</td>
                         <td class="p-3">${company.getKitchenCategory().getTitle()}</td>
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
-                                           href="/company/edit/${company.getId()}">Edit title</a>
+                                           href="/company/edit/${company.getId()}">Edit</a>
                         </td>
 
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
@@ -160,7 +172,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
 
-                <h3>This item contains ${size} companies, choose the option</h3>
+                <h4>This item contains ${size} <#if size == 1>company<#else>companies</#if>, choose the option</h4>
 
                 <div class="table-responsive">
                     <table class="table">

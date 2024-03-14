@@ -46,19 +46,21 @@
         <h5 style="text-align: center">Not rated</h5>
     </#if>
     <br><br>
-    <div class="card-columns" id="message-list">
+
+    <h2>Comments:</h2>
+    <br>
+    <div id="container-message" class="container">
         <#if messages?has_content>
-            <h2>Comments:</h2>
             <#list messages as message>
-                <div class="card my-3">
+                <div id="message-card" class="card my-3">
                     <div class="m-2">
-                        <span>${message.getText()}</span><br/>
+                        <span>${message.getAuthor().getUsername()}:</span>
                     </div>
                     <div class="card-footer text-muted container">
                         <div class="row">
-                            <p>${message.getAuthor().getUsername()}:</p>
+                            <p id="message-text">${message.getText()}</p>
                             <a id="likes" class="col align-self-center"
-                               <#if known> onclick="likeMessage(${message.getId()}, '${message.getMessageItemType()}', ${company.getId()}, '${_csrf.token}')"</#if>>
+                                    <#if known> onclick="likeMessage(${message.getId()}, '${message.getMessageItemType()}', ${company.getId()}, '${_csrf.token}')"</#if>>
                                 <#if message.getIsUnliked()>
                                     <i class="bi bi-heart"></i>
                                 <#else>
@@ -67,10 +69,11 @@
                                 <span>${message.getLikesCount()}</span>
                             </a>
                             <#if message.getAuthor().getId() == currentUserId || isAdmin>
-                                <a role="button" class="btn black-btn-outline"
-                                   onclick="deleteMessage(${message.getId()}, '${message.getMessageItemType()}', ${company.getId()}, '${_csrf.token}')">Delete</a>
-                                <a class="col btn btn-primary"
+                                <a class="btn black-btn btn-outline-secondary mt-2 w-100"
                                    href="/message/edit?messageId=${message.getId()}&itemId=${company.getId()}">Edit</a>
+
+                                <a id="message-delete" role="button" class="btn btn-outline-danger w-100 mt-2"
+                                   onclick="deleteMessage(${message.getId()}, '${message.getMessageItemType()}', ${company.getId()}, '${_csrf.token}')">Delete</a>
                             </#if>
                         </div>
                     </div>
@@ -81,14 +84,10 @@
         </#if>
     </div>
 
-    <br>
-
-
     <#if known>
         <div class="d-flex justify-content-center" style="width: 100%; display: flex; justify-content: center;">
             <form onsubmit="createMessage(event, ${company.getId()}, '${company.getClass().getSimpleName()}', '${_csrf.token}')"
                   style="display: flex; flex-direction: row; align-items: center; justify-content: center; width: 70%;">
-                <label for="comment" class="col-sm-4 col-form-label">Comment</label>
                 <input type="text" class="form-control me-2 flex-grow-1" placeholder="Write your comment"
                        id="comment" style="height: 68px; margin-right: 10px;">
 
@@ -96,5 +95,7 @@
             </form>
         </div>
     </#if>
+
+    <br><br><br><br>
 </@c.page>
 

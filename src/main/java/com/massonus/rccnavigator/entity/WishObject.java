@@ -1,6 +1,9 @@
 package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,10 +23,10 @@ public class WishObject {
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
-    private Long productId;
-
+    @NotBlank(message = "Title cannot be empty")
     private String title;
 
+    @Positive
     private Double price;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -38,8 +41,14 @@ public class WishObject {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @NotNull(message = "User cannot be null")
     private User user;
 
-    @ManyToMany(mappedBy = "wishObjects", fetch = FetchType.LAZY)
-    private List<Wish> wishes = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "wish_id")
+    private Wish wish;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 }
