@@ -14,7 +14,7 @@
                             <label for="username" class="col-sm-4 col-form-label">Username:</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="username"
-                                       value="${editUser.getUsername()}" required>
+                                       value="${editUser.getUsername()}" required oninput="closeAlertWindow()">
 
                                 <div id="usernameAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
                                     <strong id="usernameError"></strong>
@@ -27,7 +27,7 @@
                             <label for="email" class="col-sm-4 col-form-label">Email:</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="email"
-                                       value="${editUser.getEmail()}" required>
+                                       value="${editUser.getEmail()}" required oninput="closeAlertWindow()">
 
                                 <div id="emailAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
                                     <strong id="emailError"></strong>
@@ -40,7 +40,7 @@
                             <label for="password" class="col-sm-4 col-form-label">Password:</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="password"
-                                       placeholder="password">
+                                       placeholder="password" oninput="closeAlertWindow()">
 
                                 <div id="passwordAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
                                     <strong id="passwordError"></strong>
@@ -60,7 +60,7 @@
                         <div class="mb-3 row">
                             <label for="role" class="col-sm-4 col-form-label">Role:</label>
                             <div class="col-sm-8">
-                                <select class="form-select" id="role" required>
+                                <select class="form-select" id="role" required oninput="closeAlertWindow()">
                                     <option value="USER">USER</option>
                                     <option <#if editUser.isAdmin()>selected</#if> value="ADMIN">ADMIN</option>
                                 </select>

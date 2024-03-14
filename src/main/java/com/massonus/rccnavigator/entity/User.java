@@ -48,7 +48,7 @@ public class User implements UserDetails {
     @NotBlank(message = "Redactor cannot be empty")
     private String redactor;
 
-    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "basket_id")
     private Basket basket;
 

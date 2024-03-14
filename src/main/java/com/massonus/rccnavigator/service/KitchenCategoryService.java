@@ -1,7 +1,6 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.KitchenCategoryDto;
-import com.massonus.rccnavigator.entity.CompanyCountry;
 import com.massonus.rccnavigator.entity.KitchenCategory;
 import com.massonus.rccnavigator.repo.KitchenCategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;

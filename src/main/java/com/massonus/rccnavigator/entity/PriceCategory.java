@@ -8,5 +8,5 @@ public enum PriceCategory {
 
     HIGH,
 
-    PREMIUM;
+    PREMIUM
 }
