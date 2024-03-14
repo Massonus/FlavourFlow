@@ -66,9 +66,9 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/edit")
     @ResponseBody
-    public UserDto saveUpdatedUser(@RequestBody UserDto userDto, @AuthenticationPrincipal User user) {
+    public UserDto saveUpdatedUser(@RequestBody UserDto userDto) {
 
-        return userService.editUser(userDto, user);
+        return userService.editUser(userDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

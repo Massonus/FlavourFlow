@@ -66,23 +66,20 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public UserDto editUser(final UserDto userDto, final User user) {
+    public UserDto editUser(final UserDto userDto) {
 
-        final User savedUser = getUserById(user.getId());
+        User editingUser = getUserById(userDto.getUserId());
+
+        final User savedUser = getUserById(editingUser.getId());
         final Boolean isSameEmail = checkIsSameEmail(userDto);
         final Boolean isSameUsername = checkIsSameUsername(userDto);
 
-        if (!passwordEncoder.matches(userDto.getOldPassword(), savedUser.getPassword())) {
-            userDto.setIsIncorrectOldPassword(true);
-            return userDto;
-        }
-
-        if (!userDto.getUsername().equals(user.getUsername()) && isSameUsername) {
+        if (!userDto.getUsername().equals(editingUser.getUsername()) && isSameUsername) {
             userDto.setIsSameUsername(isSameUsername);
             return userDto;
         }
 
-        if (!userDto.getEmail().equals(user.getEmail()) && isSameEmail) {
+        if (!userDto.getEmail().equals(editingUser.getEmail()) && isSameEmail) {
             userDto.setIsSameEmail(isSameEmail);
             return userDto;
         }
