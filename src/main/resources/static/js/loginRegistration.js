@@ -1,6 +1,5 @@
-function validateForm(event) {
+function validateForm(event, csrf) {
 
-    let csrf = document.getElementById("csrf").value;
     let username = document.getElementById("username").value;
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
@@ -45,7 +44,7 @@ function regUser(event, username, email, password, csrf) {
         redirect: 'follow',
         headers: {
             "Content-Type": "application/json",
-            "X-CSRF-TOKEN": csrf
+            "X-CSRF-TOKEN": csrf,
         },
         body: body
 
@@ -60,7 +59,10 @@ function regUser(event, username, email, password, csrf) {
             } else if (data.isSameEmail) {
                 document.getElementById("emailError").textContent = "User with the same email is already exist";
                 document.getElementById("emailAlert").classList.remove('d-none');
-            } else {
+
+            }
+
+            if (data.isSuccessRegistration) {
                 window.location.href = "/login";
             }
         })
@@ -94,7 +96,7 @@ function validateUsername(username) {
 
 function validatePassword(password, confirmPassword) {
 
-     if (!(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{4,15}$/.test(password)) && !(password === "")) {
+    if (!(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{4,15}$/.test(password)) && !(password === "")) {
         document.getElementById("passwordError").textContent = "Password must be 4-15 characters long and contain at least one letter, one digit, and one special character";
         document.getElementById("passwordAlert").classList.remove('d-none');
         return false;
@@ -108,7 +110,7 @@ function validatePassword(password, confirmPassword) {
     return true;
 }
 
-function validateEmail (email) {
+function validateEmail(email) {
 
     if (email === "") {
         document.getElementById("emailError").textContent = "Please input email";

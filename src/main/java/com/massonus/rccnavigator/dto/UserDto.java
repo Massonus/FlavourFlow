@@ -20,7 +20,9 @@ public class UserDto {
 
     private String password;
 
-    private Long redactor;
+    private String redactor;
+
+    private Boolean isSuccessRegistration;
 
     private Boolean isIncorrectOldPassword;
 

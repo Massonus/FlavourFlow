@@ -8,18 +8,22 @@
             <table id="user-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
+                    <th scope="col">Id</th>
                     <th scope="col">Username</th>
                     <th scope="col">Role</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Redactor id</th>
                 </tr>
                 </thead>
                 <tbody>
                 <#list users as user>
                     <tr id="user-table-${user.getId()}">
+                        <th class="p-3" scope="row">${user.getId()}</th>
                         <th class="p-3" scope="row">${user.getUsername()}</th>
                         <td class="p-3">${user.getStringRole()}</td>
                         <td class="p-3">${user.getEmail()}</td>
-                        <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getId() || user.getId() == currentUserId)>
+                        <td class="p-3">${user.getRedactor()}</td>
+                        <#if !(admin.getId() == user.getId() || admin.getRedactor() == user.getStringId() || user.getId() == currentUserId || user.getRedactor() == "system")>
                         <td class="p-3"><a role="button" class="btn black-btn-outline"
                                            href="/user/edit/${user.getId()}">Edit</a>
                         </td>

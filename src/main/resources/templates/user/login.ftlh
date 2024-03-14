@@ -29,7 +29,7 @@
                     <div class="remember-me col-sm-6 col-xs-6">
                     </div>
                     <div class="register col-sm-6 col-xs-6">
-                        <a href="registration">Register</a>
+                        <a href="/reg">Register</a>
                     </div>
                 </div>
 

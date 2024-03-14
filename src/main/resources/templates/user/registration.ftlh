@@ -8,7 +8,7 @@
                 <h2 class="first-login">REGISTRATION</h2>
             </div>
 
-            <form onsubmit="return validateForm(event)">
+            <form onsubmit="return validateForm(event, '${_csrf.token}')">
                 <div class="input-group">
                     <input id="username" type="text" class="form-control" placeholder="Username" oninput="closeAlertWindow()">
                     <span class="input-group-addon">
@@ -64,7 +64,6 @@
                     </div>
                 </div>
 
-                <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                 <button id="registration-btn" type="submit" class="btn btn-primary btn-lg login-btn">REGISTRATION</button>
             </form>
         </div>

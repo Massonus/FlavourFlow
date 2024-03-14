@@ -11,9 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -101,13 +99,15 @@ public class UserService implements UserDetailsService {
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setRoles(Collections.singleton(Role.USER));
+        user.setRedactor("registration");
         saveUser(user);
 
+        userDto.setIsSuccessRegistration(true);
         return userDto;
     }
 
     private UserDto checkNewUser(final UserDto userDto) {
-        Set<User> allUsers = getAllUsers();
+        List<User> allUsers = getAllUsers();
 
         boolean isSameUsername = allUsers.stream()
                 .anyMatch(u -> u.getUsername().equals(userDto.getUsername()));
@@ -129,8 +129,8 @@ public class UserService implements UserDetailsService {
         return userRepo.findUserById(id);
     }
 
-    public Set<User> getAllUsers() {
-        return new HashSet<>(userRepo.findAll());
+    public List<User> getAllUsers() {
+        return userRepo.findAll().stream().sorted(Comparator.comparing(User::getId)).toList();
     }
 
     public Long deleteUser(Long id) {

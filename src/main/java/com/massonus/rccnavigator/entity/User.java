@@ -41,7 +41,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Rating> rates = new ArrayList<>();
 
-    private Long redactor;
+    private String redactor;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "basket_id")
@@ -92,6 +92,10 @@ public class User implements UserDetails {
 
     public String getStringRole() {
         return getRoles().toString();
+    }
+
+    public String getStringId() {
+        return id.toString();
     }
 
     @Override

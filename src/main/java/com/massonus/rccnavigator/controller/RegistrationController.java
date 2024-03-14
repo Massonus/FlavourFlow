@@ -24,7 +24,7 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/reg")
     public String registration() {
         return "user/registration";
     }
