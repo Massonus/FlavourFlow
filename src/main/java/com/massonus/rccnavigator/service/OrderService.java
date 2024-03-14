@@ -76,6 +76,8 @@ public class OrderService {
 
         orderRepo.save(order);
 
+        companyService.getCompanyById(orderDto.getCompanyId()).getOrders().add(order);
+
         orderDto.getUser().setOrders(Collections.singleton(order));
 
         List<OrderObject> objects = orderObjectService.getOrderObjectsByUserId(orderDto.getUser().getId());

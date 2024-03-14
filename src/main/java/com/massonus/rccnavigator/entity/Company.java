@@ -1,9 +1,13 @@
 package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.aspectj.weaver.ast.Or;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,6 +27,7 @@ public class Company {
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
+    @NotBlank(message = "Title cannot be empty")
     private String title;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -31,21 +36,28 @@ public class Company {
 
     private String imageLink;
 
-    @OneToMany(mappedBy = "company",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
 
     @Column(columnDefinition = "text", name = "price_category")
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Price category cannot be empty")
     private PriceCategory priceCategory;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BasketObject> basketObjects = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @NotNull(message = "Category cannot be empty")
     private KitchenCategory kitchenCategory;
 
     @ManyToOne
     @JoinColumn(name = "country_id")
+    @NotNull(message = "Country cannot be empty")
     private CompanyCountry companyCountry;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -54,6 +66,7 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Rating> rates = new ArrayList<>();
 
+    @Positive
     private Integer rating;
 
     public Integer getCountOfProducts() {

@@ -1,6 +1,7 @@
 package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,11 +24,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Username cannot be empty")
     private String username;
 
+    @NotBlank(message = "Password cannot be empty")
     private String password;
 
-    @NotBlank(message = "please fill the email")
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "Email cannot be empty")
     private String email;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -41,6 +45,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Rating> rates = new ArrayList<>();
 
+    @NotBlank(message = "Redactor cannot be empty")
     private String redactor;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

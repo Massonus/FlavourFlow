@@ -1,6 +1,8 @@
 package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,8 +21,10 @@ public class Product {
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
+    @NotBlank(message = "Title cannot be empty")
     private String title;
 
+    @Positive
     private Double price;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

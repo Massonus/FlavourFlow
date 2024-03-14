@@ -120,12 +120,6 @@ function changeProfile(event, csrf) {
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (password !== confirmPassword) {
-        document.getElementById("passwordError").textContent = "Passwords are different";
-        document.getElementById("passwordAlert").classList.remove('d-none');
-        return;
-    }
-
     if (!(validateUsername(username))) {
         return false;
     }
@@ -164,7 +158,6 @@ function changeProfile(event, csrf) {
             if (data.isSuccess) {
                 alert("Your profile successfully updated. Please re-login");
                 window.location.href = "/logout";
-                return;
             }
 
             if (data.isSameUsername) {
