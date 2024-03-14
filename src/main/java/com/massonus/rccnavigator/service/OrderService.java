@@ -46,7 +46,7 @@ public class OrderService {
             orderObject.setUser(orderDto.getUser());
             orderObject.setAmount(basketObject.getAmount());
             orderObject.setSum(basketObject.getSum());
-            orderObject.setProductId(basketObject.getProduct().getId());
+            orderObject.setProduct(basketObject.getProduct());
             orderObjects.add(orderObject);
 
             orderObjectService.saveOrderObject(orderObject);

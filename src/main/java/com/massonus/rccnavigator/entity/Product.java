@@ -51,6 +51,11 @@ public class Product {
             orphanRemoval = true)
     private List<WishObject> wishObjects = new ArrayList<>();
 
+    @OneToMany(mappedBy = "product",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<OrderObject> orderObjects = new ArrayList<>();
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Message> messages = new ArrayList<>();
 
