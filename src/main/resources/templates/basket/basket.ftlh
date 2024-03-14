@@ -134,9 +134,23 @@
 
             <form id="order-checkout" onsubmit="createOrder(event, ${companyId!''})">
 
-                <input id="orderDate" type="date" class="form-control">
-                <input id="orderTime" type="time" class="form-control">
-                <input id="countGuests" type="number" min="1" placeholder="Count of guests" class="form-control">
+                <input id="orderDate" type="date" class="form-control" onchange="closeAlertWindow()">
+
+                <div id="dateAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="dateError"></strong>
+                </div>
+
+                <input id="orderTime" type="time" class="form-control" onchange="closeAlertWindow()">
+
+                <div id="timeAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="timeError"></strong>
+                </div>
+
+                <input id="countGuests" type="number" min="1" value="1" placeholder="Count of guests" class="form-control" onchange="closeAlertWindow()">
+
+                <div id="guestsAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="guestsError"></strong>
+                </div>
 
                 <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                 <input type="submit" value="Submit">

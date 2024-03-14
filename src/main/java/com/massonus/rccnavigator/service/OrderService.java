@@ -8,7 +8,6 @@ import com.massonus.rccnavigator.repo.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,76 +19,75 @@ public class OrderService {
     private final BasketService basketService;
     private final BasketObjectService basketObjectService;
     private final CompanyService companyService;
+    private final UserService userService;
 
     @Autowired
-    public OrderService(OrderRepo orderRepo, OrderObjectService orderObjectService, BasketService basketService, BasketObjectService basketObjectService, CompanyService companyService) {
+    public OrderService(OrderRepo orderRepo, OrderObjectService orderObjectService, BasketService basketService, BasketObjectService basketObjectService, CompanyService companyService, UserService userService) {
         this.orderRepo = orderRepo;
         this.orderObjectService = orderObjectService;
         this.basketService = basketService;
         this.basketObjectService = basketObjectService;
         this.companyService = companyService;
+        this.userService = userService;
     }
 
     public OrderDto checkout(final OrderDto orderDto) {
 
-        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(orderDto.getUser().getId()).stream()
-                .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
-                .toList();
-
-        List<OrderObject> orderObjects = new ArrayList<>();
-
-        for (BasketObject basketObject : basketObjects) {
-
-            OrderObject orderObject = new OrderObject();
-            orderObject.setTitle(basketObject.getTitle());
-            orderObject.setCompany(basketObject.getCompany());
-            orderObject.setUser(orderDto.getUser());
-            orderObject.setAmount(basketObject.getAmount());
-            orderObject.setSum(basketObject.getSum());
-            orderObject.setProduct(basketObject.getProduct());
-            orderObjects.add(orderObject);
-
-            orderObjectService.saveOrderObject(orderObject);
-        }
-
-        createOrder(orderObjects, orderDto);
-
-        basketService.deleteBasketItemsByCompanyId(orderDto.getCompanyId(), orderDto.getUser());
-
-        orderDto.setIsSuccess(true);
-        return orderDto;
-    }
-
-    private void createOrder(final List<OrderObject> orderObjects, final OrderDto orderDto) {
-
         Order order = new Order();
-        order.setUser(orderDto.getUser());
+        order.setUser(userService.getUserById(orderDto.getUserId()));
         order.setDate(orderDto.getDate());
-        order.setOrderObjects(orderObjects);
         order.setTime(orderDto.getTime());
         order.setCountGuests(orderDto.getCountGuests());
         order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
 
-        double total = orderObjects.stream()
-                .mapToDouble(OrderObject::getSum)
+        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(orderDto.getUserId()).stream()
+                .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
+                .toList();
+
+        double total = basketObjects.stream()
+                .mapToDouble(BasketObject::getSum)
                 .sum();
 
         order.setTotal(total);
 
         orderRepo.save(order);
 
-        companyService.getCompanyById(orderDto.getCompanyId()).getOrders().add(order);
+        for (BasketObject basketObject : basketObjects) {
 
-        orderDto.getUser().setOrders(Collections.singleton(order));
+            OrderObject orderObject = new OrderObject();
+            orderObject.setTitle(basketObject.getTitle());
+            orderObject.setCompany(basketObject.getCompany());
+            orderObject.setUser(userService.getUserById(orderDto.getUserId()));
+            orderObject.setAmount(basketObject.getAmount());
+            orderObject.setSum(basketObject.getSum());
+            orderObject.setProduct(basketObject.getProduct());
+            orderObject.setOrder(order);
 
-        List<OrderObject> objects = orderObjectService.getOrderObjectsByUserId(orderDto.getUser().getId());
-
-        for (OrderObject object : objects) {
-            object.setOrder(order);
+            orderObjectService.saveOrderObject(orderObject);
         }
 
-        orderDto.getUser().setOrderObjects(objects);
+        createOrder(orderDto, order.getId());
 
+        basketService.deleteBasketItemsByCompanyId(orderDto.getCompanyId(), orderDto.getUserId());
+
+        orderDto.setIsSuccess(true);
+        return orderDto;
+    }
+
+    private void createOrder(final OrderDto orderDto, final Long orderId) {
+
+        Order order = getOrderById(orderId);
+
+        orderRepo.save(order);
+
+        companyService.getCompanyById(orderDto.getCompanyId()).getOrders().add(order);
+
+        userService.getUserById(orderDto.getUserId()).setOrders(Collections.singleton(order));
+
+    }
+
+    public Order getOrderById(Long id) {
+        return orderRepo.findOrderById(id);
     }
 
     public List<Order> getUserOrders(Long userId) {

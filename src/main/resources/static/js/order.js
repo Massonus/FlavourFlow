@@ -34,7 +34,20 @@ function createOrder(event, companyId) {
     let date = document.getElementById("orderDate").valueAsDate;
 
     if (date <= new Date()) {
-        console.log("error");
+        document.getElementById("dateAlert").classList.remove('d-none');
+        document.getElementById("dateError").textContent = "Choose future date";
+        return;
+    }
+
+    if (time === "" || undefined) {
+        document.getElementById("timeAlert").classList.remove('d-none');
+        document.getElementById("timeError").textContent = "Input time";
+        return;
+    }
+
+    if (countGuests < 1) {
+        document.getElementById("guestsAlert").classList.remove('d-none');
+        document.getElementById("guestsError").textContent = "Incorrect count";
         return;
     }
 
@@ -56,9 +69,17 @@ function createOrder(event, companyId) {
             "X-CSRF-TOKEN": csrf,
         },
         body: body,
-    })
-        .then(res => {
-            window.location.href = "/basket";
+    }).then(res => res.json())
+        .then((data) => {
+
+            if (data.isTimeError) {
+                document.getElementById("timeAlert").classList.remove('d-none');
+                document.getElementById("timeError").textContent = "Work time: 7:00 - 19:00";
+
+            } else {
+                window.location.href = "/basket";
+            }
+
         })
         .catch(error => {
             console.log(error);

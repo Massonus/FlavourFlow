@@ -108,9 +108,9 @@ public class BasketService {
         return itemDto;
     }
 
-    public void deleteBasketItemsByCompanyId(Long id, User user) {
-        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByCompanyIdAndUserId(id, user.getId());
-        getBasketByUserId(user.getId()).getBasketObjects().removeAll(basketObjects);
+    public void deleteBasketItemsByCompanyId(Long id, Long userId) {
+        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByCompanyIdAndUserId(id, userId);
+        getBasketByUserId(userId).getBasketObjects().removeAll(basketObjects);
         basketObjectService.deleteBasketObjectsByList(basketObjects);
     }
 

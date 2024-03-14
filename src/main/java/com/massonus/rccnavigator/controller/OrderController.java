@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Controller
@@ -29,7 +30,11 @@ public class OrderController {
     @ResponseBody
     public OrderDto checkout(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user) {
 
-        orderDto.setUser(user);
+        orderDto.setUserId(user.getId());
+        if (orderDto.getTime().isBefore(LocalTime.of(7, 0)) || orderDto.getTime().isAfter(LocalTime.of(19, 0))) {
+            orderDto.setIsTimeError(true);
+            return orderDto;
+        }
 
         return orderService.checkout(orderDto);
     }

@@ -23,7 +23,9 @@ public class OrderDto {
 
     private Boolean isSuccess;
 
+    private Boolean isTimeError;
+
     private Long companyId;
 
-    private User user;
+    private Long userId;
 }
