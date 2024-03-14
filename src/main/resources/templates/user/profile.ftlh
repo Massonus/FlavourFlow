@@ -13,6 +13,7 @@
                         <div class="mb-3 row">
                             <label for="staticUsername" class="col-sm-4 col-form-label">Username</label>
                             <div class="col-sm-8">
+
                                 <#if isAdmin>
                                     <input type="text" name="username" value="${username}" class="form-control"
                                            id="staticUsername">
@@ -37,6 +38,15 @@
 
                             </div>
                         </div>
+
+                        <div class="mb-3 row">
+                            <label for="oldPassword" class="col-sm-4 col-form-label">Old password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="oldPassword" name="password"
+                                       placeholder="old password">
+                            </div>
+                        </div>
+
                         <div class="mb-3 row">
                             <label for="inputPassword" class="col-sm-4 col-form-label">Password</label>
                             <div class="col-sm-8">
@@ -44,6 +54,7 @@
                                        placeholder="password">
                             </div>
                         </div>
+
                         <div class="mb-3 row">
                             <label for="inputPasswordConfirmation" class="col-sm-4 col-form-label">Password
                                 confirmation</label>
@@ -52,6 +63,7 @@
                                        name="confirmPassword" placeholder="password confirmation">
                             </div>
                         </div>
+
                         <a role="button" class="btn btn-outline-secondary mt-3" href="/">Cancel</a>
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <button type="submit" class="btn black-btn-outline mt-3">Save</button>
