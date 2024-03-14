@@ -6,7 +6,7 @@
     color: #DA77EB;
 }
 
-.btn-outline-danger {
+.btn-outline-danger, #message-delete {
     color: #DC3545;
 }
 

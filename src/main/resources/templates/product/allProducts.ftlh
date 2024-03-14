@@ -53,20 +53,20 @@
                                         <div class="product-thumb">
                                             <#if (product.getImage()??)>
                                                 <div class="filters__product-img">
-                                                    <a href="/product/${product.getId()}"><img alt="product image"
+                                                    <a class="cursor-default"><img alt="product image"
                                                                                                src="/images/${product.getImage().getId()}.jpg"
                                                                                                class="card-img-top"/></a>
                                                 </div>
                                             <#else>
                                                 <div class="filters__product-img">
-                                                    <a href="/product/${product.getId()}"><img alt="product image"
+                                                    <a class="cursor-default"><img alt="product image"
                                                                                                src="${product.getImageLink()}"
                                                                                                class="card-img-top"></a>
                                                 </div>
                                             </#if>
                                         </div>
                                         <div class="product-details">
-                                            <h4><a href="/product/${product.getId()}">${product.getTitle()}</a></h4>
+                                            <h4>${product.getTitle()}</h4>
                                             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
                                                 repudiandae?</p>
                                             <div class="product-bottom-details d-flex justify-content-between">

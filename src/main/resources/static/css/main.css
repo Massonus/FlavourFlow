@@ -27,7 +27,7 @@ a {
     text-decoration: none;
 }
 
-a i{
+a i {
     cursor: pointer;
 }
 
@@ -65,7 +65,7 @@ a:hover {
     max-width: 100px;
 }
 
-.order h1, h2{
+.order h1, h2 {
     text-align: center;
 }
 
@@ -82,7 +82,7 @@ a:hover {
     top: 0;
 }
 
-.text-index h1{
+.text-index h1 {
     color: #800000;
 }
 
@@ -97,6 +97,10 @@ a:hover {
     justify-content: center;
     height: 200px;
     padding: 20px;
+}
+
+.cursor-default {
+    cursor: default;
 }
 
 .filters__img {
@@ -145,7 +149,7 @@ a:hover {
     font-weight: 600;
 }
 
-.product-price p{
+.product-price p {
     color: gold;
 }
 
@@ -261,7 +265,7 @@ input:checked + label:before {
     transition: opacity .4s, visibility .4s;
 }
 
-.modal input{
+.modal input {
     width: 100%;
     margin-bottom: 20px;
     outline: none;
@@ -272,7 +276,7 @@ input:checked + label:before {
     font-weight: 400;
 }
 
-.modal input[type="submit"]{
+.modal input[type="submit"] {
     background-color: #ffc222;
     border: none;
 }
@@ -292,7 +296,7 @@ input:checked + label:before {
     text-align: left;
 }
 
-.container-buttons{
+.container-buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -372,17 +376,12 @@ input:checked + label:before {
 }
 
 #container-message {
-    display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
+    margin: 20px;
 }
 
 #message-card {
-    width: 70%;
+    width: 100%;
 }
 

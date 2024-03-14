@@ -71,7 +71,8 @@
                             <#if message.getAuthor().getId() == currentUserId || isAdmin>
                                 <a class="btn black-btn btn-outline-secondary mt-2 w-100"
                                    href="/message/edit?messageId=${message.getId()}&itemId=${company.getId()}">Edit</a>
-                                <a role="button" class="btn btn-outline-danger w-100 mt-2"
+
+                                <a id="message-delete" role="button" class="btn btn-outline-danger w-100 mt-2"
                                    onclick="deleteMessage(${message.getId()}, '${message.getMessageItemType()}', ${company.getId()}, '${_csrf.token}')">Delete</a>
                             </#if>
                         </div>
@@ -87,7 +88,6 @@
         <div class="d-flex justify-content-center" style="width: 100%; display: flex; justify-content: center;">
             <form onsubmit="createMessage(event, ${company.getId()}, '${company.getClass().getSimpleName()}', '${_csrf.token}')"
                   style="display: flex; flex-direction: row; align-items: center; justify-content: center; width: 70%;">
-                <label for="comment" class="col-sm-4 col-form-label">Comment</label>
                 <input type="text" class="form-control me-2 flex-grow-1" placeholder="Write your comment"
                        id="comment" style="height: 68px; margin-right: 10px;">
 
@@ -95,5 +95,7 @@
             </form>
         </div>
     </#if>
+
+    <br><br><br><br>
 </@c.page>
 

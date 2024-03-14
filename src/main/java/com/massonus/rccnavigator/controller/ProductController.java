@@ -111,16 +111,4 @@ public class ProductController {
         productService.deleteProduct(productById);
         return productById.getCompany().getId();
     }
-
-
-    @GetMapping("/{id}")
-    public String getProduct(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
-        Product productById = productService.getProductById(id);
-
-        model.addAttribute("user", user);
-        model.addAttribute("product", productById);
-        model.addAttribute("messages", messageService.getMessagesByItemTypeAndItemId(MessageItemType.PRODUCT, id));
-        return "product/productInfo";
-    }
-
 }

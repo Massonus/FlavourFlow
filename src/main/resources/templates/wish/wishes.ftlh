@@ -63,11 +63,11 @@
                                 <td class="p-3 align-middle border-light">
                                     <div class="d-flex align-items-stretch">
 
-                                        <a role="button" class="btn btn-success btn-sm"
+                                        <a role="button" class="btn btn-outline-secondary mx-1"
                                            onclick="moveWishToBasket(${product.getProductId()}, '${_csrf.token}')">To
                                             Basket</a>
 
-                                        <a role="button" class="btn black-btn-outline"
+                                        <a role="button" class="btn btn-outline-danger"
                                            onclick="deleteWishItem(${product.getProductId()}, '${_csrf.token}', undefined)">
                                             <i class="bi bi-trash text-danger"></i>
                                         </a>
