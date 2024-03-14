@@ -4,6 +4,7 @@
 
     <section>
         <div class="container py-5">
+            <h2>Products of ${company.getTitle()} company</h2>
             <table id="product-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -32,7 +33,7 @@
                 </tbody>
             </table>
             <div>
-                <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/product/add/${companyId}">Add product</a>
+                <a role="button" class="btn black-btn btn-gradient mt-2 w-100" href="/product/add/${company.getId()}">Add product</a>
             </div>
         </div>
     </section>

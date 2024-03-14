@@ -126,19 +126,19 @@
     </div>
 
     <div class="${orderModal}" id="order-form-modal">
-        <div class="modal__box">
+        <div id="order-modal-box" class="modal__box">
 
             <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <form id="order-checkout" onsubmit="createOrder(event, ${companyId!''})">
-                <input id="orderName" name="name" type="text" placeholder="Your name">
-                <input id="orderPhone" name="phone" type="text" placeholder="Mobile phone">
-                <input type="date" name="date" id="date">
+                <input type="date" id="date" class="form-control">
+                <input id="orderPhone" type="time" class="form-control">
+                <input id="countGuest" type="number" min="1" placeholder="Count of guests" class="form-control">
 
                 <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
-                <input type="submit" value="Отправить">
+                <input type="submit" value="Submit">
             </form>
 
         </div>
@@ -152,7 +152,7 @@
             </button>
 
             <#if companies?has_content>
-                <p>You have ${size!''} different companies in your basket, please choose only one for checkout</p>
+                <h4>You have ${size!''} different companies in your basket, please choose only one for checkout</h4>
                 <div class="container-buttons">
                     <#list companies as company>
                         <button type="submit" onclick="afterAlert(${company.getId()})">${company.getTitle()}</button>

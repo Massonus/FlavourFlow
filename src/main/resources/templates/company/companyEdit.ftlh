@@ -6,7 +6,7 @@
     <section>
         <div class="container py-5">
             <section class="py-5">
-                <h2 class="h5 text-uppercase mb-4">Company editing</h2>
+                <h2 class="h5 text-uppercase mb-4">Company edit</h2>
                 <div style="max-width: 600px" class="w-100">
                     <form onsubmit="editCompany(event, ${company.getId()})" class="text-start py-4">
 

@@ -279,6 +279,11 @@ input:checked + label:before {
 .modal input[type="submit"] {
     background-color: #ffc222;
     border: none;
+    border-radius: 20px;
+}
+
+.modal input[type="submit"]:hover {
+    transform: scale(1.06);
 }
 
 .modal__box {
@@ -300,12 +305,20 @@ input:checked + label:before {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    margin: 20px;
+    padding: 10px;
 }
 
 .container-buttons button {
     margin: 7px;
     background-color: #ffc222;
     border: none;
+    border-radius: 15px;
+    height: 35px;
+}
+
+.container-buttons button:hover {
+    transform: scale(1.06);
 }
 
 .modal__close-btn {
@@ -383,5 +396,9 @@ input:checked + label:before {
 
 #message-card {
     width: 100%;
+}
+
+#order-modal-box {
+    width: 20%;
 }
 
