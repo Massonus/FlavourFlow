@@ -66,19 +66,38 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public User editUser(final UserDto userDto) {
+    public UserDto editUser(final UserDto userDto, final User user) {
 
-        User savedUser = getUserById(userDto.getUserId());
-        savedUser.setUsername(userDto.getUsername());
+        final User savedUser = getUserById(user.getId());
+        final Boolean isSameEmail = checkIsSameEmail(userDto);
+        final Boolean isSameUsername = checkIsSameUsername(userDto);
+
+        if (!passwordEncoder.matches(userDto.getOldPassword(), savedUser.getPassword())) {
+            userDto.setIsIncorrectOldPassword(true);
+            return userDto;
+        }
+
+        if (!userDto.getUsername().equals(user.getUsername()) && isSameUsername) {
+            userDto.setIsSameUsername(isSameUsername);
+            return userDto;
+        }
+
+        if (!userDto.getEmail().equals(user.getEmail()) && isSameEmail) {
+            userDto.setIsSameEmail(isSameEmail);
+            return userDto;
+        }
 
         if (!userDto.getPassword().isEmpty()) {
             savedUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
+
+        savedUser.setUsername(userDto.getUsername());
         savedUser.setEmail(userDto.getEmail());
         savedUser.setRoles(Collections.singleton(userDto.getRole()));
         savedUser.setRedactor(userDto.getRedactor());
 
-        return savedUser;
+        userDto.setIsSuccess(true);
+        return userDto;
     }
 
     public UserDto updateUser(final UserDto userDto, final User user) {

@@ -70,8 +70,15 @@ function editUser(event, redactor, userId) {
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (password !== confirmPassword) {
-        document.getElementById("passwordError").textContent = "Passwords are different";
+    if (!(validateUsername(username))) {
+        return;
+    }
+
+    if (!(validatePassword(password, confirmPassword))) {
+        return;
+    }
+
+    if (!(validateEmail(email))) {
         return;
     }
 
@@ -95,10 +102,19 @@ function editUser(event, redactor, userId) {
         },
         body: body,
 
-    })
-        .then(res => {
-            if (res.ok) {
-                window.location.href = `/admin/panel`;
+    }).then(res => res.json())
+        .then((data) => {
+
+            if (data.isSameUsername) {
+                document.getElementById("usernameError").textContent = "User with the same username is already exist";
+                document.getElementById("usernameAlert").classList.remove('d-none');
+
+            } else if (data.isSameEmail) {
+                document.getElementById("emailError").textContent = "User with the same email is already exist";
+                document.getElementById("emailAlert").classList.remove('d-none');
+
+            } else {
+                window.location.href = "/admin/panel";
             }
         })
         .catch(error => {
@@ -153,9 +169,7 @@ function changeProfile(event, csrf) {
         username: username,
         email: email,
         oldPassword: oldPassword,
-        password: password,
-        isSameUsername: false,
-        isSameEmail: false
+        password: password
     });
 
     const url = "/user/change-profile";

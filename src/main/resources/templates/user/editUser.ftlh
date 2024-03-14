@@ -15,6 +15,11 @@
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="username"
                                        value="${editUser.getUsername()}" required>
+
+                                <div id="usernameAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                                    <strong id="usernameError"></strong>
+                                </div>
+
                             </div>
                         </div>
 
@@ -23,15 +28,24 @@
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="email"
                                        value="${editUser.getEmail()}" required>
+
+                                <div id="emailAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                                    <strong id="emailError"></strong>
+                                </div>
+
                             </div>
                         </div>
 
-                        <span id="passwordError" class="error"></span>
                         <div class="mb-3 row">
                             <label for="password" class="col-sm-4 col-form-label">Password:</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="password"
                                        placeholder="password">
+
+                                <div id="passwordAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                                    <strong id="passwordError"></strong>
+                                </div>
+
                             </div>
                         </div>
 
