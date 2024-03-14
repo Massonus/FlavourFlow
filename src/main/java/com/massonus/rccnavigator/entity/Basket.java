@@ -24,12 +24,10 @@ public class Basket {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "basket_product",
-            joinColumns = @JoinColumn(name = "basket_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @OneToMany(mappedBy = "basket",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<BasketObject> basketObjects = new ArrayList<>();
-
 
     public Double getTotal() {
         return basketObjects.stream()

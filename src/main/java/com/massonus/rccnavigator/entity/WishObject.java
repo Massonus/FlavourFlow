@@ -47,6 +47,7 @@ public class WishObject {
     @NotNull(message = "User cannot be null")
     private User user;
 
-    @ManyToMany(mappedBy = "wishObjects", fetch = FetchType.LAZY)
-    private List<Wish> wishes = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "wish_id")
+    private Wish wish;
 }

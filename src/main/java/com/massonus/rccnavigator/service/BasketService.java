@@ -42,6 +42,7 @@ public class BasketService {
         basketObject.setPrice(productById.getPrice());
         basketObject.setUser(userById);
         basketObject.setCompany(productById.getCompany());
+        basketObject.setBasket(currentBasket);
 
         basketObjectService.saveBasketObject(basketObject);
 

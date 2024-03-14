@@ -45,8 +45,9 @@ public class BasketObject {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(mappedBy = "basketObjects", fetch = FetchType.LAZY)
-    private List<Basket> basket = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
 
     @Positive
     private Integer amount;

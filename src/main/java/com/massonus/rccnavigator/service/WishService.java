@@ -20,13 +20,15 @@ public class WishService {
     private final WishRepo wishRepo;
     private final UserRepo userRepo;
     private final WishObjectService objectService;
+    private final CompanyService companyService;
 
     @Autowired
-    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo, WishObjectService objectService) {
+    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo, WishObjectService objectService, CompanyService companyService) {
         this.productService = productService;
         this.wishRepo = wishRepo;
         this.userRepo = userRepo;
         this.objectService = objectService;
+        this.companyService = companyService;
     }
 
     public Long addProductToWishes(Long id, Long userId) {
@@ -45,6 +47,7 @@ public class WishService {
         wishObject.setPrice(productById.getPrice());
         wishObject.setUser(userById);
         wishObject.setCompany(productById.getCompany());
+        wishObject.setWish(currentWish);
 
         objectService.saveWishObject(wishObject);
 
@@ -52,6 +55,8 @@ public class WishService {
 
         wishRepo.save(currentWish);
         userById.setWish(currentWish);
+
+        companyService.getCompanyById(productById.getCompany().getId()).getWishObjects().add(wishObject);
 
         return productById.getCompany().getId();
     }

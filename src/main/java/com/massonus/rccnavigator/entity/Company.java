@@ -50,6 +50,9 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BasketObject> basketObjects = new ArrayList<>();
 
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WishObject> wishObjects = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     @NotNull(message = "Category cannot be empty")
