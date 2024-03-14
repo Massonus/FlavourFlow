@@ -3,7 +3,7 @@ package com.massonus.rccnavigator.service;
 import com.massonus.rccnavigator.dto.UserDto;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
-import com.massonus.rccnavigator.repo.*;
+import com.massonus.rccnavigator.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,7 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -36,7 +38,16 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public User createUser(final UserDto userDto) {
+    public UserDto createUser(final UserDto userDto) {
+
+        userDto.setIsSameEmail(checkIsSameEmail(userDto));
+        userDto.setIsSameUsername(checkIsSameUsername(userDto));
+
+        if (userDto.getIsSameEmail() || userDto.getIsSameUsername()) {
+            userDto.setIsSuccess(false);
+            return userDto;
+        }
+
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
@@ -46,7 +57,8 @@ public class UserService implements UserDetailsService {
 
         saveUser(user);
 
-        return user;
+        userDto.setIsSuccess(true);
+        return userDto;
     }
 
     public void saveUser(User user) {

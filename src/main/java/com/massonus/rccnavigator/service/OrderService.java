@@ -8,6 +8,7 @@ import com.massonus.rccnavigator.repo.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +33,11 @@ public class OrderService {
     }
 
     public OrderDto checkout(final OrderDto orderDto) {
+
+        if (orderDto.getTime().isBefore(LocalTime.of(7, 0)) || orderDto.getTime().isAfter(LocalTime.of(19, 0))) {
+            orderDto.setIsTimeError(true);
+            return orderDto;
+        }
 
         Order order = new Order();
         order.setUser(userService.getUserById(orderDto.getUserId()));

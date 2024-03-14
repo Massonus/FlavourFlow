@@ -31,11 +31,6 @@ public class OrderController {
     public OrderDto checkout(@RequestBody OrderDto orderDto, @AuthenticationPrincipal User user) {
 
         orderDto.setUserId(user.getId());
-        if (orderDto.getTime().isBefore(LocalTime.of(7, 0)) || orderDto.getTime().isAfter(LocalTime.of(19, 0))) {
-            orderDto.setIsTimeError(true);
-            return orderDto;
-        }
-
         return orderService.checkout(orderDto);
     }
 

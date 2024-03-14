@@ -13,23 +13,35 @@
                         <div class="mb-3 row">
                             <label for="username" class="col-sm-4 col-form-label">Username:</label>
                             <div class="col-sm-8">
-                                <input id="username" type="text" class="form-control" placeholder="input username" required>
+                                <input id="username" type="text" class="form-control" placeholder="input username" required oninput="closeAlertWindow()">
+
+                                <div id="usernameAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                                    <strong id="usernameError"></strong>
+                                </div>
+
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="email" class="col-sm-4 col-form-label">Email:</label>
                             <div class="col-sm-8">
-                                <input id="email" type="text" class="form-control" placeholder="input email" required>
+                                <input id="email" type="text" class="form-control" placeholder="input email" required oninput="closeAlertWindow()">
+
+                                <div id="emailAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                                    <strong id="emailError"></strong>
+                                </div>
+
                             </div>
                         </div>
 
-                        <span id="passwordError" class="error"></span>
                         <div class="mb-3 row">
                             <label for="password" class="col-sm-4 col-form-label">Password:</label>
                             <div class="col-sm-8">
                                 <input id="password" type="password" class="form-control"
-                                       placeholder="password" required>
+                                       placeholder="password" required oninput="closeAlertWindow()">
+                                <div id="passwordAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                                    <strong id="passwordError"></strong>
+                                </div>
                             </div>
                         </div>
 
@@ -37,7 +49,7 @@
                             <label for="confirmPassword" class="col-sm-4 col-form-label">Password confirmation:</label>
                             <div class="col-sm-8">
                                 <input id="confirmPassword" type="password" class="form-control"
-                                       placeholder="confirm password" required>
+                                       placeholder="confirm password" required oninput="closeAlertWindow()">
                             </div>
                         </div>
 

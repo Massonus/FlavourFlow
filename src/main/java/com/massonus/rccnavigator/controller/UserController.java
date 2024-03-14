@@ -48,7 +48,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     @ResponseBody
-    public User addUser(@RequestBody UserDto userDto) {
+    public UserDto addUser(@RequestBody UserDto userDto) {
 
         return userService.createUser(userDto);
     }
