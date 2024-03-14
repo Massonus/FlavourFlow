@@ -370,3 +370,19 @@ input:checked + label:before {
     margin: auto;
     text-align: left;
 }
+
+#container-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
+
+#message-card {
+    width: 70%;
+}
+
