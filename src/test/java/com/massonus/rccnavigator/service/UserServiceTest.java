@@ -36,10 +36,14 @@ class UserServiceTest {
     void setUp() {
         expectedUser = new User();
         expectedUser.setId(1L);
+        expectedUser.setUsername("user1");
+        expectedUser.setEmail("user@gmail.com");
+        expectedUser.setPassword("password");
 
         userDto = new UserDto();
         userDto.setUsername("user");
         userDto.setPassword("password");
+        userDto.setOldPassword("password1");
         userDto.setEmail("user@gmail.com");
         userDto.setUserId(1L);
         userDto.setRole(Role.ADMIN);
@@ -81,6 +85,10 @@ class UserServiceTest {
 
     @Test
     void updateUser() {
+        when(passwordEncoder.matches(userDto.getOldPassword(), expectedUser.getPassword())).thenReturn(true);
+        when(userRepo.findUserById(expectedUser.getId())).thenReturn(expectedUser);
+        UserDto responseUserDto = userService.editUser(userDto, expectedUser);
+        assertTrue(responseUserDto.getIsSuccess());
     }
 
 

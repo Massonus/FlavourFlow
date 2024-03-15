@@ -108,7 +108,7 @@ public class UserService implements UserDetailsService {
         return userDto;
     }
 
-    public UserDto updateUser(final UserDto userDto, final User user) {
+    public UserDto editUser(final UserDto userDto, final User user) {
         final User savedUser = getUserById(user.getId());
         final Boolean isSameEmail = checkIsSameEmail(userDto);
         final Boolean isSameUsername = checkIsSameUsername(userDto);
