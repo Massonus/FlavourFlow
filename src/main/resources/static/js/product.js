@@ -100,6 +100,10 @@ function editProduct(event, productId, companyId) {
 
 function deleteProduct(productId, csrf) {
 
+    if (!confirm("Do you really want to delete this product?")) {
+        return;
+    }
+
     const url = `/product/delete?productId=${productId}`;
 
     fetch(url, {

@@ -12,6 +12,14 @@ function validateForm(event, csrf) {
 
     }
 
+    if (grecaptcha.getResponse()) {
+        alert("Success");
+
+    } else {
+        alert("Prove");
+        return false;
+    }
+
     if (!(validateUsername(username))) {
         return false;
     }

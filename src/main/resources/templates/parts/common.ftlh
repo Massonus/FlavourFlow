@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
         <script src="https://kit.fontawesome.com/9deb3ecfc7.js" crossorigin="anonymous"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
         <script src="../../static/js/loginRegistration.js"></script>
