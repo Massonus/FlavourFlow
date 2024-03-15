@@ -67,16 +67,13 @@
 
                 <div class="g-recaptcha m-3 row justify-content-center" data-sitekey="6LdIupkpAAAAAPYFGz2QASF-BNfI5wi7ikPy_MYy"></div>
 
+                <div id="captchaAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="captchaError"></strong>
+                </div>
                 <button id="registration-btn" type="submit" class="btn btn-primary btn-lg login-btn">REGISTRATION</button>
             </form>
         </div>
     </div>
-
-    <script type="text/javascript">
-        var onloadCallback = function() {
-            alert("grecaptcha is ready!");
-        };
-    </script>
 
 </@c.page>
 

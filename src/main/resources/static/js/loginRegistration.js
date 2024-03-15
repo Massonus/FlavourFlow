@@ -12,13 +12,8 @@ function validateForm(event, csrf) {
 
     }
 
-    if (grecaptcha.getResponse()) {
-        alert("Success");
+    let captchaResponse = grecaptcha.getResponse();
 
-    } else {
-        alert("Prove");
-        return false;
-    }
 
     if (!(validateUsername(username))) {
         return false;
@@ -32,17 +27,18 @@ function validateForm(event, csrf) {
         return false;
     }
 
-    regUser(event, username, email, password, csrf);
+    regUser(event, username, email, password, captchaResponse, csrf);
 
 }
 
-function regUser(event, username, email, password, csrf) {
+function regUser(event, username, email, password, captchaResponse, csrf) {
     event.preventDefault();
 
     const body = JSON.stringify({
         username: username,
         email: email,
         password: password,
+        captchaResponse: captchaResponse
     });
 
     const url = "/registration";
@@ -68,6 +64,9 @@ function regUser(event, username, email, password, csrf) {
                 document.getElementById("emailError").textContent = "User with the same email is already exist";
                 document.getElementById("emailAlert").classList.remove('d-none');
 
+            } else if (!data.isSuccessCaptcha) {
+                document.getElementById("captchaError").textContent = "Fill the captcha";
+                document.getElementById("captchaAlert").classList.remove('d-none');
             }
 
             if (data.isSuccess) {

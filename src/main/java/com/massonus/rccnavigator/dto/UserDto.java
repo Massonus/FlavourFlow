@@ -29,4 +29,8 @@ public class UserDto {
     private Boolean isSameUsername;
 
     private Boolean isSameEmail;
+
+    private String captchaResponse;
+
+    private Boolean isSuccessCaptcha;
 }
