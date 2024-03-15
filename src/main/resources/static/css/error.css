@@ -1,0 +1,48 @@
+.error {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.error h2 {
+  margin: 10px 0;
+}
+
+.error h1 {
+  margin: 0;
+  font-size: 170px;
+  font-weight: 800;
+  letter-spacing: 20px;
+  background: url(https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260) center;
+  background-size: cover;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.error p {
+  font-size: 20px;
+}
+
+.error a {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #fa1918;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 3% 6%;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.error a:hover {
+  background-color: #45145a;
+  box-shadow: -5px 5px 20px -5px #010101;
+}

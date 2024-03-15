@@ -165,10 +165,10 @@ public class UserService implements UserDetailsService {
         user.setRedactor("registration");
         saveUser(user);
 
+        userDto.setIsSuccessCaptcha(true);
         userDto.setIsSuccess(true);
         return userDto;
     }
-
     private Boolean checkIsSameUsername(final UserDto userDto) {
         return getAllUsers().stream()
                 .anyMatch(u -> u.getUsername().equals(userDto.getUsername()));
