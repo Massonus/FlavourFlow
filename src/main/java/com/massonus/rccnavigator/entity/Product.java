@@ -61,8 +61,8 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Message> messages = new ArrayList<>();
 
-
-    public Product(String title, Double price, String imageLink, ProductCategory productCategory, Company company) {
+    public Product(Long id, String title, Double price, String imageLink, ProductCategory productCategory, Company company) {
+        this.id = id;
         this.title = title;
         this.price = price;
         this.imageLink = imageLink;

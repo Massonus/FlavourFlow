@@ -1,58 +1,100 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.ItemDto;
 import com.massonus.rccnavigator.entity.*;
+import com.massonus.rccnavigator.repo.WishObjectRepo;
 import com.massonus.rccnavigator.repo.WishRepo;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 class WishServiceTest {
 
-    @InjectMocks
     private WishService target;
 
-    @Mock
     private WishRepo wishRepo;
+    private UserService userService;
+    private WishObjectRepo wishObjectRepo;
+
+    private User user;
+    private Product product;
+    private Wish expectedWish;
+    private WishObject wishObject;
+
+    @BeforeEach
+    void setUp() {
+        wishRepo = mock(WishRepo.class);
+        userService = mock(UserService.class);
+        wishObjectRepo = mock(WishObjectRepo.class);
+        WishObjectService wishObjectService = new WishObjectService(wishObjectRepo);
+        target = new WishService(wishRepo, userService, wishObjectService);
+
+        product = new Product(1L, "test", 12.3, "/test", ProductCategory.MEAL, new Company());
+        wishObject = new WishObject(1L,"first", product);
+        expectedWish = new Wish();
+        user = new User();
+        user.setId(1L);
+    }
 
     @Test
     void addProductToWishes() {
-        User user = new User();
-        user.setId(1L);
-        Wish wish = new Wish();
-        Product product = new Product("test", 12.3, "/test", ProductCategory.MEAL, new Company());
 
-        when(wishRepo.findWishByUserId(user.getId())).thenReturn(wish);
+        when(wishRepo.findWishByUserId(user.getId())).thenReturn(expectedWish);
         target.addProductToWishes(product, user);
 
-        WishObject first = wish.getWishObjects().getFirst();
+        WishObject first = expectedWish.getWishObjects().stream()
+                .filter(w -> w.getTitle().equals(product.getTitle()))
+                .toList().getFirst();
 
         assertEquals("test", first.getTitle());
+        verify(wishRepo, times(1)).save(expectedWish);
+    }
+
+    @Test
+    void getUserWishWhenWishDoesNotExist() {
+        when(userService.getUserById(user.getId())).thenReturn(user);
+
+        Wish savedWish = target.getUserWish(user.getId());
+        assertNotSame(expectedWish, savedWish);
+    }
+
+    @Test
+    void getUserWishWhenWishExist() {
+        when(wishRepo.findWishByUserId(user.getId())).thenReturn(expectedWish);
+
+        Wish savedWish = target.getUserWish(user.getId());
+        assertSame(expectedWish, savedWish);
+    }
+
+    @Test
+    void shouldBeInWishes() {
+        Wish wish = new Wish(user, List.of(wishObject));
+
+        when(wishRepo.findWishByUserId(user.getId())).thenReturn(wish);
+
+        Boolean inWishes = target.isInWishes(product.getId().toString(), user.getId().toString());
+        assertTrue(inWishes);
 
     }
 
     @Test
-    void getUserWish() {
-    }
+    void shouldReturnIdOfDeletedWishObject() {
+        ItemDto itemDto = new ItemDto();
+        itemDto.setProductId(product.getId());
+        when(wishObjectRepo.findWishObjectByProductIdAndUserId(product.getId(), user.getId())).thenReturn(wishObject);
 
-    @Test
-    void isInWishes() {
-    }
+        ItemDto returnedDto = target.deleteWishItem(itemDto, user);
+        assertSame(returnedDto.getItemId(), wishObject.getId());
 
-    @Test
-    void deleteWishItem() {
     }
 
     @Test
     void clearWishes() {
+        Boolean isEmpty = target.clearWishes(user);
+        assertTrue(isEmpty);
     }
 }

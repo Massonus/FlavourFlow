@@ -5,7 +5,6 @@ import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.entity.Wish;
 import com.massonus.rccnavigator.entity.WishObject;
-import com.massonus.rccnavigator.repo.UserRepo;
 import com.massonus.rccnavigator.repo.WishRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +16,13 @@ import java.util.Objects;
 public class WishService {
 
     private final WishRepo wishRepo;
-    private final UserRepo userRepo;
+    private final UserService userService;
     private final WishObjectService objectService;
 
     @Autowired
-    public WishService(WishRepo wishRepo, UserRepo userRepo, WishObjectService objectService) {
+    public WishService(WishRepo wishRepo, UserService userService, WishObjectService objectService) {
         this.wishRepo = wishRepo;
-        this.userRepo = userRepo;
+        this.userService = userService;
         this.objectService = objectService;
     }
 
@@ -54,7 +53,7 @@ public class WishService {
         Wish wishByUserId = getWishByUserId(userId);
         if (Objects.isNull(wishByUserId)) {
             Wish wish = new Wish();
-            wish.setUser(userRepo.findUserById(userId));
+            wish.setUser(userService.getUserById(userId));
             return wishRepo.save(wish);
         }
         return wishByUserId;
@@ -66,19 +65,19 @@ public class WishService {
 
     public Boolean isInWishes(String productId, String userId) {
 
-        return getUserWish(Long.valueOf(userId)).getWishObjects().stream().anyMatch(o -> o.getProduct().getId().equals(Long.valueOf(productId)));
+        return getUserWish(Long.valueOf(userId)).getWishObjects().stream()
+                .anyMatch(o -> o.getProduct().getId().equals(Long.valueOf(productId)));
     }
 
     public ItemDto deleteWishItem(ItemDto itemDto, User user) {
         WishObject wishObjectById = objectService.getWishObjectByProductIdAndUserId(itemDto.getProductId(), user.getId());
-        getWishByUserId(user.getId()).getWishObjects().remove(wishObjectById);
         objectService.deleteWishObject(wishObjectById);
         itemDto.setItemId(wishObjectById.getId());
         return itemDto;
     }
 
-    public void clearWishes(final User user) {
-        userRepo.findUserById(user.getId()).setWish(null);
+    public Boolean clearWishes(final User user) {
         wishRepo.delete(getWishByUserId(user.getId()));
+        return objectService.getWishObjectsByUserId(user.getId()).isEmpty();
     }
 }

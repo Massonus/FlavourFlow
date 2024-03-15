@@ -5,6 +5,8 @@ import com.massonus.rccnavigator.repo.WishObjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WishObjectService {
 
@@ -27,5 +29,9 @@ public class WishObjectService {
     public WishObject getWishObjectByProductIdAndUserId(Long productId, Long userId) {
 
         return objectRepo.findWishObjectByProductIdAndUserId(productId, userId);
+    }
+
+    public List<WishObject> getWishObjectsByUserId(Long userId) {
+        return objectRepo.findWishObjectsByUserId(userId);
     }
 }

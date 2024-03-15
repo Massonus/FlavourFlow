@@ -30,4 +30,9 @@ public class Wish {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<WishObject> wishObjects = new ArrayList<>();
+
+    public Wish(User user, List<WishObject> wishObjects) {
+        this.user = user;
+        this.wishObjects = wishObjects;
+    }
 }

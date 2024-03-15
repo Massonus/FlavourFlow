@@ -82,10 +82,8 @@ public class WishController {
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/clear")
     @ResponseBody
-    public String clearWishes(@AuthenticationPrincipal User user) {
+    public Boolean clearWishes(@AuthenticationPrincipal User user) {
 
-        wishService.clearWishes(user);
-
-        return "redirect:/wishes";
+        return wishService.clearWishes(user);
     }
 }

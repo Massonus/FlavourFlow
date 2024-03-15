@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "wish_object")
+@NoArgsConstructor
 public class WishObject {
 
     private static final String SEQUENCE_NAME = "wish_object_seq";
@@ -48,4 +50,11 @@ public class WishObject {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
+
+    public WishObject(Long id, String title, Product product) {
+        this.id = id;
+        this.title = title;
+        this.product = product;
+    }
 }
