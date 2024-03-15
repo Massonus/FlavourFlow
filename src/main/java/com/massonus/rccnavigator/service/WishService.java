@@ -16,49 +16,38 @@ import java.util.Objects;
 @Service
 public class WishService {
 
-    private final ProductService productService;
     private final WishRepo wishRepo;
     private final UserRepo userRepo;
     private final WishObjectService objectService;
-    private final CompanyService companyService;
 
     @Autowired
-    public WishService(ProductService productService, WishRepo wishRepo, UserRepo userRepo, WishObjectService objectService, CompanyService companyService) {
-        this.productService = productService;
+    public WishService(WishRepo wishRepo, UserRepo userRepo, WishObjectService objectService) {
         this.wishRepo = wishRepo;
         this.userRepo = userRepo;
         this.objectService = objectService;
-        this.companyService = companyService;
     }
 
-    public Long addProductToWishes(Long id, Long userId) {
+    public Long addProductToWishes(final Product product, final User user) {
 
-        final Product productById = productService.getProductById(id);
-
-        final Wish currentWish = getUserWish(userId);
-        User userById = userRepo.findUserById(userId);
+        final Wish currentWish = getUserWish(user.getId());
         List<WishObject> wishObjects = currentWish.getWishObjects();
 
         WishObject wishObject = new WishObject();
-        wishObject.setProduct(productById);
-        wishObject.setTitle(productById.getTitle());
-        wishObject.setImage(productById.getImage());
-        wishObject.setImageLink(productById.getImageLink());
-        wishObject.setPrice(productById.getPrice());
-        wishObject.setUser(userById);
-        wishObject.setCompany(productById.getCompany());
+        wishObject.setProduct(product);
+        wishObject.setTitle(product.getTitle());
+        wishObject.setImage(product.getImage());
+        wishObject.setImageLink(product.getImageLink());
+        wishObject.setPrice(product.getPrice());
+        wishObject.setUser(user);
+        wishObject.setCompany(product.getCompany());
         wishObject.setWish(currentWish);
-
-        objectService.saveWishObject(wishObject);
 
         wishObjects.add(wishObject);
 
         wishRepo.save(currentWish);
-        userById.setWish(currentWish);
+        user.setWish(currentWish);
 
-        companyService.getCompanyById(productById.getCompany().getId()).getWishObjects().add(wishObject);
-
-        return productById.getCompany().getId();
+        return product.getCompany().getId();
     }
 
     public Wish getUserWish(Long userId) {

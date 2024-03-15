@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "product")
+@NoArgsConstructor
 public class Product {
     private static final String SEQUENCE_NAME = "product_seq";
 
@@ -59,4 +61,12 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Message> messages = new ArrayList<>();
 
+
+    public Product(String title, Double price, String imageLink, ProductCategory productCategory, Company company) {
+        this.title = title;
+        this.price = price;
+        this.imageLink = imageLink;
+        this.productCategory = productCategory;
+        this.company = company;
+    }
 }
