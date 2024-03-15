@@ -17,11 +17,6 @@ public class WishObjectService {
         this.objectRepo = objectRepo;
     }
 
-    public void saveWishObject(final WishObject wishObject) {
-
-        objectRepo.save(wishObject);
-    }
-
     public void deleteWishObject(final WishObject wishObject) {
         objectRepo.delete(wishObject);
     }
