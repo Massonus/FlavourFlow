@@ -33,7 +33,7 @@ public class WebSecurityConfig {
         return http
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/registration", "/reg", "static/**", "/auth/status", "/css/**", "/img/**","/js/**", "/company", "/company/info/**", "/company/sort", "company/filter", "/product/all-products/**", "/search").permitAll()
+                        .requestMatchers("/", "/registration", "/reg", "static/**", "/auth/status", "/css/**", "/img/**","/js/**", "/company", "/company/info/**", "/company/sort", "company/filter", "/product/all-products/**", "/images/**", "/search").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                         .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                         .anyRequest().authenticated()

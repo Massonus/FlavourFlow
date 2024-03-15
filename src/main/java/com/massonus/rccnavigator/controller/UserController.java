@@ -34,7 +34,7 @@ public class UserController {
     @ResponseBody
     public UserDto updateUserProfile(@RequestBody UserDto userDto, @AuthenticationPrincipal User user) {
 
-        return userService.updateUser(userDto, user);
+        return userService.editUser(userDto, user);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

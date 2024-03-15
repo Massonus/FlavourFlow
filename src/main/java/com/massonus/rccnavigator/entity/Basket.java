@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,10 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "basket")
-public class Basket {
+public class Basket implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private static final String SEQUENCE_NAME = "basket_seq";
 

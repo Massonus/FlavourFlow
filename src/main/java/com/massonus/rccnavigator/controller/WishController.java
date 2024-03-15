@@ -4,6 +4,7 @@ import com.massonus.rccnavigator.dto.ItemDto;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.service.BasketObjectService;
 import com.massonus.rccnavigator.service.BasketService;
+import com.massonus.rccnavigator.service.ProductService;
 import com.massonus.rccnavigator.service.WishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,12 +22,14 @@ public class WishController {
     private final WishService wishService;
     private final BasketService basketService;
     private final BasketObjectService basketObjectService;
+    private final ProductService productService;
 
     @Autowired
-    public WishController(WishService wishService, BasketService basketService, BasketObjectService basketObjectService) {
+    public WishController(WishService wishService, BasketService basketService, BasketObjectService basketObjectService, ProductService productService) {
         this.wishService = wishService;
         this.basketService = basketService;
         this.basketObjectService = basketObjectService;
+        this.productService = productService;
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -45,7 +48,7 @@ public class WishController {
     @ResponseBody
     public Long addWishItem(@RequestParam Long id, @AuthenticationPrincipal User user) {
 
-        return wishService.addProductToWishes(id, user.getId());
+        return wishService.addProductToWishes(productService.getProductById(id), user);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -79,10 +82,8 @@ public class WishController {
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/clear")
     @ResponseBody
-    public String clearWishes(@AuthenticationPrincipal User user) {
+    public Boolean clearWishes(@AuthenticationPrincipal User user) {
 
-        wishService.clearWishes(user);
-
-        return "redirect:/wishes";
+        return wishService.clearWishes(user);
     }
 }

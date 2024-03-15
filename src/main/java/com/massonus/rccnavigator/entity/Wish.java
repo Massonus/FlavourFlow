@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,11 @@ import java.util.List;
 @Getter
 @Table(name = "wishes")
 @NoArgsConstructor
-public class Wish {
+public class Wish implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private static final String SEQUENCE_NAME = "wish_seq";
 
     @Id
@@ -30,4 +36,9 @@ public class Wish {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<WishObject> wishObjects = new ArrayList<>();
+
+    public Wish(User user, List<WishObject> wishObjects) {
+        this.user = user;
+        this.wishObjects = wishObjects;
+    }
 }

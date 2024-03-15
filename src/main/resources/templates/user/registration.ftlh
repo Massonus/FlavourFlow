@@ -3,6 +3,7 @@
 <@c.page>
 
     <div id="container-form" class="container">
+
         <div class="form-login">
             <div class="first-row">
                 <h2 class="first-login">REGISTRATION</h2>
@@ -64,6 +65,11 @@
                     </div>
                 </div>
 
+                <div class="g-recaptcha m-3 row justify-content-center" data-sitekey="6LdIupkpAAAAAPYFGz2QASF-BNfI5wi7ikPy_MYy"></div>
+
+                <div id="captchaAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="captchaError"></strong>
+                </div>
                 <button id="registration-btn" type="submit" class="btn btn-primary btn-lg login-btn">REGISTRATION</button>
             </form>
         </div>

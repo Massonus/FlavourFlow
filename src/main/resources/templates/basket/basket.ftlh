@@ -146,7 +146,7 @@
                     <strong id="timeError"></strong>
                 </div>
 
-                <input id="countGuests" type="number" min="1" value="1" placeholder="Count of guests" class="form-control" onchange="closeAlertWindow()">
+                <input id="countGuests" type="number" min="1" placeholder="Count of guests" class="form-control" onchange="closeAlertWindow()">
 
                 <div id="guestsAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="guestsError"></strong>

@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
         <script src="https://kit.fontawesome.com/9deb3ecfc7.js" crossorigin="anonymous"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
         <script src="../../static/js/loginRegistration.js"></script>
@@ -53,6 +54,7 @@
         <link rel="stylesheet" type="text/css" href="/css/login-form.css">
         <link rel="stylesheet" type="text/css" href="/css/stars.css">
         <link rel="stylesheet" type="text/css" href="/css/file.css">
+        <link rel="stylesheet" type="text/css" href="/css/error.css">
 
     </head>
     <body onload="setTheme(); addEventListeners()">
