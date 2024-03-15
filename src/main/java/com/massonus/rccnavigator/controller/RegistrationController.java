@@ -38,6 +38,11 @@ public class RegistrationController {
     @ResponseBody
     public UserDto registrationPost(@RequestBody UserDto userDto) {
 
+        if (!userService.checkCaptcha(userDto)) {
+            userDto.setIsSuccessCaptcha(false);
+            return userDto;
+        }
+
         return userService.registrationUser(userDto);
     }
 

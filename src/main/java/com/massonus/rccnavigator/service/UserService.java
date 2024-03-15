@@ -140,15 +140,6 @@ public class UserService implements UserDetailsService {
 
     public UserDto registrationUser(final UserDto userDto) {
 
-        String url = String.format(CAPTCHA_URL, secret, userDto.getCaptchaResponse());
-
-        CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
-
-        if (!Objects.requireNonNull(response).isSuccess()) {
-            userDto.setIsSuccessCaptcha(false);
-            return userDto;
-        }
-
         userDto.setIsSameEmail(checkIsSameEmail(userDto));
         userDto.setIsSameUsername(checkIsSameUsername(userDto));
 
@@ -169,6 +160,7 @@ public class UserService implements UserDetailsService {
         userDto.setIsSuccess(true);
         return userDto;
     }
+
     private Boolean checkIsSameUsername(final UserDto userDto) {
         return getAllUsers().stream()
                 .anyMatch(u -> u.getUsername().equals(userDto.getUsername()));
@@ -177,6 +169,12 @@ public class UserService implements UserDetailsService {
     private Boolean checkIsSameEmail(final UserDto userDto) {
         return getAllUsers().stream()
                 .anyMatch(u -> u.getEmail().equals(userDto.getEmail()));
+    }
+
+    public Boolean checkCaptcha(final UserDto userDto) {
+        String url = String.format(CAPTCHA_URL, secret, userDto.getCaptchaResponse());
+        CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
+        return Objects.requireNonNull(response).isSuccess();
     }
 
     public User getUserById(Long id) {
