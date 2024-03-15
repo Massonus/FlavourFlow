@@ -1,28 +1,39 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.CaptchaResponseDto;
 import com.massonus.rccnavigator.dto.UserDto;
 import com.massonus.rccnavigator.entity.Role;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService implements UserDetailsService {
 
+    private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
+
+    @Value("${recaptcha.secret}")
+    private String secret;
+
+    private final RestTemplate restTemplate;
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder) {
+    public UserService(RestTemplate restTemplate, UserRepo userRepo, PasswordEncoder passwordEncoder) {
+        this.restTemplate = restTemplate;
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
     }
@@ -128,6 +139,15 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDto registrationUser(final UserDto userDto) {
+
+        String url = String.format(CAPTCHA_URL, secret, userDto.getCaptchaResponse());
+
+        CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
+
+        if (!Objects.requireNonNull(response).isSuccess()) {
+            userDto.setIsSuccessCaptcha(false);
+            return userDto;
+        }
 
         userDto.setIsSameEmail(checkIsSameEmail(userDto));
         userDto.setIsSameUsername(checkIsSameUsername(userDto));
