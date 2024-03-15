@@ -59,10 +59,12 @@ function regUser(event, username, email, password, captchaResponse, csrf) {
             if (data.isSameUsername) {
                 document.getElementById("usernameError").textContent = "User with the same username is already exist";
                 document.getElementById("usernameAlert").classList.remove('d-none');
+                grecaptcha.reset()
 
             } else if (data.isSameEmail) {
                 document.getElementById("emailError").textContent = "User with the same email is already exist";
                 document.getElementById("emailAlert").classList.remove('d-none');
+                grecaptcha.reset()
 
             } else if (!data.isSuccessCaptcha) {
                 document.getElementById("captchaError").textContent = "Fill the captcha";
