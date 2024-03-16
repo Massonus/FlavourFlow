@@ -33,8 +33,7 @@ public class OrderService {
 
     public OrderDto checkout(final OrderDto orderDto) {
 
-        if (orderDto.getTime().isBefore(LocalTime.of(7, 0)) || orderDto.getTime().isAfter(LocalTime.of(19, 0))) {
-            orderDto.setIsTimeError(true);
+        if (checkOrderTime(orderDto).getIsTimeError()) {
             return orderDto;
         }
 
@@ -60,18 +59,6 @@ public class OrderService {
         return orderRepo.save(order);
     }
 
-    private List<BasketObject> getWantedBasketObjects(final OrderDto orderDto) {
-        return basketObjectService.getBasketObjectsByUserId(orderDto.getUserId()).stream()
-                .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
-                .toList();
-    }
-
-    private Double getTotal(List<BasketObject> basketObjects) {
-        return basketObjects.stream()
-                .mapToDouble(BasketObject::getSum)
-                .sum();
-    }
-
     private void createOrderObjects(final List<BasketObject> basketObjects, final Order order, final OrderDto orderDto) {
         for (BasketObject basketObject : basketObjects) {
             OrderObject orderObject = new OrderObject();
@@ -85,6 +72,27 @@ public class OrderService {
 
             orderObjectService.saveOrderObject(orderObject);
         }
+    }
+
+    private List<BasketObject> getWantedBasketObjects(final OrderDto orderDto) {
+        return basketObjectService.getBasketObjectsByUserId(orderDto.getUserId()).stream()
+                .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
+                .toList();
+    }
+
+    private Double getTotal(final List<BasketObject> basketObjects) {
+        return basketObjects.stream()
+                .mapToDouble(BasketObject::getSum)
+                .sum();
+    }
+
+    private OrderDto checkOrderTime(final OrderDto orderDto) {
+        boolean isBefore = orderDto.getTime().isBefore(LocalTime.of(7, 0));
+        boolean isAfter = orderDto.getTime().isAfter(LocalTime.of(19, 0));
+
+        orderDto.setIsTimeError(isBefore || isAfter);
+
+        return orderDto;
     }
 
     public List<Order> getUserOrders(Long userId) {
