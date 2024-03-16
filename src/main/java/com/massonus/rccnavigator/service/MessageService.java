@@ -4,7 +4,6 @@ import com.massonus.rccnavigator.dto.MessageDto;
 import com.massonus.rccnavigator.entity.Message;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.repo.MessageRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -15,12 +14,9 @@ import java.util.Set;
 public class MessageService {
 
     private final MessageRepo messageRepo;
-    private final CompanyService companyService;
 
-    @Autowired
-    public MessageService(MessageRepo messageRepo, CompanyService companyService) {
+    public MessageService(MessageRepo messageRepo) {
         this.messageRepo = messageRepo;
-        this.companyService = companyService;
     }
 
     public MessageDto saveMessage(final MessageDto messageDto, User user) {
@@ -31,8 +27,6 @@ public class MessageService {
         message.setLikes(new HashSet<>());
 
         messageRepo.save(message);
-
-        companyService.getCompanyById(messageDto.getItemId()).getMessages().add(message);
 
         return messageDto;
     }
@@ -49,7 +43,6 @@ public class MessageService {
 
     public void deleteMessage(Long messageId) {
         Message messageById = getMessageById(messageId);
-        companyService.getCompanyById(messageById.getItemId()).getMessages().remove(messageById);
 
         messageRepo.delete(messageById);
     }
