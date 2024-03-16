@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -39,27 +38,42 @@ public class OrderService {
             return orderDto;
         }
 
+        List<BasketObject> basketObjects = getWantedBasketObjects(orderDto);
+        Order order = createOrder(orderDto, getTotal(basketObjects));
+        createOrderObjects(basketObjects, order, orderDto);
+
+        basketService.deleteBasketItemsByCompanyId(orderDto.getCompanyId(), orderDto.getUserId());
+
+        orderDto.setIsSuccess(true);
+        return orderDto;
+    }
+
+    private Order createOrder(final OrderDto orderDto, final Double total) {
         Order order = new Order();
         order.setUser(userService.getUserById(orderDto.getUserId()));
         order.setDate(orderDto.getDate());
         order.setTime(orderDto.getTime());
         order.setCountGuests(orderDto.getCountGuests());
         order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
-
-        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(orderDto.getUserId()).stream()
-                .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
-                .toList();
-
-        double total = basketObjects.stream()
-                .mapToDouble(BasketObject::getSum)
-                .sum();
-
         order.setTotal(total);
 
-        orderRepo.save(order);
+        return orderRepo.save(order);
+    }
 
+    private List<BasketObject> getWantedBasketObjects(final OrderDto orderDto) {
+        return basketObjectService.getBasketObjectsByUserId(orderDto.getUserId()).stream()
+                .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
+                .toList();
+    }
+
+    private Double getTotal(List<BasketObject> basketObjects) {
+        return basketObjects.stream()
+                .mapToDouble(BasketObject::getSum)
+                .sum();
+    }
+
+    private void createOrderObjects(final List<BasketObject> basketObjects, final Order order, final OrderDto orderDto) {
         for (BasketObject basketObject : basketObjects) {
-
             OrderObject orderObject = new OrderObject();
             orderObject.setTitle(basketObject.getTitle());
             orderObject.setCompany(basketObject.getCompany());
@@ -71,29 +85,6 @@ public class OrderService {
 
             orderObjectService.saveOrderObject(orderObject);
         }
-
-        createOrder(orderDto, order.getId());
-
-        basketService.deleteBasketItemsByCompanyId(orderDto.getCompanyId(), orderDto.getUserId());
-
-        orderDto.setIsSuccess(true);
-        return orderDto;
-    }
-
-    private void createOrder(final OrderDto orderDto, final Long orderId) {
-
-        Order order = getOrderById(orderId);
-
-        orderRepo.save(order);
-
-        companyService.getCompanyById(orderDto.getCompanyId()).getOrders().add(order);
-
-        userService.getUserById(orderDto.getUserId()).setOrders(Collections.singleton(order));
-
-    }
-
-    public Order getOrderById(Long id) {
-        return orderRepo.findOrderById(id);
     }
 
     public List<Order> getUserOrders(Long userId) {
