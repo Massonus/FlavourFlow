@@ -39,7 +39,9 @@ public class OrderService {
 
         List<BasketObject> basketObjects = getWantedBasketObjects(orderDto);
         Order order = createOrder(orderDto, getTotal(basketObjects));
-        createOrderObjects(basketObjects, order, orderDto);
+
+        orderRepo.save(order);
+        createAndSaveOrderObjects(basketObjects, order);
 
         basketService.deleteBasketItemsByCompanyId(orderDto.getCompanyId(), orderDto.getUserId());
 
@@ -56,18 +58,19 @@ public class OrderService {
         order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
         order.setTotal(total);
 
-        return orderRepo.save(order);
+        return order;
     }
 
-    private void createOrderObjects(final List<BasketObject> basketObjects, final Order order, final OrderDto orderDto) {
+    private void createAndSaveOrderObjects(final List<BasketObject> basketObjects, final Order order) {
         for (BasketObject basketObject : basketObjects) {
             OrderObject orderObject = new OrderObject();
             orderObject.setTitle(basketObject.getTitle());
             orderObject.setCompany(basketObject.getCompany());
-            orderObject.setUser(userService.getUserById(orderDto.getUserId()));
             orderObject.setAmount(basketObject.getAmount());
             orderObject.setSum(basketObject.getSum());
             orderObject.setProduct(basketObject.getProduct());
+
+            orderObject.setUser(order.getUser());
             orderObject.setOrder(order);
 
             orderObjectService.saveOrderObject(orderObject);

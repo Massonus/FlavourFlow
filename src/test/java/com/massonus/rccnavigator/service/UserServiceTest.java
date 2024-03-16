@@ -27,7 +27,7 @@ class UserServiceTest {
     private UserRepo userRepo;
 
     @InjectMocks
-    private UserService userService;
+    private UserService target;
 
     private UserDto userDto;
     private User expectedUser;
@@ -51,7 +51,7 @@ class UserServiceTest {
 
     @Test
     void shouldReturnRegistrationUser() {
-        UserDto responseUserDto = userService.registrationUser(userDto);
+        UserDto responseUserDto = target.registrationUser(userDto);
         Boolean isSuccess = responseUserDto.getIsSuccess();
         assertTrue(isSuccess);
 
@@ -66,14 +66,14 @@ class UserServiceTest {
     void editUser() {
         when(userRepo.findUserById(userDto.getUserId())).thenReturn(expectedUser);
 
-        UserDto responseUserDto = userService.editUser(userDto);
+        UserDto responseUserDto = target.editUser(userDto);
         Boolean isSuccess = responseUserDto.getIsSuccess();
         assertTrue(isSuccess);
     }
 
     @Test
     void createUser() {
-        UserDto responseUserDto = userService.createUser(userDto);
+        UserDto responseUserDto = target.createUser(userDto);
         assertTrue(responseUserDto.getIsSuccess());
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
@@ -87,7 +87,7 @@ class UserServiceTest {
     void updateUser() {
         when(passwordEncoder.matches(userDto.getOldPassword(), expectedUser.getPassword())).thenReturn(true);
         when(userRepo.findUserById(expectedUser.getId())).thenReturn(expectedUser);
-        UserDto responseUserDto = userService.editUser(userDto, expectedUser);
+        UserDto responseUserDto = target.editUser(userDto, expectedUser);
         assertTrue(responseUserDto.getIsSuccess());
     }
 

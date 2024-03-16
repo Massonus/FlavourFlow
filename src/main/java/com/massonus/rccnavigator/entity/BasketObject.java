@@ -53,11 +53,11 @@ public class BasketObject {
     @Positive
     private Double sum;
 
-    public BasketObject() {
-        this.amount = 1;
-    }
-
     public Double getSum() {
         return price * amount;
+    }
+
+    public BasketObject() {
+        this.amount = 1;
     }
 }

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 
 class ProductServiceTest {
 
-    private ProductService productService;
+    private ProductService target;
     private ProductRepo productRepo;
     private CompanyRepo companyRepo;
 
@@ -30,7 +30,7 @@ class ProductServiceTest {
     void setUp() {
         productRepo = mock(ProductRepo.class);
         companyRepo = mock(CompanyRepo.class);
-        productService = new ProductService(productRepo, companyRepo);
+        target = new ProductService(productRepo, companyRepo);
 
         productDto = new ProductDto();
         productDto.setProductId(1L);
@@ -52,7 +52,7 @@ class ProductServiceTest {
     @Test
     void saveProduct() {
         when(companyRepo.findCompanyById(productDto.getCompanyId())).thenReturn(company);
-        productService.saveProduct(productDto);
+        target.saveProduct(productDto);
 
         ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
         verify(productRepo, times(1)).save(productCaptor.capture());
@@ -64,7 +64,7 @@ class ProductServiceTest {
     @Test
     void editProduct() {
         when(productRepo.findProductById(productDto.getProductId())).thenReturn(expectedProduct);
-        productService.editProduct(productDto);
+        target.editProduct(productDto);
 
         ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
         verify(productRepo, times(1)).save(productCaptor.capture());
@@ -77,7 +77,7 @@ class ProductServiceTest {
     void getProductById() {
         when(productRepo.findProductById(productDto.getProductId())).thenReturn(expectedProduct);
 
-        Product productById = productService.getProductById(productDto.getProductId());
+        Product productById = target.getProductById(productDto.getProductId());
 
         assertSame(productById.getId(), productDto.getProductId());
     }
@@ -86,7 +86,7 @@ class ProductServiceTest {
     void getProductByTitleAndCompanyId() {
         when(productRepo.findProductByTitleAndCompanyId(productDto.getTitle(), productDto.getCompanyId())).thenReturn(expectedProduct);
 
-        Product product = productService.getProductByTitleAndCompanyId(productDto.getTitle(), productDto.getCompanyId());
+        Product product = target.getProductByTitleAndCompanyId(productDto.getTitle(), productDto.getCompanyId());
 
         assertSame(product.getTitle(), productDto.getTitle());
     }
@@ -96,7 +96,7 @@ class ProductServiceTest {
         List<Product> products = List.of(new Product(company), new Product(company));
         when(productRepo.findProductsByCompanyId(company.getId())).thenReturn(products);
 
-        List<Product> allProductsByCompanyId = productService.getAllProductsByCompanyId(company.getId());
+        List<Product> allProductsByCompanyId = target.getAllProductsByCompanyId(company.getId());
 
         assertEquals(allProductsByCompanyId.size(), 2);
     }
