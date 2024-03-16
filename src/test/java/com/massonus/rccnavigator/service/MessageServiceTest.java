@@ -1,27 +1,28 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.MessageDto;
+import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Message;
 import com.massonus.rccnavigator.entity.User;
+import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.MessageRepo;
+import com.massonus.rccnavigator.repo.OrderRepo;
+import com.massonus.rccnavigator.repo.ProductRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-@ExtendWith(MockitoExtension.class)
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 class MessageServiceTest {
 
-    @Mock
+    private CompanyService companyService;
     private MessageRepo messageRepo;
-    @InjectMocks
     private MessageService target;
 
     private User user;
@@ -29,6 +30,9 @@ class MessageServiceTest {
 
     @BeforeEach
     void setUp() {
+        companyService = mock(CompanyService.class);
+        messageRepo = mock(MessageRepo.class);
+        target = new MessageService(messageRepo, companyService);
 
         user = new User();
         messageDto = new MessageDto();
@@ -38,6 +42,13 @@ class MessageServiceTest {
 
     @Test
     void saveMessage() {
+        Company company = new Company();
+        company.setId(1L);
+        Set<Message> messages = new HashSet<>();
+        messages.add(new Message());
+        company.setMessages(messages);
+
+        when(companyService.getCompanyById(company.getId())).thenReturn(company);
 
         target.saveMessage(messageDto, user);
 
