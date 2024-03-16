@@ -69,4 +69,8 @@ public class Product {
         this.productCategory = productCategory;
         this.company = company;
     }
+
+    public Product(Company company) {
+        this.company = company;
+    }
 }

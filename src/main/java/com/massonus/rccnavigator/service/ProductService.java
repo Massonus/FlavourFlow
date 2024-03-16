@@ -65,10 +65,7 @@ public class ProductService {
         List<Product> products = getAllProductsByCompanyId(companyId);
 
         if (Objects.nonNull(productCategory)) {
-
-            products = products.stream()
-                    .filter(p -> p.getProductCategory().equals(productCategory))
-                    .toList();
+            products = filterProductsByProductCategory(products, productCategory);
         }
 
         if (Objects.nonNull(sort)) {
@@ -108,6 +105,12 @@ public class ProductService {
 
         return products;
 
+    }
+
+    private List<Product> filterProductsByProductCategory(final List<Product> products, final ProductCategory productCategory) {
+        return products.stream()
+                .filter(p -> p.getProductCategory().equals(productCategory))
+                .toList();
     }
 
     public void setProductImage(final String title, final Long companyId, final Image image) {

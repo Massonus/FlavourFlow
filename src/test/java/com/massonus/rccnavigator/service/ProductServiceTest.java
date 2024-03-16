@@ -4,16 +4,14 @@ import com.massonus.rccnavigator.dto.ProductDto;
 import com.massonus.rccnavigator.entity.Company;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.ProductCategory;
-import com.massonus.rccnavigator.entity.Rating;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.ProductRepo;
-import com.massonus.rccnavigator.repo.WishObjectRepo;
-import com.massonus.rccnavigator.repo.WishRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.springframework.security.core.parameters.P;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -25,6 +23,8 @@ class ProductServiceTest {
     private CompanyRepo companyRepo;
 
     private ProductDto productDto;
+    private Product expectedProduct;
+    private Company company;
 
     @BeforeEach
     void setUp() {
@@ -35,15 +35,22 @@ class ProductServiceTest {
         productDto = new ProductDto();
         productDto.setProductId(1L);
         productDto.setProductCategory(ProductCategory.MEAL);
-        productDto.setTitle("test");
+        productDto.setTitle("PNS");
         productDto.setPrice(21.3);
         productDto.setCompanyId(1L);
         productDto.setImageLink("");
+
+        company = new Company();
+        company.setId(1L);
+
+        expectedProduct = new Product();
+        expectedProduct.setId(1L);
+        expectedProduct.setTitle("PNS");
+        expectedProduct.setCompany(company);
     }
 
     @Test
     void saveProduct() {
-        Company company = new Company();
         when(companyRepo.findCompanyById(productDto.getCompanyId())).thenReturn(company);
         productService.saveProduct(productDto);
 
@@ -56,8 +63,7 @@ class ProductServiceTest {
 
     @Test
     void editProduct() {
-        Product product = new Product();
-        when(productRepo.findProductById(productDto.getProductId())).thenReturn(product);
+        when(productRepo.findProductById(productDto.getProductId())).thenReturn(expectedProduct);
         productService.editProduct(productDto);
 
         ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
@@ -68,26 +74,30 @@ class ProductServiceTest {
     }
 
     @Test
-    void getProductsInPage() {
-    }
-
-    @Test
-    void setProductImage() {
-    }
-
-    @Test
-    void testSetProductImage() {
-    }
-
-    @Test
     void getProductById() {
+        when(productRepo.findProductById(productDto.getProductId())).thenReturn(expectedProduct);
+
+        Product productById = productService.getProductById(productDto.getProductId());
+
+        assertSame(productById.getId(), productDto.getProductId());
     }
 
     @Test
     void getProductByTitleAndCompanyId() {
+        when(productRepo.findProductByTitleAndCompanyId(productDto.getTitle(), productDto.getCompanyId())).thenReturn(expectedProduct);
+
+        Product product = productService.getProductByTitleAndCompanyId(productDto.getTitle(), productDto.getCompanyId());
+
+        assertSame(product.getTitle(), productDto.getTitle());
     }
 
     @Test
     void getAllProductsByCompanyId() {
+        List<Product> products = List.of(new Product(company), new Product(company));
+        when(productRepo.findProductsByCompanyId(company.getId())).thenReturn(products);
+
+        List<Product> allProductsByCompanyId = productService.getAllProductsByCompanyId(company.getId());
+
+        assertEquals(allProductsByCompanyId.size(), 2);
     }
 }
