@@ -34,10 +34,6 @@ public class Message {
     @Positive
     private Long itemId;
 
-    @Column(columnDefinition = "text", name = "item_type")
-    @Enumerated(EnumType.STRING)
-    private MessageItemType messageItemType;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User author;

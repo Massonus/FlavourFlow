@@ -2,7 +2,6 @@ package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.MessageDto;
 import com.massonus.rccnavigator.entity.Message;
-import com.massonus.rccnavigator.entity.MessageItemType;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.repo.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,31 +27,14 @@ public class MessageService {
         Message message = new Message();
         message.setAuthor(user);
         message.setText(messageDto.getText());
-        message.setLikes(new HashSet<>());
-        message.setMessageItemType(messageDto.getItemType());
         message.setItemId(messageDto.getItemId());
+        message.setLikes(new HashSet<>());
 
         messageRepo.save(message);
 
         companyService.getCompanyById(messageDto.getItemId()).getMessages().add(message);
 
         return messageDto;
-    }
-
-    public Message getMessageById(Long id) {
-        return messageRepo.findMessageById(id);
-    }
-
-    public Set<Message> getMessagesByItemTypeAndItemId(final MessageItemType itemType, final Long itemId) {
-        return messageRepo.findMessagesByMessageItemTypeAndItemId(itemType, itemId);
-    }
-
-    public void deleteMessage(Long messageId) {
-        Message messageById = getMessageById(messageId);
-        if (messageById.getMessageItemType().equals(MessageItemType.COMPANY)) {
-            companyService.getCompanyById(messageById.getItemId()).getMessages().remove(messageById);
-        }
-        messageRepo.delete(messageById);
     }
 
     public MessageDto editMessage(final MessageDto messageDto) {
@@ -63,6 +45,13 @@ public class MessageService {
 
         return messageDto;
 
+    }
+
+    public void deleteMessage(Long messageId) {
+        Message messageById = getMessageById(messageId);
+        companyService.getCompanyById(messageById.getItemId()).getMessages().remove(messageById);
+
+        messageRepo.delete(messageById);
     }
 
     public MessageDto likeMessage(MessageDto messageDto, User user) {
@@ -86,6 +75,14 @@ public class MessageService {
         messageDto.setLikes(messageById.getLikesCount());
         messageDto.setIsLiked(messageById.getIsUnliked());
         return messageDto;
+    }
+
+    public Message getMessageById(Long id) {
+        return messageRepo.findMessageById(id);
+    }
+
+    public Set<Message> getMessagesByItemId(final Long itemId) {
+        return messageRepo.findMessagesByItemId(itemId);
     }
 
 }

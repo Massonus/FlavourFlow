@@ -1,6 +1,5 @@
 package com.massonus.rccnavigator.dto;
 
-import com.massonus.rccnavigator.entity.MessageItemType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +12,6 @@ public class MessageDto {
     private Long itemId;
 
     private String text;
-
-    private MessageItemType itemType;
 
     private Integer likes;
 
