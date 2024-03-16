@@ -44,11 +44,6 @@ public class ProductService {
         productRepo.save(product);
     }
 
-    public void saveProduct(final Product validProduct) {
-
-        productRepo.save(validProduct);
-    }
-
     public void editProduct(final ProductDto productDto) {
         Product savedProduct = getProductById(productDto.getProductId());
 

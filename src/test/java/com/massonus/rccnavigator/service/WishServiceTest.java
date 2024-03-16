@@ -15,7 +15,6 @@ import static org.mockito.Mockito.*;
 class WishServiceTest {
 
     private WishService target;
-
     private WishRepo wishRepo;
     private UserService userService;
     private WishObjectRepo wishObjectRepo;
