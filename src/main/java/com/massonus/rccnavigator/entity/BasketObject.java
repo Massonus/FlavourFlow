@@ -50,14 +50,20 @@ public class BasketObject {
     @Positive
     private Integer amount;
 
-    @Positive
-    private Double sum;
-
     public Double getSum() {
         return price * amount;
     }
 
     public BasketObject() {
         this.amount = 1;
+    }
+
+    public BasketObject(Long id, String title, Product product, Double price, Integer amount, Company company) {
+        this.id = id;
+        this.title = title;
+        this.product = product;
+        this.price = price;
+        this.amount = amount;
+        this.company = company;
     }
 }

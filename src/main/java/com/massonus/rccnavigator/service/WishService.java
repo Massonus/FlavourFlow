@@ -27,7 +27,6 @@ public class WishService {
     }
 
     public Long addProductToWishes(final Product product, final User user) {
-
         final Wish currentWish = getUserWish(user.getId());
         List<WishObject> wishObjects = currentWish.getWishObjects();
 
@@ -59,14 +58,14 @@ public class WishService {
         return wishByUserId;
     }
 
-    private Wish getWishByUserId(Long id) {
-        return wishRepo.findWishByUserId(id);
-    }
-
     public Boolean isInWishes(String productId, String userId) {
 
         return getUserWish(Long.valueOf(userId)).getWishObjects().stream()
                 .anyMatch(o -> o.getProduct().getId().equals(Long.valueOf(productId)));
+    }
+
+    private Wish getWishByUserId(Long id) {
+        return wishRepo.findWishByUserId(id);
     }
 
     public ItemDto deleteWishItem(ItemDto itemDto, User user) {
