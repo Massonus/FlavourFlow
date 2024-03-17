@@ -49,6 +49,6 @@ public class Message {
     }
 
     public Boolean getIsUnliked() {
-        return likes.isEmpty();
+        return !likes.isEmpty();
     }
 }

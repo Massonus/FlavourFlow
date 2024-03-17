@@ -62,9 +62,9 @@
                             <a id="likes-${message.getId()}" class="col align-self-center"
                                     <#if known> onclick="likeMessage(${message.getId()}, ${company.getId()}, '${_csrf.token}')"</#if>>
                                 <#if message.getIsUnliked()>
-                                    <i class="bi bi-heart"></i>
-                                <#else>
                                     <i class="bi bi-heart-fill"></i>
+                                <#else>
+                                    <i class="bi bi-heart"></i>
                                 </#if>
                                 <span>${message.getLikesCount()}</span>
                             </a>

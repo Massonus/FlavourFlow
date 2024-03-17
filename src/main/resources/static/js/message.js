@@ -114,9 +114,9 @@ function likeMessage(messageId, itemId, csrf) {
             document.querySelector(`#likes-${messageId} span`).innerHTML = `${data.likes}`;
 
             if (data.isLiked) {
-                document.querySelector(`#likes-${messageId} i`).className = "bi bi-heart";
-            } else {
                 document.querySelector(`#likes-${messageId} i`).className = "bi bi-heart-fill";
+            } else {
+                document.querySelector(`#likes-${messageId} i`).className = "bi bi-heart";
             }
 
         })
