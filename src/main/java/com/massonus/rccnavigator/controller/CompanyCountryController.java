@@ -28,9 +28,10 @@ public class CompanyCountryController {
     }
 
     @PostMapping("/add")
-    public void addCountry(@RequestBody CountryDto countryDto) {
+    @ResponseBody
+    public CountryDto addCountry(@RequestBody CountryDto countryDto) {
 
-        countryService.saveCompanyCountry(countryDto);
+        return countryService.saveCompanyCountry(countryDto);
 
     }
 
@@ -44,9 +45,10 @@ public class CompanyCountryController {
     }
 
     @PutMapping("/edit")
-    public void editCountry(@RequestBody CountryDto countryDto) {
+    @ResponseBody
+    public CountryDto editCountry(@RequestBody CountryDto countryDto) {
 
-        countryService.editCountry(countryDto);
+        return countryService.editCountry(countryDto);
     }
 
     @DeleteMapping("/delete")

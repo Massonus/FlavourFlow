@@ -20,7 +20,13 @@ function createCountry(event) {
         body: body,
     })
         .then(res => {
-            window.location.href = "/admin/panel";
+
+            if (res.ok) {
+                window.location.href = "/admin/panel";
+            } else {
+                alert("Error detected, try again later");
+            }
+
         })
         .catch(error => {
             console.log(error);
@@ -48,7 +54,12 @@ function editCountry(event, countryId, csrf) {
         body: body,
     })
         .then(res => {
-            window.location.href = "/admin/panel";
+
+            if (res.ok) {
+                window.location.href = "/admin/panel";
+            } else {
+                alert("Error detected, try again later");
+            }
         })
         .catch(error => {
             console.log(error);

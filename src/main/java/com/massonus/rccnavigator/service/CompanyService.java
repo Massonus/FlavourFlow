@@ -47,7 +47,7 @@ public class CompanyService {
         return companyDto;
     }
 
-    public void editCompany(final CompanyDto companyDto) {
+    public CompanyDto editCompany(final CompanyDto companyDto) {
         Company savedCompany = getCompanyById(companyDto.getCompanyId());
 
         if (!companyDto.getImageLink().isEmpty()) {
@@ -60,6 +60,8 @@ public class CompanyService {
         savedCompany.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         savedCompany.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
         companyRepo.save(savedCompany);
+
+        return companyDto;
     }
 
     public Page<Company> getCompaniesInPage(CompanyFilterDto companyFilterDto, Pageable pageable, String sort, String search) {
@@ -181,8 +183,9 @@ public class CompanyService {
         return companyRepo.findCompaniesByKitchenCategoryId(categoryId);
     }
 
-    public void deleteCompany(final Company company) {
+    public Long deleteCompany(final Company company) {
         companyRepo.delete(company);
+        return company.getId();
     }
 
     public Company getCompanyById(final Long id) {

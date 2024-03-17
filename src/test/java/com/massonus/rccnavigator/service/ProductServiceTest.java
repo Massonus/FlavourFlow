@@ -50,7 +50,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void saveProduct() {
+    void shouldSaveProduct() {
         when(companyRepo.findCompanyById(productDto.getCompanyId())).thenReturn(company);
         target.saveProduct(productDto);
 
@@ -62,7 +62,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void editProduct() {
+    void shouldEditProduct() {
         when(productRepo.findProductById(productDto.getProductId())).thenReturn(expectedProduct);
         target.editProduct(productDto);
 
@@ -74,7 +74,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void getProductById() {
+    void shouldGetProductById() {
         when(productRepo.findProductById(productDto.getProductId())).thenReturn(expectedProduct);
 
         Product productById = target.getProductById(productDto.getProductId());
@@ -83,7 +83,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void getProductByTitleAndCompanyId() {
+    void shouldGetProductByTitleAndCompanyId() {
         when(productRepo.findProductByTitleAndCompanyId(productDto.getTitle(), productDto.getCompanyId())).thenReturn(expectedProduct);
 
         Product product = target.getProductByTitleAndCompanyId(productDto.getTitle(), productDto.getCompanyId());
@@ -92,7 +92,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void getAllProductsByCompanyId() {
+    void shouldGetAllProductsByCompanyId() {
         List<Product> products = List.of(new Product(company), new Product(company));
         when(productRepo.findProductsByCompanyId(company.getId())).thenReturn(products);
 

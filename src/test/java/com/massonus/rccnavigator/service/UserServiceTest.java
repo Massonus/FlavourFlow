@@ -63,7 +63,7 @@ class UserServiceTest {
     }
 
     @Test
-    void editUser() {
+    void shouldEditUser() {
         when(userRepo.findUserById(userDto.getUserId())).thenReturn(expectedUser);
 
         UserDto responseUserDto = target.editUser(userDto);
@@ -72,7 +72,7 @@ class UserServiceTest {
     }
 
     @Test
-    void createUser() {
+    void shouldCreateUser() {
         UserDto responseUserDto = target.createUser(userDto);
         assertTrue(responseUserDto.getIsSuccess());
 
@@ -84,7 +84,7 @@ class UserServiceTest {
     }
 
     @Test
-    void updateUser() {
+    void shouldUpdateUser() {
         when(passwordEncoder.matches(userDto.getOldPassword(), expectedUser.getPassword())).thenReturn(true);
         when(userRepo.findUserById(expectedUser.getId())).thenReturn(expectedUser);
         UserDto responseUserDto = target.editUser(userDto, expectedUser);

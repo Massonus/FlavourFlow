@@ -38,11 +38,13 @@ function createProduct(event, companyId) {
     })
         .then(res => {
 
-            if (imageLink.trim() === "") {
+            if (imageLink.trim() === "" && res.ok) {
                 uploadProductFile(file, companyId, title, undefined);
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
-            } else {
+            } else if (!(imageLink.trim() === "") && res.ok) {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
+            } else {
+                alert("Error detected, try again later");
             }
 
         })
@@ -85,11 +87,13 @@ function editProduct(event, productId, companyId) {
     })
         .then(res => {
 
-            if (!(file === undefined)) {
+            if (!(file === undefined) && res.ok) {
                 uploadProductFile(file, companyId, title, productId);
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
-            } else {
+            } else if (file === undefined && res.ok) {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
+            } else {
+                alert("Error detected, try again later");
             }
 
         })
@@ -113,7 +117,13 @@ function deleteProduct(productId, csrf) {
         },
     })
         .then(res => {
-            document.getElementById(`product-table-${productId}`).remove();
+
+            if (res.ok) {
+                document.getElementById(`product-table-${productId}`).remove();
+            } else {
+                alert("Error detected, try again later");
+            }
+
         })
         .catch(error =>
             console.error(error));

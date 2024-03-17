@@ -26,7 +26,7 @@ class RatingServiceTest {
     private RatingService target;
 
     @Test
-    void rateCompany() {
+    void shouldRateCompany() {
         Optional<Rating> rating = Optional.of(new Rating());
         User user = new User();
         Company company = new Company();

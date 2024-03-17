@@ -24,7 +24,7 @@ class OrderObjectServiceTest {
 
 
     @Test
-    void saveOrderObject() {
+    void shouldSaveOrderObject() {
         OrderObject orderObject = new OrderObject();
         orderObject.setTitle("title");
         target.saveOrderObject(orderObject);

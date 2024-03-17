@@ -28,7 +28,7 @@ public class ProductService {
         this.companyRepo = companyRepo;
     }
 
-    public void saveProduct(final ProductDto productDto) {
+    public ProductDto saveProduct(final ProductDto productDto) {
         Product product = new Product();
 
         if (!productDto.getImageLink().isEmpty()) {
@@ -42,9 +42,10 @@ public class ProductService {
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
 
         productRepo.save(product);
+        return productDto;
     }
 
-    public void editProduct(final ProductDto productDto) {
+    public ProductDto editProduct(final ProductDto productDto) {
         Product savedProduct = getProductById(productDto.getProductId());
 
         if (!productDto.getImageLink().isEmpty()) {
@@ -57,6 +58,7 @@ public class ProductService {
         savedProduct.setPrice(productDto.getPrice());
 
         productRepo.save(savedProduct);
+        return productDto;
 
     }
 

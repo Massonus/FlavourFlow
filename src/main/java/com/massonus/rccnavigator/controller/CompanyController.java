@@ -104,16 +104,18 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/edit")
-    public void saveUpdatedCompany(@RequestBody CompanyDto companyDto) {
+    @ResponseBody
+    public CompanyDto saveUpdatedCompany(@RequestBody CompanyDto companyDto) {
 
-        companyService.editCompany(companyDto);
+        return companyService.editCompany(companyDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete")
-    public void deleteCompany(@RequestParam Long companyId) {
+    @ResponseBody
+    public Long deleteCompany(@RequestParam Long companyId) {
         Company companyById = companyService.getCompanyById(companyId);
-        companyService.deleteCompany(companyById);
+        return companyService.deleteCompany(companyById);
     }
 
     @PreAuthorize("isAuthenticated()")

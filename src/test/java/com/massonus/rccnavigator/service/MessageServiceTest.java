@@ -55,7 +55,7 @@ class MessageServiceTest {
     }
 
     @Test
-    void saveMessage() {
+    void shouldSaveMessage() {
         when(companyService.getCompanyById(company.getId())).thenReturn(company);
 
         target.saveMessage(messageDto, user);
@@ -68,7 +68,7 @@ class MessageServiceTest {
     }
 
     @Test
-    void editMessage() {
+    void shouldEditMessage() {
         when(messageRepo.findMessageById(messageDto.getMessageId())).thenReturn(message);
         target.editMessage(messageDto);
 
@@ -81,7 +81,7 @@ class MessageServiceTest {
     }
 
     @Test
-    void deleteMessage() {
+    void shouldDeleteMessage() {
         when(companyService.getCompanyById(message.getItemId())).thenReturn(company);
         when(messageRepo.findMessageById(messageDto.getMessageId())).thenReturn(message);
 
@@ -95,7 +95,7 @@ class MessageServiceTest {
     }
 
     @Test
-    void likeMessage() {
+    void shouldLikeMessage() {
         when(messageRepo.findMessageById(messageDto.getMessageId())).thenReturn(message);
 
         MessageDto responseMessageDto = target.likeMessage(messageDto, user);

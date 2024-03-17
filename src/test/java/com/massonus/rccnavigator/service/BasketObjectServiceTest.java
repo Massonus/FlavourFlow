@@ -31,7 +31,7 @@ class BasketObjectServiceTest {
     }
 
     @Test
-    void getBasketObjectByProductIdAndUserId() {
+    void shouldGetBasketObjectByProductIdAndUserId() {
         Long productId = 1L;
         Long userId = 1L;
 
@@ -42,7 +42,7 @@ class BasketObjectServiceTest {
     }
 
     @Test
-    void getBasketObjectsByUserId() {
+    void shouldGetBasketObjectsByUserId() {
         Long userId = 1L;
         List<BasketObject> expectedObjects = List.of(new BasketObject());
         when(basketObjectRepo.findBasketObjectsByUserId(userId)).thenReturn(expectedObjects);

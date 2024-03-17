@@ -62,7 +62,7 @@ class CompanyServiceTest {
     }
 
     @Test
-    void saveCompany() {
+    void shouldSaveCompany() {
         when(categoryService.getCategoryById(companyDto.getCategoryId())).thenReturn(category);
         when(countryService.getCountryById(companyDto.getCountryId())).thenReturn(country);
 
@@ -76,7 +76,7 @@ class CompanyServiceTest {
     }
 
     @Test
-    void editCompany() {
+    void shouldEditCompany() {
         when(companyRepo.findCompanyById(companyDto.getCompanyId())).thenReturn(company);
         when(categoryService.getCategoryById(companyDto.getCategoryId())).thenReturn(category);
         when(countryService.getCountryById(companyDto.getCountryId())).thenReturn(country);
@@ -93,13 +93,13 @@ class CompanyServiceTest {
     }
 
     @Test
-    void moveCompaniesToAnotherCountry() {
+    void shouldMoveCompaniesToAnotherCountry() {
         CheckDto responseCheckDto = target.moveCompaniesToAnotherCountry(checkDto);
         assertSame(responseCheckDto.getItemType(), ItemType.COMPANYCOUNTRY);
     }
 
     @Test
-    void moveCompaniesToAnotherCategory() {
+    void shouldMoveCompaniesToAnotherCategory() {
         CheckDto responseCheckDto = target.moveCompaniesToAnotherCategory(checkDto);
         assertSame(responseCheckDto.getItemType(), ItemType.KITCHENCATEGORY);
     }

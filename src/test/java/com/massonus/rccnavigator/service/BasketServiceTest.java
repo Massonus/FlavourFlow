@@ -56,7 +56,7 @@ class BasketServiceTest {
     }
 
     @Test
-    void addProductToBasket() {
+    void shouldAddProductToBasket() {
         when(basketRepo.findBasketByUserId(user.getId())).thenReturn(basket);
         target.addProductToBasket(product, user);
 
@@ -69,7 +69,7 @@ class BasketServiceTest {
     }
 
     @Test
-    void getUserBasketWhenBasketDoesNotExist() {
+    void shouldGetUserBasketWhenBasketDoesNotExist() {
         when(userService.getUserById(user.getId())).thenReturn(user);
 
         Basket savedBasket = target.getUserBasket(user.getId());
@@ -77,7 +77,7 @@ class BasketServiceTest {
     }
 
     @Test
-    void getUserBasketWhenBasketExist() {
+    void shouldGetUserBasketWhenBasketExist() {
         when(basketRepo.findBasketByUserId(user.getId())).thenReturn(basket);
 
         Basket savedBasket = target.getUserBasket(user.getId());
@@ -104,13 +104,13 @@ class BasketServiceTest {
     }
 
     @Test
-    void clearBasket() {
+    void shouldClearBasket() {
         Boolean isEmpty = target.clearBasket(user);
         assertTrue(isEmpty);
     }
 
     @Test
-    void changeAmount() {
+    void shouldChangeAmount() {
         when(basketObjectService.getBasketObjectById(itemDto.getProductId())).thenReturn(basketObject);
         when(basketRepo.findBasketByUserId(itemDto.getUserId())).thenReturn(basket);
         ItemDto responseItemDto = target.changeAmount(itemDto);
@@ -119,7 +119,7 @@ class BasketServiceTest {
     }
 
     @Test
-    void getAllCompaniesInUserBasket() {
+    void shouldGetAllCompaniesInUserBasket() {
         when(basketObjectService.getBasketObjectsByUserId(user.getId())).thenReturn(basketObjects);
 
         List<String> titleList = target.getAllCompaniesInUserBasket(user).stream()

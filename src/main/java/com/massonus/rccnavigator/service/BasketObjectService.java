@@ -17,11 +17,6 @@ public class BasketObjectService {
         this.basketObjectRepo = basketObjectRepo;
     }
 
-    public void saveBasketObject(final BasketObject basketObject) {
-
-        basketObjectRepo.save(basketObject);
-    }
-
     public List<BasketObject> getAllBasketObjects() {
         return basketObjectRepo.findAll();
     }

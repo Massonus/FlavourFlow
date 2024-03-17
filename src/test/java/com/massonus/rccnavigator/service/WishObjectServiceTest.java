@@ -31,7 +31,7 @@ class WishObjectServiceTest {
     }
 
     @Test
-    void getWishObjectByProductIdAndUserId() {
+    void shouldGetWishObjectByProductIdAndUserId() {
         Long productId = 1L;
         Long userId = 1L;
 
@@ -42,7 +42,7 @@ class WishObjectServiceTest {
     }
 
     @Test
-    void getWishObjectsByUserId() {
+    void shouldGetWishObjectsByUserId() {
         Long userId = 1L;
         List<WishObject> expectedObjects = List.of(new WishObject());
         when(wishObjectRepo.findWishObjectsByUserId(userId)).thenReturn(expectedObjects);

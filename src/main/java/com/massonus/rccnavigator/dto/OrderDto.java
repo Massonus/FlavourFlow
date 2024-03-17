@@ -1,6 +1,5 @@
 package com.massonus.rccnavigator.dto;
 
-import com.massonus.rccnavigator.entity.User;
 import jakarta.validation.constraints.Future;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

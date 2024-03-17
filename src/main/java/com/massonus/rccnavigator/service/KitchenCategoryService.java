@@ -44,8 +44,9 @@ public class KitchenCategoryService {
         return categoryRepo.findKitchenCategoryByTitleContainingIgnoreCase(title);
     }
 
-    public void editCategory(final KitchenCategoryDto categoryDto) {
+    public KitchenCategoryDto editCategory(final KitchenCategoryDto categoryDto) {
         getCategoryById(categoryDto.getCategoryId()).setTitle(categoryDto.getTitle());
+        return categoryDto;
     }
 
     public Long deleteCategory(Long id) {

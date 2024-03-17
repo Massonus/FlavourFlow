@@ -46,9 +46,10 @@ public class KitchenCategoryController {
     }
 
     @PutMapping("/edit")
-    public void categoryPutEdit(@RequestBody KitchenCategoryDto categoryDto) {
+    @ResponseBody
+    public KitchenCategoryDto categoryPutEdit(@RequestBody KitchenCategoryDto categoryDto) {
 
-        categoryService.editCategory(categoryDto);
+        return categoryService.editCategory(categoryDto);
     }
 
     @DeleteMapping("/delete")
