@@ -52,7 +52,12 @@ function editKitchenCategory(event, categoryId) {
         body: body,
     })
         .then(res => {
-            window.location.href = "/admin/panel";
+
+            if (res.ok) {
+                window.location.href = "/admin/panel";
+            } else {
+                alert("Error detected, try again later");
+            }
         })
         .catch(error => {
             console.log(error);

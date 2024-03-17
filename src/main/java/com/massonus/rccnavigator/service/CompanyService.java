@@ -32,7 +32,7 @@ public class CompanyService {
         this.productRepo = productRepo;
     }
 
-    public void saveCompany(final CompanyDto companyDto) {
+    public CompanyDto saveCompany(final CompanyDto companyDto) {
         Company company = new Company();
         company.setTitle(companyDto.getTitle());
         company.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
@@ -43,12 +43,11 @@ public class CompanyService {
             company.setImageLink(companyDto.getImageLink());
             company.setImage(null);
         }
-
         companyRepo.save(company);
-
+        return companyDto;
     }
 
-    public void editCompany(final CompanyDto companyDto) {
+    public CompanyDto editCompany(final CompanyDto companyDto) {
         Company savedCompany = getCompanyById(companyDto.getCompanyId());
 
         if (!companyDto.getImageLink().isEmpty()) {
@@ -60,7 +59,9 @@ public class CompanyService {
         savedCompany.setPriceCategory(companyDto.getPriceCategory());
         savedCompany.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         savedCompany.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
+        companyRepo.save(savedCompany);
 
+        return companyDto;
     }
 
     public Page<Company> getCompaniesInPage(CompanyFilterDto companyFilterDto, Pageable pageable, String sort, String search) {
@@ -68,17 +69,11 @@ public class CompanyService {
         List<Company> companies = getAllCompanies();
 
         if (Objects.nonNull(companyFilterDto.getCountryId())) {
-
-            companies = companies.stream()
-                    .filter(company -> company.getCompanyCountry().getId().equals(companyFilterDto.getCountryId()))
-                    .toList();
+            companies = filterByCountryId(companies, companyFilterDto);
         }
 
         if (Objects.nonNull(companyFilterDto.getCategoryId())) {
-
-            companies = companies.stream()
-                    .filter(company -> company.getKitchenCategory().getId().equals(companyFilterDto.getCategoryId()))
-                    .toList();
+            companies = filterByCategoryId(companies, companyFilterDto);
         }
 
         if (Objects.nonNull(sort)) {
@@ -95,7 +90,19 @@ public class CompanyService {
         return new PageImpl<>(companies.subList(start, end), pageable, companies.size());
     }
 
-    private List<Company> getSortedCompanies(String sort, List<Company> companies) {
+    private List<Company> filterByCountryId(final List<Company> companies, final CompanyFilterDto companyFilterDto) {
+        return companies.stream()
+                .filter(company -> company.getCompanyCountry().getId().equals(companyFilterDto.getCountryId()))
+                .toList();
+    }
+
+    private List<Company> filterByCategoryId(final List<Company> companies, final CompanyFilterDto companyFilterDto) {
+        return companies.stream()
+                .filter(company -> company.getKitchenCategory().getId().equals(companyFilterDto.getCategoryId()))
+                .toList();
+    }
+
+    private List<Company> getSortedCompanies(final String sort, List<Company> companies) {
 
         companies = switch (sort) {
 
@@ -122,8 +129,7 @@ public class CompanyService {
 
     }
 
-    public List<Company> getSearchCompanies(final String title) {
-
+    private List<Company> getSearchCompanies(final String title) {
         KitchenCategory category = categoryService.getCategoryByTitle(title);
         CompanyCountry country = countryService.getCountryByTitle(title);
         List<Company> companies = getCompaniesByTitleContainingIgnoreCase(title);
@@ -169,10 +175,6 @@ public class CompanyService {
         getCompanyById(companyId).setImage(image);
     }
 
-    public void saveCompany(Company company) {
-        companyRepo.save(company);
-    }
-
     public List<Company> getCompaniesByCountryId(Long countryId) {
         return companyRepo.findCompaniesByCompanyCountryId(countryId);
     }
@@ -181,8 +183,9 @@ public class CompanyService {
         return companyRepo.findCompaniesByKitchenCategoryId(categoryId);
     }
 
-    public void deleteCompany(final Company company) {
+    public Long deleteCompany(final Company company) {
         companyRepo.delete(company);
+        return company.getId();
     }
 
     public Company getCompanyById(final Long id) {
@@ -202,5 +205,4 @@ public class CompanyService {
                 .sorted(Comparator.comparing(Company::getCurrentRating).thenComparing(Company::getCountOfMessages).reversed())
                 .toList();
     }
-
 }

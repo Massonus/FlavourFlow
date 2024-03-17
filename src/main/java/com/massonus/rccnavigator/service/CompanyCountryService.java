@@ -19,11 +19,12 @@ public class CompanyCountryService {
         this.countryRepo = countryRepo;
     }
 
-    public void saveCompanyCountry(final CountryDto countryDto) {
+    public CountryDto saveCompanyCountry(final CountryDto countryDto) {
         CompanyCountry companyCountry = new CompanyCountry();
         companyCountry.setTitle(countryDto.getTitle());
 
         countryRepo.save(companyCountry);
+        return countryDto;
     }
 
 
@@ -45,9 +46,10 @@ public class CompanyCountryService {
                 .filter(a -> !a.getId().equals(countryId)).toList();
     }
 
-    public void editCountry(final CountryDto countryDto) {
+    public CountryDto editCountry(final CountryDto countryDto) {
 
         getCountryById(countryDto.getCountryId()).setTitle(countryDto.getTitle());
+        return countryDto;
     }
 
     public Long deleteCountry(Long id) {

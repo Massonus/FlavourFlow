@@ -7,7 +7,7 @@
             <section class="py-5">
                 <h2 class="h5 text-uppercase mb-4">Edit message</h2>
                 <div style="max-width: 600px" class="w-100">
-                    <form onsubmit="editMessage(event, ${message.getId()}, '${message.getMessageItemType()}', ${itemId}, '${_csrf.token}')" class="text-start py-4">
+                    <form onsubmit="editMessage(event, ${message.getId()}, ${itemId}, '${_csrf.token}')" class="text-start py-4">
 
                         <div class="mb-3 row">
                             <label for="comment" class="col-sm-4 col-form-label">Text:</label>

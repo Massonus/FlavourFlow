@@ -52,12 +52,12 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WishObject> wishObjects = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     @NotNull(message = "Category cannot be empty")
     private KitchenCategory kitchenCategory;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     @NotNull(message = "Country cannot be empty")
     private CompanyCountry companyCountry;
@@ -89,5 +89,14 @@ public class Company {
                 .average()
                 .orElse(0.0);
         return (int) (Math.round(currentRate));
+    }
+
+    public Company(KitchenCategory kitchenCategory, CompanyCountry companyCountry) {
+        this.kitchenCategory = kitchenCategory;
+        this.companyCountry = companyCountry;
+    }
+
+    public Company(String title) {
+        this.title = title;
     }
 }

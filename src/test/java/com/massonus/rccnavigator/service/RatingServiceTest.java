@@ -23,17 +23,17 @@ class RatingServiceTest {
     private RatingRepo ratingRepo;
 
     @InjectMocks
-    private RatingService ratingService;
+    private RatingService target;
 
     @Test
-    void rateCompany() {
+    void shouldRateCompany() {
         Optional<Rating> rating = Optional.of(new Rating());
         User user = new User();
         Company company = new Company();
 
         when(ratingRepo.findRatingByAuthorAndCompany(user, company)).thenReturn(rating);
 
-        ratingService.rateCompany(user, company, 2);
+        target.rateCompany(user, company, 2);
 
         ArgumentCaptor<Rating> ratingCaptor = ArgumentCaptor.forClass(Rating.class);
         verify(ratingRepo, times(1)).save(ratingCaptor.capture());

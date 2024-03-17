@@ -6,6 +6,7 @@ import com.massonus.rccnavigator.entity.Basket;
 import com.massonus.rccnavigator.entity.BasketObject;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.BasketService;
+import com.massonus.rccnavigator.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,10 +23,12 @@ import java.util.Objects;
 public class BasketController {
 
     private final BasketService basketService;
+    private final ProductService productService;
 
     @Autowired
-    public BasketController(BasketService basketService) {
+    public BasketController(BasketService basketService, ProductService productService) {
         this.basketService = basketService;
+        this.productService = productService;
     }
 
     @GetMapping
@@ -62,7 +65,7 @@ public class BasketController {
     @ResponseBody
     public Long addProductToBasket(@RequestParam Long productId, @AuthenticationPrincipal User user) {
 
-        return basketService.addProductToBasket(productId, user.getId());
+        return basketService.addProductToBasket(productService.getProductById(productId), user);
     }
 
     @PreAuthorize("isAuthenticated()")

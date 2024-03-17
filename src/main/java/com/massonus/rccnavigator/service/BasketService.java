@@ -3,7 +3,6 @@ package com.massonus.rccnavigator.service;
 import com.massonus.rccnavigator.dto.ItemDto;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.BasketRepo;
-import com.massonus.rccnavigator.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,53 +11,44 @@ import java.util.Objects;
 
 @Service
 public class BasketService {
-
-    private final ProductService productService;
     private final BasketRepo basketRepo;
     private final BasketObjectService basketObjectService;
-    private final UserRepo userRepo;
+    private final UserService userService;
 
     @Autowired
-    public BasketService(ProductService productService, BasketRepo basketRepo, BasketObjectService basketObjectService, UserRepo userRepo) {
-        this.productService = productService;
+    public BasketService(BasketRepo basketRepo, BasketObjectService basketObjectService, UserService userService) {
         this.basketRepo = basketRepo;
         this.basketObjectService = basketObjectService;
-        this.userRepo = userRepo;
+        this.userService = userService;
     }
 
-    public Long addProductToBasket(Long productId, Long userId) {
-
-        final Product productById = productService.getProductById(productId);
-
-        final Basket currentBasket = getUserBasket(userId);
-        User userById = userRepo.findUserById(userId);
+    public Long addProductToBasket(final Product product, final User user) {
+        final Basket currentBasket = getUserBasket(user.getId());
         List<BasketObject> basketObjects = currentBasket.getBasketObjects();
 
         BasketObject basketObject = new BasketObject();
-        basketObject.setProduct(productById);
-        basketObject.setTitle(productById.getTitle());
-        basketObject.setImage(productById.getImage());
-        basketObject.setImageLink(productById.getImageLink());
-        basketObject.setPrice(productById.getPrice());
-        basketObject.setUser(userById);
-        basketObject.setCompany(productById.getCompany());
+        basketObject.setProduct(product);
+        basketObject.setTitle(product.getTitle());
+        basketObject.setImage(product.getImage());
+        basketObject.setImageLink(product.getImageLink());
+        basketObject.setPrice(product.getPrice());
+        basketObject.setUser(user);
+        basketObject.setCompany(product.getCompany());
         basketObject.setBasket(currentBasket);
-
-        basketObjectService.saveBasketObject(basketObject);
 
         basketObjects.add(basketObject);
 
         basketRepo.save(currentBasket);
-        userById.setBasket(currentBasket);
+        user.setBasket(currentBasket);
 
-        return productById.getCompany().getId();
+        return product.getCompany().getId();
     }
 
     public Basket getUserBasket(Long userId) {
         Basket basketByUserId = getBasketByUserId(userId);
         if (Objects.isNull(basketByUserId)) {
             Basket basket = new Basket();
-            basket.setUser(userRepo.findUserById(userId));
+            basket.setUser(userService.getUserById(userId));
             return basketRepo.save(basket);
         }
         return basketByUserId;
@@ -66,7 +56,8 @@ public class BasketService {
 
     public Boolean isInBasket(String productId, String userId) {
 
-        return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream().anyMatch(o -> o.getProduct().getId().equals(Long.valueOf(productId)));
+        return getUserBasket(Long.valueOf(userId)).getBasketObjects().stream()
+                .anyMatch(o -> o.getProduct().getId().equals(Long.valueOf(productId)));
     }
 
     public ItemDto changeAmount(final ItemDto itemDto) {
@@ -77,7 +68,7 @@ public class BasketService {
         return itemDto;
     }
 
-    public Double getBasketTotal(Long userId) {
+    private Double getBasketTotal(Long userId) {
         return getUserBasket(userId).getTotal();
     }
 
@@ -97,7 +88,6 @@ public class BasketService {
 
     public ItemDto deleteBasketItem(final ItemDto itemDto, User user) {
         BasketObject basketObject = basketObjectService.getBasketObjectByProductIdAndUserId(itemDto.getProductId(), user.getId());
-        getBasketByUserId(user.getId()).getBasketObjects().remove(basketObject);
         basketObjectService.deleteBasketObject(basketObject);
         itemDto.setTotal(getBasketTotal(user.getId()));
         itemDto.setItemId(basketObject.getId());
@@ -110,8 +100,8 @@ public class BasketService {
         basketObjectService.deleteBasketObjectsByList(basketObjects);
     }
 
-    public void clearBasket(final User user) {
-        userRepo.findUserById(user.getId()).setBasket(null);
+    public Boolean clearBasket(final User user) {
         basketRepo.delete(getBasketByUserId(user.getId()));
+        return basketObjectService.getBasketObjectsByUserId(user.getId()).isEmpty();
     }
 }

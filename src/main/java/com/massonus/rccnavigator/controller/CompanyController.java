@@ -2,7 +2,6 @@ package com.massonus.rccnavigator.controller;
 
 import com.massonus.rccnavigator.dto.*;
 import com.massonus.rccnavigator.entity.Company;
-import com.massonus.rccnavigator.entity.MessageItemType;
 import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +69,7 @@ public class CompanyController {
 
         model.addAttribute("user", user);
         model.addAttribute("company", company);
-        model.addAttribute("messages", messageService.getMessagesByItemTypeAndItemId(MessageItemType.COMPANY, id));
+        model.addAttribute("messages", messageService.getMessagesByItemId(id));
         return "company/companyInfo";
     }
 
@@ -87,9 +86,10 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
-    public void newCompany(@RequestBody CompanyDto companyDto) {
+    @ResponseBody
+    public CompanyDto newCompany(@RequestBody CompanyDto companyDto) {
 
-        companyService.saveCompany(companyDto);
+        return companyService.saveCompany(companyDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -104,16 +104,18 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/edit")
-    public void saveUpdatedCompany(@RequestBody CompanyDto companyDto) {
+    @ResponseBody
+    public CompanyDto saveUpdatedCompany(@RequestBody CompanyDto companyDto) {
 
-        companyService.editCompany(companyDto);
+        return companyService.editCompany(companyDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete")
-    public void deleteCompany(@RequestParam Long companyId) {
+    @ResponseBody
+    public Long deleteCompany(@RequestParam Long companyId) {
         Company companyById = companyService.getCompanyById(companyId);
-        companyService.deleteCompany(companyById);
+        return companyService.deleteCompany(companyById);
     }
 
     @PreAuthorize("isAuthenticated()")

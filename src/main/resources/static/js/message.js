@@ -1,4 +1,4 @@
-function createMessage(event, itemId, itemType, csrf) {
+function createMessage(event, itemId, csrf) {
     event.preventDefault();
 
     let text = document.getElementById("comment").value;
@@ -6,7 +6,6 @@ function createMessage(event, itemId, itemType, csrf) {
     const body = JSON.stringify({
         text: text,
         itemId: itemId,
-        itemType: itemType.toUpperCase()
     });
 
     const url = "/message/add";
@@ -21,30 +20,24 @@ function createMessage(event, itemId, itemType, csrf) {
         body: body,
 
     })
-        .then(res => res.json())
-        .then((data) => {
-
-            if (data.itemType === "COMPANY") {
-                window.location.href = `/company/info/${data.itemId}`;
-            } else {
-                window.location.href = `/product/${data.itemId}`;
+        .then(res => {
+            if (res.ok) {
+                window.location.href = `/company/info/${itemId}`;
             }
-
         })
         .catch(error => {
             console.log(error);
         })
 }
 
-function editMessage(event, messageId, itemType, itemId, csrf) {
+function editMessage(event, messageId, itemId, csrf) {
     event.preventDefault();
 
     let text = document.getElementById("comment").value;
 
     const body = JSON.stringify({
         messageId: messageId,
-        text: text,
-        itemType: itemType
+        text: text
     });
 
     const url = "/message/edit";
@@ -59,22 +52,17 @@ function editMessage(event, messageId, itemType, itemId, csrf) {
         body: body,
 
     })
-        .then(res => res.json())
-        .then((data) => {
-
-            if (data.itemType === "COMPANY") {
+        .then(res => {
+            if (res.ok) {
                 window.location.href = `/company/info/${itemId}`;
-            } else {
-                window.location.href = `/product/${itemId}`;
             }
-
         })
         .catch(error => {
             console.log(error);
         })
 }
 
-function deleteMessage(messageId, itemType, itemId, csrf) {
+function deleteMessage(messageId, itemId, csrf) {
 
     if (!confirm("Do you really want do delete this message?")) {
         return;
@@ -84,8 +72,7 @@ function deleteMessage(messageId, itemType, itemId, csrf) {
 
     const body = JSON.stringify({
         messageId: messageId,
-        itemId: itemId,
-        itemType: itemType
+        itemId: itemId
     });
 
     fetch(url, {
@@ -96,28 +83,22 @@ function deleteMessage(messageId, itemType, itemId, csrf) {
         },
         body: body
     })
-        .then(res => res.json())
-        .then((data) => {
-
-            if (data.itemType === "COMPANY") {
+        .then(res => {
+            if (res.ok) {
                 window.location.href = `/company/info/${itemId}`;
-            } else {
-                window.location.href = `/product/${itemId}`;
             }
-
         })
         .catch(error =>
             console.error(error));
 }
 
-function likeMessage(messageId, itemType, itemId, csrf) {
+function likeMessage(messageId, itemId, csrf) {
 
     const url = `/message/like`;
 
     const body = JSON.stringify({
         messageId: messageId,
-        itemId: itemId,
-        itemType: itemType
+        itemId: itemId
     });
 
     fetch(url, {
@@ -130,12 +111,12 @@ function likeMessage(messageId, itemType, itemId, csrf) {
     })
         .then(res => res.json())
         .then((data) => {
-            document.querySelector(`#likes span`).innerHTML = `${data.likes}`;
+            document.querySelector(`#likes-${messageId} span`).innerHTML = `${data.likes}`;
 
             if (data.isLiked) {
-                document.querySelector(`#likes i`).className = "bi bi-heart";
+                document.querySelector(`#likes-${messageId} i`).className = "bi bi-heart-fill";
             } else {
-                document.querySelector(`#likes i`).className = "bi bi-heart-fill";
+                document.querySelector(`#likes-${messageId} i`).className = "bi bi-heart";
             }
 
         })

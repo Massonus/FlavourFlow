@@ -39,11 +39,13 @@ function createCompany(event) {
     })
         .then(res => {
 
-            if (imageLink.trim() === "") {
+            if (res.ok && imageLink.trim() === "") {
                 uploadCompanyFile(file, title, undefined);
                 window.location.href = `/admin/panel`;
-            } else {
+            } else if (res.ok && !(imageLink.trim() === "")) {
                 window.location.href = `/admin/panel`;
+            } else {
+                alert("Error detected, try again later")
             }
 
         })
@@ -89,11 +91,16 @@ function editCompany(event, companyId) {
     })
         .then(res => {
 
-            if (!(file === undefined)) {
+            if (!(file === undefined) && res.ok) {
+
                 uploadCompanyFile(file, undefined, companyId);
                 window.location.href = `/admin/panel`;
-            } else {
+
+            } else if (file === undefined && res.ok) {
                 window.location.href = `/admin/panel`;
+
+            } else {
+                alert("Error detected, try again later");
             }
 
         })
@@ -117,7 +124,12 @@ function deleteCompany(companyId, csrf) {
         },
     })
         .then(res => {
-            document.getElementById(`company-table-${companyId}`).remove();
+            if (res.ok) {
+                document.getElementById(`company-table-${companyId}`).remove();
+            } else {
+                alert("Error detected, try again later");
+            }
+
         })
         .catch(error =>
             console.error(error));

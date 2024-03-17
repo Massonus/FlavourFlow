@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -34,45 +33,15 @@ public class OrderService {
 
     public OrderDto checkout(final OrderDto orderDto) {
 
-        if (orderDto.getTime().isBefore(LocalTime.of(7, 0)) || orderDto.getTime().isAfter(LocalTime.of(19, 0))) {
-            orderDto.setIsTimeError(true);
+        if (checkOrderTime(orderDto).getIsTimeError()) {
             return orderDto;
         }
 
-        Order order = new Order();
-        order.setUser(userService.getUserById(orderDto.getUserId()));
-        order.setDate(orderDto.getDate());
-        order.setTime(orderDto.getTime());
-        order.setCountGuests(orderDto.getCountGuests());
-        order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
-
-        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(orderDto.getUserId()).stream()
-                .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
-                .toList();
-
-        double total = basketObjects.stream()
-                .mapToDouble(BasketObject::getSum)
-                .sum();
-
-        order.setTotal(total);
+        List<BasketObject> basketObjects = getWantedBasketObjects(orderDto);
+        Order order = createOrder(orderDto, getTotal(basketObjects));
 
         orderRepo.save(order);
-
-        for (BasketObject basketObject : basketObjects) {
-
-            OrderObject orderObject = new OrderObject();
-            orderObject.setTitle(basketObject.getTitle());
-            orderObject.setCompany(basketObject.getCompany());
-            orderObject.setUser(userService.getUserById(orderDto.getUserId()));
-            orderObject.setAmount(basketObject.getAmount());
-            orderObject.setSum(basketObject.getSum());
-            orderObject.setProduct(basketObject.getProduct());
-            orderObject.setOrder(order);
-
-            orderObjectService.saveOrderObject(orderObject);
-        }
-
-        createOrder(orderDto, order.getId());
+        createAndSaveOrderObjects(basketObjects, order);
 
         basketService.deleteBasketItemsByCompanyId(orderDto.getCompanyId(), orderDto.getUserId());
 
@@ -80,20 +49,53 @@ public class OrderService {
         return orderDto;
     }
 
-    private void createOrder(final OrderDto orderDto, final Long orderId) {
+    private Order createOrder(final OrderDto orderDto, final Double total) {
+        Order order = new Order();
+        order.setUser(userService.getUserById(orderDto.getUserId()));
+        order.setDate(orderDto.getDate());
+        order.setTime(orderDto.getTime());
+        order.setCountGuests(orderDto.getCountGuests());
+        order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
+        order.setTotal(total);
 
-        Order order = getOrderById(orderId);
-
-        orderRepo.save(order);
-
-        companyService.getCompanyById(orderDto.getCompanyId()).getOrders().add(order);
-
-        userService.getUserById(orderDto.getUserId()).setOrders(Collections.singleton(order));
-
+        return order;
     }
 
-    public Order getOrderById(Long id) {
-        return orderRepo.findOrderById(id);
+    private void createAndSaveOrderObjects(final List<BasketObject> basketObjects, final Order order) {
+        for (BasketObject basketObject : basketObjects) {
+            OrderObject orderObject = new OrderObject();
+            orderObject.setTitle(basketObject.getTitle());
+            orderObject.setCompany(basketObject.getCompany());
+            orderObject.setAmount(basketObject.getAmount());
+            orderObject.setSum(basketObject.getSum());
+            orderObject.setProduct(basketObject.getProduct());
+
+            orderObject.setUser(order.getUser());
+            orderObject.setOrder(order);
+
+            orderObjectService.saveOrderObject(orderObject);
+        }
+    }
+
+    private List<BasketObject> getWantedBasketObjects(final OrderDto orderDto) {
+        return basketObjectService.getBasketObjectsByUserId(orderDto.getUserId()).stream()
+                .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
+                .toList();
+    }
+
+    private Double getTotal(final List<BasketObject> basketObjects) {
+        return basketObjects.stream()
+                .mapToDouble(BasketObject::getSum)
+                .sum();
+    }
+
+    private OrderDto checkOrderTime(final OrderDto orderDto) {
+        boolean isBefore = orderDto.getTime().isBefore(LocalTime.of(7, 0));
+        boolean isAfter = orderDto.getTime().isAfter(LocalTime.of(19, 0));
+
+        orderDto.setIsTimeError(isBefore || isAfter);
+
+        return orderDto;
     }
 
     public List<Order> getUserOrders(Long userId) {

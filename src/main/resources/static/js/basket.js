@@ -62,6 +62,7 @@ function changeAmount(productId, csrf) {
     let amount = document.getElementById(`newAmount-${productId}`).value;
 
     if (amount <= 0) {
+        alert("Invalid amount");
         return;
     }
 

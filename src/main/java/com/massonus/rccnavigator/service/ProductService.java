@@ -28,7 +28,7 @@ public class ProductService {
         this.companyRepo = companyRepo;
     }
 
-    public void saveProduct(final ProductDto productDto) {
+    public ProductDto saveProduct(final ProductDto productDto) {
         Product product = new Product();
 
         if (!productDto.getImageLink().isEmpty()) {
@@ -42,14 +42,10 @@ public class ProductService {
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
 
         productRepo.save(product);
+        return productDto;
     }
 
-    public void saveProduct(final Product validProduct) {
-
-        productRepo.save(validProduct);
-    }
-
-    public void editProduct(final ProductDto productDto) {
+    public ProductDto editProduct(final ProductDto productDto) {
         Product savedProduct = getProductById(productDto.getProductId());
 
         if (!productDto.getImageLink().isEmpty()) {
@@ -62,6 +58,7 @@ public class ProductService {
         savedProduct.setPrice(productDto.getPrice());
 
         productRepo.save(savedProduct);
+        return productDto;
 
     }
 
@@ -70,10 +67,7 @@ public class ProductService {
         List<Product> products = getAllProductsByCompanyId(companyId);
 
         if (Objects.nonNull(productCategory)) {
-
-            products = products.stream()
-                    .filter(p -> p.getProductCategory().equals(productCategory))
-                    .toList();
+            products = filterProductsByProductCategory(products, productCategory);
         }
 
         if (Objects.nonNull(sort)) {
@@ -113,6 +107,12 @@ public class ProductService {
 
         return products;
 
+    }
+
+    private List<Product> filterProductsByProductCategory(final List<Product> products, final ProductCategory productCategory) {
+        return products.stream()
+                .filter(p -> p.getProductCategory().equals(productCategory))
+                .toList();
     }
 
     public void setProductImage(final String title, final Long companyId, final Image image) {

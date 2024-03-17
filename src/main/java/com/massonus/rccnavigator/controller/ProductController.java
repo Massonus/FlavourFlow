@@ -80,9 +80,10 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
-    public void newProduct(@RequestBody ProductDto productDto) {
+    @ResponseBody
+    public ProductDto newProduct(@RequestBody ProductDto productDto) {
 
-        productService.saveProduct(productDto);
+        return productService.saveProduct(productDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -95,9 +96,10 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/edit")
-    public void saveUpdatedProduct(@RequestBody ProductDto productDto) {
+    @ResponseBody
+    public ProductDto saveUpdatedProduct(@RequestBody ProductDto productDto) {
 
-        productService.editProduct(productDto);
+        return productService.editProduct(productDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

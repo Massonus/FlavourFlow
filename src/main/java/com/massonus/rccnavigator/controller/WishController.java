@@ -71,7 +71,7 @@ public class WishController {
         if (basketObjects.contains(basketObjectService.getBasketObjectByProductIdAndUserId(itemDto.getProductId(), user.getId()))) {
             itemDto.setIsInBasket(true);
         } else {
-            basketService.addProductToBasket(itemDto.getProductId(), user.getId());
+            basketService.addProductToBasket(productService.getProductById(itemDto.getProductId()), user);
             itemDto.setItemId(wishService.deleteWishItem(itemDto, user).getItemId());
             itemDto.setIsInBasket(false);
         }

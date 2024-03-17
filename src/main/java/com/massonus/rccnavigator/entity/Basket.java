@@ -2,6 +2,7 @@ package com.massonus.rccnavigator.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serial;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "basket")
+@NoArgsConstructor
 public class Basket implements Serializable {
 
     @Serial
@@ -38,5 +40,10 @@ public class Basket implements Serializable {
         return basketObjects.stream()
                 .mapToDouble(BasketObject::getSum)
                 .sum();
+    }
+
+    public Basket(User user, List<BasketObject> basketObjects) {
+        this.user = user;
+        this.basketObjects = basketObjects;
     }
 }

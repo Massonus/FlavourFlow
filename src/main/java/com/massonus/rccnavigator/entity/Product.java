@@ -58,15 +58,16 @@ public class Product {
             orphanRemoval = true)
     private List<OrderObject> orderObjects = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Message> messages = new ArrayList<>();
-
     public Product(Long id, String title, Double price, String imageLink, ProductCategory productCategory, Company company) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.imageLink = imageLink;
         this.productCategory = productCategory;
+        this.company = company;
+    }
+
+    public Product(Company company) {
         this.company = company;
     }
 }

@@ -229,7 +229,7 @@
             </button>
 
             <#if existItems?has_content>
-                <h3>Choose the another item</h3>
+                <h4>Choose the another item</h4>
                 <div class="container-buttons">
                     <#list existItems as item>
                         <a role="button" class="btn black-btn btn-gradient mt-2 w-100"

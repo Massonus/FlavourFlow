@@ -15,7 +15,6 @@ import static org.mockito.Mockito.*;
 class WishServiceTest {
 
     private WishService target;
-
     private WishRepo wishRepo;
     private UserService userService;
     private WishObjectRepo wishObjectRepo;
@@ -41,7 +40,7 @@ class WishServiceTest {
     }
 
     @Test
-    void addProductToWishes() {
+    void shouldAddProductToWishes() {
 
         when(wishRepo.findWishByUserId(user.getId())).thenReturn(expectedWish);
         target.addProductToWishes(product, user);
@@ -55,7 +54,7 @@ class WishServiceTest {
     }
 
     @Test
-    void getUserWishWhenWishDoesNotExist() {
+    void shouldGetUserWishWhenWishDoesNotExist() {
         when(userService.getUserById(user.getId())).thenReturn(user);
 
         Wish savedWish = target.getUserWish(user.getId());
@@ -63,7 +62,7 @@ class WishServiceTest {
     }
 
     @Test
-    void getUserWishWhenWishExist() {
+    void shouldGetUserWishWhenWishExist() {
         when(wishRepo.findWishByUserId(user.getId())).thenReturn(expectedWish);
 
         Wish savedWish = target.getUserWish(user.getId());
@@ -93,7 +92,7 @@ class WishServiceTest {
     }
 
     @Test
-    void clearWishes() {
+    void shouldClearWishes() {
         Boolean isEmpty = target.clearWishes(user);
         assertTrue(isEmpty);
     }
