@@ -7,7 +7,11 @@ import com.massonus.rccnavigator.entity.User;
 import com.massonus.rccnavigator.repo.MessageRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,10 +19,14 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class MessageServiceTest {
 
+    @Mock
     private CompanyService companyService;
+    @Mock
     private MessageRepo messageRepo;
+    @InjectMocks
     private MessageService target;
 
     private User user;
@@ -28,10 +36,6 @@ class MessageServiceTest {
 
     @BeforeEach
     void setUp() {
-        companyService = mock(CompanyService.class);
-        messageRepo = mock(MessageRepo.class);
-        target = new MessageService(messageRepo, companyService);
-
         user = new User();
         user.setId(1L);
         messageDto = new MessageDto();

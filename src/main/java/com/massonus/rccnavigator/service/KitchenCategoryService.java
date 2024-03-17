@@ -20,18 +20,20 @@ public class KitchenCategoryService {
     }
 
     public KitchenCategory saveKitchenCategory(final KitchenCategory kitchenCategory) {
-
         return categoryRepo.save(kitchenCategory);
     }
 
     public List<KitchenCategory> getAllCategories() {
 
-        return categoryRepo.findAll().stream().sorted(Comparator.comparing(KitchenCategory::getId)).toList();
+        return categoryRepo.findAll().stream()
+                .sorted(Comparator.comparing(KitchenCategory::getId))
+                .toList();
     }
 
     public List<KitchenCategory> getAllCategoriesExceptOne(final Long categoryId) {
         return categoryRepo.findAll().stream()
-                .filter(a -> !a.getId().equals(categoryId)).toList();
+                .filter(a -> !a.getId().equals(categoryId))
+                .toList();
     }
 
     public KitchenCategory getCategoryById(Long id) {
@@ -43,9 +45,7 @@ public class KitchenCategoryService {
     }
 
     public void editCategory(final KitchenCategoryDto categoryDto) {
-
         getCategoryById(categoryDto.getCategoryId()).setTitle(categoryDto.getTitle());
-
     }
 
     public Long deleteCategory(Long id) {

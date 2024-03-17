@@ -90,4 +90,9 @@ public class Company {
                 .orElse(0.0);
         return (int) (Math.round(currentRate));
     }
+
+    public Company(KitchenCategory kitchenCategory, CompanyCountry companyCountry) {
+        this.kitchenCategory = kitchenCategory;
+        this.companyCountry = companyCountry;
+    }
 }

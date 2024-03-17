@@ -39,11 +39,13 @@ function createCompany(event) {
     })
         .then(res => {
 
-            if (imageLink.trim() === "") {
+            if (res.ok && imageLink.trim() === "") {
                 uploadCompanyFile(file, title, undefined);
                 window.location.href = `/admin/panel`;
-            } else {
+            } else if (res.ok && !(imageLink.trim() === "")) {
                 window.location.href = `/admin/panel`;
+            } else {
+                alert("Error detected, try again later")
             }
 
         })

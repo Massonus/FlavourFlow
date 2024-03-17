@@ -86,9 +86,10 @@ public class CompanyController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
-    public void newCompany(@RequestBody CompanyDto companyDto) {
+    @ResponseBody
+    public CompanyDto newCompany(@RequestBody CompanyDto companyDto) {
 
-        companyService.saveCompany(companyDto);
+        return companyService.saveCompany(companyDto);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
