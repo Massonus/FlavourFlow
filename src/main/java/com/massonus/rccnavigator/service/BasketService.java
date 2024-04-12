@@ -29,7 +29,6 @@ public class BasketService {
         BasketObject basketObject = new BasketObject();
         basketObject.setProduct(product);
         basketObject.setTitle(product.getTitle());
-        basketObject.setImage(product.getImage());
         basketObject.setImageLink(product.getImageLink());
         basketObject.setPrice(product.getPrice());
         basketObject.setUser(user);

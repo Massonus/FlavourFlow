@@ -51,19 +51,13 @@
                                 <div class="col-lg-12">
                                     <div class="product-card">
                                         <div class="product-thumb">
-                                            <#if (product.getImage()??)>
-                                                <div class="filters__product-img">
-                                                    <a class="cursor-default"><img alt="product image"
-                                                                                               src="/images/${product.getImage().getId()}.jpg"
-                                                                                               class="card-img-top"/></a>
-                                                </div>
-                                            <#else>
-                                                <div class="filters__product-img">
-                                                    <a class="cursor-default"><img alt="product image"
-                                                                                               src="${product.getImageLink()}"
-                                                                                               class="card-img-top"></a>
-                                                </div>
-                                            </#if>
+
+                                            <div class="filters__product-img">
+                                                <a class="cursor-default"><img alt="product image"
+                                                                               src="${product.getImageLink()}"
+                                                                               class="card-img-top"></a>
+                                            </div>
+
                                         </div>
                                         <div class="product-details">
                                             <h4>${product.getTitle()}</h4>

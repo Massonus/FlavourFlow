@@ -33,7 +33,6 @@ public class WishService {
         WishObject wishObject = new WishObject();
         wishObject.setProduct(product);
         wishObject.setTitle(product.getTitle());
-        wishObject.setImage(product.getImage());
         wishObject.setImageLink(product.getImageLink());
         wishObject.setPrice(product.getPrice());
         wishObject.setUser(user);

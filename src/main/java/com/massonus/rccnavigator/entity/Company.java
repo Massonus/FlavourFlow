@@ -29,10 +29,6 @@ public class Company {
     @NotBlank(message = "Title cannot be empty")
     private String title;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id")
-    private Image image;
-
     private String imageLink;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)

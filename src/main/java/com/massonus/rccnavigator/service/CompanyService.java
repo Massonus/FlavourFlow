@@ -1,9 +1,6 @@
 package com.massonus.rccnavigator.service;
 
-import com.massonus.rccnavigator.dto.CheckDto;
-import com.massonus.rccnavigator.dto.CompanyDto;
-import com.massonus.rccnavigator.dto.CompanyFilterDto;
-import com.massonus.rccnavigator.dto.ItemType;
+import com.massonus.rccnavigator.dto.*;
 import com.massonus.rccnavigator.entity.*;
 import com.massonus.rccnavigator.repo.CompanyRepo;
 import com.massonus.rccnavigator.repo.ProductRepo;
@@ -41,7 +38,6 @@ public class CompanyService {
 
         if (!companyDto.getImageLink().isEmpty()) {
             company.setImageLink(companyDto.getImageLink());
-            company.setImage(null);
         }
         companyRepo.save(company);
         return companyDto;
@@ -52,7 +48,6 @@ public class CompanyService {
 
         if (!companyDto.getImageLink().isEmpty()) {
             savedCompany.setImageLink(companyDto.getImageLink());
-            savedCompany.setImage(null);
         }
 
         savedCompany.setTitle(companyDto.getTitle());
@@ -167,12 +162,12 @@ public class CompanyService {
         return checkDto;
     }
 
-    public void setCompanyImage(String title, Image image) {
-        getCompanyByTitle(title).setImage(image);
+    public void setCompanyImage(final String title, final ImageResponseDto responseDto) {
+        getCompanyByTitle(title).setImageLink(responseDto.getUrl());
     }
 
-    public void setCompanyImage(Long companyId, Image image) {
-        getCompanyById(companyId).setImage(image);
+    public void setCompanyImage(final Long companyId, final ImageResponseDto responseDto) {
+        getCompanyById(companyId).setImageLink(responseDto.getUrl());
     }
 
     public List<Company> getCompaniesByCountryId(Long countryId) {

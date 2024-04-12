@@ -29,10 +29,6 @@ public class Product {
     @Positive
     private Double price;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id")
-    private Image image;
-
     private String imageLink;
 
     @Column(columnDefinition = "text", name = "product_category")

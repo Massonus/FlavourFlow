@@ -31,23 +31,11 @@
                                 <th class="ps-0 py-3 border-light" scope="row">
                                     <div class="d-flex align-items-center">
                                         <a class="d-block">
-                                            <#if (object.getImage()??)>
-
-                                                <a href="/product/${object.getId()}"><img
-                                                            style="object-fit: cover; height: 80px; width: 80px;"
-                                                            alt="product image"
-                                                            src="/images/${object.getImage().getId()}.jpg"
-                                                            class="card-img-top"/></a>
-
-                                            <#else>
-
-                                                <a href="/product/${object.getId()}"><img
-                                                            style="object-fit: cover; height: 80px; width: 80px;"
-                                                            alt="product image"
-                                                            src="${object.getImageLink()}"
-                                                            class="card-img-top"></a>
-
-                                            </#if>
+                                            <a href="/product/${object.getId()}"><img
+                                                        style="object-fit: cover; height: 80px; width: 80px;"
+                                                        alt="product image"
+                                                        src="${object.getImageLink()}"
+                                                        class="card-img-top"></a>
                                         </a>
                                         <div class="ms-3">
                                             <span class="fw-medium">${object.getTitle()}</span>
@@ -93,7 +81,8 @@
 
                             <#if products?has_content>
                                 <li>
-                                    <button onclick="clearWishes('${_csrf.token}')" class="btn btn-outline-danger w-100 mt-2">Clear the
+                                    <button onclick="clearWishes('${_csrf.token}')"
+                                            class="btn btn-outline-danger w-100 mt-2">Clear the
                                         wishes
                                     </button>
                                 </li>
