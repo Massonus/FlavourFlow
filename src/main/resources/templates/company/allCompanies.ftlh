@@ -55,21 +55,14 @@
                             <div class="col-lg-12">
                                 <div class="product-card">
                                     <div class="product-thumb">
-                                        <#if (company.getImage()??)>
-                                            <div class="filters__img">
-                                                <a href="/product/all-products?companyId=${company.getId()}"><img
-                                                            alt="product image"
-                                                            src="/images/${company.getImage().getId()}.jpg"
-                                                            class="card-img-top"/></a>
-                                            </div>
-                                        <#else>
-                                            <div class="filters__img">
-                                                <a href="/product/all-products?companyId=${company.getId()}"><img
-                                                            alt="product image"
-                                                            src="${company.getImageLink()}"
-                                                            class="card-img-top"></a>
-                                            </div>
-                                        </#if>
+
+                                        <div class="filters__img">
+                                            <a href="/product/all-products?companyId=${company.getId()}"><img
+                                                        alt="product image"
+                                                        src="${company.getImageLink()}"
+                                                        class="card-img-top"></a>
+                                        </div>
+
                                     </div>
                                     <div class="product-details">
                                         <h4>
@@ -115,7 +108,7 @@
             </#if>
         </div>
     </div>
-<br><br>
+    <br><br>
     <#if companies?has_content>
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center fixed-bottom py-4">

@@ -33,7 +33,6 @@ public class ProductService {
 
         if (!productDto.getImageLink().isEmpty()) {
             product.setImageLink(productDto.getImageLink());
-            product.setImage(null);
         }
 
         product.setProductCategory(productDto.getProductCategory());
@@ -50,7 +49,6 @@ public class ProductService {
 
         if (!productDto.getImageLink().isEmpty()) {
             savedProduct.setImageLink(productDto.getImageLink());
-            savedProduct.setImage(null);
         }
 
         savedProduct.setProductCategory(productDto.getProductCategory());

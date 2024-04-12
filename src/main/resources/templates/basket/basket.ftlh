@@ -36,15 +36,6 @@
                                 <th class="ps-0 py-3 border-light" scope="row">
                                     <div class="d-flex align-items-center">
                                         <a class="d-block">
-                                            <#if (object.getImage()??)>
-
-                                                <a href="/product/${object.getId()}"><img
-                                                            style="object-fit: cover; height: 80px; width: 80px;"
-                                                            alt="product image"
-                                                            src="/images/${object.getImage().getId()}.jpg"
-                                                            class="card-img-top"/></a>
-
-                                            <#else>
 
                                                 <a href="/product/${object.getId()}"><img
                                                             style="object-fit: cover; height: 80px; width: 80px;"
@@ -52,7 +43,6 @@
                                                             src="${object.getImageLink()}"
                                                             class="card-img-top"></a>
 
-                                            </#if>
                                         </a>
                                         <div class="ms-3">
                                             <span class="fw-medium">${object.getTitle()}</span>

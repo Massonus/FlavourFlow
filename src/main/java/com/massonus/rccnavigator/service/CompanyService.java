@@ -38,7 +38,6 @@ public class CompanyService {
 
         if (!companyDto.getImageLink().isEmpty()) {
             company.setImageLink(companyDto.getImageLink());
-            company.setImage(null);
         }
         companyRepo.save(company);
         return companyDto;
@@ -49,7 +48,6 @@ public class CompanyService {
 
         if (!companyDto.getImageLink().isEmpty()) {
             savedCompany.setImageLink(companyDto.getImageLink());
-            savedCompany.setImage(null);
         }
 
         savedCompany.setTitle(companyDto.getTitle());
