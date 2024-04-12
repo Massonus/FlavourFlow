@@ -1,7 +1,7 @@
 package com.massonus.rccnavigator.service;
 
+import com.massonus.rccnavigator.dto.ImageResponseDto;
 import com.massonus.rccnavigator.dto.ProductDto;
-import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.ProductCategory;
 import com.massonus.rccnavigator.repo.CompanyRepo;
@@ -115,12 +115,12 @@ public class ProductService {
                 .toList();
     }
 
-    public void setProductImage(final String title, final Long companyId, final Image image) {
-        getProductByTitleAndCompanyId(title, companyId).setImage(image);
+    public void setProductImage(final String title, final Long companyId, final ImageResponseDto responseDto) {
+        getProductByTitleAndCompanyId(title, companyId).setImageLink(responseDto.getUrl());
     }
 
-    public void setProductImage(final Long productId, final Image image) {
-        getProductById(productId).setImage(image);
+    public void setProductImage(final Long productId, final ImageResponseDto responseDto) {
+        getProductById(productId).setImageLink(responseDto.getUrl());
     }
 
     public void deleteProduct(final Product product) {

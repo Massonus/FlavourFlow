@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.ImageResponseDto;
 import com.massonus.rccnavigator.entity.Image;
 import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.ImageService;
@@ -33,17 +34,6 @@ public class ImageController {
         this.companyService = companyService;
     }
 
-    @RequestMapping(value = "/images/{id}.jpg")
-    public ResponseEntity<?> showImage(@PathVariable Long id) {
-
-        Image image = imageService.getImageById(id);
-        return ResponseEntity.ok()
-                .header("fileName", image.getName())
-                .contentType(MediaType.valueOf(image.getContentType()))
-                .contentLength(image.getSize())
-                .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
-    }
-
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload-product")
     public ResponseEntity<?> uploadProductImage(@RequestParam("file") MultipartFile file,
@@ -51,7 +41,7 @@ public class ImageController {
                                                 @RequestParam(required = false) String title,
                                                 @RequestParam(required = false) Long productId) {
 
-        final Image upload = imageService.upload(file);
+        ImageResponseDto upload = imageService.upload(file);
 
         if (Objects.isNull(productId)) {
             productService.setProductImage(title, companyId, upload);
@@ -68,7 +58,7 @@ public class ImageController {
                                                 @RequestParam(required = false) String title,
                                                 @RequestParam(required = false) Long companyId) {
 
-        final Image upload = imageService.upload(file);
+        ImageResponseDto upload = imageService.upload(file);
 
         if (Objects.isNull(title)) {
             companyService.setCompanyImage(companyId, upload);
