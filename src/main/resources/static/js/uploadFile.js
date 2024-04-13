@@ -1,16 +1,10 @@
-function uploadProductFile(file, companyId, productTitle, productId) {
+function uploadProductFile(file, productId) {
     let csrf = document.getElementById("csrf").value;
 
     let formData = new FormData();
     formData.append("file", file);
 
-    let url;
-
-    if (productId === undefined) {
-        url = `/upload-product?companyId=${companyId}&title=${productTitle}`;
-    } else {
-        url = `/upload-product?companyId=${companyId}&title=${productTitle}&productId=${productId}`;
-    }
+    let url = `/upload-product?&productId=${productId}`;
 
     let response = fetch(url, {
         headers: {

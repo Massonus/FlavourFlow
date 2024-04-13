@@ -31,17 +31,12 @@ public class ImageController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload-product")
     public ResponseEntity<?> uploadProductImage(@RequestParam("file") MultipartFile file,
-                                                @RequestParam(required = false) Long companyId,
-                                                @RequestParam(required = false) String title,
-                                                @RequestParam(required = false) Long productId) {
+                                                @RequestParam Long productId) {
 
-        ImageResponseDto upload = imageService.upload(file);
+        ImageResponseDto upload = imageService.upload(file, productId, "product".toUpperCase());
 
-        if (Objects.isNull(productId)) {
-            productService.setProductImage(title, companyId, upload);
-        } else {
-            productService.setProductImage(productId, upload);
-        }
+        productService.setProductImage(productId, upload);
+
 
         return ResponseEntity.ok("upload success");
     }
@@ -51,7 +46,7 @@ public class ImageController {
     public ResponseEntity<?> uploadCompanyImage(@RequestParam("file") MultipartFile file,
                                                 @RequestParam Long companyId) {
 
-        ImageResponseDto upload = imageService.upload(file);
+        ImageResponseDto upload = imageService.upload(file, companyId, "company".toUpperCase());
 
         companyService.setCompanyImage(companyId, upload);
 

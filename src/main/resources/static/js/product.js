@@ -36,12 +36,13 @@ function createProduct(event, companyId) {
         body: body,
 
     })
-        .then(res => {
+        .then(res => res.json())
+        .then((data) => {
 
-            if (imageLink.trim() === "" && res.ok) {
-                uploadProductFile(file, companyId, title, undefined);
+            if (imageLink.trim() === "") {
+                uploadProductFile(file, data.productId);
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
-            } else if (!(imageLink.trim() === "") && res.ok) {
+            } else if (!(imageLink.trim() === "")) {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else {
                 alert("Error detected, try again later");
@@ -88,7 +89,7 @@ function editProduct(event, productId, companyId) {
         .then(res => {
 
             if (!(file === undefined) && res.ok) {
-                uploadProductFile(file, companyId, title, productId);
+                uploadProductFile(file, productId);
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else if (file === undefined && res.ok) {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;

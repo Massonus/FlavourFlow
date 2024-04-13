@@ -114,10 +114,6 @@ public class ProductService {
                 .toList();
     }
 
-    public void setProductImage(final String title, final Long companyId, final ImageResponseDto responseDto) {
-        getProductByTitleAndCompanyId(title, companyId).setImageLink(responseDto.getUrl());
-    }
-
     public void setProductImage(final Long productId, final ImageResponseDto responseDto) {
         getProductById(productId).setImageLink(responseDto.getUrl());
     }
