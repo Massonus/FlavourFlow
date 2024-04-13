@@ -27,9 +27,9 @@ public class ImageService {
             client = new DbxClientV2(config, ACCESS_TOKEN);
 
             try (InputStream in =  new BufferedInputStream(file.getInputStream())) {
-                client.files().uploadBuilder("/RCCImages/" + type + id + ".jpg")
+                client.files().uploadBuilder("/RCCImages/" + type + "/" + type + id + ".jpg")
                         .uploadAndFinish(in);
-                String url = client.sharing().createSharedLinkWithSettings("/RCCImages/" + type + id + ".jpg").getUrl();
+                String url = client.sharing().createSharedLinkWithSettings("/RCCImages/" + type + "/" + type + id + ".jpg").getUrl();
                 imageResponseDto.setUrl(url + "&raw=1");
             }
             catch (DbxException ex) {
