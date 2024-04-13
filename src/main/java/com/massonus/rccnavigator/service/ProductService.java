@@ -130,7 +130,11 @@ public class ProductService {
     }
 
     public ImageResponseDto deleteProductImage(final Product product) {
-
+        if (!product.getIsDropdownImage()) {
+            ImageResponseDto imageResponseDto = new ImageResponseDto();
+            imageResponseDto.setStatus(200);
+            return imageResponseDto;
+        }
         return imageService.deleteImage("product".toUpperCase(), product.getId());
     }
 
@@ -162,6 +166,10 @@ public class ProductService {
 
     public List<Product> getAllProductsByCompanyId(final Long companyId) {
         return productRepo.findProductsByCompanyId(companyId);
+    }
+
+    public List<Product> getProductsByTitleContainingIgnoreCase(final String title) {
+        return productRepo.findProductsByTitleContainingIgnoreCase(title);
     }
 
 }

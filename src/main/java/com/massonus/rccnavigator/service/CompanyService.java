@@ -1,9 +1,11 @@
 package com.massonus.rccnavigator.service;
 
 import com.massonus.rccnavigator.dto.*;
-import com.massonus.rccnavigator.entity.*;
+import com.massonus.rccnavigator.entity.Company;
+import com.massonus.rccnavigator.entity.CompanyCountry;
+import com.massonus.rccnavigator.entity.KitchenCategory;
+import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.repo.CompanyRepo;
-import com.massonus.rccnavigator.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,15 +21,15 @@ public class CompanyService {
     private final CompanyRepo companyRepo;
     private final CompanyCountryService countryService;
     private final KitchenCategoryService categoryService;
-    private final ProductRepo productRepo;
+    private final ProductService productService;
     private final ImageService imageService;
 
     @Autowired
-    public CompanyService(CompanyRepo companyRepo, CompanyCountryService countryService, KitchenCategoryService categoryService, ProductRepo productRepo, ImageService imageService) {
+    public CompanyService(CompanyRepo companyRepo, CompanyCountryService countryService, KitchenCategoryService categoryService, ProductService productService, ImageService imageService) {
         this.companyRepo = companyRepo;
         this.countryService = countryService;
         this.categoryService = categoryService;
-        this.productRepo = productRepo;
+        this.productService = productService;
         this.imageService = imageService;
     }
 
@@ -146,7 +148,7 @@ public class CompanyService {
             return getCompaniesByCountryId(country.getId());
 
         } else if (companies.isEmpty()) {
-            return productRepo.findProductsByTitleContainingIgnoreCase(title).stream()
+            return productService.getProductsByTitleContainingIgnoreCase(title).stream()
                     .map(Product::getCompany)
                     .toList();
         } else {
@@ -199,6 +201,8 @@ public class CompanyService {
         }
 
         imageResponseDto.setStatus(200);
+        productService.getAllProductsByCompanyId(companyId).forEach(productService::deleteProductImage);
+
         companyRepo.delete(companyById);
         return imageResponseDto;
     }
@@ -210,10 +214,6 @@ public class CompanyService {
 
     public Company getCompanyById(final Long id) {
         return companyRepo.findCompanyById(id);
-    }
-
-    public Company getCompanyByTitle(final String title) {
-        return companyRepo.findCompanyByTitle(title);
     }
 
     public List<Company> getCompaniesByTitleContainingIgnoreCase(String title) {
