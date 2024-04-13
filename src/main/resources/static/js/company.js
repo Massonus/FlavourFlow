@@ -37,12 +37,13 @@ function createCompany(event) {
         body: body,
 
     })
-        .then(res => {
+        .then(res => res.json())
+        .then((data) => {
 
-            if (res.ok && imageLink.trim() === "") {
-                uploadCompanyFile(file, title, undefined);
+            if (imageLink.trim() === "") {
+                uploadCompanyFile(file, data.companyId);
                 window.location.href = `/admin/panel`;
-            } else if (res.ok && !(imageLink.trim() === "")) {
+            } else if (!(imageLink.trim() === "")) {
                 window.location.href = `/admin/panel`;
             } else {
                 alert("Error detected, try again later")
@@ -92,8 +93,7 @@ function editCompany(event, companyId) {
         .then(res => {
 
             if (!(file === undefined) && res.ok) {
-
-                uploadCompanyFile(file, undefined, companyId);
+                uploadCompanyFile(file, companyId);
                 window.location.href = `/admin/panel`;
 
             } else if (file === undefined && res.ok) {

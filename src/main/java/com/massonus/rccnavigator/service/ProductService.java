@@ -40,7 +40,8 @@ public class ProductService {
         product.setPrice(productDto.getPrice());
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
 
-        productRepo.save(product);
+        Product save = productRepo.save(product);
+        productDto.setProductId(save.getId());
         return productDto;
     }
 

@@ -21,19 +21,14 @@ function uploadProductFile(file, companyId, productTitle, productId) {
     });
 }
 
-function uploadCompanyFile(file, companyTitle, companyId) {
+function uploadCompanyFile(file, companyId) {
     let csrf = document.getElementById("csrf").value;
 
     let formData = new FormData();
     formData.append("file", file);
 
-    let url;
+    let url= `/upload-company?companyId=${companyId}`;
 
-    if (companyId === undefined) {
-        url = `/upload-company?title=${companyTitle}`;
-    } else {
-        url = `/upload-company?companyId=${companyId}`;
-    }
 
     let response = fetch(url, {
         headers: {

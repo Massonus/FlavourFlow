@@ -16,7 +16,7 @@ import java.io.InputStream;
 @Service
 public class ImageService {
 
-    private static final String ACCESS_TOKEN = "sl.BzN4zPKwWTp4mhZUeScmIMH3vkFuQpLfamZKZhP3HeazwHGPJzxjxlelq2bULKMRFHdp3RrGoPopglNHnmZBHA7f-ACuVlJH420LqIUos-FN7VlFS7nIJ_6MYQU56VJm5_gVDvO6lO3Cv9OWn3aj";
+    private static final String ACCESS_TOKEN = "sl.BzTyKRK_wu8ph0bbVEgxBvc5dGRE-FzsU48Fqvxm8SZNCSSE5_dskOy_kWUB0GpDUPSTCLwJxEfeJqv9rZdt3l7i60gyZT5DeS8bzanprxHwmZ2DOKDnXsVDpgDImoC09dknoKntJ-W3aAgSZIj9";
 
     public ImageResponseDto upload(final MultipartFile file) {
 

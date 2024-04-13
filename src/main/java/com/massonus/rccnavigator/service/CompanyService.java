@@ -39,7 +39,8 @@ public class CompanyService {
         if (!companyDto.getImageLink().isEmpty()) {
             company.setImageLink(companyDto.getImageLink());
         }
-        companyRepo.save(company);
+        Company save = companyRepo.save(company);
+        companyDto.setCompanyId(save.getId());
         return companyDto;
     }
 
@@ -160,10 +161,6 @@ public class CompanyService {
         }
         checkDto.setItemType(ItemType.KITCHENCATEGORY);
         return checkDto;
-    }
-
-    public void setCompanyImage(final String title, final ImageResponseDto responseDto) {
-        getCompanyByTitle(title).setImageLink(responseDto.getUrl());
     }
 
     public void setCompanyImage(final Long companyId, final ImageResponseDto responseDto) {

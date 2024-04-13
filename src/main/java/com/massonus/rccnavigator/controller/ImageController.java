@@ -49,16 +49,12 @@ public class ImageController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload-company")
     public ResponseEntity<?> uploadCompanyImage(@RequestParam("file") MultipartFile file,
-                                                @RequestParam(required = false) String title,
-                                                @RequestParam(required = false) Long companyId) {
+                                                @RequestParam Long companyId) {
 
         ImageResponseDto upload = imageService.upload(file);
 
-        if (Objects.isNull(title)) {
-            companyService.setCompanyImage(companyId, upload);
-        } else {
-            companyService.setCompanyImage(title, upload);
-        }
+        companyService.setCompanyImage(companyId, upload);
+
 
         return ResponseEntity.ok("upload success");
     }
