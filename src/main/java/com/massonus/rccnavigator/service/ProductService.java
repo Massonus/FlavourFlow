@@ -21,11 +21,13 @@ public class ProductService {
 
     private final ProductRepo productRepo;
     private final CompanyRepo companyRepo;
+    private final ImageService imageService;
 
     @Autowired
-    public ProductService(ProductRepo productRepo, CompanyRepo companyRepo) {
+    public ProductService(ProductRepo productRepo, CompanyRepo companyRepo, ImageService imageService) {
         this.productRepo = productRepo;
         this.companyRepo = companyRepo;
+        this.imageService = imageService;
     }
 
     public ProductDto saveProduct(final ProductDto productDto) {
@@ -39,16 +41,24 @@ public class ProductService {
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
+        product.setIsDropdownImage(false);
 
-        productRepo.save(product);
+        Product save = productRepo.save(product);
+        productDto.setProductId(save.getId());
         return productDto;
     }
 
     public ProductDto editProduct(final ProductDto productDto) {
         Product savedProduct = getProductById(productDto.getProductId());
 
+        if (savedProduct.getIsDropdownImage()) {
+            deleteProductImage(savedProduct);
+        }
+
         if (!productDto.getImageLink().isEmpty()) {
             savedProduct.setImageLink(productDto.getImageLink());
+            deleteProductImage(savedProduct);
+            savedProduct.setIsDropdownImage(false);
         }
 
         savedProduct.setProductCategory(productDto.getProductCategory());
@@ -113,16 +123,33 @@ public class ProductService {
                 .toList();
     }
 
-    public void setProductImage(final String title, final Long companyId, final ImageResponseDto responseDto) {
-        getProductByTitleAndCompanyId(title, companyId).setImageLink(responseDto.getUrl());
-    }
-
     public void setProductImage(final Long productId, final ImageResponseDto responseDto) {
-        getProductById(productId).setImageLink(responseDto.getUrl());
+        Product productById = getProductById(productId);
+        productById.setImageLink(responseDto.getUrl());
+        productById.setIsDropdownImage(true);
     }
 
-    public void deleteProduct(final Product product) {
-        productRepo.delete(product);
+    public ImageResponseDto deleteProductImage(final Product product) {
+
+        return imageService.deleteImage("product".toUpperCase(), product.getId());
+    }
+
+    public ImageResponseDto deleteProduct(final Long productId) {
+        Product productById = getProductById(productId);
+
+
+        ImageResponseDto imageResponseDto = new ImageResponseDto();
+
+        if (productById.getIsDropdownImage()) {
+            imageResponseDto = deleteProductImage(productById);
+            if (imageResponseDto.getStatus() == 500) {
+                return imageResponseDto;
+            }
+        }
+
+        imageResponseDto.setStatus(200);
+        productRepo.delete(productById);
+        return imageResponseDto;
     }
 
     public Product getProductById(final Long id) {

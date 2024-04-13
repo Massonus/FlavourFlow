@@ -1,47 +1,81 @@
-function uploadProductFile(file, companyId, productTitle, productId) {
+function uploadProductFile(file, productId, companyId, isAdd) {
     let csrf = document.getElementById("csrf").value;
 
     let formData = new FormData();
     formData.append("file", file);
 
-    let url;
+    let url = `/upload-product?&productId=${productId}`;
 
-    if (productId === undefined) {
-        url = `/upload-product?companyId=${companyId}&title=${productTitle}`;
-    } else {
-        url = `/upload-product?companyId=${companyId}&title=${productTitle}&productId=${productId}`;
-    }
-
-    let response = fetch(url, {
-        headers: {
-            "X-CSRF-TOKEN": csrf
-        },
+    fetch(url, {
         method: "POST",
-        body: formData
-    });
+        headers: {
+            "X-CSRF-TOKEN": csrf,
+        },
+        body: formData,
+
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.status === 200) {
+                window.location.href = `/product/admin/all-products?companyId=${companyId}`;
+
+            } else if (data.status === 500 && isAdd) {
+
+                deleteProductFetch(productId, csrf);
+                document.getElementById("token-modal").classList.add("open");
+
+            } else if (data.status === 500 && !isAdd) {
+                document.getElementById("token-modal").classList.add("open");
+
+            } else {
+                alert("Error detected, try again later");
+            }
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }
 
-function uploadCompanyFile(file, companyTitle, companyId) {
+function uploadCompanyFile(file, companyId, isAdd) {
     let csrf = document.getElementById("csrf").value;
 
     let formData = new FormData();
     formData.append("file", file);
 
-    let url;
+    let url = `/upload-company?companyId=${companyId}`;
 
-    if (companyId === undefined) {
-        url = `/upload-company?title=${companyTitle}`;
-    } else {
-        url = `/upload-company?companyId=${companyId}`;
-    }
-
-    let response = fetch(url, {
-        headers: {
-            "X-CSRF-TOKEN": csrf
-        },
+    fetch(url, {
         method: "POST",
-        body: formData
-    });
+        headers: {
+            "X-CSRF-TOKEN": csrf,
+        },
+        body: formData,
+
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.status === 200) {
+                window.location.href = "/admin/panel";
+
+            } else if (data.status === 500 && isAdd) {
+
+                deleteCompanyFetch(companyId, csrf);
+                document.getElementById("token-modal").classList.add("open");
+
+            } else if (data.status === 500 && !isAdd) {
+                document.getElementById("token-modal").classList.add("open");
+
+            } else {
+                alert("Error detected, try again later");
+            }
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }
 
 function checkFile(fileId) {

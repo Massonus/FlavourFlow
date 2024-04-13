@@ -402,3 +402,7 @@ input:checked + label:before {
     width: 20%;
 }
 
+#token-modal-box {
+    width: 100%;
+}
+

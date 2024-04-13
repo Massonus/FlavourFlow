@@ -7,5 +7,9 @@ import lombok.Setter;
 @Setter
 public class ImageResponseDto {
 
+    private Integer status;
+
+    private String imageName;
+
     private String url;
 }

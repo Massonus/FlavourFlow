@@ -113,9 +113,9 @@ public class CompanyController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete")
     @ResponseBody
-    public Long deleteCompany(@RequestParam Long companyId) {
-        Company companyById = companyService.getCompanyById(companyId);
-        return companyService.deleteCompany(companyById);
+    public ImageResponseDto deleteCompany(@RequestParam Long companyId) {
+
+        return companyService.deleteCompany(companyId);
     }
 
     @PreAuthorize("isAuthenticated()")

@@ -37,12 +37,12 @@ function createCompany(event) {
         body: body,
 
     })
-        .then(res => {
+        .then(res => res.json())
+        .then((data) => {
 
-            if (res.ok && imageLink.trim() === "") {
-                uploadCompanyFile(file, title, undefined);
-                window.location.href = `/admin/panel`;
-            } else if (res.ok && !(imageLink.trim() === "")) {
+            if (imageLink.trim() === "") {
+                uploadCompanyFile(file, data.companyId, true);
+            } else if (!(imageLink.trim() === "")) {
                 window.location.href = `/admin/panel`;
             } else {
                 alert("Error detected, try again later")
@@ -92,9 +92,7 @@ function editCompany(event, companyId) {
         .then(res => {
 
             if (!(file === undefined) && res.ok) {
-
-                uploadCompanyFile(file, undefined, companyId);
-                window.location.href = `/admin/panel`;
+                uploadCompanyFile(file, companyId, false);
 
             } else if (file === undefined && res.ok) {
                 window.location.href = `/admin/panel`;
@@ -115,6 +113,12 @@ function deleteCompany(companyId, csrf) {
         return;
     }
 
+    deleteCompanyFetch(companyId, csrf);
+
+}
+
+function deleteCompanyFetch(companyId, csrf) {
+
     const url = `/company/delete?companyId=${companyId}`;
 
     fetch(url, {
@@ -123,8 +127,13 @@ function deleteCompany(companyId, csrf) {
             'X-CSRF-TOKEN': csrf
         },
     })
-        .then(res => {
-            if (res.ok) {
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.status === 500) {
+                document.getElementById("token-modal").classList.add("open");
+
+            } else if (data.status === 200) {
                 document.getElementById(`company-table-${companyId}`).remove();
             } else {
                 alert("Error detected, try again later");

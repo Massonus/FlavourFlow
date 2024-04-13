@@ -31,6 +31,8 @@ public class Product {
 
     private String imageLink;
 
+    private Boolean isDropdownImage;
+
     @Column(columnDefinition = "text", name = "product_category")
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;

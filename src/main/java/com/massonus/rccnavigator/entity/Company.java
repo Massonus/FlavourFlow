@@ -31,6 +31,8 @@ public class Company {
 
     private String imageLink;
 
+    private Boolean isDropdownImage;
+
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
 

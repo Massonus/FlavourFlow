@@ -239,6 +239,8 @@
             </#if>
         </div>
     </div>
+
+    <#include "../token.ftlh">
 </@c.page>
 
 

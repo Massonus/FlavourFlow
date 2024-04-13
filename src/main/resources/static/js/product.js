@@ -36,12 +36,12 @@ function createProduct(event, companyId) {
         body: body,
 
     })
-        .then(res => {
+        .then(res => res.json())
+        .then((data) => {
 
-            if (imageLink.trim() === "" && res.ok) {
-                uploadProductFile(file, companyId, title, undefined);
-                window.location.href = `/product/admin/all-products?companyId=${companyId}`;
-            } else if (!(imageLink.trim() === "") && res.ok) {
+            if (imageLink.trim() === "") {
+                uploadProductFile(file, data.productId, companyId, true);
+            } else if (!(imageLink.trim() === "")) {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else {
                 alert("Error detected, try again later");
@@ -88,10 +88,11 @@ function editProduct(event, productId, companyId) {
         .then(res => {
 
             if (!(file === undefined) && res.ok) {
-                uploadProductFile(file, companyId, title, productId);
-                window.location.href = `/product/admin/all-products?companyId=${companyId}`;
+                uploadProductFile(file, productId, companyId, false);
+
             } else if (file === undefined && res.ok) {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
+
             } else {
                 alert("Error detected, try again later");
             }
@@ -107,6 +108,11 @@ function deleteProduct(productId, csrf) {
     if (!confirm("Do you really want to delete this product?")) {
         return;
     }
+    deleteProductFetch(productId, csrf);
+
+}
+
+function deleteProductFetch(productId, csrf) {
 
     const url = `/product/delete?productId=${productId}`;
 
@@ -116,9 +122,13 @@ function deleteProduct(productId, csrf) {
             'X-CSRF-TOKEN': csrf,
         },
     })
-        .then(res => {
+        .then(res => res.json())
+        .then((data) => {
 
-            if (res.ok) {
+            if (data.status === 500) {
+                document.getElementById("token-modal").classList.add("open");
+
+            } else if (data.status === 200) {
                 document.getElementById(`product-table-${productId}`).remove();
             } else {
                 alert("Error detected, try again later");
@@ -127,4 +137,5 @@ function deleteProduct(productId, csrf) {
         })
         .catch(error =>
             console.error(error));
+
 }
