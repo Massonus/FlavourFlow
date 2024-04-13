@@ -32,7 +32,7 @@ public class ImageController {
     public ImageResponseDto uploadProductImage(@RequestParam("file") MultipartFile file,
                                                @RequestParam Long productId) {
 
-        ImageResponseDto upload = imageService.upload(file, productId, "product".toUpperCase());
+        ImageResponseDto upload = imageService.uploadImage(file, productId, "product".toUpperCase());
 
         if (upload.getStatus() == 500) {
             return upload;
@@ -50,7 +50,7 @@ public class ImageController {
     public ImageResponseDto uploadCompanyImage(@RequestParam("file") MultipartFile file,
                                                @RequestParam Long companyId) {
 
-        ImageResponseDto upload = imageService.upload(file, companyId, "company".toUpperCase());
+        ImageResponseDto upload = imageService.uploadImage(file, companyId, "company".toUpperCase());
 
         if (upload.getStatus() == 500) {
             return upload;

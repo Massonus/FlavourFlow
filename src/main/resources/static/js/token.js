@@ -16,7 +16,7 @@ function addToken(event) {
         .then(res => {
 
             if (res.ok) {
-                window.location.href = "/admin/panel";
+                closeModal();
             } else {
                 alert("Error detected, try again later");
             }

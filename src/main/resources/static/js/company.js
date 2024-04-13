@@ -128,8 +128,13 @@ function deleteCompanyFetch(companyId, csrf) {
             'X-CSRF-TOKEN': csrf
         },
     })
-        .then(res => {
-            if (res.ok) {
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.status === 500) {
+                document.getElementById("token-modal").classList.add("open");
+
+            } else if (data.status === 200) {
                 document.getElementById(`company-table-${companyId}`).remove();
             } else {
                 alert("Error detected, try again later");

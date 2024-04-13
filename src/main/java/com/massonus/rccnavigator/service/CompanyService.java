@@ -20,13 +20,15 @@ public class CompanyService {
     private final CompanyCountryService countryService;
     private final KitchenCategoryService categoryService;
     private final ProductRepo productRepo;
+    private final ImageService imageService;
 
     @Autowired
-    public CompanyService(CompanyRepo companyRepo, CompanyCountryService countryService, KitchenCategoryService categoryService, ProductRepo productRepo) {
+    public CompanyService(CompanyRepo companyRepo, CompanyCountryService countryService, KitchenCategoryService categoryService, ProductRepo productRepo, ImageService imageService) {
         this.companyRepo = companyRepo;
         this.countryService = countryService;
         this.categoryService = categoryService;
         this.productRepo = productRepo;
+        this.imageService = imageService;
     }
 
     public CompanyDto saveCompany(final CompanyDto companyDto) {
@@ -35,6 +37,7 @@ public class CompanyService {
         company.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         company.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
         company.setPriceCategory(companyDto.getPriceCategory());
+        company.setIsDropdownImage(false);
 
         if (!companyDto.getImageLink().isEmpty()) {
             company.setImageLink(companyDto.getImageLink());
@@ -164,7 +167,9 @@ public class CompanyService {
     }
 
     public void setCompanyImage(final Long companyId, final ImageResponseDto responseDto) {
-        getCompanyById(companyId).setImageLink(responseDto.getUrl());
+        Company companyById = getCompanyById(companyId);
+        companyById.setImageLink(responseDto.getUrl());
+        companyById.setIsDropdownImage(true);
     }
 
     public List<Company> getCompaniesByCountryId(Long countryId) {
@@ -175,9 +180,13 @@ public class CompanyService {
         return companyRepo.findCompaniesByKitchenCategoryId(categoryId);
     }
 
-    public Long deleteCompany(final Company company) {
+    public void deleteCompany(final Company company) {
         companyRepo.delete(company);
-        return company.getId();
+    }
+
+    public ImageResponseDto deleteCompanyImage(final Company company) {
+
+        return imageService.deleteImage("company".toUpperCase(), company.getId());
     }
 
     public Company getCompanyById(final Long id) {

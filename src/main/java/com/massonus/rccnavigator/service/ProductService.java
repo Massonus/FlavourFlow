@@ -115,7 +115,9 @@ public class ProductService {
     }
 
     public void setProductImage(final Long productId, final ImageResponseDto responseDto) {
-        getProductById(productId).setImageLink(responseDto.getUrl());
+        Product productById = getProductById(productId);
+        productById.setImageLink(responseDto.getUrl());
+        productById.setIsDropdownImage(true);
     }
 
     public void deleteProduct(final Product product) {
