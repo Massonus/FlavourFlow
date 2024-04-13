@@ -30,7 +30,7 @@ public class ImageController {
     @PostMapping("/upload-product")
     @ResponseBody
     public ImageResponseDto uploadProductImage(@RequestParam("file") MultipartFile file,
-                                                @RequestParam Long productId) {
+                                               @RequestParam Long productId) {
 
         ImageResponseDto upload = imageService.upload(file, productId, "product".toUpperCase());
 
@@ -48,7 +48,7 @@ public class ImageController {
     @PostMapping("/upload-company")
     @ResponseBody
     public ImageResponseDto uploadCompanyImage(@RequestParam("file") MultipartFile file,
-                                                @RequestParam Long companyId) {
+                                               @RequestParam Long companyId) {
 
         ImageResponseDto upload = imageService.upload(file, companyId, "company".toUpperCase());
 

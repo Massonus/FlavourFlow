@@ -41,6 +41,7 @@
         <script src="../../static/js/user.js"></script>
         <script src="../../static/js/message.js"></script>
         <script src="../../static/js/rating.js"></script>
+        <script src="../../static/js/token.js"></script>
         <script defer src="../../static/js/changeStyle.js"></script>
 
         <script>

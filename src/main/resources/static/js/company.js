@@ -42,7 +42,6 @@ function createCompany(event) {
 
             if (imageLink.trim() === "") {
                 uploadCompanyFile(file, data.companyId);
-                window.location.href = `/admin/panel`;
             } else if (!(imageLink.trim() === "")) {
                 window.location.href = `/admin/panel`;
             } else {

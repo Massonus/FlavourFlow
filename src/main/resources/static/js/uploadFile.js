@@ -18,6 +18,8 @@ function uploadProductFile(file, productId) {
         .then((data) => {
             if (data.status === 200) {
                 window.location.href = "/admin/panel";
+            } else if (data.status === 500) {
+                document.getElementById("token-modal").classList.add("open");
             }
 
         })
@@ -44,8 +46,12 @@ function uploadCompanyFile(file, companyId) {
     })
         .then(res => res.json())
         .then((data) => {
+
             if (data.status === 200) {
                 window.location.href = "/admin/panel";
+
+            } else if (data.status === 500) {
+                document.getElementById("token-modal").classList.add("open");
             }
 
         })
