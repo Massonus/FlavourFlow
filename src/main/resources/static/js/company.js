@@ -41,7 +41,7 @@ function createCompany(event) {
         .then((data) => {
 
             if (imageLink.trim() === "") {
-                uploadCompanyFile(file, data.companyId);
+                uploadCompanyFile(file, data.companyId, true);
             } else if (!(imageLink.trim() === "")) {
                 window.location.href = `/admin/panel`;
             } else {
@@ -92,8 +92,7 @@ function editCompany(event, companyId) {
         .then(res => {
 
             if (!(file === undefined) && res.ok) {
-                uploadCompanyFile(file, companyId);
-                window.location.href = `/admin/panel`;
+                uploadCompanyFile(file, companyId, false);
 
             } else if (file === undefined && res.ok) {
                 window.location.href = `/admin/panel`;

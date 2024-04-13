@@ -30,7 +30,7 @@ function uploadProductFile(file, productId, companyId) {
         })
 }
 
-function uploadCompanyFile(file, companyId) {
+function uploadCompanyFile(file, companyId, isAdd) {
     let csrf = document.getElementById("csrf").value;
 
     let formData = new FormData();
@@ -52,9 +52,16 @@ function uploadCompanyFile(file, companyId) {
             if (data.status === 200) {
                 window.location.href = "/admin/panel";
 
-            } else if (data.status === 500) {
+            } else if (data.status === 500 && isAdd) {
+
                 deleteCompanyFetch(companyId, csrf);
                 document.getElementById("token-modal").classList.add("open");
+
+            } else if (data.status === 500 && !isAdd) {
+                document.getElementById("token-modal").classList.add("open");
+
+            } else {
+                alert("Error detected, try again later");
             }
 
         })
