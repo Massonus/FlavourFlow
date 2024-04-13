@@ -216,10 +216,6 @@ public class CompanyService {
         return companyRepo.findCompanyById(id);
     }
 
-    public Company getCompanyByTitle(final String title) {
-        return companyRepo.findCompanyByTitle(title);
-    }
-
     public List<Company> getCompaniesByTitleContainingIgnoreCase(String title) {
         return companyRepo.findCompaniesByTitleContainingIgnoreCase(title);
     }
