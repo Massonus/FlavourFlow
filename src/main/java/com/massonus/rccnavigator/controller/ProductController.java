@@ -1,5 +1,6 @@
 package com.massonus.rccnavigator.controller;
 
+import com.massonus.rccnavigator.dto.ImageResponseDto;
 import com.massonus.rccnavigator.dto.ProductDto;
 import com.massonus.rccnavigator.entity.Product;
 import com.massonus.rccnavigator.entity.ProductCategory;
@@ -105,9 +106,8 @@ public class ProductController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete")
     @ResponseBody
-    public Long deleteProduct(@RequestParam Long productId) {
-        Product productById = productService.getProductById(productId);
-        productService.deleteProduct(productById);
-        return productById.getCompany().getId();
+    public ImageResponseDto deleteProduct(@RequestParam Long productId) {
+
+        return productService.deleteProduct(productId);
     }
 }

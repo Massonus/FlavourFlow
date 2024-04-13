@@ -57,6 +57,7 @@ public class CompanyService {
         if (!companyDto.getImageLink().isEmpty()) {
             savedCompany.setImageLink(companyDto.getImageLink());
             deleteCompanyImage(savedCompany);
+            savedCompany.setIsDropdownImage(false);
         }
 
         savedCompany.setTitle(companyDto.getTitle());
@@ -185,8 +186,21 @@ public class CompanyService {
         return companyRepo.findCompaniesByKitchenCategoryId(categoryId);
     }
 
-    public void deleteCompany(final Company company) {
-        companyRepo.delete(company);
+    public ImageResponseDto deleteCompany(final Long companyId) {
+        ImageResponseDto imageResponseDto = new ImageResponseDto();
+
+        Company companyById = getCompanyById(companyId);
+
+        if (companyById.getIsDropdownImage()) {
+            imageResponseDto = deleteCompanyImage(companyById);
+            if (imageResponseDto.getStatus() == 500) {
+                return imageResponseDto;
+            }
+        }
+
+        imageResponseDto.setStatus(200);
+        companyRepo.delete(companyById);
+        return imageResponseDto;
     }
 
     public ImageResponseDto deleteCompanyImage(final Company company) {

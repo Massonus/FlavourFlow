@@ -1,4 +1,4 @@
-function uploadProductFile(file, productId, companyId) {
+function uploadProductFile(file, productId, companyId, isAdd) {
     let csrf = document.getElementById("csrf").value;
 
     let formData = new FormData();
@@ -19,9 +19,17 @@ function uploadProductFile(file, productId, companyId) {
 
             if (data.status === 200) {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
-            } else if (data.status === 500) {
+
+            } else if (data.status === 500 && isAdd) {
+
                 deleteProductFetch(productId, csrf);
                 document.getElementById("token-modal").classList.add("open");
+
+            } else if (data.status === 500 && !isAdd) {
+                document.getElementById("token-modal").classList.add("open");
+
+            } else {
+                alert("Error detected, try again later");
             }
 
         })

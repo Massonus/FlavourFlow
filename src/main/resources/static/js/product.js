@@ -40,7 +40,7 @@ function createProduct(event, companyId) {
         .then((data) => {
 
             if (imageLink.trim() === "") {
-                uploadProductFile(file, data.productId, companyId);
+                uploadProductFile(file, data.productId, companyId, true);
             } else if (!(imageLink.trim() === "")) {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else {
@@ -88,10 +88,11 @@ function editProduct(event, productId, companyId) {
         .then(res => {
 
             if (!(file === undefined) && res.ok) {
-                uploadProductFile(file, productId);
-                window.location.href = `/product/admin/all-products?companyId=${companyId}`;
+                uploadProductFile(file, productId, companyId, false);
+
             } else if (file === undefined && res.ok) {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
+
             } else {
                 alert("Error detected, try again later");
             }
@@ -121,9 +122,13 @@ function deleteProductFetch(productId, csrf) {
             'X-CSRF-TOKEN': csrf,
         },
     })
-        .then(res => {
+        .then(res => res.json())
+        .then((data) => {
 
-            if (res.ok) {
+            if (data.status === 500) {
+                document.getElementById("token-modal").classList.add("open");
+
+            } else if (data.status === 200) {
                 document.getElementById(`product-table-${productId}`).remove();
             } else {
                 alert("Error detected, try again later");

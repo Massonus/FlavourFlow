@@ -30,7 +30,8 @@ class ProductServiceTest {
     void setUp() {
         productRepo = mock(ProductRepo.class);
         companyRepo = mock(CompanyRepo.class);
-        target = new ProductService(productRepo, companyRepo);
+        ImageService imageService = mock(ImageService.class);
+        target = new ProductService(productRepo, companyRepo, imageService);
 
         productDto = new ProductDto();
         productDto.setProductId(1L);

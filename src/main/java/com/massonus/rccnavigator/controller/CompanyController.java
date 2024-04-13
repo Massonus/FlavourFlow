@@ -114,18 +114,8 @@ public class CompanyController {
     @DeleteMapping("/delete")
     @ResponseBody
     public ImageResponseDto deleteCompany(@RequestParam Long companyId) {
-        ImageResponseDto imageResponseDto = new ImageResponseDto();
-        Company companyById = companyService.getCompanyById(companyId);
 
-        if (companyById.getIsDropdownImage()) {
-            imageResponseDto = companyService.deleteCompanyImage(companyById);
-            if (imageResponseDto.getStatus() == 500) {
-                return imageResponseDto;
-            }
-        }
-        companyService.deleteCompany(companyById);
-        imageResponseDto.setStatus(200);
-        return imageResponseDto;
+        return companyService.deleteCompany(companyId);
     }
 
     @PreAuthorize("isAuthenticated()")
