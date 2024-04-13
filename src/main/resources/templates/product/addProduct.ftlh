@@ -70,4 +70,6 @@
         </div>
     </section>
 
+    <#include "../token.ftlh">
+
 </@c.page>

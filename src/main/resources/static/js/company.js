@@ -114,6 +114,12 @@ function deleteCompany(companyId, csrf) {
         return;
     }
 
+    deleteCompanyFetch(companyId, csrf);
+
+}
+
+function deleteCompanyFetch(companyId, csrf) {
+
     const url = `/company/delete?companyId=${companyId}`;
 
     fetch(url, {

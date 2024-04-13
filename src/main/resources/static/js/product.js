@@ -40,8 +40,7 @@ function createProduct(event, companyId) {
         .then((data) => {
 
             if (imageLink.trim() === "") {
-                uploadProductFile(file, data.productId);
-                window.location.href = `/product/admin/all-products?companyId=${companyId}`;
+                uploadProductFile(file, data.productId, companyId);
             } else if (!(imageLink.trim() === "")) {
                 window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else {
@@ -108,6 +107,11 @@ function deleteProduct(productId, csrf) {
     if (!confirm("Do you really want to delete this product?")) {
         return;
     }
+    deleteProductFetch(productId, csrf);
+
+}
+
+function deleteProductFetch(productId, csrf) {
 
     const url = `/product/delete?productId=${productId}`;
 
@@ -128,4 +132,5 @@ function deleteProduct(productId, csrf) {
         })
         .catch(error =>
             console.error(error));
+
 }

@@ -1,4 +1,4 @@
-function uploadProductFile(file, productId) {
+function uploadProductFile(file, productId, companyId) {
     let csrf = document.getElementById("csrf").value;
 
     let formData = new FormData();
@@ -16,9 +16,11 @@ function uploadProductFile(file, productId) {
     })
         .then(res => res.json())
         .then((data) => {
+
             if (data.status === 200) {
-                window.location.href = "/admin/panel";
+                window.location.href = `/product/admin/all-products?companyId=${companyId}`;
             } else if (data.status === 500) {
+                deleteProductFetch(productId, csrf);
                 document.getElementById("token-modal").classList.add("open");
             }
 
@@ -51,6 +53,7 @@ function uploadCompanyFile(file, companyId) {
                 window.location.href = "/admin/panel";
 
             } else if (data.status === 500) {
+                deleteCompanyFetch(companyId, csrf);
                 document.getElementById("token-modal").classList.add("open");
             }
 
