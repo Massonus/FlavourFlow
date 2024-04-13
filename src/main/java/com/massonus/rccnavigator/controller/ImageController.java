@@ -5,14 +5,12 @@ import com.massonus.rccnavigator.service.CompanyService;
 import com.massonus.rccnavigator.service.ImageService;
 import com.massonus.rccnavigator.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Objects;
 
 @Controller
 public class ImageController {
@@ -30,27 +28,36 @@ public class ImageController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload-product")
-    public ResponseEntity<?> uploadProductImage(@RequestParam("file") MultipartFile file,
+    @ResponseBody
+    public ImageResponseDto uploadProductImage(@RequestParam("file") MultipartFile file,
                                                 @RequestParam Long productId) {
 
         ImageResponseDto upload = imageService.upload(file, productId, "product".toUpperCase());
 
+        if (upload.getStatus() == 500) {
+            return upload;
+        }
+
         productService.setProductImage(productId, upload);
 
 
-        return ResponseEntity.ok("upload success");
+        return upload;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload-company")
-    public ResponseEntity<?> uploadCompanyImage(@RequestParam("file") MultipartFile file,
+    @ResponseBody
+    public ImageResponseDto uploadCompanyImage(@RequestParam("file") MultipartFile file,
                                                 @RequestParam Long companyId) {
 
         ImageResponseDto upload = imageService.upload(file, companyId, "company".toUpperCase());
 
+        if (upload.getStatus() == 500) {
+            return upload;
+        }
+
         companyService.setCompanyImage(companyId, upload);
 
-
-        return ResponseEntity.ok("upload success");
+        return upload;
     }
 }

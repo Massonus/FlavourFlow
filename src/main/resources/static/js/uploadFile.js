@@ -6,13 +6,24 @@ function uploadProductFile(file, productId) {
 
     let url = `/upload-product?&productId=${productId}`;
 
-    let response = fetch(url, {
-        headers: {
-            "X-CSRF-TOKEN": csrf
-        },
+    fetch(url, {
         method: "POST",
-        body: formData
-    });
+        headers: {
+            "X-CSRF-TOKEN": csrf,
+        },
+        body: formData,
+
+    })
+        .then(res => res.json())
+        .then((data) => {
+            if (data.status === 200) {
+                window.location.href = "/admin/panel";
+            }
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }
 
 function uploadCompanyFile(file, companyId) {
@@ -21,16 +32,26 @@ function uploadCompanyFile(file, companyId) {
     let formData = new FormData();
     formData.append("file", file);
 
-    let url= `/upload-company?companyId=${companyId}`;
+    let url = `/upload-company?companyId=${companyId}`;
 
-
-    let response = fetch(url, {
-        headers: {
-            "X-CSRF-TOKEN": csrf
-        },
+    fetch(url, {
         method: "POST",
-        body: formData
-    });
+        headers: {
+            "X-CSRF-TOKEN": csrf,
+        },
+        body: formData,
+
+    })
+        .then(res => res.json())
+        .then((data) => {
+            if (data.status === 200) {
+                window.location.href = "/admin/panel";
+            }
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }
 
 function checkFile(fileId) {

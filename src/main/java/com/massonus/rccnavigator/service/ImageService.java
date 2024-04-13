@@ -26,20 +26,23 @@ public class ImageService {
             DbxClientV2 client;
             client = new DbxClientV2(config, ACCESS_TOKEN);
 
-            try (InputStream in =  new BufferedInputStream(file.getInputStream())) {
+            try (InputStream in = new BufferedInputStream(file.getInputStream())) {
                 client.files().uploadBuilder("/RCCImages/" + type + "/" + type + id + ".jpg")
                         .uploadAndFinish(in);
                 String url = client.sharing().createSharedLinkWithSettings("/RCCImages/" + type + "/" + type + id + ".jpg").getUrl();
                 imageResponseDto.setUrl(url + "&raw=1");
-            }
-            catch (DbxException ex) {
+            } catch (DbxException ex) {
                 System.out.println(ex.getMessage());
+                imageResponseDto.setStatus(500);
+                return imageResponseDto;
             }
 
         } catch (Exception e) {
             Arrays.stream(e.getStackTrace()).forEach(System.out::println);
         }
 
+        imageResponseDto.setStatus(200);
+        imageResponseDto.setImageName(type + id);
         return imageResponseDto;
     }
 }
