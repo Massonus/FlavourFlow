@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.massonus</groupId>
-	<artifactId>RCCNavigator</artifactId>
+	<artifactId>FlavourFlow</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>RCCNavigator</name>
-	<description>RCCNavigator</description>
+	<name>Flavour Flow</name>
+	<description>Flavour Flow</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
