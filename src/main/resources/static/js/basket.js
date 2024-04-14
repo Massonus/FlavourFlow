@@ -19,6 +19,7 @@ function saveBasketItem(productId, csrf, iconElement) {
             if (response.ok) {
                 iconElement.className = "bi bi-cart-fill";
                 changeBasketObjectsCount();
+                document.getElementById(`success-${productId}`).style.display = 'inline';
             } else {
                 alert("Error! Reload the page and try again");
             }
@@ -46,6 +47,7 @@ function deleteBasketItem(productId, csrf, iconElement) {
             if (iconElement !== undefined) {
                 iconElement.className = "bi bi-cart";
                 changeBasketObjectsCount();
+                document.getElementById(`success-${productId}`).style.display = 'none';
 
             } else if (data !== undefined) {
                 console.log(data.itemId);

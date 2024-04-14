@@ -1,15 +1,14 @@
 .checkmark {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     stroke-width: 2;
     stroke: #4bb71b;
     stroke-miterlimit: 10;
     box-shadow: inset 0px 0px 0px #4bb71b;
     animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
-    display: compact;
+    display: none;
 }
-
 .checkmark__circle {
     stroke-dasharray: 166;
     stroke-dashoffset: 166;
