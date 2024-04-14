@@ -56,9 +56,10 @@
         <link rel="stylesheet" type="text/css" href="/css/stars.css">
         <link rel="stylesheet" type="text/css" href="/css/file.css">
         <link rel="stylesheet" type="text/css" href="/css/error.css">
+        <link rel="stylesheet" type="text/css" href="/css/success.css">
 
     </head>
-    <body onload="setTheme(); addEventListeners()">
+    <body onload="setTheme(); addEventListeners(); changeBasketObjectsCount()">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

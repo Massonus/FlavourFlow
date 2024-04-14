@@ -103,4 +103,9 @@ public class BasketService {
         basketRepo.delete(getBasketByUserId(user.getId()));
         return basketObjectService.getBasketObjectsByUserId(user.getId()).isEmpty();
     }
+
+    public Integer getBasketObjectsCount(final Long userId) {
+        List<BasketObject> basketObjects = basketObjectService.getBasketObjectsByUserId(userId);
+        return Objects.isNull(basketObjects) ? 0 : basketObjects.size();
+    }
 }

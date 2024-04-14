@@ -6,6 +6,10 @@
     color: #DA77EB;
 }
 
+.checkmark__circle {
+   fill: #1D1D1D;
+}
+
 .btn-outline-danger, #message-delete {
     color: #DC3545;
 }

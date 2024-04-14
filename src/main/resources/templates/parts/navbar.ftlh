@@ -1,6 +1,5 @@
 <#include "security.ftlh">
 
-
 <nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Flavour Flow</a>
@@ -39,14 +38,14 @@
                                    class="search-input">
 
                             <button id="search-button" class="search-button">
-                                <i class="fa fa-search"></i>
+                                <i class="fa fa-search fa-lg"></i>
                             </button>
                         </form>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i
-                                class="far fa-user"></i></a>
+                                class="far fa-user fa-lg"></i></a>
                     <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
                         <#if known>
                             <li><a class="dropdown-item" href="/user/profile">${name}</a></li>
@@ -58,15 +57,18 @@
                     </ul>
                 </li>
                 <#if known>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/basket">
-                            <i class="fas fa-shopping-cart"></i>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/basket">
+                                <div id="basket">
+                                    <i class="fas fa-shopping-basket fa-lg"></i>
+                                    <span id="basket-count">0</span>
+                                </div>
+                            </a>
+                        </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/wishes">
-                            <i class="fa-regular fa-heart"></i>
+                            <i class="fa-regular fa-heart fa-lg"></i>
                         </a>
                     </li>
                 </#if>
