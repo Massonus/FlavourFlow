@@ -5,7 +5,7 @@
 
     <div class="text-index">
     <div class="content text-center">
-        <h1>Welcome to RCC Navigator</h1>
+        <h1>Welcome to Flavour Flow</h1>
         <a style="color: #D2CCCE" role="button" class="btn btn-outline-secondary mt-3" href="/company">Let's find you the
             best place to relax</a>
     </div>
