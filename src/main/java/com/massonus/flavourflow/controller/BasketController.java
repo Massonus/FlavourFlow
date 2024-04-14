@@ -87,6 +87,14 @@ public class BasketController {
 
     }
 
+    @GetMapping("/count")
+    @ResponseBody
+    public Integer getBasketCount(@AuthenticationPrincipal User user) {
+
+        return basketService.getBasketObjectsCount(user.getId());
+
+    }
+
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/clear")
     @ResponseBody

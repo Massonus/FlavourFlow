@@ -61,7 +61,7 @@
                             <a class="nav-link" href="/basket">
                                 <div id="basket">
                                     <i class="fas fa-shopping-basket fa-lg"></i>
-                                    <span>10</span>
+                                    <span id="basket-count">0</span>
                                 </div>
                             </a>
                         </li>

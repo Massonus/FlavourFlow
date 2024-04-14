@@ -18,6 +18,7 @@ function saveBasketItem(productId, csrf, iconElement) {
         .then(response => {
             if (response.ok) {
                 iconElement.className = "bi bi-cart-fill";
+                changeBasketObjectsCount();
             } else {
                 alert("Error! Reload the page and try again");
             }
@@ -44,6 +45,7 @@ function deleteBasketItem(productId, csrf, iconElement) {
 
             if (iconElement !== undefined) {
                 iconElement.className = "bi bi-cart";
+                changeBasketObjectsCount();
 
             } else if (data !== undefined) {
                 console.log(data.itemId);
@@ -85,6 +87,20 @@ function changeAmount(productId, csrf) {
         .then((data) => {
             document.getElementById(`object-sum-${productId}`).innerHTML = `${data.sum.toFixed(2) + '$'}`;
             document.getElementById("basket-total").innerHTML = `${data.total.toFixed(2) + '$'}`;
+        })
+        .catch(error => console.error(error));
+}
+
+function changeBasketObjectsCount() {
+
+    const url = `/basket/count`;
+
+    fetch(url, {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then((data) => {
+            document.getElementById(`basket-count`).innerHTML = `${data}`;
         })
         .catch(error => console.error(error));
 }

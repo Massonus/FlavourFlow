@@ -58,7 +58,7 @@
         <link rel="stylesheet" type="text/css" href="/css/error.css">
 
     </head>
-    <body onload="setTheme(); addEventListeners()">
+    <body onload="setTheme(); addEventListeners(); changeBasketObjectsCount()">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
