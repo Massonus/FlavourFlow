@@ -25,15 +25,15 @@ public class ImageService {
 
         ImageResponseDto imageResponseDto = new ImageResponseDto();
 
-        DbxRequestConfig config = new DbxRequestConfig("dropbox/RCC Navigator");
+        DbxRequestConfig config = new DbxRequestConfig("dropbox/Flavour Flow");
         DbxClientV2 client = new DbxClientV2(config, tokenService.getAccessToken());
 
         try {
 
             try (InputStream in = new BufferedInputStream(file.getInputStream())) {
-                client.files().uploadBuilder("/RCCImages/" + type + "/" + type + id + ".jpg")
+                client.files().uploadBuilder("/FlowImages/" + type + "/" + type + id + ".jpg")
                         .uploadAndFinish(in);
-                String url = client.sharing().createSharedLinkWithSettings("/RCCImages/" + type + "/" + type + id + ".jpg").getUrl();
+                String url = client.sharing().createSharedLinkWithSettings("/FlowImages/" + type + "/" + type + id + ".jpg").getUrl();
                 imageResponseDto.setUrl(url + "&raw=1");
 
             } catch (DbxException e) {
@@ -54,11 +54,11 @@ public class ImageService {
     public ImageResponseDto deleteImage(final String type, final Long id) {
         ImageResponseDto imageResponseDto = new ImageResponseDto();
 
-        DbxRequestConfig config = new DbxRequestConfig("dropbox/RCC Navigator");
+        DbxRequestConfig config = new DbxRequestConfig("dropbox/Flavour Flow");
         DbxClientV2 client = new DbxClientV2(config, tokenService.getAccessToken());
 
         try {
-            client.files().deleteV2("/RCCImages/" + type + "/" + type + id + ".jpg");
+            client.files().deleteV2("/FlowImages/" + type + "/" + type + id + ".jpg");
         } catch (DbxException e) {
             System.out.println(e.getMessage());
             imageResponseDto.setStatus(500);
