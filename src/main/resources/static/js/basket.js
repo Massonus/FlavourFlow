@@ -50,9 +50,10 @@ function deleteBasketItem(productId, csrf, iconElement) {
                 document.getElementById(`success-${productId}`).style.display = 'none';
 
             } else if (data !== undefined) {
-                console.log(data.itemId);
                 document.getElementById(`basket-item-${data.itemId}`).remove();
                 document.getElementById("basket-total").innerHTML = `${data.total.toFixed(2) + '$'}`;
+                changeBasketObjectsCount();
+
             } else {
                 alert("Error! Reload the page and try again");
             }
@@ -103,6 +104,12 @@ function changeBasketObjectsCount() {
         .then(res => res.json())
         .then((data) => {
             document.getElementById(`basket-count`).innerHTML = `${data}`;
+            let basketButton = document.getElementById("clear-basket-button");
+            if (data === 0 && basketButton !== null) {
+                basketButton.remove();
+                document.getElementById("checkout-button").remove();
+            }
+
         })
         .catch(error => console.error(error));
 }
