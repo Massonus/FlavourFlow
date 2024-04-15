@@ -73,6 +73,13 @@ public class Company {
         return products.size();
     }
 
+    public Double getAverageProductsPrice() {
+        return products.stream()
+                .mapToDouble(Product::getPrice)
+                .average()
+                .orElse(0.0);
+    }
+
     public Integer getCountOfRates() {
         return rates.size();
     }

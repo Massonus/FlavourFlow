@@ -95,7 +95,7 @@
                                                 repudiandae?</p>
                                             <div class="product-bottom-details d-flex justify-content-between">
                                                 <div class="product-price">
-                                                    <p>${company.getPriceCategory()}</p>
+                                                    Average: ${company.getAverageProductsPrice() + '$'}
                                                 </div>
                                                 <div class="product-links">
                                                     <a href="/company/info/${company.getId()}">Comments

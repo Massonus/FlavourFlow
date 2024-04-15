@@ -11,10 +11,6 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
 
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="/">HOME</a>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-item nav-link" href="/company">CATALOG</a>
                 </li>
 
