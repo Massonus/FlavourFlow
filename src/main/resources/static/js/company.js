@@ -4,7 +4,6 @@ function createCompany(event) {
     let csrf = document.getElementById("csrf").value;
 
     let title = document.getElementById("companyTitle").value;
-    let priceCategory = document.getElementById("priceCategory").value;
     let countryId = document.getElementById("companyCountry").value;
     let categoryId = document.getElementById("kitchenCategory").value;
     let imageLink = document.getElementById("companyImageLink").value;
@@ -19,7 +18,6 @@ function createCompany(event) {
 
     const body = JSON.stringify({
         title: title,
-        priceCategory: priceCategory,
         countryId: countryId,
         categoryId: categoryId,
         imageLink: imageLink
@@ -61,7 +59,6 @@ function editCompany(event, companyId) {
     let csrf = document.getElementById("csrf").value;
 
     let title = document.getElementById("companyTitle").value;
-    let priceCategory = document.getElementById("priceCategory").value;
     let countryId = document.getElementById("companyCountry").value;
     let categoryId = document.getElementById("kitchenCategory").value;
     let imageLink = document.getElementById("companyImageLink").value;
@@ -71,7 +68,6 @@ function editCompany(event, companyId) {
     const body = JSON.stringify({
         companyId: companyId,
         title: title,
-        priceCategory: priceCategory,
         countryId: countryId,
         categoryId: categoryId,
         imageLink: imageLink

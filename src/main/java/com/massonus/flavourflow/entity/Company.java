@@ -36,11 +36,6 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
 
-    @Column(columnDefinition = "text", name = "price_category")
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Price category cannot be empty")
-    private PriceCategory priceCategory;
-
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 

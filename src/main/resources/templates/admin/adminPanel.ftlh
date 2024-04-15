@@ -125,7 +125,7 @@
                 <tr>
                     <th scope="col">Company id</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Price category</th>
+                    <th scope="col">Average price</th>
                     <th scope="col">Products count</th>
                     <th scope="col">Company country</th>
                     <th scope="col">Category</th>
@@ -137,7 +137,7 @@
                     <tr id="company-table-${company.getId()}">
                         <th class="p-3" scope="row">${company.getId()}</th>
                         <td class="p-3">${company.getTitle()}</td>
-                        <td class="p-3">${company.getPriceCategory()}</td>
+                        <td class="p-3">${company.getAverageProductsPrice() + '$'}</td>
                         <td class="p-3">${company.getCountOfProducts()}</td>
                         <td class="p-3">${company.getCompanyCountry().getTitle()}</td>
                         <td class="p-3">${company.getKitchenCategory().getTitle()}</td>
@@ -180,7 +180,7 @@
                         <tr>
                             <th>Company id</th>
                             <th>Title</th>
-                            <th>Price category</th>
+                            <th>Average price</th>
                             <th>Products count</th>
                             <th>Company country</th>
                             <th>Category</th>
@@ -193,7 +193,7 @@
                             <tr>
                                 <th>${company.getId()}</th>
                                 <td>${company.getTitle()}</td>
-                                <td>${company.getPriceCategory()}</td>
+                                <td>${company.getAverageProductsPrice() + '$'}</td>
                                 <td>${company.getCountOfProducts()}</td>
                                 <td>${company.getCompanyCountry().getTitle()}</td>
                                 <td>${company.getKitchenCategory().getTitle()}</td>

@@ -38,7 +38,6 @@ public class CompanyService {
         company.setTitle(companyDto.getTitle());
         company.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         company.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
-        company.setPriceCategory(companyDto.getPriceCategory());
         company.setIsDropdownImage(false);
 
         if (!companyDto.getImageLink().isEmpty()) {
@@ -63,7 +62,6 @@ public class CompanyService {
         }
 
         savedCompany.setTitle(companyDto.getTitle());
-        savedCompany.setPriceCategory(companyDto.getPriceCategory());
         savedCompany.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         savedCompany.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
         companyRepo.save(savedCompany);
@@ -114,11 +112,11 @@ public class CompanyService {
         companies = switch (sort) {
 
             case "priceDesc" -> companies.stream()
-                    .sorted(Comparator.comparing(Company::getPriceCategory))
+                    .sorted(Comparator.comparing(Company::getAverageProductsPrice))
                     .toList();
 
             case "priceAsc" -> companies.stream()
-                    .sorted(Comparator.comparing(Company::getPriceCategory).reversed())
+                    .sorted(Comparator.comparing(Company::getAverageProductsPrice).reversed())
                     .toList();
 
             case "nameA" -> companies.stream()
