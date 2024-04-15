@@ -8,10 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -30,8 +27,6 @@ public class Company {
     private String title;
 
     private String imageLink;
-
-    private Boolean isDropdownImage;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
@@ -73,6 +68,10 @@ public class Company {
                 .mapToDouble(Product::getPrice)
                 .average()
                 .orElse(0.0);
+    }
+
+    public Boolean getIsDropboxImage() {
+        return !Objects.isNull(imageLink) && imageLink.contains("dropbox");
     }
 
     public Integer getCountOfRates() {

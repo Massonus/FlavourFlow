@@ -38,7 +38,6 @@ public class CompanyService {
         company.setTitle(companyDto.getTitle());
         company.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         company.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
-        company.setIsDropdownImage(false);
 
         if (!companyDto.getImageLink().isEmpty()) {
             company.setImageLink(companyDto.getImageLink());
@@ -51,14 +50,13 @@ public class CompanyService {
     public CompanyDto editCompany(final CompanyDto companyDto) {
         Company savedCompany = getCompanyById(companyDto.getCompanyId());
 
-        if (savedCompany.getIsDropdownImage()) {
+        if (savedCompany.getIsDropboxImage()) {
             deleteCompanyImage(savedCompany);
         }
 
         if (!companyDto.getImageLink().isEmpty()) {
             savedCompany.setImageLink(companyDto.getImageLink());
             deleteCompanyImage(savedCompany);
-            savedCompany.setIsDropdownImage(false);
         }
 
         savedCompany.setTitle(companyDto.getTitle());
@@ -175,7 +173,6 @@ public class CompanyService {
     public void setCompanyImage(final Long companyId, final ImageResponseDto responseDto) {
         Company companyById = getCompanyById(companyId);
         companyById.setImageLink(responseDto.getUrl());
-        companyById.setIsDropdownImage(true);
     }
 
     public List<Company> getCompaniesByCountryId(Long countryId) {
@@ -191,7 +188,7 @@ public class CompanyService {
 
         Company companyById = getCompanyById(companyId);
 
-        if (companyById.getIsDropdownImage()) {
+        if (companyById.getIsDropboxImage()) {
             imageResponseDto = deleteCompanyImage(companyById);
             if (imageResponseDto.getStatus() == 500) {
                 return imageResponseDto;

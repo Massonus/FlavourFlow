@@ -41,7 +41,6 @@ public class ProductService {
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
-        product.setIsDropdownImage(false);
 
         Product save = productRepo.save(product);
         productDto.setProductId(save.getId());
@@ -51,14 +50,13 @@ public class ProductService {
     public ProductDto editProduct(final ProductDto productDto) {
         Product savedProduct = getProductById(productDto.getProductId());
 
-        if (savedProduct.getIsDropdownImage()) {
+        if (savedProduct.getIsDropboxImage()) {
             deleteProductImage(savedProduct);
         }
 
         if (!productDto.getImageLink().isEmpty()) {
             savedProduct.setImageLink(productDto.getImageLink());
             deleteProductImage(savedProduct);
-            savedProduct.setIsDropdownImage(false);
         }
 
         savedProduct.setProductCategory(productDto.getProductCategory());
@@ -126,11 +124,10 @@ public class ProductService {
     public void setProductImage(final Long productId, final ImageResponseDto responseDto) {
         Product productById = getProductById(productId);
         productById.setImageLink(responseDto.getUrl());
-        productById.setIsDropdownImage(true);
     }
 
     public ImageResponseDto deleteProductImage(final Product product) {
-        if (!product.getIsDropdownImage()) {
+        if (!product.getIsDropboxImage()) {
             ImageResponseDto imageResponseDto = new ImageResponseDto();
             imageResponseDto.setStatus(200);
             return imageResponseDto;
@@ -141,10 +138,9 @@ public class ProductService {
     public ImageResponseDto deleteProduct(final Long productId) {
         Product productById = getProductById(productId);
 
-
         ImageResponseDto imageResponseDto = new ImageResponseDto();
 
-        if (productById.getIsDropdownImage()) {
+        if (productById.getIsDropboxImage()) {
             imageResponseDto = deleteProductImage(productById);
             if (imageResponseDto.getStatus() == 500) {
                 return imageResponseDto;
