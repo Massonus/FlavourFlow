@@ -18,18 +18,6 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="priceCategory" class="col-sm-4 col-form-label">Price Category:</label>
-                            <div class="col-sm-8">
-                                <select class="form-select" id="priceCategory" required>
-                                    <option <#if company.getPriceCategory() == "LOW">selected</#if> value="LOW">LOW</option>
-                                    <option <#if company.getPriceCategory() == "MEDIUM">selected</#if> value="MEDIUM">MEDIUM</option>
-                                    <option <#if company.getPriceCategory() == "HIGH">selected</#if> value="HIGH">HIGH</option>
-                                    <option <#if company.getPriceCategory() == "PREMIUM">selected</#if> value="PREMIUM">PREMIUM</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
                             <label for="companyCountry" class="col-sm-4 col-form-label">Company Country:</label>
                             <div class="col-sm-8">
                                 <select class="form-select" id="companyCountry" required>

@@ -8,10 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -31,15 +28,8 @@ public class Company {
 
     private String imageLink;
 
-    private Boolean isDropdownImage;
-
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
-
-    @Column(columnDefinition = "text", name = "price_category")
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Price category cannot be empty")
-    private PriceCategory priceCategory;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
@@ -71,6 +61,17 @@ public class Company {
 
     public Integer getCountOfProducts() {
         return products.size();
+    }
+
+    public Double getAverageProductsPrice() {
+        return products.stream()
+                .mapToDouble(Product::getPrice)
+                .average()
+                .orElse(0.0);
+    }
+
+    public Boolean getIsDropboxImage() {
+        return !Objects.isNull(imageLink) && imageLink.contains("dropbox");
     }
 
     public Integer getCountOfRates() {

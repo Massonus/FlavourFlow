@@ -6,7 +6,6 @@ import com.massonus.flavourflow.dto.ItemType;
 import com.massonus.flavourflow.entity.Company;
 import com.massonus.flavourflow.entity.CompanyCountry;
 import com.massonus.flavourflow.entity.KitchenCategory;
-import com.massonus.flavourflow.entity.PriceCategory;
 import com.massonus.flavourflow.repo.CompanyRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,7 +47,6 @@ class CompanyServiceTest {
         companyDto.setTitle("first");
         companyDto.setCountryId(1L);
         companyDto.setCategoryId(1L);
-        companyDto.setPriceCategory(PriceCategory.MEDIUM);
         companyDto.setImageLink("");
 
         company = new Company();

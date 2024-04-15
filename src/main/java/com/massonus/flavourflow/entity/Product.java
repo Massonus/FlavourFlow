@@ -31,8 +31,6 @@ public class Product {
 
     private String imageLink;
 
-    private Boolean isDropdownImage;
-
     @Column(columnDefinition = "text", name = "product_category")
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
@@ -55,6 +53,10 @@ public class Product {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<OrderObject> orderObjects = new ArrayList<>();
+
+    public Boolean getIsDropboxImage() {
+        return imageLink.contains("dropbox");
+    }
 
     public Product(Long id, String title, Double price, String imageLink, ProductCategory productCategory, Company company) {
         this.id = id;

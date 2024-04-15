@@ -17,18 +17,6 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="priceCategory" class="col-sm-4 col-form-label">Price Category:</label>
-                            <div class="col-sm-8">
-                                <select class="form-select" id="priceCategory" required>
-                                    <option selected value="LOW">LOW</option>
-                                    <option value="MEDIUM">MEDIUM</option>
-                                    <option value="HIGH">HIGH</option>
-                                    <option value="PREMIUM">PREMIUM</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
                             <label for="companyCountry" class="col-sm-4 col-form-label">Company Country:</label>
                             <div class="col-sm-8">
                                 <select class="form-select" id="companyCountry" required>
