@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,4 +51,9 @@ public class Order {
 
     @Positive
     private Double total;
+
+    public Double getOrderBonuses() {
+        double bonuses = total / 10;
+        return Math.round(bonuses * 100.0) / 100.0;
+    }
 }

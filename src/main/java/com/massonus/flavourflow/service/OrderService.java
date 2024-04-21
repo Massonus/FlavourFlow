@@ -4,6 +4,7 @@ import com.massonus.flavourflow.dto.OrderDto;
 import com.massonus.flavourflow.entity.BasketObject;
 import com.massonus.flavourflow.entity.Order;
 import com.massonus.flavourflow.entity.OrderObject;
+import com.massonus.flavourflow.entity.User;
 import com.massonus.flavourflow.repo.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,12 +52,15 @@ public class OrderService {
 
     private Order createOrder(final OrderDto orderDto, final Double total) {
         Order order = new Order();
-        order.setUser(userService.getUserById(orderDto.getUserId()));
+        User userById = userService.getUserById(orderDto.getUserId());
+        order.setUser(userById);
         order.setDate(orderDto.getDate());
         order.setTime(orderDto.getTime());
         order.setCountGuests(orderDto.getCountGuests());
         order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
         order.setTotal(total);
+
+        userById.setBonuses(userById.getBonuses() + order.getOrderBonuses());
 
         return order;
     }

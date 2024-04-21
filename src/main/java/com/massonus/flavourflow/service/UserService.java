@@ -65,6 +65,7 @@ public class UserService implements UserDetailsService {
         user.setRoles(Collections.singleton(userDto.getRole()));
         user.setPassword(userDto.getPassword());
         user.setRedactor(userDto.getRedactor());
+        user.setBonuses(userDto.getBonuses());
 
         saveUser(user);
 
@@ -103,6 +104,7 @@ public class UserService implements UserDetailsService {
         savedUser.setEmail(userDto.getEmail());
         savedUser.setRoles(Collections.singleton(userDto.getRole()));
         savedUser.setRedactor(userDto.getRedactor());
+        savedUser.setBonuses(userDto.getBonuses());
 
         userDto.setIsSuccess(true);
         return userDto;
@@ -154,6 +156,7 @@ public class UserService implements UserDetailsService {
         user.setEmail(userDto.getEmail());
         user.setRoles(Collections.singleton(Role.USER));
         user.setRedactor("registration");
+        user.setBonuses(0D);
         saveUser(user);
 
         userDto.setIsSuccessCaptcha(true);
@@ -183,6 +186,10 @@ public class UserService implements UserDetailsService {
 
     public List<User> getAllUsers() {
         return userRepo.findAll().stream().sorted(Comparator.comparing(User::getId)).toList();
+    }
+
+    public Double getUserBonuses(final Long userId) {
+        return userRepo.findUserById(userId).getBonuses();
     }
 
     public Long deleteUser(Long id) {

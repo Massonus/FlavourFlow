@@ -59,6 +59,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
 
+    private Double bonuses;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
