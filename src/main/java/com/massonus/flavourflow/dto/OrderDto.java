@@ -18,7 +18,7 @@ public class OrderDto {
 
     private LocalTime time;
 
-    private Integer countGuests;
+    private Double bonuses;
 
     private Boolean isSuccess;
 

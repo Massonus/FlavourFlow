@@ -56,11 +56,14 @@ public class OrderService {
         order.setUser(userById);
         order.setDate(orderDto.getDate());
         order.setTime(orderDto.getTime());
-        order.setCountGuests(orderDto.getCountGuests());
         order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
-        order.setTotal(total);
+        order.setTotal(total - orderDto.getBonuses());
 
-        userById.setBonuses(userById.getBonuses() + order.getOrderBonuses());
+        if (orderDto.getBonuses() == 0) {
+            userById.setBonuses(userById.getBonuses() + order.getOrderBonuses());
+        } else {
+            userById.setBonuses(userById.getBonuses() - orderDto.getBonuses());
+        }
 
         return order;
     }

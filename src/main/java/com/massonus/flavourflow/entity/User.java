@@ -98,6 +98,11 @@ public class User implements UserDetails {
         return id.toString();
     }
 
+    public void setBonuses(Double bonuses) {
+        bonuses = Math.round(bonuses * 100.0) / 100.0;
+        this.bonuses = bonuses;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

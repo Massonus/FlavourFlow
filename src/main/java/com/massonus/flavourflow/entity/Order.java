@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
-import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +40,6 @@ public class Order {
 
     @Future
     private Date date;
-
-    @Positive
-    @Column(name = "count_guests")
-    private Integer countGuests;
 
     @NotNull
     private LocalTime time;

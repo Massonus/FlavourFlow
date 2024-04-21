@@ -24,18 +24,18 @@ function afterAlert(companyId) {
     window.location.href = `/basket?companyId=${companyId}`;
 }
 
-function createOrder(event, companyId) {
+function createOrder(event, companyId, availableBonuses) {
     event.preventDefault();
 
     let csrf = document.getElementById("csrf").value;
 
     let time = document.getElementById("orderTime").value;
-    let countGuests = document.getElementById("countGuests").value;
+    let bonuses = document.getElementById("bonuses").value;
     let date = document.getElementById("orderDate").valueAsDate;
 
-    if (date <= new Date()) {
+    if (date <= new Date() || date.getFullYear() > new Date().getFullYear()) {
         document.getElementById("dateAlert").classList.remove('d-none');
-        document.getElementById("dateError").textContent = "Choose future date";
+        document.getElementById("dateError").textContent = "Incorrect date";
         return;
     }
 
@@ -45,16 +45,20 @@ function createOrder(event, companyId) {
         return;
     }
 
-    if (countGuests < 1) {
-        document.getElementById("guestsAlert").classList.remove('d-none');
-        document.getElementById("guestsError").textContent = "Incorrect count";
+    if (bonuses.trim() === "") {
+        bonuses = 0;
+    }
+
+    if (bonuses > availableBonuses) {
+        document.getElementById("bonusesAlert").classList.remove('d-none');
+        document.getElementById("bonusesError").textContent = "Incorrect bonuses";
         return;
     }
 
     const body = JSON.stringify({
         date: date,
         time: time,
-        countGuests: countGuests,
+        bonuses: bonuses,
         isSuccess: true,
         companyId: companyId
     });

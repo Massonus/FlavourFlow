@@ -5,8 +5,10 @@
 
     <section>
         <div class="container py-5">
+            <h2 class="h5 text-uppercase mb-4">Your bonuses: <strong class="product-price">${bonuses + '$'}</strong></h2>
+            <div class="profile-details d-flex justify-content-between"></div>
             <section class="py-5">
-                <h2 class="h5 text-uppercase mb-4">Your profile ${bonuses!''}</h2>
+                <h2 class="h5 text-uppercase mb-4">Your profile</h2>
                 <div style="max-width: 600px" class="w-100">
                     <form onsubmit="changeProfile(event, '${_csrf.token}')"
                           class="text-start py-4">

@@ -122,7 +122,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <form id="order-checkout" onsubmit="createOrder(event, ${companyId!''})">
+            <form id="order-checkout" onsubmit="createOrder(event, ${companyId!''}, ${bonuses})">
 
                 <input id="orderDate" type="date" class="form-control" onchange="closeAlertWindow()">
 
@@ -136,10 +136,11 @@
                     <strong id="timeError"></strong>
                 </div>
 
-                <input id="countGuests" type="number" min="1" placeholder="Count of guests" class="form-control" onchange="closeAlertWindow()">
+                <label for="bonuses">Available bonuses: ${bonuses + '$'}</label>
+                <input id="bonuses" type="number" step= "0.01" min="0" placeholder="Input your bonuses if you want" class="form-control" onchange="closeAlertWindow()">
 
-                <div id="guestsAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
-                    <strong id="guestsError"></strong>
+                <div id="bonusesAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="bonusesError"></strong>
                 </div>
 
                 <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
