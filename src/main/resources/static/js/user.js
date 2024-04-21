@@ -193,6 +193,7 @@ function changeProfile(event, csrf) {
             if (data.isSuccess) {
                 alert("Your profile successfully updated. Please re-login");
                 window.location.href = "/logout";
+                window.location.href = "/login";
             }
 
             if (data.isSameUsername) {

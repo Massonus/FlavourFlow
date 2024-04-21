@@ -44,7 +44,7 @@
                                 class="far fa-user fa-lg"></i></a>
                     <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
                         <#if known>
-                            <li><a class="dropdown-item" href="/user/profile">${name}</a></li>
+                            <li><a class="dropdown-item" href="/user/profile"> Profile (${name})</a></li>
                             <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         <#else>
                             <li><a class="dropdown-item" href="/login">Login</a></li>
