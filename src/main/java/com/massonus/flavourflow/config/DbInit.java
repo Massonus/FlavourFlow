@@ -27,6 +27,7 @@ public class DbInit {
         user.setUsername("cat");
         user.setPassword("cat");
         user.setRedactor("system");
+        user.setBonuses(0D);
         user.setRoles(Collections.singleton(Role.USER));
 
         userService.saveUser(user);
@@ -36,6 +37,7 @@ public class DbInit {
         admin.setUsername("admin");
         admin.setPassword("admin");
         admin.setRedactor("system");
+        admin.setBonuses(0D);
         admin.setRoles(Collections.singleton(Role.ADMIN));
 
         userService.saveUser(admin);

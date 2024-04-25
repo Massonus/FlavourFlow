@@ -19,10 +19,7 @@
                                     <li>${product.getTitle()} ${product.getAmount()} (${product.getSum() + '$'})</li>
                                 </#list>
                             </ul>
-                            <h6>Guests: ${order.getCountGuests()}</h6>
-                            <h6>
-                                Total Price: ${order.getTotal() + '$'}&nbsp;
-                            </h6>
+                            <h6>Total Price: ${order.getTotal() + '$'}&nbsp;</h6>
                         </div>
                     </div>
                 </#list>

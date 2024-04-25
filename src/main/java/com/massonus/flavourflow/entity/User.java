@@ -59,6 +59,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
 
+    private Double bonuses;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
@@ -94,6 +96,11 @@ public class User implements UserDetails {
 
     public String getStringId() {
         return id.toString();
+    }
+
+    public void setBonuses(Double bonuses) {
+        bonuses = Math.round(bonuses * 100.0) / 100.0;
+        this.bonuses = bonuses;
     }
 
     @Override

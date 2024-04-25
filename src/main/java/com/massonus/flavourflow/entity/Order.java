@@ -41,13 +41,14 @@ public class Order {
     @Future
     private Date date;
 
-    @Positive
-    @Column(name = "count_guests")
-    private Integer countGuests;
-
     @NotNull
     private LocalTime time;
 
     @Positive
     private Double total;
+
+    public Double getOrderBonuses() {
+        double bonuses = total / 10;
+        return Math.round(bonuses * 100.0) / 100.0;
+    }
 }

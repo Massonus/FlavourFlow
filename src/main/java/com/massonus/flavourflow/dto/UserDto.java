@@ -33,4 +33,6 @@ public class UserDto {
     private String captchaResponse;
 
     private Boolean isSuccessCaptcha;
+
+    private Double bonuses;
 }

@@ -63,6 +63,14 @@
                             </div>
                         </div>
 
+                        <div class="mb-3 row">
+                            <label for="bonuses" class="col-sm-4 col-form-label">Bonuses:</label>
+                            <div class="col-sm-8">
+                                <input id="bonuses" type="number" step="0.01" min="1" class="form-control"
+                                       placeholder="bonuses" required oninput="closeAlertWindow()">
+                            </div>
+                        </div>
+
                         <a role="button" class="btn btn-outline-secondary mt-3"
                            href="/admin/panel">Cancel</a>
                         <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>

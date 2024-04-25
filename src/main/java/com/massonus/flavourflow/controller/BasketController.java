@@ -7,6 +7,7 @@ import com.massonus.flavourflow.entity.BasketObject;
 import com.massonus.flavourflow.entity.User;
 import com.massonus.flavourflow.service.BasketService;
 import com.massonus.flavourflow.service.ProductService;
+import com.massonus.flavourflow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,11 +25,13 @@ public class BasketController {
 
     private final BasketService basketService;
     private final ProductService productService;
+    private final UserService userService;
 
     @Autowired
-    public BasketController(BasketService basketService, ProductService productService) {
+    public BasketController(BasketService basketService, ProductService productService, UserService userService) {
         this.basketService = basketService;
         this.productService = productService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -42,6 +45,7 @@ public class BasketController {
         model.addAttribute("basket", userBasket);
         model.addAttribute("size", size);
         model.addAttribute("orderModal", "modal");
+        model.addAttribute("bonuses", userService.getUserBonuses(user.getId()));
 
         if (Objects.nonNull(size)) {
             model.addAttribute("modal", "modal open");
@@ -53,6 +57,7 @@ public class BasketController {
         if (Objects.nonNull(companyId)) {
             model.addAttribute("orderModal", "modal open");
             model.addAttribute("companyId", companyId);
+            model.addAttribute("bonuses", userService.getUserBonuses(user.getId()));
         } else {
             model.addAttribute("companyId", basketService.getAllCompaniesInUserBasket(user).isEmpty() ? 0L : basketService.getAllCompaniesInUserBasket(user).getFirst().getId());
         }

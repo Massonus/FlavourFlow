@@ -7,6 +7,7 @@ function createUser(event, redactor) {
     let role = document.getElementById("role").value;
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirmPassword").value;
+    let bonuses = document.getElementById("bonuses").value;
 
     if (!(validateUsername(username))) {
         return;
@@ -25,7 +26,8 @@ function createUser(event, redactor) {
         email: email,
         role: role,
         password: password,
-        redactor: redactor
+        redactor: redactor,
+        bonuses: bonuses
     });
 
     const url = "/user/add";
@@ -69,6 +71,7 @@ function editUser(event, redactor, userId) {
     let role = document.getElementById("role").value;
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirmPassword").value;
+    let bonuses = parseFloat(document.getElementById("bonuses").value.replace(/,/, '.'));
 
     if (!(validateUsername(username))) {
         return;
@@ -88,7 +91,8 @@ function editUser(event, redactor, userId) {
         email: email,
         role: role,
         password: password,
-        redactor: redactor
+        redactor: redactor,
+        bonuses: bonuses
     });
 
     const url = "/user/edit";
@@ -189,6 +193,7 @@ function changeProfile(event, csrf) {
             if (data.isSuccess) {
                 alert("Your profile successfully updated. Please re-login");
                 window.location.href = "/logout";
+                window.location.href = "/login";
             }
 
             if (data.isSameUsername) {
