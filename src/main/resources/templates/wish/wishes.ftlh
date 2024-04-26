@@ -98,7 +98,7 @@
         <div class="modal__box">
 
             <button onclick="closeWishAlertWindow()" class="modal__close-btn" id="close-my-modal-btn">
-                <i class="fa-solid fa-xmark"></i>
+                <i class="bi bi-x-lg"></i>
             </button>
             <h2>This product is already in basket</h2>
 

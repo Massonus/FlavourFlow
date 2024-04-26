@@ -104,10 +104,11 @@
 
                                                         <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if wishService.isInWishes("${product.getId()}", "${currentUserId}")>
                                                                 <i id="wish-${product.getId()}"
-                                                                   class="fa-solid fa-heart"></i>
+                                                                   class="bi bi-heart-fill"></i>
+
                                                             <#else>
                                                                 <i id="wish-${product.getId()}"
-                                                                   class="far fa-heart"></i>
+                                                                   class="bi bi-heart"></i>
                                                             </#if></a>
                                                     </#if>
 
