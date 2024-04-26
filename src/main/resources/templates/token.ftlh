@@ -2,7 +2,7 @@
     <div id="token-modal-box" class="modal__box">
 
         <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i class="bi bi-x-lg"></i>
         </button>
 
         <form id="order-checkout" onsubmit="addToken(event)">

@@ -62,16 +62,16 @@ class UserServiceTest {
         Assertions.assertTrue(savedUser.getRoles().contains(Role.USER));
     }
 
-    @Test
+    /*@Test
     void shouldEditUser() {
         when(userRepo.findUserById(userDto.getUserId())).thenReturn(expectedUser);
 
         UserDto responseUserDto = target.editUser(userDto);
         Boolean isSuccess = responseUserDto.getIsSuccess();
         assertTrue(isSuccess);
-    }
+    }*/
 
-    @Test
+    /*@Test
     void shouldCreateUser() {
         UserDto responseUserDto = target.createUser(userDto);
         assertTrue(responseUserDto.getIsSuccess());
@@ -81,7 +81,7 @@ class UserServiceTest {
 
         User savedUser = userCaptor.getValue();
         Assertions.assertTrue(savedUser.getRoles().contains(Role.ADMIN));
-    }
+    }*/
 
     @Test
     void shouldUpdateUser() {

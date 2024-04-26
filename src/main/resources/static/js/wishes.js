@@ -1,7 +1,7 @@
 function saveOrDeleteWishItem(productId, csrf) {
     let element = document.getElementById(`wish-${productId}`);
 
-    if (element.className === "far fa-heart") {
+    if (element.className === "bi bi-heart") {
         saveItem(productId, csrf, element);
     } else {
         deleteWishItem(productId, csrf, element);
@@ -18,7 +18,7 @@ function saveItem(productId, csrf, iconElement) {
     })
         .then(response => {
             if (response.ok) {
-                iconElement.className = "fa-solid fa-heart";
+                iconElement.className = "bi bi-heart-fill";
             } else {
                 alert("Error! Reload the page and try again");
             }
@@ -44,7 +44,7 @@ function deleteWishItem(productId, csrf, iconElement) {
         .then((data) => {
 
             if (iconElement !== undefined) {
-                iconElement.className = "far fa-heart";
+                iconElement.className = "bi bi-heart";
 
             } else if (data !== undefined) {
                 console.log(data.itemId);
@@ -80,6 +80,7 @@ function moveWishToBasket(productId, csrf) {
                 openAlertWindow();
             } else {
                 document.getElementById(`wish-item-${data.itemId}`).remove();
+                changeBasketObjectsCount();
             }
 
         })

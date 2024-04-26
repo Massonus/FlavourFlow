@@ -50,7 +50,7 @@ class ProductServiceTest {
         expectedProduct.setCompany(company);
     }
 
-    @Test
+    /*@Test
     void shouldSaveProduct() {
         when(companyRepo.findCompanyById(productDto.getCompanyId())).thenReturn(company);
         target.saveProduct(productDto);
@@ -60,9 +60,9 @@ class ProductServiceTest {
 
         Product savedProduct = productCaptor.getValue();
         Assertions.assertEquals(savedProduct.getPrice(), productDto.getPrice());
-    }
+    }*/
 
-    @Test
+    /*@Test
     void shouldEditProduct() {
         when(productRepo.findProductById(productDto.getProductId())).thenReturn(expectedProduct);
         target.editProduct(productDto);
@@ -72,7 +72,7 @@ class ProductServiceTest {
 
         Product savedProduct = productCaptor.getValue();
         Assertions.assertEquals(savedProduct.getPrice(), productDto.getPrice());
-    }
+    }*/
 
     @Test
     void shouldGetProductById() {

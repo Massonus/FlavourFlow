@@ -169,7 +169,7 @@
             <div class="modal__box">
 
                 <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
-                    <i class="fa-solid fa-xmark"></i>
+                    <i class="bi bi-x-lg"></i>
                 </button>
 
                 <h4>This item contains ${size} <#if size == 1>company<#else>companies</#if>, choose the option</h4>
@@ -225,7 +225,7 @@
         <div class="modal__box">
 
             <button onclick="closeModal()" class="modal__close-btn" id="close-my-modal-btn">
-                <i class="fa-solid fa-xmark"></i>
+                <i class="bi bi-x-lg"></i>
             </button>
 
             <#if existItems?has_content>
