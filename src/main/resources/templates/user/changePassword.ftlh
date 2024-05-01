@@ -13,11 +13,11 @@
                         <div class="mb-3 row">
                             <label for="password" class="col-sm-4 col-form-label">Password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="password"
-                                       placeholder="password">
                                 <div id="passwordAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
                                     <strong id="passwordError"></strong>
                                 </div>
+                                <input type="password" class="form-control" id="password"
+                                       placeholder="password">
                             </div>
                         </div>
 
@@ -32,14 +32,13 @@
                         <div class="mb-3 row">
                             <label for="oldPassword" class="col-sm-4 col-form-label">Old password</label>
                             <div class="col-sm-8">
-
-                                <input type="password" class="form-control" id="oldPassword"
-                                       placeholder="old password" oninput="closeAlertWindow()">
-
                                 <div id="oldPasswordAlert"
                                      class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
                                     <strong id="oldPasswordError"></strong>
                                 </div>
+
+                                <input type="password" class="form-control" id="oldPassword"
+                                       placeholder="old password" oninput="closeAlertWindow()">
 
                             </div>
                         </div>
