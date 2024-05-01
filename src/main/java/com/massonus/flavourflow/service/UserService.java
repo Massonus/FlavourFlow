@@ -100,8 +100,6 @@ public class UserService implements UserDetailsService {
             savedUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
 
-        savedUser.setUsername(userDto.getUsername());
-        savedUser.setEmail(userDto.getEmail());
         savedUser.setRoles(Collections.singleton(userDto.getRole()));
         savedUser.setRedactor(userDto.getRedactor());
         savedUser.setBonuses(userDto.getBonuses());
@@ -115,26 +113,29 @@ public class UserService implements UserDetailsService {
         final Boolean isSameEmail = checkIsSameEmail(userDto);
         final Boolean isSameUsername = checkIsSameUsername(userDto);
 
-        if (!passwordEncoder.matches(userDto.getOldPassword(), savedUser.getPassword())) {
+        if (Objects.nonNull(userDto.getPassword()) && !passwordEncoder.matches(userDto.getOldPassword(), savedUser.getPassword())) {
             userDto.setIsIncorrectOldPassword(true);
             return userDto;
         }
 
-        if (!userDto.getUsername().equals(user.getUsername()) && isSameUsername) {
+        if (Objects.nonNull(userDto.getUsername()) && !userDto.getUsername().equals(user.getUsername()) && isSameUsername) {
             userDto.setIsSameUsername(isSameUsername);
             return userDto;
         }
 
-        if (!userDto.getEmail().equals(user.getEmail()) && isSameEmail) {
+        if (Objects.nonNull(userDto.getEmail()) && !userDto.getEmail().equals(user.getEmail()) && isSameEmail) {
             userDto.setIsSameEmail(isSameEmail);
             return userDto;
         }
 
-        if (!userDto.getPassword().isEmpty()) {
+        if (Objects.nonNull(userDto.getPassword())) {
             savedUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
-        savedUser.setUsername(userDto.getUsername());
-        savedUser.setEmail(userDto.getEmail());
+
+        if (Objects.nonNull(userDto.getUsername())) {
+            savedUser.setUsername(userDto.getUsername());
+            savedUser.setEmail(userDto.getEmail());
+        }
 
         userDto.setIsSuccess(true);
         return userDto;
