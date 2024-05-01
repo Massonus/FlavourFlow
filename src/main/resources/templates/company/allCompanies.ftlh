@@ -117,7 +117,7 @@
     <br><br>
     <#if companies?has_content>
         <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center fixed-bottom py-4">
+            <ul class="pagination justify-content-center">
                 <#if currentPage?number gt 0>
                     <li class="page-item">
                         <a class="page-link"
