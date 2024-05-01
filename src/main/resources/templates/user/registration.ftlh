@@ -10,6 +10,11 @@
             </div>
 
             <form onsubmit="return validateForm(event, '${_csrf.token}')">
+
+                <div id="usernameAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="usernameError"></strong>
+                </div>
+
                 <div class="input-group">
                     <input id="username" type="text" class="form-control" placeholder="Username" oninput="closeAlertWindow()">
                     <span class="input-group-addon">
@@ -17,8 +22,8 @@
             </span>
                 </div>
 
-                <div id="usernameAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
-                    <strong id="usernameError"></strong>
+                <div id="emailAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="emailError"></strong>
                 </div>
 
                 <div class="input-group">
@@ -29,8 +34,8 @@
             </span>
                 </div>
 
-                <div id="emailAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
-                    <strong id="emailError"></strong>
+                <div id="passwordAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="passwordError"></strong>
                 </div>
 
                 <div class="input-group">
@@ -41,8 +46,8 @@
             </span>
                 </div>
 
-                <div id="passwordAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
-                    <strong id="passwordError"></strong>
+                <div id="confirmPasswordAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="confirmPasswordError"></strong>
                 </div>
 
                 <div class="input-group">
@@ -53,23 +58,20 @@
             </span>
                 </div>
 
-                <div id="confirmPasswordAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
-                    <strong id="confirmPasswordError"></strong>
-                </div>
-
                 <div class="row">
                     <div class="remember-me col-sm-6 col-xs-6">
                     </div>
                     <div class="register col-sm-6 col-xs-6">
-                        <a href="/login">Login</a>
+                        <a role="button" class="btn btn-outline-secondary mt-3" href="/login">Login</a>
                     </div>
                 </div>
-
-                <div class="g-recaptcha m-3 row justify-content-center" data-sitekey="6LdIupkpAAAAAPYFGz2QASF-BNfI5wi7ikPy_MYy"></div>
 
                 <div id="captchaAlert" class="alert alert-login alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="captchaError"></strong>
                 </div>
+
+                <div class="g-recaptcha m-3 row justify-content-center" data-sitekey="6LdIupkpAAAAAPYFGz2QASF-BNfI5wi7ikPy_MYy"></div>
+
                 <button id="registration-btn" type="submit" class="btn btn-primary btn-lg login-btn">REGISTRATION</button>
             </form>
         </div>
