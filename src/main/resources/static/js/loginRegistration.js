@@ -5,25 +5,17 @@ function validateForm(event, csrf) {
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (password === "") {
-        document.getElementById("passwordError").textContent = "Please input password";
-        document.getElementById("passwordAlert").classList.remove('d-none');
-        return false;
-
-    }
-
     let captchaResponse = grecaptcha.getResponse();
-
 
     if (!(validateUsername(username))) {
         return false;
     }
 
-    if (!(validatePassword(password, confirmPassword))) {
+    if (!(validateEmail(email))) {
         return false;
     }
 
-    if (!(validateEmail(email))) {
+    if (!(validatePassword(password, confirmPassword))) {
         return false;
     }
 
@@ -114,6 +106,11 @@ function validatePassword(password, confirmPassword) {
         document.getElementById("passwordError").textContent = "Passwords are different";
         document.getElementById("passwordAlert").classList.remove('d-none');
         return false;
+    } else if (password === "") {
+        document.getElementById("passwordError").textContent = "Please input password";
+        document.getElementById("passwordAlert").classList.remove('d-none');
+        return false;
+
     }
 
     return true;

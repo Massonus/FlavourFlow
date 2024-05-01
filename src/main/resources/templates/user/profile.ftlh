@@ -49,43 +49,10 @@
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
-                            <label for="oldPassword" class="col-sm-4 col-form-label">Old password</label>
-                            <div class="col-sm-8">
-
-                                <input type="password" class="form-control" id="oldPassword"
-                                       placeholder="old password" oninput="closeAlertWindow()">
-
-                                <div id="oldPasswordAlert"
-                                     class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
-                                    <strong id="oldPasswordError"></strong>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="password" class="col-sm-4 col-form-label">Password</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control" id="password"
-                                       placeholder="password">
-                                <div id="passwordAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
-                                    <strong id="passwordError"></strong>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="confirmPassword" class="col-sm-4 col-form-label">Password confirmation</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control" id="confirmPassword"
-                                       placeholder="password confirmation">
-                            </div>
-                        </div>
-
-                        <a role="button" class="btn btn-outline-secondary mt-3" href="/">Cancel</a>
-
-                        <button type="submit" class="btn black-btn-outline mt-3">Save</button>
+                        <a role="button" class="btn btn-outline-secondary mt-3" href="/user/change-password">CHANGE PASSWORD</a>
+                        <#if isAdmin>
+                            <button type="submit" class="btn black-btn-outline mt-3">Save</button>
+                        </#if>
                     </form>
                 </div>
             </section>

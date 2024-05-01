@@ -42,7 +42,8 @@ public class WebSecurityConfig {
                         login
                                 .loginPage("/login")
                                 .permitAll()
-                                .defaultSuccessUrl("/", true))
+                                .defaultSuccessUrl("/", true)
+                                .failureUrl("/login?error=true"))
                 .rememberMe(Customizer.withDefaults())
                 .passwordManagement(Customizer.withDefaults())
                 .logout(LogoutConfigurer::permitAll)

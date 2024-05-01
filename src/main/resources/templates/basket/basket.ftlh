@@ -4,10 +4,9 @@
 <@c.page>
 
     <div class="container">
-        <h2 class="h5 text-uppercase mb-4">Shopping cart</h2>
+        <h2 class="h5 text-uppercase mb-4">Order cart</h2>
         <div class="row">
             <div class="col-lg-8 mb-4 mb-lg-0">
-                <!--BASKET OBJECTS TABLE-->
                 <div class="table-responsive mb-4">
                     <table class="table text-nowrap">
                         <thead class="thead bg-light">
@@ -84,7 +83,7 @@
                     </table>
                 </div>
             </div>
-            <!-- TOTAL-->
+
             <div class="col-lg-4">
                 <div id="basket-card" class="card border-0 rounded-0 p-lg-4 bg-light">
                     <div class="card-body">
@@ -95,7 +94,7 @@
                                 <span id="basket-total">${basket.getTotal() + '$'}</span></li>
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                                   href="/company">Continue shopping</a></li>
+                                   href="/company">Continue ordering</a></li>
 
                             <#if products?has_content>
                                 <li>
@@ -104,7 +103,7 @@
                                 <li>
                                     <button id="clear-basket-button" onclick="clearBasket('${_csrf.token}')"
                                             class="btn btn-outline-danger w-100 mt-2">Clear the
-                                        basket
+                                        cart
                                     </button>
                                 </li>
                             </#if>
@@ -124,24 +123,25 @@
 
             <form id="order-checkout" onsubmit="createOrder(event, ${companyId!''}, ${bonuses})">
 
-                <input id="orderDate" type="date" class="form-control" onchange="closeAlertWindow()">
-
                 <div id="dateAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="dateError"></strong>
                 </div>
 
-                <input id="orderTime" type="time" class="form-control" onchange="closeAlertWindow()">
+                <input id="orderDate" type="date" class="form-control" onchange="closeAlertWindow()">
 
                 <div id="timeAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="timeError"></strong>
                 </div>
 
-                <label for="bonuses">Available bonuses: ${bonuses + '$'}</label>
-                <input id="bonuses" type="number" step= "0.01" min="0" placeholder="Input your bonuses if you want" class="form-control" onchange="closeAlertWindow()">
+                <input id="orderTime" type="time" class="form-control" onchange="closeAlertWindow()">
 
+
+
+                <label for="bonuses">Available bonuses: ${bonuses + '$'}</label>
                 <div id="bonusesAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
                     <strong id="bonusesError"></strong>
                 </div>
+                <input id="bonuses" type="number" step= "0.01" min="0" placeholder="Input your bonuses if you want" class="form-control" onchange="closeAlertWindow()">
 
                 <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                 <input type="submit" value="Submit">

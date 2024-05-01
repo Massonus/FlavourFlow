@@ -7,7 +7,6 @@
         <h2 class="h5 text-uppercase mb-4">Wishlist</h2>
         <div class="row">
             <div class="col-lg-8 mb-4 mb-lg-0">
-                <!--BASKET OBJECTS TABLE-->
                 <div class="table-responsive mb-4">
                     <table class="table text-nowrap">
                         <thead class="thead bg-light">
@@ -66,7 +65,7 @@
                     </table>
                 </div>
             </div>
-            <!-- TOTAL-->
+
             <div class="col-lg-4">
                 <div id="wish-card" class="card border-0 rounded-0 p-lg-4 bg-light">
                     <div class="card-body">
@@ -74,10 +73,10 @@
                         <ul class="list-unstyled mb-0">
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                                   href="/company">Continue shopping</a></li>
+                                   href="/company">Continue ordering</a></li>
 
                             <li><a role="button" class="btn black-btn btn-gradient mt-2 w-100"
-                                   href="/basket">Go to basket</a></li>
+                                   href="/basket">Go to order cart</a></li>
 
                             <#if products?has_content>
                                 <li>

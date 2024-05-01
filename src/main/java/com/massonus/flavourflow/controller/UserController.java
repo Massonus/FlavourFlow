@@ -31,6 +31,12 @@ public class UserController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @GetMapping("/change-password")
+    public String getChangePassword() {
+        return "user/changePassword";
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/change-profile")
     @ResponseBody
     public UserDto updateUserProfile(@RequestBody UserDto userDto, @AuthenticationPrincipal User user) {
@@ -79,5 +85,4 @@ public class UserController {
 
         return userService.deleteUser(id);
     }
-
 }

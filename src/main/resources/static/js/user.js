@@ -153,15 +153,8 @@ function changeProfile(event, csrf) {
 
     let username = document.getElementById("staticUsername").value;
     let email = document.getElementById("staticEmail").value;
-    let oldPassword = document.getElementById("oldPassword").value;
-    let password = document.getElementById("password").value;
-    let confirmPassword = document.getElementById("confirmPassword").value;
 
     if (!(validateUsername(username))) {
-        return false;
-    }
-
-    if (!(validatePassword(password, confirmPassword))) {
         return false;
     }
 
@@ -172,8 +165,6 @@ function changeProfile(event, csrf) {
     const body = JSON.stringify({
         username: username,
         email: email,
-        oldPassword: oldPassword,
-        password: password
     });
 
     const url = "/user/change-profile";
@@ -204,7 +195,51 @@ function changeProfile(event, csrf) {
                 document.getElementById("emailError").textContent = "User with the same email is already exist";
                 document.getElementById("emailAlert").classList.remove('d-none');
 
-            } else if (data.isIncorrectOldPassword) {
+            }
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+
+function changePassword(event, csrf) {
+    event.preventDefault();
+
+    let oldPassword = document.getElementById("oldPassword").value;
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (!(validatePassword(password, confirmPassword))) {
+        return false;
+    }
+
+    const body = JSON.stringify({
+        oldPassword: oldPassword,
+        password: password
+    });
+
+    const url = "/user/change-profile";
+
+    fetch(url, {
+        method: 'PUT',
+        redirect: 'follow',
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": csrf
+        },
+        body: body
+    })
+        .then(res => res.json())
+        .then((data) => {
+
+            if (data.isSuccess) {
+                alert("Your profile successfully updated. Please re-login");
+                window.location.href = "/logout";
+                window.location.href = "/login";
+            }
+
+             if (data.isIncorrectOldPassword) {
                 document.getElementById("oldPasswordError").textContent = "Old password is incorrect";
                 document.getElementById("oldPasswordAlert").classList.remove('d-none');
             }

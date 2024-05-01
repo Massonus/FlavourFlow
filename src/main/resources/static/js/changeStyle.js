@@ -10,6 +10,8 @@ var companyTable = document.getElementById("company-table");
 var countryTable = document.getElementById("country-table");
 var productTable = document.getElementById("product-table");
 var dropMenu = document.getElementsByClassName("dropdown-menu");
+var footer = document.getElementById("footer");
+var footerText = document.getElementById("footer-text");
 
 function changeStyle() {
 
@@ -79,6 +81,11 @@ function changeStyle() {
             productTable.className = "table bg-dark";
         }
 
+        footer.className = "py-1 bg-black bg-gradient";
+        footerText.className = "mb-3 mb-md-0 text-white";
+
+        localStorage.setItem("footer-text", "mb-3 mb-md-0 text-white");
+        localStorage.setItem("footer", "py-1 bg-black bg-gradient");
         localStorage.setItem('table', 'table bg-dark');
         localStorage.setItem('old-card', 'bg-light');
         localStorage.setItem('new-card', 'bg-dark');
@@ -139,10 +146,17 @@ function changeStyle() {
             productTable.className = "table table-striped table-hover";
         }
 
+        footer.className = "py-1 bg-secondary bg-gradient";
+        footerText.className = "mb-3 mb-md-0 text-black";
+
+        localStorage.setItem("footer-text", "mb-3 mb-md-0 text-black");
+        localStorage.setItem("footer", "py-1 bg-secondary bg-gradient");
+        localStorage.setItem("old-footer-text", "text-white");
+        localStorage.setItem("new-footer-text", "text-black");
         localStorage.setItem('table', 'table table-striped table-hover');
         localStorage.setItem('old-card', 'bg-dark');
         localStorage.setItem('new-card', 'bg-light');
-        localStorage.setItem('form-select-add', 'select ');
+        localStorage.setItem('form-select-add', 'select');
         localStorage.setItem('form-select-remove', 'bg-dark');
         localStorage.setItem('theme', '/css/light-theme.css');
         localStorage.setItem('class', 'navbar fixed-top navbar-expand-lg navbar-light bg-light');
@@ -162,6 +176,9 @@ function setTheme() {
     } else {
         checker.removeAttribute("checked");
     }
+
+    footer.className = localStorage.getItem("footer") || 'py-1 bg-secondary bg-gradient';
+    footerText.className = localStorage.getItem("footer-text") || 'mb-3 mb-md-0 text-black';
 
     if (!(cards === null)) {
         for (const element of cards) {
