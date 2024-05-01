@@ -33,6 +33,11 @@
                     </div>
                 </div>
 
+                <#if error>
+                    <div class="alert alert-login alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Username or password are incorrect</strong>
+                    </div>
+                </#if>
                 <input type="hidden" id="csrf" name="_csrf" value="${_csrf.token}"/>
                 <button id="login-btn" type="submit" class="btn btn-primary btn-lg login-btn">LOGIN</button>
             </form>
