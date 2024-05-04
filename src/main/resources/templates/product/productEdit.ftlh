@@ -27,6 +27,14 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label for="productDescription" class="col-sm-4 col-form-label">Input product description:</label>
+                            <div class="col-sm-8">
+                                <input id="productDescription" type="text" class="form-control"
+                                       placeholder="description" value="${product.getDescription()}" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="productImageLink" class="col-sm-4 col-form-label">Choose a file or enter link:</label>
                             <div class="col-sm-8">
                                 <input id="productImageLink" type="text" class="form-control"

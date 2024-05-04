@@ -7,6 +7,7 @@ function createProduct(event, companyId) {
     let price = parseFloat(document.getElementById("productPrice").value.replace(/,/, '.'));
     let productCategory = document.getElementById("productCategory").value;
     let imageLink = document.getElementById("productImageLink").value;
+    let description = document.getElementById("productDescription").value;
 
     let file = productFileUpload.files[0];
 
@@ -21,7 +22,8 @@ function createProduct(event, companyId) {
         title: title,
         price: price,
         productCategory: productCategory,
-        imageLink: imageLink
+        imageLink: imageLink,
+        description: description
     });
 
     const url = "/product/add";
@@ -62,6 +64,7 @@ function editProduct(event, productId, companyId) {
     let price = parseFloat(document.getElementById("productPrice").value.replace(/,/, '.'));
     let productCategory = document.getElementById("productCategory").value;
     let imageLink = document.getElementById("productImageLink").value;
+    let description = document.getElementById("productDescription").value;
 
     let file = productFileUpload.files[0];
 
@@ -70,7 +73,8 @@ function editProduct(event, productId, companyId) {
         title: title,
         price: price,
         productCategory: productCategory,
-        imageLink: imageLink
+        imageLink: imageLink,
+        description: description
     });
 
     const url = "/product/edit";

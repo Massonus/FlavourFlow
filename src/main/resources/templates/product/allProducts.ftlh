@@ -77,8 +77,7 @@
                                         </div>
                                         <div class="product-details">
                                             <h4>${product.getTitle()}</h4>
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
-                                                repudiandae?</p>
+                                            <p>${product.getDescription()}</p>
                                             <div class="product-bottom-details d-flex justify-content-between">
                                                 <div class="product-price">
                                                     ${product.getPrice() + '$'}

@@ -39,18 +39,18 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="companyImageLink" class="col-sm-4 col-form-label">Choose a file or enter link:</label>
-                            <div class="col-sm-8">
-                                <input id="companyImageLink" type="text" class="form-control"
-                                       placeholder="image link" oninput="closeAlertWindow()">
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
                             <label for="companyDescription" class="col-sm-4 col-form-label">Company description:</label>
                             <div class="col-sm-8">
                                 <input id="companyDescription" type="text" class="form-control"
                                        placeholder="description" oninput="closeAlertWindow()" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="companyImageLink" class="col-sm-4 col-form-label">Choose a file or enter link:</label>
+                            <div class="col-sm-8">
+                                <input id="companyImageLink" type="text" class="form-control"
+                                       placeholder="image link" oninput="closeAlertWindow()">
                             </div>
                         </div>
 

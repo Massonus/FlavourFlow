@@ -60,6 +60,7 @@ public class CompanyService {
             deleteCompanyImage(savedCompany);
         }
 
+        savedCompany.setDescription(companyDto.getDescription());
         savedCompany.setTitle(companyDto.getTitle());
         savedCompany.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         savedCompany.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
