@@ -60,5 +60,12 @@ public class OrderController {
         return orderService.editOrder(orderDto);
     }
 
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public Long deleteOrder(@RequestParam Long orderId) {
+
+        return orderService.deleteOrder(orderId);
+    }
+
 
 }

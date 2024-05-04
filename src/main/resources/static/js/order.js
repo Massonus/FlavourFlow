@@ -159,6 +159,30 @@ function editOrder(event, csrf, orderId) {
 
 }
 
+function deleteOrder(orderId, csrf) {
+
+    if (!confirm("Do you really want do delete this order?")) {
+        return;
+    }
+
+    const url = `/order/delete?orderId=${orderId}`;
+
+
+    fetch(url, {
+        method: "DELETE",
+        headers: {
+            'X-CSRF-TOKEN': csrf
+        },
+    })
+        .then(res => {
+            if (res.ok) {
+                window.location.href = "/order";
+            }
+        })
+        .catch(error =>
+            console.error(error));
+}
+
 function openOrderForm() {
     document.getElementById("order-form-modal").classList.add("open");
 }

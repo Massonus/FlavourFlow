@@ -99,6 +99,11 @@ public class OrderService {
         return orderDto;
     }
 
+    public Long deleteOrder(final Long orderId) {
+        orderRepo.deleteById(orderId);
+        return orderId;
+    }
+
     private List<BasketObject> getWantedBasketObjects(final OrderDto orderDto) {
         return basketObjectService.getBasketObjectsByUserId(orderDto.getUserId()).stream()
                 .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
