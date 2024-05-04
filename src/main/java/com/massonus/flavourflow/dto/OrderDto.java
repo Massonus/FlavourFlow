@@ -27,4 +27,6 @@ public class OrderDto {
     private Long companyId;
 
     private Long userId;
+
+    private String address;
 }

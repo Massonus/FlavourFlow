@@ -135,7 +135,11 @@
 
                 <input id="orderTime" type="time" class="form-control" onchange="closeAlertWindow()">
 
+                <div id="addressAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">
+                    <strong id="addressError"></strong>
+                </div>
 
+                <input id="address" type="text" placeholder="Input your address" class="form-control" required onchange="closeAlertWindow()">
 
                 <label for="bonuses">Available bonuses: ${bonuses + '$'}</label>
                 <div id="bonusesAlert" class="alert alert-admin alert-danger alert-dismissible fade show d-none" role="alert">

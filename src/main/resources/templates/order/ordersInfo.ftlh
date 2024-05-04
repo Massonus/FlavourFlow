@@ -12,6 +12,7 @@
                         <div class="card-body">
                             <h5 class="card-title">${order.getDate()}</h5>
                             <h5 class="card-title">${order.getTime()}</h5>
+                            <h5 class="card-title">${order.getAddress()}</h5>
                             <h5 class="card-title">${order.getCompany().getTitle()}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Products:</h6>
                             <ul>

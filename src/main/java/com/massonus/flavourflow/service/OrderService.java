@@ -58,6 +58,7 @@ public class OrderService {
         order.setTime(orderDto.getTime());
         order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
         order.setTotal(total - orderDto.getBonuses());
+        order.setAddress(orderDto.getAddress());
 
         if (orderDto.getBonuses() == 0) {
             userById.setBonuses(userById.getBonuses() + order.getOrderBonuses());

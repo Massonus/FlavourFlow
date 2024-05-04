@@ -31,6 +31,7 @@ function createOrder(event, companyId, availableBonuses) {
 
     let time = document.getElementById("orderTime").value;
     let bonuses = document.getElementById("bonuses").value;
+    let address = document.getElementById("address").value;
     let date = document.getElementById("orderDate").valueAsDate;
 
     if (date <= new Date() || date.getFullYear() > new Date().getFullYear()) {
@@ -55,12 +56,19 @@ function createOrder(event, companyId, availableBonuses) {
         return;
     }
 
+    if (address === "" || undefined) {
+        document.getElementById("addressAlert").classList.remove('d-none');
+        document.getElementById("addressError").textContent = "Input your address";
+        return;
+    }
+
     const body = JSON.stringify({
         date: date,
         time: time,
         bonuses: bonuses,
         isSuccess: true,
-        companyId: companyId
+        companyId: companyId,
+        address: address
     });
 
     const url = "/order/create";
