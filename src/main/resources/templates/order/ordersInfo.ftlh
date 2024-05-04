@@ -9,6 +9,8 @@
             <div class="container d-flex flex-column justify-content-center align-items-center">
                 <#list orders as order>
                     <div class="card w-50 mb-3">
+                        <a role="button" class="btn btn-outline-secondary mt-3"
+                           href="/order/edit?orderId=${order.getId()}">Edit order details</a>
                         <div class="card-body">
                             <h5 class="card-title">${order.getDate()}</h5>
                             <h5 class="card-title">${order.getTime()}</h5>
@@ -23,6 +25,7 @@
                             <h6>Total Price: ${order.getTotal() + '$'}&nbsp;</h6>
                         </div>
                     </div>
+
                 </#list>
             </div>
         <#else>

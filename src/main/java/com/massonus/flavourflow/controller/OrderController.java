@@ -3,6 +3,7 @@ package com.massonus.flavourflow.controller;
 import com.massonus.flavourflow.dto.OrderDto;
 import com.massonus.flavourflow.entity.Order;
 import com.massonus.flavourflow.entity.User;
+import com.massonus.flavourflow.service.OrderObjectService;
 import com.massonus.flavourflow.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,6 +43,21 @@ public class OrderController {
 
         return "order/ordersInfo";
 
+    }
+
+    @GetMapping("/edit")
+    public String getEditOrderPage(Model model, @RequestParam Long orderId) {
+
+        model.addAttribute("order", orderService.getOrderById(orderId));
+
+        return "order/orderDetailsEdit";
+    }
+
+    @PutMapping("/edit")
+    @ResponseBody
+    public OrderDto editOrder(@RequestBody OrderDto orderDto) {
+
+        return orderService.editOrder(orderDto);
     }
 
 

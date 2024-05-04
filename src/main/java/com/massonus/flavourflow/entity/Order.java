@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,5 +55,10 @@ public class Order {
     public Double getOrderBonuses() {
         double bonuses = total / 10;
         return Math.round(bonuses * 100.0) / 100.0;
+    }
+
+    public String getHtmlDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(date);
     }
 }

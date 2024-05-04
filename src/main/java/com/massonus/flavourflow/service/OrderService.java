@@ -85,6 +85,20 @@ public class OrderService {
         }
     }
 
+    public OrderDto editOrder(final OrderDto orderDto) {
+
+        if (checkOrderTime(orderDto).getIsTimeError()) {
+            return orderDto;
+        }
+
+        Order orderById = getOrderById(orderDto.getOrderId());
+        orderById.setTime(orderDto.getTime());
+        orderById.setAddress(orderDto.getAddress());
+        orderById.setDate(orderDto.getDate());
+
+        return orderDto;
+    }
+
     private List<BasketObject> getWantedBasketObjects(final OrderDto orderDto) {
         return basketObjectService.getBasketObjectsByUserId(orderDto.getUserId()).stream()
                 .filter(b -> b.getCompany().getId().equals(orderDto.getCompanyId()))
@@ -110,6 +124,10 @@ public class OrderService {
 
         return orderRepo.findOrdersByUserId(userId);
 
+    }
+
+    public Order getOrderById(Long orderId) {
+        return orderRepo.findOrderById(orderId);
     }
 
 }
