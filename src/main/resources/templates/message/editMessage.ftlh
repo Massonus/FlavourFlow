@@ -12,7 +12,7 @@
                         <div class="mb-3 row">
                             <label for="comment" class="col-sm-4 col-form-label">Text:</label>
                             <div class="col-sm-8">
-                                <input style="height: 68px; margin-right: 10px;" id="comment" type="text" class="form-control" placeholder="message text" value="${message.getText()}" required>
+                                <textarea id="comment" class="form-control me-2 flex-grow-1" required>${message.getText()}</textarea>
                             </div>
                         </div>
 

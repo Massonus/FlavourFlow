@@ -13,6 +13,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class OrderDto {
 
+    private Long orderId;
+
     @Future
     private Date date;
 
@@ -27,4 +29,6 @@ public class OrderDto {
     private Long companyId;
 
     private Long userId;
+
+    private String address;
 }

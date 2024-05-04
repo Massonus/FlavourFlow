@@ -2,12 +2,14 @@ package com.massonus.flavourflow.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +40,14 @@ public class Order {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @Future
+    @Future(message = "only future date")
     private Date date;
 
-    @NotNull
+    @NotNull(message = "time cannot be null")
     private LocalTime time;
+
+    @NotBlank(message = "address cannot be blank")
+    private String address;
 
     @Positive
     private Double total;
@@ -50,5 +55,10 @@ public class Order {
     public Double getOrderBonuses() {
         double bonuses = total / 10;
         return Math.round(bonuses * 100.0) / 100.0;
+    }
+
+    public String getHtmlDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(date);
     }
 }

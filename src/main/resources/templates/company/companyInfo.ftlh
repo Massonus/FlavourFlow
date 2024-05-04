@@ -3,6 +3,13 @@
 
 <@c.page>
 
+    <div style="text-align: center">
+        <img
+                alt="product image"
+                src="${company.getImageLink()}"
+                style="width: 25%">
+    </div>
+    <h2>${company.getTitle()}</h2>
     <legend class="rating__caption">Rating</legend>
     <#if company.getCurrentRating()?has_content && known>
         <fieldset class="rating">
@@ -88,8 +95,9 @@
         <div class="d-flex justify-content-center" style="width: 100%; display: flex; justify-content: center;">
             <form onsubmit="createMessage(event, ${company.getId()}, '${_csrf.token}')"
                   style="display: flex; flex-direction: row; align-items: center; justify-content: center; width: 70%;">
-                <input type="text" class="form-control me-2 flex-grow-1" placeholder="Write your comment"
-                       id="comment" style="height: 68px; margin-right: 10px;">
+
+                <textarea id="comment" class="form-control me-2 flex-grow-1" placeholder="Write your comment"
+                          required></textarea>
 
                 <button type="submit" class="btn btn-outline-success">Post comment</button>
             </form>

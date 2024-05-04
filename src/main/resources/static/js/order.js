@@ -31,6 +31,7 @@ function createOrder(event, companyId, availableBonuses) {
 
     let time = document.getElementById("orderTime").value;
     let bonuses = document.getElementById("bonuses").value;
+    let address = document.getElementById("address").value;
     let date = document.getElementById("orderDate").valueAsDate;
 
     if (date <= new Date() || date.getFullYear() > new Date().getFullYear()) {
@@ -55,12 +56,19 @@ function createOrder(event, companyId, availableBonuses) {
         return;
     }
 
+    if (address === "" || undefined) {
+        document.getElementById("addressAlert").classList.remove('d-none');
+        document.getElementById("addressError").textContent = "Input your address";
+        return;
+    }
+
     const body = JSON.stringify({
         date: date,
         time: time,
         bonuses: bonuses,
         isSuccess: true,
-        companyId: companyId
+        companyId: companyId,
+        address: address
     });
 
     const url = "/order/create";
@@ -89,6 +97,90 @@ function createOrder(event, companyId, availableBonuses) {
             console.log(error);
         })
 
+}
+
+function editOrder(event, csrf, orderId) {
+    event.preventDefault();
+
+    let time = document.getElementById("orderTime").value;
+    let address = document.getElementById("address").value;
+    let date = document.getElementById("orderDate").valueAsDate;
+
+    if (date <= new Date() || date.getFullYear() > new Date().getFullYear()) {
+        document.getElementById("dateAlert").classList.remove('d-none');
+        document.getElementById("dateError").textContent = "Incorrect date";
+        return;
+    }
+
+    if (time === "" || undefined) {
+        document.getElementById("timeAlert").classList.remove('d-none');
+        document.getElementById("timeError").textContent = "Input time";
+        return;
+    }
+
+    if (address === "" || undefined) {
+        document.getElementById("addressAlert").classList.remove('d-none');
+        document.getElementById("addressError").textContent = "Input your address";
+        return;
+    }
+
+    const body = JSON.stringify({
+        date: date,
+        time: time,
+        address: address,
+        orderId: orderId
+    });
+
+    const url = "/order/edit";
+
+    fetch(url, {
+        method: "PUT",
+        redirect: 'follow',
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": csrf,
+        },
+        body: body,
+    }).then(res => res.json())
+        .then((data) => {
+
+            if (data.isTimeError) {
+                document.getElementById("timeAlert").classList.remove('d-none');
+                document.getElementById("timeError").textContent = "Work time: 7:00 - 19:00";
+
+            } else {
+                window.location.href = "/order";
+            }
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
+}
+
+function deleteOrder(orderId, csrf) {
+
+    if (!confirm("Do you really want do delete this order?")) {
+        return;
+    }
+
+    const url = `/order/delete?orderId=${orderId}`;
+
+
+    fetch(url, {
+        method: "DELETE",
+        headers: {
+            'X-CSRF-TOKEN': csrf
+        },
+    })
+        .then(res => {
+            if (res.ok) {
+                window.location.href = "/order";
+            }
+        })
+        .catch(error =>
+            console.error(error));
 }
 
 function openOrderForm() {

@@ -91,8 +91,7 @@
 
                                             <h5>${company.getCompanyCountry().getTitle()}</h5>
                                             <h5>${company.getKitchenCategory().getTitle()}</h5>
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
-                                                repudiandae?</p>
+                                            <p>${company.getDescription()}</p>
                                             <div class="product-bottom-details d-flex justify-content-between">
                                                 <div class="product-price">
                                                     Average: ${company.getAverageProductsPrice() + '$'}

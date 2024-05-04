@@ -20,4 +20,6 @@ public class ProductDto {
 
     private String imageLink;
 
+    private String description;
+
 }

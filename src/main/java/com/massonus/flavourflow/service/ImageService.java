@@ -34,7 +34,9 @@ public class ImageService {
                 client.files().uploadBuilder("/FlowImages/" + type + "/" + type + id + ".jpg")
                         .uploadAndFinish(in);
                 String url = client.sharing().createSharedLinkWithSettings("/FlowImages/" + type + "/" + type + id + ".jpg").getUrl();
-                imageResponseDto.setUrl(url + "&raw=1");
+                StringBuilder stringBuilder = new StringBuilder(url);
+                String replacedLink = stringBuilder.replace(8, 23, "dl.dropboxusercontent.com").toString();
+                imageResponseDto.setUrl(replacedLink);
 
             } catch (DbxException e) {
                 System.out.println(e.getMessage());

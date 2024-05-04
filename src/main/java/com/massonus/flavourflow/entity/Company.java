@@ -56,6 +56,9 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Rating> rates = new ArrayList<>();
 
+    @NotBlank(message = "description cannot be blank")
+    private String description;
+
     @Positive
     private Integer rating;
 

@@ -12,6 +12,7 @@
                         <div class="card-body">
                             <h5 class="card-title">${order.getDate()}</h5>
                             <h5 class="card-title">${order.getTime()}</h5>
+                            <h5 class="card-title">${order.getAddress()}</h5>
                             <h5 class="card-title">${order.getCompany().getTitle()}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Products:</h6>
                             <ul>
@@ -21,7 +22,14 @@
                             </ul>
                             <h6>Total Price: ${order.getTotal() + '$'}&nbsp;</h6>
                         </div>
+
+                        <a role="button" class="btn btn-outline-secondary mt-3"
+                           href="/order/edit?orderId=${order.getId()}">Edit order details</a>
+
+                        <a style="color: red" role="button" class="btn btn-outline-danger w-100 mt-2"
+                           onclick="deleteOrder(${order.getId()}, '${_csrf.token}')">Delete</a>
                     </div>
+
                 </#list>
             </div>
         <#else>

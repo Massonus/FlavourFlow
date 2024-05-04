@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -54,8 +55,11 @@ public class Product {
             orphanRemoval = true)
     private List<OrderObject> orderObjects = new ArrayList<>();
 
+    @NotBlank(message = "description cannot be blank")
+    private String description;
+
     public Boolean getIsDropboxImage() {
-        return imageLink.contains("dropbox");
+        return !Objects.isNull(imageLink) && imageLink.contains("dropbox");
     }
 
     public Product(Long id, String title, Double price, String imageLink, ProductCategory productCategory, Company company) {

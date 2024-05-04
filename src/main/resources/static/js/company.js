@@ -7,6 +7,7 @@ function createCompany(event) {
     let countryId = document.getElementById("companyCountry").value;
     let categoryId = document.getElementById("kitchenCategory").value;
     let imageLink = document.getElementById("companyImageLink").value;
+    let description = document.getElementById("companyDescription").value;
 
     let file = companyFileUpload.files[0];
 
@@ -20,7 +21,8 @@ function createCompany(event) {
         title: title,
         countryId: countryId,
         categoryId: categoryId,
-        imageLink: imageLink
+        imageLink: imageLink,
+        description: description
     });
 
     const url = "/company/add";
@@ -62,6 +64,7 @@ function editCompany(event, companyId) {
     let countryId = document.getElementById("companyCountry").value;
     let categoryId = document.getElementById("kitchenCategory").value;
     let imageLink = document.getElementById("companyImageLink").value;
+    let description = document.getElementById("companyDescription").value;
 
     let file = companyFileUpload.files[0];
 
@@ -70,7 +73,8 @@ function editCompany(event, companyId) {
         title: title,
         countryId: countryId,
         categoryId: categoryId,
-        imageLink: imageLink
+        imageLink: imageLink,
+        description: description
     });
 
     const url = "/company/edit";

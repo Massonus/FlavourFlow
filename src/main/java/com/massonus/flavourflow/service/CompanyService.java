@@ -38,6 +38,7 @@ public class CompanyService {
         company.setTitle(companyDto.getTitle());
         company.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         company.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
+        company.setDescription(companyDto.getDescription());
 
         if (!companyDto.getImageLink().isEmpty()) {
             company.setImageLink(companyDto.getImageLink());
@@ -59,6 +60,7 @@ public class CompanyService {
             deleteCompanyImage(savedCompany);
         }
 
+        savedCompany.setDescription(companyDto.getDescription());
         savedCompany.setTitle(companyDto.getTitle());
         savedCompany.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         savedCompany.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
