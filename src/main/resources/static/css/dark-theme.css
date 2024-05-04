@@ -2,7 +2,7 @@
 .tbody td p, th, tr, td, .fw-medium, #amount-input input, .card a, .thead strong,
 .dropdown-menu a, .filterOption, .form-select, .product-details a, .container a, #password,
 #username, #email, #confirmPassword, .btn, .form-control, #productTitle, #productPrice, #productCategory, #productImageLink,
-#companyTitle, #companyImageLink, #categoryTitle, #countryTitle, #oldPassword, #countGuests, #orderTime, #orderDate, #accessToken, #bonuses, #address {
+#companyTitle, #companyImageLink, #categoryTitle, #countryTitle, #oldPassword, #countGuests, #orderTime, #orderDate, #accessToken, #bonuses, #address, #companyDescription {
     color: #DA77EB;
 }
 

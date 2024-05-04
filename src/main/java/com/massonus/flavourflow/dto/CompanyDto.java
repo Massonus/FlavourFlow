@@ -16,4 +16,6 @@ public class CompanyDto {
     private Long categoryId;
 
     private String imageLink;
+
+    private String description;
 }

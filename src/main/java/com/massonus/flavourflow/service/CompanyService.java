@@ -38,6 +38,7 @@ public class CompanyService {
         company.setTitle(companyDto.getTitle());
         company.setCompanyCountry(countryService.getCountryById(companyDto.getCountryId()));
         company.setKitchenCategory(categoryService.getCategoryById(companyDto.getCategoryId()));
+        company.setDescription(companyDto.getDescription());
 
         if (!companyDto.getImageLink().isEmpty()) {
             company.setImageLink(companyDto.getImageLink());

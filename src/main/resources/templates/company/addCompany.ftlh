@@ -47,6 +47,14 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label for="companyDescription" class="col-sm-4 col-form-label">Company description:</label>
+                            <div class="col-sm-8">
+                                <input id="companyDescription" type="text" class="form-control"
+                                       placeholder="description" oninput="closeAlertWindow()" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="companyFileUpload" class="col-sm-4 col-form-label">File:</label>
                             <div class="col-sm-8">
 
