@@ -99,10 +99,6 @@ a:hover {
     padding: 20px;
 }
 
-.cursor-default {
-    cursor: default;
-}
-
 .filters__img {
     width: 95%;
     height: 90%;
