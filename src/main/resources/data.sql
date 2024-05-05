@@ -89,5 +89,16 @@ VALUES (1, 'Pizza', 'MEAL', 10.2, 1, 'https://i.pinimg.com/564x/f0/86/c2/f086c2b
        (44, 'Manhattan', 'DRINK', 47, 9, 'https://i.pinimg.com/564x/49/c5/10/49c510dcec7ca7417727ef466e71bfa4.jpg', 'About'),
        (45, 'Spritz', 'DRINK', 49, 9, 'https://i.pinimg.com/564x/06/36/ee/0636eeda6325e36ba1cea59a2bd35f2e.jpg', 'About');
 
-
 ALTER SEQUENCE product_seq RESTART WITH 46;
+
+
+INSERT INTO public.consumer(bonuses, id, email, password, redactor, username)
+VALUES  (0, 1, 'admin@gmail.com', '$2a$10$wwxZEFYBZMdv7A4544B6c.8L5FG6.8ejStgnLeCNrmBoipy5idK7K', 'system', 'admin'),
+        (0, 2, 'user@gmail.com', '$2a$10$WpFfMgXX8qUnNlH1u.b.OOgWE9B/3yyaQoTL1Q2dIJKus3cvTe/cC', 'system', 'user');
+
+ALTER SEQUENCE consumer_seq RESTART WITH 3;
+
+INSERT INTO public.user_role(user_id, roles)
+VALUES (1, 'ADMIN'),
+       (2, 'USER');
+
