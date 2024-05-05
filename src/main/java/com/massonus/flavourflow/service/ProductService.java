@@ -72,7 +72,7 @@ public class ProductService {
 
     }
 
-    public Page<Product> getProductsInPage(final Long companyId, final Pageable pageable, final String sort, final ProductCategory productCategory) {
+    public Page<Product> getProductsInPage(final Long companyId, final Pageable pageable, final String sort, final ProductCategory productCategory, final String search) {
 
         List<Product> products = getAllProductsByCompanyId(companyId);
 
@@ -82,6 +82,10 @@ public class ProductService {
 
         if (Objects.nonNull(sort)) {
             products = getSortedProducts(sort, products);
+        }
+
+        if (Objects.nonNull(search) && !search.isEmpty()) {
+            products = getProductsByTitleContainingIgnoreCase(search);
         }
 
         final int start = (int) pageable.getOffset();

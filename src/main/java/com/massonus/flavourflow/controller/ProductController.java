@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/product")
@@ -36,15 +37,16 @@ public class ProductController {
     }
 
     @GetMapping("/all-products")
-    public String getProductsOfCompany(@RequestParam Long companyId, Model model,
+    public String getProductsOfCompany(@RequestParam(required = false) Long companyId, Model model,
                                        @RequestParam(value = "page", defaultValue = "0") Integer page,
                                        @RequestParam(required = false) String sort,
-                                       @RequestParam(required = false) ProductCategory productCategory) {
+                                       @RequestParam(required = false) ProductCategory productCategory,
+                                       @RequestParam(required = false) String search) {
 
         int pageSize = 4;
 
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Product> productPage = productService.getProductsInPage(companyId, pageable, sort, productCategory);
+        Page<Product> productPage = productService.getProductsInPage(companyId, pageable, sort, productCategory, search);
 
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("objects", basketObjectService.getAllBasketObjects());
@@ -52,7 +54,13 @@ public class ProductController {
         model.addAttribute("wishService", wishService);
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("currentPage", page);
-        model.addAttribute("companyId", companyId);
+
+        if (Objects.isNull(companyId)) {
+            model.addAttribute("companyId", productPage.getContent().getFirst().getCompany().getId());
+        } else {
+            model.addAttribute("companyId", companyId);
+        }
+
         model.addAttribute("sort", sort == null ? "Default" : sort);
         model.addAttribute("productCategory", productCategory == null ? "Default" : productCategory);
 

@@ -37,7 +37,7 @@ function search(event) {
 
     let search = document.getElementById("search-input").value;
 
-    const url = `/company?search=${search}`;
+    const url = `/search?search=${search}`;
 
     fetch(url, {
         method: 'GET',
