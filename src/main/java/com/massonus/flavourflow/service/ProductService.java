@@ -42,6 +42,7 @@ public class ProductService {
         product.setPrice(productDto.getPrice());
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
         product.setDescription(productDto.getDescription());
+        product.setComposition(productDto.getComposition());
 
         Product save = productRepo.save(product);
         productDto.setProductId(save.getId());
@@ -64,13 +65,14 @@ public class ProductService {
         savedProduct.setProductCategory(productDto.getProductCategory());
         savedProduct.setTitle(productDto.getTitle());
         savedProduct.setPrice(productDto.getPrice());
+        savedProduct.setComposition(productDto.getComposition());
 
         productRepo.save(savedProduct);
         return productDto;
 
     }
 
-    public Page<Product> getProductsInPage(final Long companyId, final Pageable pageable, final String sort, final ProductCategory productCategory) {
+    public Page<Product> getProductsInPage(final Long companyId, final Pageable pageable, final String sort, final ProductCategory productCategory, final String search) {
 
         List<Product> products = getAllProductsByCompanyId(companyId);
 
@@ -80,6 +82,10 @@ public class ProductService {
 
         if (Objects.nonNull(sort)) {
             products = getSortedProducts(sort, products);
+        }
+
+        if (Objects.nonNull(search) && !search.isEmpty()) {
+            products = getProductsByTitleContainingIgnoreCase(search);
         }
 
         final int start = (int) pageable.getOffset();

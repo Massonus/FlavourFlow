@@ -134,7 +134,7 @@ public class CompanyService {
 
     }
 
-    private List<Company> getSearchCompanies(final String title) {
+    public List<Company> getSearchCompanies(final String title) {
         KitchenCategory category = categoryService.getCategoryByTitle(title);
         CompanyCountry country = countryService.getCountryByTitle(title);
         List<Company> companies = getCompaniesByTitleContainingIgnoreCase(title);
@@ -145,10 +145,6 @@ public class CompanyService {
         } else if (Objects.nonNull(country)) {
             return getCompaniesByCountryId(country.getId());
 
-        } else if (companies.isEmpty()) {
-            return productService.getProductsByTitleContainingIgnoreCase(title).stream()
-                    .map(Product::getCompany)
-                    .toList();
         } else {
             return companies;
         }

@@ -69,14 +69,14 @@
                                         <div class="product-thumb">
 
                                             <div class="filters__product-img">
-                                                <a class="cursor-default"><img alt="product image"
+                                                <a href="/product/info/${product.getId()}"><img alt="product image"
                                                                                src="${product.getImageLink()}"
                                                                                class="card-img-top"></a>
                                             </div>
 
                                         </div>
                                         <div class="product-details">
-                                            <h4>${product.getTitle()}</h4>
+                                            <h4> <a href="/product/info/${product.getId()}">${product.getTitle()}</a></h4>
                                             <p>${product.getDescription()}</p>
                                             <div class="product-bottom-details d-flex justify-content-between">
                                                 <div class="product-price">

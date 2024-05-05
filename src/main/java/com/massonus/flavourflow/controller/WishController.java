@@ -86,4 +86,10 @@ public class WishController {
 
         return wishService.clearWishes(user);
     }
+
+    @GetMapping("/check")
+    @ResponseBody
+    public Boolean isWishesEmpty(@AuthenticationPrincipal User user) {
+        return wishService.getUserWish(user.getId()).getWishObjects().isEmpty();
+    }
 }
