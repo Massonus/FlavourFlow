@@ -239,7 +239,7 @@ function changePassword(event, csrf) {
                 window.location.href = "/login";
             }
 
-             if (data.isIncorrectOldPassword) {
+            if (data.isIncorrectOldPassword) {
                 document.getElementById("oldPasswordError").textContent = "Old password is incorrect";
                 document.getElementById("oldPasswordAlert").classList.remove('d-none');
             }

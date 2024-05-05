@@ -17,10 +17,6 @@ public class AnonymousUserService {
         this.anonymousRepo = anonymousRepo;
     }
 
-    public AnonymousUser getAnonymousById(final Long id) {
-        return anonymousRepo.findAnonymousUserById(id);
-    }
-
     public AnonymousUser getAnonymousByIp(final String ip) {
         return anonymousRepo.findAnonymousUserByIp(ip);
     }
