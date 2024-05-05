@@ -20,8 +20,11 @@ public class User implements UserDetails {
     @Serial
     private static final long serialVersionUID = -3030486184852734948L;
 
+    private static final String SEQUENCE_NAME = "consumer_seq";
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
+    @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
     private Long id;
 
     @NotBlank(message = "Username cannot be empty")
