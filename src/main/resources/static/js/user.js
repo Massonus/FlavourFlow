@@ -77,8 +77,10 @@ function editUser(event, redactor, userId) {
         return;
     }
 
-    if (!(validatePassword(password, confirmPassword))) {
-        return;
+    if (password !== "" || confirmPassword !== "") {
+        if (!(validatePassword(password, confirmPassword))) {
+            return;
+        }
     }
 
     if (!(validateEmail(email))) {
