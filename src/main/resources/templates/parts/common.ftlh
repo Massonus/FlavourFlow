@@ -59,7 +59,7 @@
         <link rel="stylesheet" type="text/css" href="/css/success.css">
 
     </head>
-    <body onload="setTheme(); addEventListeners(); changeBasketObjectsCount()">
+    <body onload="setTheme(); addEventListeners(); changeBasketObjectsCount(); checkWishes()">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
