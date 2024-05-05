@@ -62,9 +62,9 @@ public class OrderController {
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public Long deleteOrder(@RequestParam Long orderId) {
+    public Long deleteOrder(@RequestParam Long orderId, @AuthenticationPrincipal User user) {
 
-        return orderService.deleteOrder(orderId);
+        return orderService.deleteOrder(orderId, user.getId());
     }
 
 

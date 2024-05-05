@@ -52,6 +52,8 @@ public class Order {
     @Positive
     private Double total;
 
+    private Double earnedBonuses;
+
     public Double getOrderBonuses() {
         double bonuses = total / 10;
         return Math.round(bonuses * 100.0) / 100.0;

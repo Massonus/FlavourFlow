@@ -59,6 +59,7 @@ public class OrderService {
         order.setCompany(companyService.getCompanyById(orderDto.getCompanyId()));
         order.setTotal(total - orderDto.getBonuses());
         order.setAddress(orderDto.getAddress());
+        order.setEarnedBonuses(order.getOrderBonuses());
 
         if (orderDto.getBonuses() == 0) {
             userById.setBonuses(userById.getBonuses() + order.getOrderBonuses());
@@ -99,8 +100,11 @@ public class OrderService {
         return orderDto;
     }
 
-    public Long deleteOrder(final Long orderId) {
-        orderRepo.deleteById(orderId);
+    public Long deleteOrder(final Long orderId, final Long userId) {
+        User userById = userService.getUserById(userId);
+        Order orderById = getOrderById(orderId);
+        userById.setBonuses(userById.getBonuses() - orderById.getEarnedBonuses());
+        orderRepo.delete(orderById);
         return orderId;
     }
 
