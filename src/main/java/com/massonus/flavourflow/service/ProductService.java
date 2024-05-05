@@ -42,6 +42,7 @@ public class ProductService {
         product.setPrice(productDto.getPrice());
         product.setCompany(companyRepo.findCompanyById(productDto.getCompanyId()));
         product.setDescription(productDto.getDescription());
+        product.setComposition(productDto.getComposition());
 
         Product save = productRepo.save(product);
         productDto.setProductId(save.getId());
@@ -64,6 +65,7 @@ public class ProductService {
         savedProduct.setProductCategory(productDto.getProductCategory());
         savedProduct.setTitle(productDto.getTitle());
         savedProduct.setPrice(productDto.getPrice());
+        savedProduct.setComposition(productDto.getComposition());
 
         productRepo.save(savedProduct);
         return productDto;

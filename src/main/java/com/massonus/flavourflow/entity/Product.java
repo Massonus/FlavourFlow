@@ -58,6 +58,9 @@ public class Product {
     @NotBlank(message = "description cannot be blank")
     private String description;
 
+    @NotBlank(message = "composition cannot be blank")
+    private String composition;
+
     public Boolean getIsDropboxImage() {
         return !Objects.isNull(imageLink) && imageLink.contains("dropbox");
     }

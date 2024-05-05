@@ -35,6 +35,14 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label for="productComposition" class="col-sm-4 col-form-label">Input product composition:</label>
+                            <div class="col-sm-8">
+                                <input id="productComposition" type="text" class="form-control"
+                                       placeholder="composition" value="${product.getComposition()}" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="productImageLink" class="col-sm-4 col-form-label">Choose a file or enter link:</label>
                             <div class="col-sm-8">
                                 <input id="productImageLink" type="text" class="form-control"
