@@ -20,7 +20,6 @@ class ProductServiceTest {
 
     private ProductService target;
     private ProductRepo productRepo;
-    private CompanyRepo companyRepo;
 
     private ProductDto productDto;
     private Product expectedProduct;
@@ -29,7 +28,7 @@ class ProductServiceTest {
     @BeforeEach
     void setUp() {
         productRepo = mock(ProductRepo.class);
-        companyRepo = mock(CompanyRepo.class);
+        CompanyRepo companyRepo = mock(CompanyRepo.class);
         ImageService imageService = mock(ImageService.class);
         target = new ProductService(productRepo, companyRepo, imageService);
 
@@ -50,19 +49,7 @@ class ProductServiceTest {
         expectedProduct.setCompany(company);
     }
 
-    /*@Test
-    void shouldSaveProduct() {
-        when(companyRepo.findCompanyById(productDto.getCompanyId())).thenReturn(company);
-        target.saveProduct(productDto);
-
-        ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
-        verify(productRepo, times(1)).save(productCaptor.capture());
-
-        Product savedProduct = productCaptor.getValue();
-        Assertions.assertEquals(savedProduct.getPrice(), productDto.getPrice());
-    }*/
-
-    /*@Test
+    @Test
     void shouldEditProduct() {
         when(productRepo.findProductById(productDto.getProductId())).thenReturn(expectedProduct);
         target.editProduct(productDto);
@@ -72,7 +59,7 @@ class ProductServiceTest {
 
         Product savedProduct = productCaptor.getValue();
         Assertions.assertEquals(savedProduct.getPrice(), productDto.getPrice());
-    }*/
+    }
 
     @Test
     void shouldGetProductById() {

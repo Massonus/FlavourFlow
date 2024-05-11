@@ -2,13 +2,13 @@ function saveOrDeleteWishItem(productId, csrf, isProductInfo) {
     let element = document.getElementById(`wish-${productId}`);
 
     if (element.className === "bi bi-heart" || element.className === "bi bi-heart fa-2x") {
-        saveItem(productId, csrf, element, isProductInfo);
+        saveWishItem(productId, csrf, element, isProductInfo);
     } else {
         deleteWishItem(productId, csrf, element, isProductInfo);
     }
 }
 
-function saveItem(productId, csrf, iconElement, isProductInfo) {
+function saveWishItem(productId, csrf, iconElement, isProductInfo) {
     fetch(`/wishes/add-item?id=${productId}`, {
         method: 'POST',
         headers: {

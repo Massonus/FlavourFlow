@@ -4,7 +4,6 @@ import com.massonus.flavourflow.dto.*;
 import com.massonus.flavourflow.entity.Company;
 import com.massonus.flavourflow.entity.CompanyCountry;
 import com.massonus.flavourflow.entity.KitchenCategory;
-import com.massonus.flavourflow.entity.Product;
 import com.massonus.flavourflow.repo.CompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
