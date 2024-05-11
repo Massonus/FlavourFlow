@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <label for="sort" class="form-label">Sort:</label>
-                                <select onchange="filterCompany(event)" name="sort" class="form-select" id="sort">
+                                <select onchange="filterCompany(event, '${search!''}')" name="sort" class="form-select" id="sort">
                                     <option <#if sort == "Default">selected</#if> value="Default">Default</option>
                                     <option <#if sort == "priceDesc">selected</#if> class="filterOption" value="priceDesc">Sort by price: descending</option>
                                     <option <#if sort == "priceAsc">selected</#if> class="filterOption" value="priceAsc">Sort by price: ascending</option>
