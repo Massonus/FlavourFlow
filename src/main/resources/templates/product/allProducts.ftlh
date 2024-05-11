@@ -126,10 +126,10 @@
             </div>
         </div>
     </section>
-
+    <br><br>
     <#if products?has_content>
         <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center fixed-bottom py-5">
+            <ul class="pagination justify-content-center fixed-bottom py-4">
                 <#if currentPage?number gt 0>
 
                     <li class="page-item">
