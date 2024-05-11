@@ -1,14 +1,14 @@
-function saveOrDeleteWishItem(productId, csrf) {
+function saveOrDeleteWishItem(productId, csrf, isProductInfo) {
     let element = document.getElementById(`wish-${productId}`);
 
-    if (element.className === "bi bi-heart") {
-        saveItem(productId, csrf, element);
+    if (element.className === "bi bi-heart" || element.className === "bi bi-heart fa-2x") {
+        saveWishItem(productId, csrf, element, isProductInfo);
     } else {
-        deleteWishItem(productId, csrf, element);
+        deleteWishItem(productId, csrf, element, isProductInfo);
     }
 }
 
-function saveItem(productId, csrf, iconElement) {
+function saveWishItem(productId, csrf, iconElement, isProductInfo) {
     fetch(`/wishes/add-item?id=${productId}`, {
         method: 'POST',
         headers: {
@@ -18,7 +18,11 @@ function saveItem(productId, csrf, iconElement) {
     })
         .then(response => {
             if (response.ok) {
-                iconElement.className = "bi bi-heart-fill";
+                if (isProductInfo) {
+                    iconElement.className = "bi bi-heart-fill fa-2x";
+                } else {
+                    iconElement.className = "bi bi-heart-fill";
+                }
                 checkWishes();
             } else {
                 alert("Error! Reload the page and try again");
@@ -27,7 +31,7 @@ function saveItem(productId, csrf, iconElement) {
         .catch(error => console.log(error));
 }
 
-function deleteWishItem(productId, csrf, iconElement) {
+function deleteWishItem(productId, csrf, iconElement, isProductInfo) {
 
     const body = JSON.stringify({
         productId: productId
@@ -45,7 +49,11 @@ function deleteWishItem(productId, csrf, iconElement) {
         .then((data) => {
 
             if (iconElement !== undefined) {
-                iconElement.className = "bi bi-heart";
+                if (isProductInfo) {
+                    iconElement.className = "bi bi-heart fa-2x";
+                } else {
+                    iconElement.className = "bi bi-heart";
+                }
                 checkWishes();
 
             } else if (data !== undefined) {

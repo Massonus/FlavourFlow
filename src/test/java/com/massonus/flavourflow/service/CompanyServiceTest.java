@@ -51,6 +51,7 @@ class CompanyServiceTest {
 
         company = new Company();
         company.setTitle("PNS");
+        company.setId(1L);
 
         category = new KitchenCategory();
         category.setId(1L);
@@ -58,20 +59,6 @@ class CompanyServiceTest {
         country = new CompanyCountry();
         country.setId(1L);
     }
-
-    /*@Test
-    void shouldSaveCompany() {
-        when(categoryService.getCategoryById(companyDto.getCategoryId())).thenReturn(category);
-        when(countryService.getCountryById(companyDto.getCountryId())).thenReturn(country);
-
-        target.saveCompany(companyDto);
-
-        ArgumentCaptor<Company> companyCaptor = ArgumentCaptor.forClass(Company.class);
-        verify(companyRepo, times(1)).save(companyCaptor.capture());
-
-        Company savedCompany = companyCaptor.getValue();
-        assertEquals(savedCompany.getTitle(), companyDto.getTitle());
-    }*/
 
     @Test
     void shouldEditCompany() {

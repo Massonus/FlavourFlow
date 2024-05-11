@@ -33,15 +33,17 @@ class OrderServiceTest {
         target = new OrderService(orderRepo, orderObjectService, basketService, basketObjectService, companyService, userService);
     }
 
-    /*@Test
+    @Test
     void shouldCheckout() {
         User user = new User();
         user.setId(1L);
+        user.setBonuses(0.0);
 
         OrderDto orderDto = new OrderDto();
         orderDto.setUserId(user.getId());
         orderDto.setDate(Date.valueOf(LocalDate.now()));
         orderDto.setTime(LocalTime.now());
+        orderDto.setBonuses(0.0);
 
         when(userService.getUserById(orderDto.getUserId())).thenReturn(user);
 
@@ -54,5 +56,5 @@ class OrderServiceTest {
         Order savedOrder = orderCaptor.getValue();
         assertEquals(savedOrder.getUser().getId(), orderDto.getUserId());
         assertEquals(savedOrder.getDate(), orderDto.getDate());
-    }*/
+    }
 }

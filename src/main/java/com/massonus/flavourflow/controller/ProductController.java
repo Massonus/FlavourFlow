@@ -122,6 +122,8 @@ public class ProductController {
     @GetMapping("/info/{id}")
     public String getProductInfoPage(@PathVariable Long id, Model model) {
 
+        model.addAttribute("basketService", basketService);
+        model.addAttribute("wishService", wishService);
         model.addAttribute("product", productService.getProductById(id));
 
         return "product/productInfo";

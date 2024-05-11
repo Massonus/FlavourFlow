@@ -1,10 +1,16 @@
-function filterCompany(event) {
+function filterCompany(event, search) {
     event.preventDefault();
     let sort = document.getElementById("sort").value;
     let categoryId = document.getElementById("kitchenCategory").value;
     let countryId = document.getElementById("companyCountry").value;
 
-    const url = `/company?categoryId=${categoryId}&countryId=${countryId}&sort=${sort}`;
+    let url;
+
+    if (search !== undefined) {
+        url = `/company?categoryId=${categoryId}&countryId=${countryId}&sort=${sort}&search=${search}`;
+    } else {
+        url = `/company?categoryId=${categoryId}&countryId=${countryId}&sort=${sort}`;
+    }
 
     fetch(url, {
         method: 'GET',
