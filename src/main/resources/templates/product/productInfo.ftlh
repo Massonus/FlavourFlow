@@ -36,20 +36,20 @@
                   d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
         </svg>
 
-        <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}')"><#if basketService.isInBasket("${product.getId()}", "${currentUserId}")>
+        <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}', true)"><#if basketService.isInBasket("${product.getId()}", "${currentUserId}")>
                 <i id="cart-${product.getId()}"
-                   class="bi bi-cart-fill"></i>
+                   class="bi bi-cart-fill fa-2x"></i>
             <#else>
-                <i id="cart-${product.getId()}" class="bi bi-cart"></i>
+                <i id="cart-${product.getId()}" class="bi bi-cart fa-2x"></i>
             </#if></a>
 
-        <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if wishService.isInWishes("${product.getId()}", "${currentUserId}")>
+        <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}', true)"><#if wishService.isInWishes("${product.getId()}", "${currentUserId}")>
                 <i id="wish-${product.getId()}"
-                   class="bi bi-heart-fill"></i>
+                   class="bi bi-heart-fill fa-2x"></i>
 
             <#else>
                 <i id="wish-${product.getId()}"
-                   class="bi bi-heart"></i>
+                   class="bi bi-heart fa-2x"></i>
             </#if></a>
     </#if>
     </div>

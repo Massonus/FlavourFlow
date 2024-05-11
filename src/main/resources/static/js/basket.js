@@ -1,14 +1,14 @@
-function saveOrDeleteBasketItem(productId, csrf) {
+function saveOrDeleteBasketItem(productId, csrf, isProductInfo) {
     let element = document.getElementById(`cart-${productId}`);
 
-    if (element.className === "bi bi-cart") {
-        saveBasketItem(productId, csrf, element);
+    if (element.className === "bi bi-cart" || element.className === "bi bi-cart fa-2x") {
+        saveBasketItem(productId, csrf, element, isProductInfo);
     } else {
-        deleteBasketItem(productId, csrf, element);
+        deleteBasketItem(productId, csrf, element, isProductInfo);
     }
 }
 
-function saveBasketItem(productId, csrf, iconElement) {
+function saveBasketItem(productId, csrf, iconElement, isProductInfo) {
     fetch(`/basket/add-item?productId=${productId}`, {
         method: 'POST',
         headers: {
@@ -17,7 +17,11 @@ function saveBasketItem(productId, csrf, iconElement) {
     })
         .then(response => {
             if (response.ok) {
-                iconElement.className = "bi bi-cart-fill";
+                if (isProductInfo) {
+                    iconElement.className = "bi bi-cart-fill fa-2x";
+                } else {
+                    iconElement.className = "bi bi-cart-fill";
+                }
                 changeBasketObjectsCount();
                 document.getElementById(`success-${productId}`).style.display = 'inline';
             } else {
@@ -27,7 +31,7 @@ function saveBasketItem(productId, csrf, iconElement) {
         .catch(error => console.log(error));
 }
 
-function deleteBasketItem(productId, csrf, iconElement) {
+function deleteBasketItem(productId, csrf, iconElement, isProductInfo) {
 
     const body = JSON.stringify({
         productId: productId
@@ -45,7 +49,11 @@ function deleteBasketItem(productId, csrf, iconElement) {
         .then((data) => {
 
             if (iconElement !== undefined) {
-                iconElement.className = "bi bi-cart";
+                if (isProductInfo) {
+                    iconElement.className = "bi bi-cart fa-2x";
+                } else {
+                    iconElement.className = "bi bi-cart";
+                }
                 changeBasketObjectsCount();
                 document.getElementById(`success-${productId}`).style.display = 'none';
 
