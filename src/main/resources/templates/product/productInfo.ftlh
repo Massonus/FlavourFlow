@@ -1,4 +1,5 @@
 <#import "../parts/common.ftlh" as c>
+<#include "../parts/security.ftlh">
 
 <@c.page>
 
@@ -22,5 +23,34 @@
             </div>
 
         </div>
+    </div>
+
+    <#if known>
+
+        <div class="product-links" style="text-align: center">
+        <svg id="success-${product.getId()}" class="checkmark"
+             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25"
+                    fill="none"/>
+            <path class="checkmark__check" fill="none"
+                  d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+
+        <a onclick="saveOrDeleteBasketItem('${product.getId()}', '${_csrf.token}')"><#if basketService.isInBasket("${product.getId()}", "${currentUserId}")>
+                <i id="cart-${product.getId()}"
+                   class="bi bi-cart-fill"></i>
+            <#else>
+                <i id="cart-${product.getId()}" class="bi bi-cart"></i>
+            </#if></a>
+
+        <a onclick="saveOrDeleteWishItem('${product.getId()}', '${_csrf.token}')"><#if wishService.isInWishes("${product.getId()}", "${currentUserId}")>
+                <i id="wish-${product.getId()}"
+                   class="bi bi-heart-fill"></i>
+
+            <#else>
+                <i id="wish-${product.getId()}"
+                   class="bi bi-heart"></i>
+            </#if></a>
+    </#if>
     </div>
 </@c.page>
