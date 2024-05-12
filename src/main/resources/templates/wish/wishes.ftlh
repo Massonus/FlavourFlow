@@ -30,7 +30,7 @@
                                 <th class="ps-0 py-3 border-light" scope="row">
                                     <div class="d-flex align-items-center">
                                         <a class="d-block">
-                                            <a href="/product/${object.getId()}"><img
+                                            <a href="/product/info/${object.getId()}"><img
                                                         style="object-fit: cover; height: 80px; width: 80px;"
                                                         alt="product image"
                                                         src="${object.getImageLink()}"

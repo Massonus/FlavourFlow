@@ -61,7 +61,7 @@
                                         <div class="product-thumb">
 
                                             <div class="filters__img">
-                                                <a href="/product/all-products?companyId=${company.getId()}"><img
+                                                <a href="/product/all-products?companyId=${company.getId()}&sort=Default"><img
                                                             alt="product image"
                                                             src="${company.getImageLink()}"
                                                             class="card-img-top"></a>
@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="product-details">
                                             <h4>
-                                                <a href="/product/all-products?companyId=${company.getId()}">${company.getTitle()}</a>
+                                                <a href="/product/all-products?companyId=${company.getId()}&sort=Default">${company.getTitle()}</a>
                                             </h4>
                                             <#if company.getRating()?has_content>
                                                 <#assign rating = (company.getCurrentRating()?number)?int />
