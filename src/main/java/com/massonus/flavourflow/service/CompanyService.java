@@ -50,10 +50,6 @@ public class CompanyService {
     public CompanyDto editCompany(final CompanyDto companyDto) {
         Company savedCompany = getCompanyById(companyDto.getCompanyId());
 
-        if (savedCompany.getIsDropboxImage()) {
-            deleteCompanyImage(savedCompany);
-        }
-
         if (!companyDto.getImageLink().isEmpty()) {
             savedCompany.setImageLink(companyDto.getImageLink());
             deleteCompanyImage(savedCompany);

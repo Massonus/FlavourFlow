@@ -34,6 +34,7 @@ public class ImageController {
     public ImageResponseDto uploadProductImage(@RequestParam("file") MultipartFile file,
                                                @RequestParam Long productId) {
 
+        productService.deleteProductImage(productService.getProductById(productId));
         ImageResponseDto upload = imageService.uploadImage(file, productId, "product".toUpperCase());
 
         if (upload.getStatus() == 500) {
@@ -53,6 +54,7 @@ public class ImageController {
     public ImageResponseDto uploadCompanyImage(@RequestParam("file") MultipartFile file,
                                                @RequestParam Long companyId) {
 
+        companyService.deleteCompanyImage(companyService.getCompanyById(companyId));
         ImageResponseDto upload = imageService.uploadImage(file, companyId, "company".toUpperCase());
 
         if (upload.getStatus() == 500) {

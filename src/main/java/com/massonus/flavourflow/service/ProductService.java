@@ -57,10 +57,6 @@ public class ProductService {
     public ProductDto editProduct(final ProductDto productDto) {
         Product savedProduct = getProductById(productDto.getProductId());
 
-        if (savedProduct.getIsDropboxImage()) {
-            deleteProductImage(savedProduct);
-        }
-
         if (!productDto.getImageLink().isEmpty()) {
             savedProduct.setImageLink(productDto.getImageLink());
             deleteProductImage(savedProduct);
