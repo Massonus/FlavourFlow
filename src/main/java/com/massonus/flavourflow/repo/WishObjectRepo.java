@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface WishObjectRepo extends JpaRepository<WishObject, Long> {
 
+    WishObject findWishObjectByProductId(Long productId);
+
     WishObject findWishObjectByProductIdAndUserId(Long productId, Long userId);
 
     List<WishObject> findWishObjectsByUserId(Long userId);

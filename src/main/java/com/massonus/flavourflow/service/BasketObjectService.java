@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BasketObjectService {
@@ -29,8 +30,19 @@ public class BasketObjectService {
         basketObjectRepo.deleteAll(basketObjects);
     }
 
+    public void setBasketObjectDbxImage(final Long productId, final String url) {
+        BasketObject object = getBasketObjectByProductId(productId);
+        if (Objects.nonNull(object)) {
+            object.setImageLink(url);
+        }
+    }
+
     public BasketObject getBasketObjectById(Long id) {
         return basketObjectRepo.findBasketObjectById(id);
+    }
+
+    public BasketObject getBasketObjectByProductId(Long productId) {
+        return basketObjectRepo.findBasketObjectByProductId(productId);
     }
 
     public BasketObject getBasketObjectByProductIdAndUserId(Long productId, Long userId) {

@@ -1,9 +1,7 @@
 package com.massonus.flavourflow.controller;
 
 import com.massonus.flavourflow.dto.ImageResponseDto;
-import com.massonus.flavourflow.service.CompanyService;
-import com.massonus.flavourflow.service.ImageService;
-import com.massonus.flavourflow.service.ProductService;
+import com.massonus.flavourflow.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,12 +16,16 @@ public class ImageController {
     private final ImageService imageService;
     private final ProductService productService;
     private final CompanyService companyService;
+    private final BasketObjectService basketObjectService;
+    private final WishObjectService wishObjectService;
 
     @Autowired
-    public ImageController(ImageService imageService, ProductService productService, CompanyService companyService) {
+    public ImageController(ImageService imageService, ProductService productService, CompanyService companyService, BasketObjectService basketObjectService, WishObjectService wishObjectService) {
         this.imageService = imageService;
         this.productService = productService;
         this.companyService = companyService;
+        this.basketObjectService = basketObjectService;
+        this.wishObjectService = wishObjectService;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -32,6 +34,7 @@ public class ImageController {
     public ImageResponseDto uploadProductImage(@RequestParam("file") MultipartFile file,
                                                @RequestParam Long productId) {
 
+        productService.deleteProductImage(productService.getProductById(productId));
         ImageResponseDto upload = imageService.uploadImage(file, productId, "product".toUpperCase());
 
         if (upload.getStatus() == 500) {
@@ -39,7 +42,8 @@ public class ImageController {
         }
 
         productService.setProductImage(productId, upload);
-
+        basketObjectService.setBasketObjectDbxImage(productId, upload.getUrl());
+        wishObjectService.setWishObjectDbxImage(productId, upload.getUrl());
 
         return upload;
     }
@@ -50,6 +54,7 @@ public class ImageController {
     public ImageResponseDto uploadCompanyImage(@RequestParam("file") MultipartFile file,
                                                @RequestParam Long companyId) {
 
+        companyService.deleteCompanyImage(companyService.getCompanyById(companyId));
         ImageResponseDto upload = imageService.uploadImage(file, companyId, "company".toUpperCase());
 
         if (upload.getStatus() == 500) {
