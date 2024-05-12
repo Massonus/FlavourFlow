@@ -64,8 +64,13 @@ public class ProductService {
         if (!productDto.getImageLink().isEmpty()) {
             savedProduct.setImageLink(productDto.getImageLink());
             deleteProductImage(savedProduct);
-            basketObjectService.getBasketObjectByProductId(savedProduct.getId()).setImageLink(productDto.getImageLink());
-            wishObjectService.getWishObjectByProductId(savedProduct.getId()).setImageLink(productDto.getImageLink());
+
+            if (Objects.nonNull(basketObjectService.getBasketObjectByProductId(savedProduct.getId()))) {
+                basketObjectService.getBasketObjectByProductId(savedProduct.getId()).setImageLink(productDto.getImageLink());
+            }
+            if (Objects.nonNull(wishObjectService.getWishObjectByProductId(savedProduct.getId()))) {
+                wishObjectService.getWishObjectByProductId(savedProduct.getId()).setImageLink(productDto.getImageLink());
+            }
         }
 
         savedProduct.setDescription(productDto.getDescription());
