@@ -22,12 +22,17 @@ public class ProductService {
     private final ProductRepo productRepo;
     private final CompanyRepo companyRepo;
     private final ImageService imageService;
+    private final BasketObjectService basketObjectService;
+    private final WishObjectService wishObjectService;
+
 
     @Autowired
-    public ProductService(ProductRepo productRepo, CompanyRepo companyRepo, ImageService imageService) {
+    public ProductService(ProductRepo productRepo, CompanyRepo companyRepo, ImageService imageService, BasketObjectService basketObjectService, WishObjectService wishObjectService) {
         this.productRepo = productRepo;
         this.companyRepo = companyRepo;
         this.imageService = imageService;
+        this.basketObjectService = basketObjectService;
+        this.wishObjectService = wishObjectService;
     }
 
     public ProductDto saveProduct(final ProductDto productDto) {
@@ -59,6 +64,8 @@ public class ProductService {
         if (!productDto.getImageLink().isEmpty()) {
             savedProduct.setImageLink(productDto.getImageLink());
             deleteProductImage(savedProduct);
+            basketObjectService.getBasketObjectByProductId(savedProduct.getId()).setImageLink(productDto.getImageLink());
+            wishObjectService.getWishObjectByProductId(savedProduct.getId()).setImageLink(productDto.getImageLink());
         }
 
         savedProduct.setDescription(productDto.getDescription());
