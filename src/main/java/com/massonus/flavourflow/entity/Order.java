@@ -55,7 +55,7 @@ public class Order {
     private Double earnedBonuses;
 
     public Double getOrderBonuses() {
-        double bonuses = total / 10;
+        double bonuses = total * 0.03;
         return Math.round(bonuses * 100.0) / 100.0;
     }
 
