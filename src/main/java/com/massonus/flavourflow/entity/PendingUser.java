@@ -13,5 +13,5 @@ public class PendingUser {
     @Id
     private Long id;
 
-    private Integer telegramId;
+    private Long telegramId;
 }

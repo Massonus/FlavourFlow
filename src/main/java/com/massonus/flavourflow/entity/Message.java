@@ -39,7 +39,7 @@ public class Message {
     private User author;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "message_likes",
+    @JoinTable(name = "message_like",
             joinColumns = @JoinColumn(name = "message_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> likes = new HashSet<>();

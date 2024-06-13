@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "company_country")
 @NoArgsConstructor
 public class CompanyCountry {
-    private static final String SEQUENCE_NAME = "country_seq";
+    private static final String SEQUENCE_NAME = "company_country_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

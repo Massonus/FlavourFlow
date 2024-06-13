@@ -32,7 +32,7 @@ public class MessageService {
 
         messageRepo.save(message);
 
-        companyService.getCompanyById(messageDto.getItemId()).getMessages().add(message);
+        companyService.getCompanyById(messageDto.getItemId()).getMessage().add(message);
 
         return messageDto;
     }
@@ -49,7 +49,7 @@ public class MessageService {
 
     public void deleteMessage(Long messageId) {
         Message messageById = getMessageById(messageId);
-        companyService.getCompanyById(messageById.getItemId()).getMessages().remove(messageById);
+        companyService.getCompanyById(messageById.getItemId()).getMessage().remove(messageById);
 
         messageRepo.delete(messageById);
     }

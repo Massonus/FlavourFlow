@@ -1,10 +1,10 @@
-INSERT INTO public.kitchen_categories(id, title)
+INSERT INTO public.kitchen_category(id, title)
 VALUES (1, 'CAFFE'),
        (2, 'CLUB'),
        (3, 'RESTAURANT'),
        (4, 'FAST FOOD');
 
-ALTER SEQUENCE category_seq RESTART WITH 5;
+ALTER SEQUENCE kitchen_category_seq RESTART WITH 5;
 
 INSERT INTO public.company_country(id, title)
 VALUES (1, 'ITALIAN'),
@@ -12,7 +12,7 @@ VALUES (1, 'ITALIAN'),
        (3, 'AMERICAN'),
        (4, 'SPANISH');
 
-ALTER SEQUENCE country_seq RESTART WITH 5;
+ALTER SEQUENCE company_country_seq RESTART WITH 5;
 
 INSERT INTO public.company (id, title, description, image_link, rating, category_id, country_id)
 VALUES  (1, 'PNS', 'PNS is a popular Spanish fast food restaurant chain known for its vibrant ambiance and flavorful dishes', 'https://dl.dropboxusercontent.com/scl/fi/ljxzpd4ein0r9dgabn6o7/COMPANY1.jpg?rlkey=g3cb62e852wsl2h9p7xw0b83p&dl=0', 4, 4, 4),
@@ -130,7 +130,7 @@ VALUES  (6, 'Tortellini', 'https://i.pinimg.com/564x/05/1f/34/051f347f2b8a731a82
         (12, 'Grilled chicken', 'https://i.pinimg.com/564x/3f/ff/41/3fff415f3fc81e5abe177f98d4b90328.jpg', 20, 1, 3, 1, 1, 12),
         (13, 'Ribeye steak', 'https://i.pinimg.com/564x/df/c9/e1/dfc9e1e8c8512092bbd8ca6f6c24336b.jpg', 13, 1, 3, 1, 1, 11);
 
-ALTER SEQUENCE wish_object_seq RESTART WITH 14;
+ALTER SEQUENCE basket_object_seq RESTART WITH 14;
 
 INSERT INTO public.wish_object (id, title, image_link, price, company_id, user_id, wish_id, product_id)
 VALUES  (1, 'Pizza', 'https://i.pinimg.com/564x/f0/86/c2/f086c2b68c7bc41d5371815fb4e0fc58.jpg', 10.2, 1, 1, 1, 1),
@@ -175,12 +175,12 @@ VALUES  (1, 'Not bad', null, 1, 1),
 
 ALTER SEQUENCE message_seq RESTART WITH 5;
 
-INSERT INTO public.message_likes (message_id, user_id)
+INSERT INTO public.message_like (message_id, user_id)
 VALUES  (1, 1),
         (2, 1),
         (3, 6);
 
-INSERT INTO public.company_messages (company_id, messages_id)
+INSERT INTO public.company_message (company_id, message_id)
 VALUES  (1, 1),
         (2, 2),
         (2, 3),
@@ -191,4 +191,4 @@ VALUES  (3, 4, 1, 1),
         (4, 5, 4, 2),
         (5, 4, 5, 2);
 
-ALTER SEQUENCE message_seq RESTART WITH 6;
+ALTER SEQUENCE rating_seq RESTART WITH 6;
