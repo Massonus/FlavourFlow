@@ -75,7 +75,7 @@ VALUES  (1, 'Pizza', 'Classic pepperoni', 'pizza dough, tomato sauce, pepperoni,
         (45, 'Spritz', 'Refreshing Spritz cocktail, Italian aperitivo tradition', 'Prosecco, Aperol, soda water, orange slice', 'https://i.pinimg.com/564x/06/36/ee/0636eeda6325e36ba1cea59a2bd35f2e.jpg', 'MEAL', 49, 9),
         (46, 'Ricotta Ravioli', 'Delight your taste buds with our Ricotta Ravioli', 'Ricotta cheese, Parmesan cheese, egg, all-purpose flour, salt, nutmeg, olive oil, water', 'https://dl.dropboxusercontent.com/scl/fi/zn7p8at6qpyy88xt9odxi/PRODUCT49.jpg?rlkey=r559uel4a4nqhtnmdo5ckoimc&dl=0', 'MEAL', 20, 2);
 
-ALTER SEQUENCE product_seq RESTART WITH 50;
+ALTER SEQUENCE product_seq RESTART WITH 47;
 
 
 INSERT INTO public.consumer (id, username, email, password, redactor, bonuses, telegram_id)
@@ -87,10 +87,10 @@ VALUES  (1, 'admin', 'admin@gmail.com', '$2a$10$wwxZEFYBZMdv7A4544B6c.8L5FG6.8ej
         (6, 'TpoJIJIb', 'igorgella20020505@gmail.com', '$2a$10$YXRY894bVriHWZZNQrAnPuRb7yrZt2KIbox82IDnyrq1yCBhlpvby', 'registration', 3.51, 0),
         (7, 'asd', 'verapelevina585@gmail.com', '$2a$10$L9Zi3DYULxjmmna4w02Zz.ihvc6MKahTAaK667Lc04YaB/Cl5Ssia', 'registration', 0, 0);
 
-ALTER SEQUENCE consumer_seq RESTART WITH 3;
+ALTER SEQUENCE consumer_seq RESTART WITH 8;
 
-insert into public.user_role (user_id, roles)
-values  (1, 'ADMIN'),
+INSERT INTO public.user_role (user_id, roles)
+VALUES  (1, 'ADMIN'),
         (2, 'USER'),
         (3, 'ADMIN'),
         (4, 'USER'),
@@ -98,3 +98,97 @@ values  (1, 'ADMIN'),
         (6, 'USER'),
         (7, 'USER');
 
+INSERT INTO public.basket (id, user_id)
+VALUES  (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
+        (6, 6),
+        (7, 7);
+
+ALTER SEQUENCE basket_seq RESTART WITH 8;
+
+INSERT INTO public.wishes (id, user_id)
+VALUES  (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
+        (6, 6),
+        (7, 7);
+
+ALTER SEQUENCE wish_seq RESTART WITH 8;
+
+INSERT INTO public.basket_object (id, title, image_link, price, amount, company_id, user_id, basket_id, product_id)
+VALUES  (6, 'Tortellini', 'https://i.pinimg.com/564x/05/1f/34/051f347f2b8a731a8273a43390182188.jpg', 18, 1, 2, 1, 1, 7),
+        (7, 'Pasta Amore', 'https://i.pinimg.com/564x/d6/a6/33/d6a633342d409a0cdd95a366743e8920.jpg', 15, 1, 2, 1, 1, 6),
+        (8, 'Pizza Giovanni', 'https://i.pinimg.com/564x/4f/46/f9/4f46f9a0b7c72669e45b275e7309b7d3.jpg', 13, 1, 2, 1, 1, 8),
+        (9, 'Hamburger', 'https://i.pinimg.com/564x/1e/65/4f/1e654fac595d426d7ffffccd754b5977.jpg', 5, 1, 1, 1, 1, 3),
+        (10, 'Pizza', 'https://i.pinimg.com/564x/f0/86/c2/f086c2b68c7bc41d5371815fb4e0fc58.jpg', 10.2, 1, 1, 1, 1, 1),
+        (11, 'Caesar with shrimp', 'https://i.pinimg.com/564x/cb/3c/28/cb3c28c498097d33757d76477f431fe9.jpg', 13, 1, 3, 1, 1, 14),
+        (12, 'Grilled chicken', 'https://i.pinimg.com/564x/3f/ff/41/3fff415f3fc81e5abe177f98d4b90328.jpg', 20, 1, 3, 1, 1, 12),
+        (13, 'Ribeye steak', 'https://i.pinimg.com/564x/df/c9/e1/dfc9e1e8c8512092bbd8ca6f6c24336b.jpg', 13, 1, 3, 1, 1, 11);
+
+ALTER SEQUENCE wish_object_seq RESTART WITH 14;
+
+INSERT INTO public.wish_object (id, title, image_link, price, company_id, user_id, wish_id, product_id)
+VALUES  (1, 'Pizza', 'https://i.pinimg.com/564x/f0/86/c2/f086c2b68c7bc41d5371815fb4e0fc58.jpg', 10.2, 1, 1, 1, 1),
+        (2, 'Pasta Amore', 'https://i.pinimg.com/564x/d6/a6/33/d6a633342d409a0cdd95a366743e8920.jpg', 15, 2, 2, 2, 6),
+        (3, 'Tortellini', 'https://i.pinimg.com/564x/05/1f/34/051f347f2b8a731a8273a43390182188.jpg', 18, 2, 2, 2, 7),
+        (4, 'Grilled chicken', 'https://i.pinimg.com/564x/3f/ff/41/3fff415f3fc81e5abe177f98d4b90328.jpg', 20, 3, 3, 3, 12),
+        (5, 'Caesar with shrimp', 'https://i.pinimg.com/564x/cb/3c/28/cb3c28c498097d33757d76477f431fe9.jpg', 13, 3, 3, 3, 14),
+        (6, 'Nuggets', 'https://i.pinimg.com/564x/f9/da/1b/f9da1b2af51741c14d8f5f27f16b00fa.jpg', 8, 1, 1, 1, 2),
+        (7, 'Hamburger', 'https://i.pinimg.com/564x/1e/65/4f/1e654fac595d426d7ffffccd754b5977.jpg', 5, 1, 1, 1, 3),
+        (8, 'French fries', 'https://i.pinimg.com/564x/57/22/00/57220047fc59da5722f2daf2bf683b67.jpg', 3, 1, 1, 1, 4),
+        (9, 'Grilled vegetables', 'https://i.pinimg.com/564x/5a/d1/a2/5ad1a2151f1285f27ebf9c3d9af333a6.jpg', 17, 3, 1, 1, 13);
+
+ALTER SEQUENCE wish_object_seq RESTART WITH 10;
+
+INSERT INTO public.orders (id, total, date, time, earned_bonuses, address, user_id, company_id)
+VALUES  (1, 18, '2024-05-27', '15:56:00', 1.8, 'Main Street, 123', 4, 2),
+        (2, 20.4, '2024-05-31', '15:09:00', 0.61, 'Main Street, 123', 5, 1),
+        (3, 117, '2024-06-03', '12:34:00', 3.51, 'Moscow', 6, 2),
+        (4, 13, '2024-06-14', '14:56:00', 0.39, 'MSK', 1, 1),
+        (5, 33, '2024-06-15', '12:35:00', 0.99, 'Kiev', 1, 2);
+
+ALTER SEQUENCE order_seq RESTART WITH 6;
+
+INSERT INTO public.order_object (id, title, amount, sum, user_id, order_id, product_id, company_id)
+VALUES  (1, 'Pizza', 2, 20.4, 5, 2, 1, 1),
+        (2, 'Pasta Amore', 4, 60, 6, 3, 6, 2),
+        (3, 'Pizza Giovanni', 3, 39, 6, 3, 8, 2),
+        (4, 'Tortellini', 1, 18, 6, 3, 7, 2),
+        (5, 'Tortellini', 1, 18, 4, 1, 7, 2),
+        (6, 'Nuggets', 1, 8, 1, 4, 2, 1),
+        (7, 'Hamburger', 1, 5, 1, 4, 3, 1),
+        (8, 'Pasta Amore', 1, 15, 1, 5, 6, 2),
+        (9, 'Tortellini', 1, 18, 1, 5, 7, 2);
+
+ALTER SEQUENCE order_object_seq RESTART WITH 10;
+
+INSERT INTO public.message (id, text, comment_time, user_id, item_id)
+VALUES  (1, 'Not bad', null, 1, 1),
+        (2, 'Perfect', null, 4, 2),
+        (3, 'Good', null, 5, 2),
+        (4, 'Zaeb', null, 6, 2);
+
+ALTER SEQUENCE message_seq RESTART WITH 5;
+
+INSERT INTO public.message_likes (message_id, user_id)
+VALUES  (1, 1),
+        (2, 1),
+        (3, 6);
+
+INSERT INTO public.company_messages (company_id, messages_id)
+VALUES  (1, 1),
+        (2, 2),
+        (2, 3),
+        (2, 4);
+
+INSERT INTO public.rating (id, rate, user_id, company_id)
+VALUES  (3, 4, 1, 1),
+        (4, 5, 4, 2),
+        (5, 4, 5, 2);
+
+ALTER SEQUENCE message_seq RESTART WITH 6;

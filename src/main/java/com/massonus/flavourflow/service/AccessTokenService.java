@@ -20,6 +20,7 @@ public class AccessTokenService {
     public AccessToken saveToken(final String value) {
         tokenRepo.deleteAll();
         AccessToken accessToken = new AccessToken();
+        accessToken.setId(1L);
         accessToken.setValue(value);
         return tokenRepo.save(accessToken);
     }

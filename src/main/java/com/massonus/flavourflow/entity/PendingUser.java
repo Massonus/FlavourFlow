@@ -2,17 +2,16 @@ package com.massonus.flavourflow.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Setter
 @Getter
-@NoArgsConstructor
-public class AccessToken {
+@Setter
+@Table(name = "pending_users")
+public class PendingUser {
 
     @Id
     private Long id;
 
-    private String value;
+    private Integer telegramId;
 }
