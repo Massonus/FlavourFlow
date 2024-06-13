@@ -37,6 +37,8 @@ public class User implements UserDetails {
     @NotBlank(message = "Email cannot be empty")
     private String email;
 
+    private Integer telegramId;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)

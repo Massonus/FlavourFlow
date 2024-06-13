@@ -12,10 +12,10 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Table(name = "kitchen_categories")
+@Table(name = "kitchen_category")
 @NoArgsConstructor
 public class KitchenCategory {
-    private static final String SEQUENCE_NAME = "category_seq";
+    private static final String SEQUENCE_NAME = "kitchen_category_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)

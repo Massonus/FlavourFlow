@@ -50,7 +50,7 @@ class MessageServiceTest {
         message.setId(1L);
         message.setItemId(company.getId());
         messages.add(message);
-        company.setMessages(messages);
+        company.setMessage(messages);
 
     }
 
@@ -90,7 +90,7 @@ class MessageServiceTest {
         ArgumentCaptor<Message> messageCaptor = ArgumentCaptor.forClass(Message.class);
         verify(messageRepo, times(1)).delete(messageCaptor.capture());
 
-        boolean contains = company.getMessages().contains(message);
+        boolean contains = company.getMessage().contains(message);
         assertFalse(contains);
     }
 
