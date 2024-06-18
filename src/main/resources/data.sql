@@ -79,7 +79,7 @@ ALTER SEQUENCE product_seq RESTART WITH 47;
 
 
 INSERT INTO public.consumer (id, username, email, password, redactor, bonuses, telegram_id)
-VALUES  (1, 'admin', 'admin@gmail.com', '$2a$10$wwxZEFYBZMdv7A4544B6c.8L5FG6.8ejStgnLeCNrmBoipy5idK7K', 'system', 38.4, 661204444),
+VALUES  (1, 'admin', 'admin@gmail.com', '$2a$10$pIBE3YU3qoJOLtkpNLVst.FkxfmoRDaLYrmjN2gwd2NikTB2T0Cpq', 'system', 38.4, 661204444),
         (2, 'user', 'user@gmail.com', '$2a$10$iF6G7T2k2iuO1VJ9kk/pcebiRhFStmq908skq.1LosEAaBbLW5UoC', 'system', 50, 0),
         (3, 'bob', 'bob@mail.com', '$2a$10$IwUvnlOMaigp3vVt.uJhz.xAic1qkZsLZq90k54R5vIlDrQZvd4zu', '1', 22, 0),
         (4, 'Daniel', 'Dan1234@mail.com', '$2a$10$jVKHug8EUmzqkYSe3XJM5uSN4w66HxlyurziwlQ4Th0EAsRx/Zsku', 'registration', 50, 0),
@@ -118,7 +118,7 @@ VALUES  (1, 1),
         (6, 6),
         (7, 7);
 
-ALTER SEQUENCE wish_seq RESTART WITH 8;
+ALTER SEQUENCE wishes_seq RESTART WITH 8;
 
 INSERT INTO public.basket_object (id, title, image_link, price, amount, company_id, user_id, basket_id, product_id)
 VALUES  (6, 'Tortellini', 'https://i.pinimg.com/564x/05/1f/34/051f347f2b8a731a8273a43390182188.jpg', 18, 1, 2, 1, 1, 7),
