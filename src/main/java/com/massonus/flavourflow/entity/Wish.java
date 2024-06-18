@@ -21,7 +21,7 @@ public class Wish implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private static final String SEQUENCE_NAME = "wish_seq";
+    private static final String SEQUENCE_NAME = "wishes_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
