@@ -198,6 +198,14 @@ footer {
     width: 100%;
 }
 
+.footer__telegram-link {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    margin-left: 1rem;
+}
+
+
 .choose {
     display: none;
 }
