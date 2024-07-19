@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class MessageDto {
+public class CommentDto {
 
-    private Long messageId;
+    private Long commentId;
 
     private Long itemId;
 

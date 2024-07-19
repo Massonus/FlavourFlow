@@ -167,20 +167,20 @@ VALUES  (1, 'Pizza', 2, 20.4, 5, 2, 1, 1),
 
 ALTER SEQUENCE order_object_seq RESTART WITH 10;
 
-INSERT INTO public.message (id, text, comment_time, user_id, item_id)
+INSERT INTO public.comment (id, text, comment_time, user_id, item_id)
 VALUES  (1, 'Not bad', null, 1, 1),
         (2, 'Perfect', null, 4, 2),
         (3, 'Good', null, 5, 2),
         (4, 'Zaeb', null, 6, 2);
 
-ALTER SEQUENCE message_seq RESTART WITH 5;
+ALTER SEQUENCE comment_seq RESTART WITH 5;
 
-INSERT INTO public.message_like (message_id, user_id)
+INSERT INTO public.comment_like (comment_id, user_id)
 VALUES  (1, 1),
         (2, 1),
         (3, 6);
 
-INSERT INTO public.company_message (company_id, message_id)
+INSERT INTO public.company_comment (company_id, comment_id)
 VALUES  (1, 1),
         (2, 2),
         (2, 3),

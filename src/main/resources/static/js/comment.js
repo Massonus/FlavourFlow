@@ -8,7 +8,7 @@ function createMessage(event, itemId, csrf) {
         itemId: itemId,
     });
 
-    const url = "/message/add";
+    const url = "/comment/add";
 
     fetch(url, {
         method: 'POST',
@@ -30,17 +30,17 @@ function createMessage(event, itemId, csrf) {
         })
 }
 
-function editMessage(event, messageId, itemId, csrf) {
+function editComment(event, commentId, itemId, csrf) {
     event.preventDefault();
 
     let text = document.getElementById("comment").value;
 
     const body = JSON.stringify({
-        messageId: messageId,
+        commentId: commentId,
         text: text
     });
 
-    const url = "/message/edit";
+    const url = "/comment/edit";
 
     fetch(url, {
         method: 'PUT',
@@ -62,16 +62,16 @@ function editMessage(event, messageId, itemId, csrf) {
         })
 }
 
-function deleteMessage(messageId, itemId, csrf) {
+function deleteMessage(commentId, itemId, csrf) {
 
-    if (!confirm("Do you really want do delete this message?")) {
+    if (!confirm("Do you really want do delete this comment?")) {
         return;
     }
 
-    const url = `/message/delete`;
+    const url = `/comment/delete`;
 
     const body = JSON.stringify({
-        messageId: messageId,
+        commentId: commentId,
         itemId: itemId
     });
 
@@ -92,12 +92,12 @@ function deleteMessage(messageId, itemId, csrf) {
             console.error(error));
 }
 
-function likeMessage(messageId, itemId, csrf) {
+function likeComment(commentId, itemId, csrf) {
 
-    const url = `/message/like`;
+    const url = `/comment/like`;
 
     const body = JSON.stringify({
-        messageId: messageId,
+        commentId: commentId,
         itemId: itemId
     });
 
@@ -111,12 +111,12 @@ function likeMessage(messageId, itemId, csrf) {
     })
         .then(res => res.json())
         .then((data) => {
-            document.querySelector(`#likes-${messageId} span`).innerHTML = `${data.likes}`;
+            document.querySelector(`#likes-${commentId} span`).innerHTML = `${data.likes}`;
 
             if (data.isLiked) {
-                document.querySelector(`#likes-${messageId} i`).className = "bi bi-heart-fill";
+                document.querySelector(`#likes-${commentId} i`).className = "bi bi-heart-fill";
             } else {
-                document.querySelector(`#likes-${messageId} i`).className = "bi bi-heart";
+                document.querySelector(`#likes-${commentId} i`).className = "bi bi-heart";
             }
 
         })
