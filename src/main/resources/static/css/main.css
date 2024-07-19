@@ -393,13 +393,13 @@ input:checked + label:before {
     text-align: left;
 }
 
-#container-message {
+#container-comment {
     justify-content: center;
     align-items: center;
     margin: 20px;
 }
 
-#message-card {
+#comment-card {
     width: 100%;
 }
 

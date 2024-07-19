@@ -56,37 +56,37 @@
 
     <h2>Comments:</h2>
     <br>
-    <div id="container-message" class="container">
-        <#if messages?has_content>
-            <#list messages as message>
-                <div id="message-card" class="card my-3">
+    <div id="container-comment" class="container">
+        <#if comments?has_content>
+            <#list comments as comment>
+                <div id="comment-card" class="card my-3">
                     <div class="m-2">
-                        <span>${message.getAuthor().getUsername()}:</span>
+                        <span>${comment.getAuthor().getUsername()}:</span>
                     </div>
                     <div class="card-footer text-muted container">
                         <div class="row">
-                            <p id="message-text">${message.getText()}</p>
-                            <a id="likes-${message.getId()}" class="col align-self-center"
-                                    <#if known> onclick="likeMessage(${message.getId()}, ${company.getId()}, '${_csrf.token}')"</#if>>
-                                <#if message.getIsUnliked()>
+                            <p id="comment-text">${comment.getText()}</p>
+                            <a id="likes-${comment.getId()}" class="col align-self-center"
+                                    <#if known> onclick="likeComment(${comment.getId()},${company.getId()},'${_csrf.token}' )"</#if>>
+                                <#if comment.getIsUnliked()>
                                     <i class="bi bi-heart-fill"></i>
                                 <#else>
                                     <i class="bi bi-heart"></i>
                                 </#if>
-                                <span>${message.getLikesCount()}</span>
+                                <span>${comment.getLikesCount()}</span>
                             </a>
-                            <#if message.getAuthor().getId() == currentUserId || isAdmin>
+                            <#if comment.getAuthor().getId() == currentUserId || isAdmin>
                                 <a class="btn black-btn btn-outline-secondary mt-2 w-100"
-                                   href="/message/edit?messageId=${message.getId()}&itemId=${company.getId()}">Edit</a>
+                                   href="/comment/edit?commentId=${comment.getId()}&itemId=${company.getId()}">Edit</a>
 
                                 <a id="message-delete" role="button" class="btn btn-outline-danger w-100 mt-2"
-                                   onclick="deleteMessage(${message.getId()}, ${company.getId()}, '${_csrf.token}')">Delete</a>
+                                   onclick="deleteMessage(${comment.getId()}, ${company.getId()}, '${_csrf.token}')">Delete</a>
                             </#if>
                         </div>
                     </div>
                 </div>
             <#else>
-                No message
+                No comments
             </#list>
         </#if>
     </div>

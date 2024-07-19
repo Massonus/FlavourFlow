@@ -1,8 +1,8 @@
 package com.massonus.flavourflow.controller;
 
-import com.massonus.flavourflow.dto.MessageDto;
+import com.massonus.flavourflow.dto.CommentDto;
 import com.massonus.flavourflow.entity.User;
-import com.massonus.flavourflow.service.MessageService;
+import com.massonus.flavourflow.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,53 +11,53 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/message")
+@RequestMapping("/comment")
 @PreAuthorize("isAuthenticated()")
 public class MessageController {
 
-    private final MessageService messageService;
+    private final CommentService commentService;
 
     @Autowired
-    public MessageController(MessageService messageService) {
-        this.messageService = messageService;
+    public MessageController(CommentService commentService) {
+        this.commentService = commentService;
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public MessageDto addNewProductMessage(@RequestBody MessageDto messageDto, @AuthenticationPrincipal User user) {
+    public CommentDto addNewProductMessage(@RequestBody CommentDto commentDto, @AuthenticationPrincipal User user) {
 
-        return messageService.saveMessage(messageDto, user);
+        return commentService.saveMessage(commentDto, user);
     }
 
     @GetMapping("/edit")
-    public String getMessageEditForm(Model model, @RequestParam Long messageId, @RequestParam Long itemId) {
+    public String getMessageEditForm(Model model, @RequestParam Long commentId, @RequestParam Long itemId) {
 
-        model.addAttribute("message", messageService.getMessageById(messageId));
+        model.addAttribute("comment", commentService.getCommentById(commentId));
         model.addAttribute("itemId", itemId);
 
-        return "message/editMessage";
+        return "comment/editComment";
     }
     @PutMapping("/edit")
     @ResponseBody
-    public MessageDto editTheMessage(@RequestBody MessageDto messageDto) {
+    public CommentDto editTheMessage(@RequestBody CommentDto commentDto) {
 
-        return messageService.editMessage(messageDto);
+        return commentService.editMessage(commentDto);
     }
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public MessageDto deleteMessage(@RequestBody MessageDto messageDto) {
+    public CommentDto deleteMessage(@RequestBody CommentDto commentDto) {
 
-        messageService.deleteMessage(messageDto.getMessageId());
+        commentService.deleteMessage(commentDto.getCommentId());
 
-        return messageDto;
+        return commentDto;
 
     }
 
     @PutMapping("/like")
     @ResponseBody
-    public MessageDto like(@RequestBody MessageDto messageDto, @AuthenticationPrincipal User user) {
+    public CommentDto like(@RequestBody CommentDto commentDto, @AuthenticationPrincipal User user) {
 
-        return messageService.likeMessage(messageDto, user);
+        return commentService.likeComment(commentDto, user);
     }
 }

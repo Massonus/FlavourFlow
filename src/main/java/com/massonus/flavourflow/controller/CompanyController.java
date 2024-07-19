@@ -22,15 +22,15 @@ public class CompanyController {
     private final KitchenCategoryService categoryService;
     private final CompanyCountryService countryService;
     private final RatingService ratingService;
-    private final MessageService messageService;
+    private final CommentService commentService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, KitchenCategoryService categoryService, CompanyCountryService countryService, RatingService ratingService, MessageService messageService) {
+    public CompanyController(CompanyService companyService, KitchenCategoryService categoryService, CompanyCountryService countryService, RatingService ratingService, CommentService commentService) {
         this.companyService = companyService;
         this.categoryService = categoryService;
         this.countryService = countryService;
         this.ratingService = ratingService;
-        this.messageService = messageService;
+        this.commentService = commentService;
     }
 
     @GetMapping
@@ -69,7 +69,7 @@ public class CompanyController {
 
         model.addAttribute("user", user);
         model.addAttribute("company", company);
-        model.addAttribute("messages", messageService.getMessagesByItemId(id));
+        model.addAttribute("comments", commentService.getCommentsByItemId(id));
         return "company/companyInfo";
     }
 

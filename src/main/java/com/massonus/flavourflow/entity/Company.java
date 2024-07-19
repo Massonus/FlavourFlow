@@ -51,7 +51,7 @@ public class Company {
     private CompanyCountry companyCountry;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Message> message = new HashSet<>();
+    private Set<Comment> comment = new HashSet<>();
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Rating> rates = new ArrayList<>();
@@ -82,7 +82,7 @@ public class Company {
     }
 
     public Integer getCountOfMessages() {
-        return message.size();
+        return comment.size();
     }
 
     public Integer getCurrentRating() {
